@@ -1,8 +1,6 @@
 import React from "react";
 import { MdEmail, MdSettings } from "react-icons/md";
 import { FaPhone, FaGithubSquare, FaInfo, FaHome } from "react-icons/fa";
-import { IoIosLogIn } from "react-icons/io";
-
 
 import styles from "./Footer.module.css";
 
@@ -22,7 +20,7 @@ const Footer = () => {
               <li>
                 <a
                   href="https://github.com/ENIAC-group"
-                  style={{ color: "#a0aec0", textDecoration: "none" }}
+                  style={{ color: "#ffffff", textDecoration: "none", fontFamily:'Ios15medium' }}
                 >
                   <FaGithubSquare className={styles.social_icon} />
                   گیت هاب: https://github.com/ENIAC-group
@@ -41,7 +39,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/Aboutus"
-                  style={{ color: "#a0aec0", textDecoration: "none" }}
+                  style={{ color: "#ffffff", textDecoration: "none", fontFamily:'Ios15medium'  }}
                 >
                   <FaInfo className={styles.social_icon} />
                   درباره ما
@@ -50,7 +48,7 @@ const Footer = () => {
               <li>
                 <a
                   href="/Home"
-                  style={{ color: "#a0aec0", textDecoration: "none" }}
+                  style={{ color: "#ffffff", textDecoration: "none", fontFamily:'Ios15medium'  }}
                 >
                   <FaHome className={styles.social_icon} />
                   صفحه اصلی
@@ -59,10 +57,10 @@ const Footer = () => {
               <li>
                 <a
                   href="/Setting"
-                  style={{ color: "#a0aec0", textDecoration: "none" }}
+                  style={{ color: "#ffffff", textDecoration: "none", fontFamily:'Ios15medium'  }}
                 >
-                  <IoIosLogIn className={styles.social_icon} />
-                  ورود به سایت
+                  <MdSettings className={styles.social_icon} />
+                  تنظیمات
                 </a>
               </li>
             </ul>
