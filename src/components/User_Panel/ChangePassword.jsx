@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BsKeyFill } from "react-icons/bs";
 import axios from "axios";
+import { toast } from "react-toastify";
 import { Icon } from "react-icons-kit";
 import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
@@ -9,6 +10,8 @@ import validator from "validator";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "./User_Panel.css";
+
 function ChangePassword({ p_pages }) {
   const navigate = useNavigate();
   const [oldpasswordType, setoldPasswordType] = useState("password");
@@ -44,10 +47,7 @@ function ChangePassword({ p_pages }) {
     else setsub(true);
   };
   const CheckNotNumeric = (event, setsub) => {
-    if (
-      validator.isNumeric(event.target.value) &
-      validator.isAlphanumeric(event.target.value)
-    )
+    if (validator.isNumeric(event.target.value) & validator.isAlphanumeric(event.target.value))
       setsub(false);
     else setsub(true);
   };
@@ -59,35 +59,29 @@ function ChangePassword({ p_pages }) {
     const n_password = document.getElementById("n_password").value;
     const nr_password = document.getElementById("n_repeat_password").value;
     if (!(sub_1 & sub_2 & sub_3 & sub_4))
-      withReactContent(Swal).fire({
-        icon: "error",
-        title: "!فیلد ها را به دقت پر کنید",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "35rem",
-        backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
-        confirmButtonText: "تایید",
+      toast.warn( "!فیلد ها را به دقت پر کنید", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     else if (n_password != nr_password)
-      withReactContent(Swal).fire({
-        icon: "error",
-        title: "!رمز عبور جدید با تکرار آن مطابقت ندارد",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "35rem",
-        backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
-        confirmButtonText: "تایید",
+      toast.error( "!رمز  جدید و تکرار مطابقت ندارند", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     else {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/change_password/",
+          "http://127.0.0.1:8000/accounts/change_password/",
           {
             method: "POST",
             headers: {
@@ -102,17 +96,14 @@ function ChangePassword({ p_pages }) {
           }
         );
         if (response.status == 200)
-          withReactContent(Swal).fire({
-            icon: "success",
-            title: "!رمز عبور با موفقیت عوض شد",
-            background: "#473a67",
-            color: "#b4b3b3",
-            width: "35rem",
-            backdrop: `
-        rgba(84, 75, 87.0.9)
-        left top
-        no-repeat`,
-            confirmButtonText: "تایید",
+          toast.success( "!رمز عبور با موفقیت عوض شد", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
       } catch (error) {
         const data = error.response.data;
@@ -121,42 +112,42 @@ function ChangePassword({ p_pages }) {
             withReactContent(Swal).fire({
               icon: "error",
               title: "!رمز عبور قدیمی به درستی وارد نشده",
-              html: "در صورت فراموشی نیاز به بازبینی رمزعبور دارید؟",
-              background: "#473a67",
-              color: "#b4b3b3",
+              html: "در صورت فراموشی، نیاز به بازبینی رمزعبور دارید؟",
+              background: "#075662",
+              color: "#FFFF",
               width: "35rem",
+
               backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
-              confirmButtonText: "تایید",
-              cancelButtonText: "بازگشت",
+              confirmButtonText: "بله",
+              cancelButtonText: "خیر",
+              confirmButtonColor: '#0a8ca0',
+              cancelButtonColor: '#0a8ca0',
               showConfirmButton: true,
               showCancelButton: true,
               preConfirm: () => {
                 navigate("/ForgetPassword");
               },
-            });
+
+          });
           if (data.new_password[0] == "This password is too common.")
-            withReactContent(Swal).fire({
-              icon: "error",
-              title: "!رمز عبور جدید رایج هست",
-              background: "#473a67",
-              color: "#b4b3b3",
-              width: "35rem",
-              backdrop: `
-          rgba(84, 75, 87.0.9)
-          left top
-          no-repeat`,
-              confirmButtonText: "تایید",
-              showConfirmButton: true,
+            toast.error(  "!رمز عبور جدید رایج هست", {
+              position: "bottom-left",
+              autoClose: 3000,
+              hideProgressBar: false,
+              closeOnClick: true,
+              pauseOnHover: true,
+              draggable: true,
+              progress: undefined,
             });
         }
       }
     }
   }
   return (
-    <div className="panel" style={{ direction: "rtl", width: "770px" }}>
+    <div className="panel" style={{ direction: "rtl", width: '770px' }}>
       <div
         className="panel-body bio-graph-info"
         style={p_pages == 3 ? { display: "inline-block" } : { display: "none" }}
@@ -167,13 +158,14 @@ function ChangePassword({ p_pages }) {
             <p>
               <BsKeyFill
                 style={{
-                  color: "#ACBCFF",
+                  color: "#489182",
                   width: "30px",
                   height: "30px",
                 }}
               />
-              <span style={{ width: "160px" }}>رمز عبور قبلی :</span>
+              <span style={{ width: '160px' }}>رمز عبور قبلی :</span>
               <input
+              tabIndex="1"
                 type={oldpasswordType}
                 id="o_password"
                 className="profile_input"
@@ -181,16 +173,12 @@ function ChangePassword({ p_pages }) {
                   CheckNotEmpty(event, set_Sub1);
                 }}
               />
-              <span onClick={handleoldPasswordToggle} style={{ width: "50px" }}>
+              <span onClick={handleoldPasswordToggle} style={{ width: '50px' }}>
                 <Icon icon={oldpasswordIcon} size={23} />
               </span>
               <div
                 className="profile_sub_error"
-                style={
-                  sub_1
-                    ? { display: "none" }
-                    : { marginRight: "260px", fontSize: "small" }
-                }
+                style={sub_1 ? { display: "none" } : { marginRight: "260px" }}
               >
                 رمز عبور باید حداقل 8 کاراکتر داشته باشد!
               </div>
@@ -200,13 +188,14 @@ function ChangePassword({ p_pages }) {
             <p>
               <BsKeyFill
                 style={{
-                  color: "#ACBCFF",
+                  color: "#489182",
                   width: "30px",
                   height: "30px",
                 }}
               />
-              <span style={{ width: "160px" }}>رمز عبور جدید :</span>
+              <span style={{ width: '160px' }}>رمز عبور جدید :</span>
               <input
+              tabIndex="2"
                 type={passwordType}
                 id="n_password"
                 className="profile_input"
@@ -215,16 +204,12 @@ function ChangePassword({ p_pages }) {
                   CheckNotNumeric(event, set_Sub4);
                 }}
               />
-              <span onClick={handlePasswordToggle} style={{ width: "50px" }}>
+              <span onClick={handlePasswordToggle} style={{ width: '50px' }}>
                 <Icon icon={passwordIcon} size={23} />
               </span>
               <div
                 className="profile_sub_error"
-                style={
-                  sub_4 & sub_2
-                    ? { display: "none" }
-                    : { marginRight: "260px", fontSize: "small" }
-                }
+                style={(sub_4 & sub_2) ? { display: "none" } : { marginRight: "260px" }}
               >
                 رمز عبور باید از حداقل 8 کاراکتر و عدد ساخته شده باشد!
               </div>
@@ -234,13 +219,14 @@ function ChangePassword({ p_pages }) {
             <p>
               <BsKeyFill
                 style={{
-                  color: "#ACBCFF",
+                  color: "#489182",
                   width: "30px",
                   height: "30px",
                 }}
               />
-              <span style={{ width: "160px" }}>تکرار رمز عبور جدید :</span>
+              <span style={{ width: '160px' }}>تکرار رمز عبور جدید :</span>
               <input
+              tabIndex="3"
                 type={repeatPasswordType}
                 id="n_repeat_password"
                 className="profile_input"
@@ -248,26 +234,20 @@ function ChangePassword({ p_pages }) {
                   CheckNotEmpty(event, set_Sub3);
                 }}
               />
-              <span
-                onClick={handleRepeatPasswordToggle}
-                style={{ width: "50px" }}
-              >
+              <span onClick={handleRepeatPasswordToggle} style={{ width: '50px' }}>
                 <Icon icon={repeatPasswordIcon} size={23} />
               </span>
               <div
                 className="profile_sub_error"
-                style={
-                  sub_3
-                    ? { display: "none" }
-                    : { marginRight: "260px", fontSize: "small" }
-                }
+                style={sub_3 ? { display: "none" } : { marginRight: "260px" }}
               >
                 رمز عبور باید حداقل 8 کاراکتر داشته باشد!
               </div>
+
             </p>
           </div>
           <button
-            className="button-86"
+            className="button-8"
             role="button"
             style={{
               width: "25%",
