@@ -9,11 +9,11 @@
 .aboutusbody {
     margin: 0;
     padding: 0;
-    background-color: #E6FFFD;
+    background-color: #D8EFD3;
     display: grid;
-    top:0;
-    left:0;
-    z-index:-1;
+    top: 0;
+    left: 0;
+    z-index: -1;
     width: 100%;
     height: 100%;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.24);
@@ -28,56 +28,154 @@
 .headeraboutus {
     font-size: 35px;
     font-family: Ios15Medium;
+    margin-bottom: 10px;
     text-decoration-style: double;
     text-align: center;
 }
 
-.paragsize {
-    direction: rtl;
-    font-size: 25px;
-    text-align: center;
+.title {
+    font-size: 30px;
     font-family: Ios15Medium;
     margin-bottom: 20px;
     text-align: right;
-    line-height: 50px;
-    width: 50%;
+    width: 900px;
     margin: auto;
     color: #000000;
     padding: 5px;
+    max-width: 66%;
+    line-height: 3;
 }
 
-.tableaboutus {
-    margin-top: 60px;
-    margin-bottom: 0px;
-    border-collapse: collapse;
-    width: 75%;
+.discription {
+    font-size: 19px;
+    font-family: Ios15Medium;
+    margin-bottom: 20px;
+    text-align: right;
+    width: 900px;
+    margin: auto;
+    color: #000000;
+    padding: 10px;
+    max-width: 66%;
+    line-height: 3;
+}
+
+.follow {
+    font-size: 15px;
+    font-family: Ios15Medium;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 900px;
+    margin: auto;
+    color: #000000;
+    padding: 10px;
+    max-width: 66%;
+    line-height: 3;
+}
+
+.paragsize {
+    font-size: 17px;
+    font-family: Ios15Medium;
+    text-align: right;
+    color: #000000;
+    max-width: 66%;
+    line-height: 2;
+}
+
+.paragsize2 {
+    font-size: 17px;
+    font-family: Ios15Medium;
+    text-align: right;
     display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #000000;
+    max-width: 66%;
+    line-height: 2;
+    padding-top: 25px;
+}
+
+
+.tableaboutus {
+    border-collapse: collapse;
+    width: 67%;
+    display: flex;
+    align-content: center;
+    justify-content: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    gap: 15px;
+
+    th,
+    td {
+        padding: 10px;
+        text-align: center;
+        font-family: Ios15Medium;
+        margin-right: auto;
+    }
 }
 
 .button1 {
-    background-color: #ACBCFF;
-    border: none;
-    color: #3a61fe;
+    background-color: #D8EFD3;
+    color: #3a3a3a;
     padding: 20px 32px;
-    margin-left: 10px;
-    margin-right: 10px;
-    text-align: center;
-    text-decoration: none;
+    /* text-align: center;
+    text-decoration: none; */
     display: inline-block;
     font-family: Ios15Medium;
-    font-size: 20px;
-    width: 329px;
-    height: 70px;
+    font-size: 16px;
+    /* margin: 8px 4px; */
     -webkit-transition-duration: 0.4s;
+    /* Safari */
     transition-duration: 0.4s;
     border-radius: 8px;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
     border-radius: 8px;
+    user-select: none;
+    font-weight: normal;
 }
 
+.button2 {
+    background-color: #95d2b39c;
+    border: none;
+    color: #3a3a3a;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Ios15Medium;
+    font-size: 19px;
+    margin: 8px 4px;
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    user-select: none;
+    font-weight: normal;
+    width: 150px;
+}
+
+/* .button4 {
+    background-color: #D8EFD3;
+    border: none;
+    color: #3a3a3a;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Ios15Medium;
+    font-size: 16px;
+    margin: 8px 4px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    padding: 20px 40px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+    user-select: none;
+    font-weight: normal;
+} */
 
 .imagegit {
     align-items: center;
@@ -88,51 +186,69 @@
     width: 2%;
 }
 
+.imageclinic {
+    border-radius: 50px;
+    width: 25%;
+    box-shadow: 1px 1px 5px rgb(138, 138, 138) inset;
+}
+
+.paragend {
+    size: 50px;
+    text-align: center;
+}
 
 .image1space {
-    border-radius: 50px;
-    width: 90%;
-    height: 100%;
+    border-radius: 10px;
+    width: 25%;
     box-shadow: 1px 1px 5px rgb(138, 138, 138) inset;
-    margin-left: 5%;
-    margin-right: -50%;
+    margin-left: 2%;
 }
 
-/* CSS */
-.button_69 {
-  background-color: initial;
-  background-image: linear-gradient(#8614f8 0, #760be0 100%);
-  border-radius: 5px;
-  border-style: none;
-  box-shadow: rgba(245, 244, 247, .25) 0 1px 1px inset;
-  color: #fff;
-  cursor: pointer;
-  display: inline-block;
-  font-family: Ios15Medium;
-  font-size: 16px;
-  font-weight: 500;
-  height: 60px;
-  line-height: 60px;
-  margin-left: -4px;
-  outline: 0;
-  text-align: center;
-  transition: all .3s cubic-bezier(.05, .03, .35, 1);
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: bottom;
-  width: 190px;
+.aboutusSection1 {
+    background-image: url("../../assets/AboutusBackground4.jpg");
+    background-size: cover;
+    height: 490px;
+    width: 100%;
 }
 
-.button_69:hover {
-  opacity: .7;
+.aboutusSection2 {
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: row-reverse;
+    border-radius: 10px;
+    margin-left: 24px;
+    margin-right: 24px;
+    margin-top: -70px;
+    /* height: 350px; */
+    padding-top: 56px;
+    padding-bottom: 56px;
+    justify-content: space-around;
+    align-items: center;
 }
 
-@media screen and (max-width: 1000px) {
-  .button_69 {
-    font-size: 14px;
-    height: 55px;
-    line-height: 55px;
-    width: 150px;
-  }
+.aboutusSection3 {
+    background: #95d2b39c;
+    display: flex;
+    margin-left: 24px;
+    margin-right: 24px;
+    justify-content: center;
+    padding-top: 46px;
+    padding-bottom: 46px;
+}
+
+
+.aboutusSection4 {
+    background: #f9f9f9;
+    display: flex;
+    flex-direction: row-reverse;
+    /* border-radius: 10px; */
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    margin-left: 24px;
+    margin-right: 24px;
+    padding-top: 56px;
+    padding-bottom: 56px;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 30px;
 }
