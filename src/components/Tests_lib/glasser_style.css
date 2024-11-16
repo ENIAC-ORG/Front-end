@@ -3,18 +3,19 @@
 .glasser-body {
   direction: rtl;
   font-family: 'Anek Malayalam', sans-serif;
-  background: linear-gradient(62deg, #b799ff 0%, #aee2ff 100%) no-repeat;
+  background: -webkit-linear-gradient(left,#15B392, #C9E9D2);
   color: #413f45;
   display: flex;
   justify-content: center;
   margin: 0;
-  padding: 15px 15px; /* Adjust padding */
+  padding: 40px 30px;
   font-family: Ios15Medium;
+  height: 95vh;
 }
 
 .glasser-quiz-container {
   width: 600px; /* Decrease container width */
-  height: auto;
+  height: 96%;
   max-width: 100%;
   min-height: 300px; /* Decrease minimum height */
   background: #ffffff;
@@ -28,7 +29,7 @@
 .glasser-quiz-container .glasser-active-question-no {
   font-size: 30px; /* Decrease font size */
   font-weight: 500;
-  color:#99adfd;
+  color:#76baab;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Decrease text shadow */
 }
 
@@ -68,12 +69,12 @@
 }
 
 .glasser-quiz-container ul .glasser-selected-answer {
-  background: #d6dafc;
-  border: 1px solid #a9a5fa;
+  background: #bee4cf;
+  border: 1px solid #83bfa1;
 }
 
 .glasser-quiz-container button {
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  background: -webkit-linear-gradient(left,#15B392, #AEE2FF);
   border-radius: 12px; /* Decrease border radius */
   font-size: 18px; /* Decrease font size */
   color: #ffffff;
@@ -87,7 +88,7 @@
 }
 
 .glasser-quiz-container button:hover {
-  background: -webkit-linear-gradient(left, #7e77e0, #7e77e0, #7e77e0);
+  background: -webkit-linear-gradient(left, #15B392, #15B392, #15B392);
 }
 
 .glasser-quiz-container button:disabled {
@@ -113,7 +114,7 @@
 }
 
 .glasser-result p span {
-  color: #6459fa;
+  color: #59fac2;
   font-size: 25px; /* Decrease font size */
 }
 
@@ -135,7 +136,7 @@
 }
 
 .glasser-button-group span:hover {
-  color: rgb(169, 163, 250);
+  color: #15B392;
 }
 
 .custom-swal-container .swal2-popup {
@@ -158,5 +159,5 @@
 }
 
 .custom-color .progress-bar {
-  background-color: #99adfd;
+  background-color: #76baab !important;
 }

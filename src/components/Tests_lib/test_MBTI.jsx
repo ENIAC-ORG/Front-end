@@ -247,7 +247,7 @@ const MBTITest = () => {
                 <h2
                   style={{
                     fontSize: "30px",
-                    color: "#9a94fb",
+                    color: "#55AD9B",
                     marginBottom: "10px",
                     textAlign: "center",
                   }}

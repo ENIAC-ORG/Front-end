@@ -3,18 +3,19 @@
 .mbti-body {
   direction: rtl;
   font-family: 'Anek Malayalam', sans-serif;
-  background: linear-gradient(62deg, #b799ff 0%, #aee2ff 100%) no-repeat;
+  background: -webkit-linear-gradient(left,#15B392, #C9E9D2);
   color: #413f45;
   display: flex;
   justify-content: center;
   margin: 0;
   padding: 40px 30px;
   font-family: Ios15Medium;
+  height: 95vh;
 }
 
 .mbti-quiz-container {
   width: 800px;
-  height: auto;
+  height: 80%;
   max-width: 100%;
   min-height: 410px;
   background: #ffffff;
@@ -28,7 +29,7 @@
 .mbti-quiz-container .mbti-active-question-no {
   font-size: 40px;
   font-weight: 500;
-  color:#99adfd;
+  color:#76baab;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
@@ -68,12 +69,12 @@
 }
 
 .mbti-quiz-container ul .mbti-selected-answer {
-  background: #d6dafc;
-  border: 1px solid #a9a5fa;
+  background: #bee4cf;
+  border: 1px solid #83bfa1;
 }
 
 .mbti-quiz-container button {
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  background: -webkit-linear-gradient(left,#15B392, #AEE2FF);
   border-radius: 15px; /* Adjust border radius */
   font-size: 20px; /* Adjust font size */
   color: #ffffff;
@@ -88,7 +89,7 @@
 }
 
 .mbti-quiz-container button:hover {
-  background: -webkit-linear-gradient(left, #7e77e0, #7e77e0, #7e77e0);
+  background: -webkit-linear-gradient(left, #15B392, #15B392, #15B392);
 }
 
 .mbti-quiz-container button:disabled {
@@ -114,7 +115,7 @@
 }
 
 .mbti-result p span {
-  color: #6459fa;
+  color: #59fac2;
   font-size: 30px; /* Adjust font size */
 }
 
@@ -137,7 +138,7 @@
 }
 
 .mbti-button-group span:hover {
-  color: rgb(169, 163, 250)
+  color: #15B392
 }
 
 .custom-swal-container .swal2-popup {
@@ -160,5 +161,5 @@
 }
 
 .custom-color .progress-bar {
-  background-color: #99adfd;
+  background-color: #76baab !important;
 }
