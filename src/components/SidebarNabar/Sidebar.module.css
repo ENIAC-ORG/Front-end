@@ -1,0 +1,80 @@
+.side_body {
+    background-color: #351f67;
+    width: 16rem;
+    /* w-64 */
+    position: fixed;
+    /* fixed */
+    right: 0px;
+    top: 0;
+    /* height: 50px; */
+    /* right-0 */
+    height: 100%;
+    /* h-full */
+    padding-right: 1rem;
+    /* px-4 */
+    padding-left: 1rem;
+    /* px-4 */
+    padding-top: 0.5rem;
+    /* py-2 */
+    padding-bottom: 0.5rem;
+    z-index: 1000;
+    /* py-2 */
+}
+
+.side_p1 {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+.side_title {
+    text-align: right;
+    font-size: 2rem;
+    font-family: Ios15Medium;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.side_list {
+    right: 0px;
+    list-style-type: none;
+    direction: rtl;
+    margin-top: 0.75rem;
+    padding-right: 0rem;
+    font-weight: bold;
+}
+
+.side_list_element {
+    margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-right: 1rem;
+}
+.side_list_element_text
+{
+    color: white;
+    font-family: Ios15Medium;
+}
+.side_list_element:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+        0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    background-color: #f9fafb;
+    cursor: pointer;
+
+}
+.side_list_element:hover .side_list_element_text
+{
+    color: #5c5d5f;
+    font-family: Ios15Medium;
+}
+
+.side_icons {
+    display: inline-block;
+    align-self: center;
+    width: 1.25rem;
+    height: 1.5rem;
+    margin-top: -0.5rem;
+}

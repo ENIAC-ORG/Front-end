@@ -1,0 +1,567 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+:root {
+  background: linear-gradient(62deg, #b799ff 0%, #aee2ff 100%) no-repeat;
+  height: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Vazir, Arial, sans-serif;
+}
+
+.modal {
+  /* border-color: white !important; */
+  --bs-modal-border-color: white !important;
+  /* display: flex; */
+}
+.modal-header {
+  border-bottom: white !important;
+  margin-top: -33px;
+}
+
+.modal-content {
+  margin-top: 25px;
+}
+
+.bd_modal {
+  /* padding-top: 50px; */
+  display: flex;
+  /* align-items: center;
+  justify-content: center; */
+  height: 100%;
+  width: 100%;
+  background-image: linear-gradient(62deg, #b799ff 0%, #aee2ff 100%);
+}
+
+.error {
+  color: red;
+  font-size: smaller;
+  height: 1px;
+  position: relative;
+  top: -10px;
+  direction: ltr;
+}
+
+
+@media (max-width: 768px) {
+  .wrapper_modal {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 90%;
+  }
+}
+
+/* Add media query for screens smaller than 480px */
+
+@media (max-width: 480px) {
+  .wrapper_modal {
+    padding: 15px;
+  }
+
+  .wrapper_modal .title_modal {
+    font-size: 24px;
+  }
+
+  .form_details_modal form .field_modal .input {
+    width: 100%;
+  }
+}
+
+.wrapper_modal {
+  margin-left: 545px;
+  margin-top: 40px;
+  /* margin-bottom: 40px; */
+  max-height: 622px;
+  max-width: 442px;
+  background: #fff;
+  padding: 30px;
+  padding-top: 5px ;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: rgb(12, 7, 14) 0px 20px 30px -10px;
+}
+
+.wrapper_modal .header_modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Vazir, Arial, sans-serif;
+  text-align: center;
+  margin-bottom: -13px;
+}
+
+.wrapper_modal .title_modal {
+  font-family: Ios15Medium;
+  width: 50%;
+  font-size: 29px;
+  color: #767575;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: rgb(161, 185, 247) 0px 0px 7px;
+  transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.wrapper_modal .form_container_modal {
+  width: 100%;
+  overflow: hidden;
+}
+
+
+.form_container_modal .form_details_modal{
+  display:flex;
+  width:200%;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+.form_container_modal .form_details_modal form{
+ margin-top: 10px;
+  width:50%;
+  transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
+  font-family: Vazir, Arial, sans-serif;
+
+}
+.form_details_modal form .field_modal {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+  font-family: Vazir, Arial, sans-serif;
+  transition: border-color 0.3s ease;
+  /* margin-top: 10px; */
+
+}
+
+.form_details_modal .form .field_modal .input {
+  width: 170%;
+  height: 100%;
+  direction: rtl;
+  outline: none;
+  padding-left: 15px;
+  border: none;
+  border-bottom: 2px solid #adadad;
+  font-size: 18px;
+  transition: border-color 0.3s ease;
+  color: gray;
+  caret-color: rgb(152, 103, 175);
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+.form_details_modal form .field_modal:hover {
+  border-bottom-color: #cdbdf3;
+}
+
+.form_details_modal form .field_modal:focus {
+  border-bottom-color: #b396f6;
+}
+
+.form_details_modal form .field_modal::placeholder {
+  font-family: Vazir, Arial, sans-serif;
+  color: #999;
+  transition: all 0.3s ease;
+  font-family: Vazir, Arial, sans-serif;
+  
+}
+
+/****************************/
+.form_details_modal .form .field_modal_date .input_date {
+  width: 95%;
+  border: none;
+  height: 100%;
+  direction: rtl;
+  outline: none;
+  padding-left: 15px;
+  border: none;
+  margin-top: 20px;
+
+  /* border-bottom: 2px solid #adadad; */
+  font-size: 18px;
+  /* transition: border-color 0.3s ease; */
+  color: gray;
+  caret-color: rgb(152, 103, 175);
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+.field_modal .jb-date-input-web-component .input-box {
+  overflow: auto;
+  text-align: right;
+  width: 145%;
+  border-color: white !important;
+  z-index: 2000;
+  /* margin-top: 39px; */
+  height: 100%;
+  direction: rtl;
+  outline: none;
+  padding-left: 15px;
+  /* border-bottom: 2px solid #adadad; */
+  font-size: 18px;
+  /* transition: border-color 0.3s ease; */
+  color: gray;
+  caret-color: rgb(152, 103, 175);
+  font-family: Vazir, Arial, sans-serif;
+  background-color: white;
+  border: none !important;
+  border-bottom: none !important;
+}
+
+
+.form_details_modal form .field_modal_date {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 30px;
+  margin-top: 10px;
+  font-family: Vazir, Arial, sans-serif;
+  transition: border-color 0.3s ease;
+  border-bottom: "2px solid #adadad",
+}
+.field_modal_date:hover {
+  border-bottom-color: #cdbdf3;
+}
+
+.form_details_modal form .field_modal_date:focus {
+  border-bottom-color: #b396f6;
+}
+
+.field-date{
+  margin-right: 10px;
+  height: 35px;
+  width: 400px;
+  position: relative;
+  font-size: 17px;
+  color: rgb(222, 218, 218);
+  --jb-date-input-border: none !important;
+  --jb-date-input-border-radius:none;
+  --jb-date-input-border-color: white;
+  --jb-date-input-border-size: 2px;
+  --jb-date-input-border-color-focus:white;
+  --jb-date-input-bgcolor:#fff;
+  --jb-date-input-border-bottom-width:1px;
+  --jb-date-input-label-font-size  :12px;
+  --jb-date-input-value-color:rgb(117, 117, 117);
+  --jb-date-input-value-font-size:18px;
+  --jb-date-input-placeholder-font-size:18px;
+  --jb-date-input-placeholder-color:rgb(136, 136, 136);
+  --jb-date-input-calender-wrapper-bg-color:#ACBCFF;
+  --jb-date-input-calender-wrapper-border-radius:0;
+  --jb-calendar-arrow-button-border-radius:5px;
+  --jb-date-input-calendar-wrapper-z-index: 9999999;
+  --jb-date-input-web-component-calendar-container---show-transform: translateY(-600px);
+}
+
+.custom-calendar {
+  top: calc(100% + 10px); /* Position the calendar wrapper below the input field */
+  left: 0; /* Align the calendar wrapper with the left edge of the input field */
+  width: 100%; /* Ensure the calendar wrapper spans the full width of the modal */
+  max-height: calc(100vh - 200px); /* Limit the maximum height of the calendar wrapper to fit within the modal */
+  overflow-y: auto; /* Enable vertical scrolling if the calendar exceeds the maximum height */
+}
+
+.field-date .jb-date-input-web-component .calendar-container .--show{
+  transform: translateY(-100px); /* Adjust the translateY value as needed */
+}
+
+.jb-date-input-web-component .calendar-container {
+  will-change: transform;
+  transition: transform 0.5s 0s ease;
+  position: fixed !important;
+  top:100px;
+  right: 200px;
+}
+
+.jb-date-input-web-component .calendar-container.--show {
+  transform: translateY(-200px);
+}
+
+.custom-calendar {
+  top: -300px; /* Adjust this value as needed */
+  position: absolute;
+}
+
+.calendar-container --show {
+  transform: translateY(-200px);
+}
+
+.field-date::placeholder {
+  color: rgb(222, 218, 218); /* Change the color of the placeholder text */
+}
+
+.field-date:hover {
+  color: #b396f6;
+}
+/* 
+.form_details_modal form .field_modal_date::placeholder {
+  font-family: Vazir, Arial, sans-serif;
+  color: #999;
+  transition: all 0.3s ease;
+  font-family: Vazir, Arial, sans-serif;
+  
+} */
+
+
+form .field_modal_date .input_date:focus::placeholder{
+  color:#8e69e4;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+form .field_modal_date .input_date:hover::placeholder {
+  color: #B799FF;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+/****************************/
+
+
+.form_details_modal form .field_modal .input:hover {
+  border-bottom-color: #cdbdf3;
+}
+
+.form_details_modal form .field_modal .input:focus {
+  border-bottom-color: #b396f6;
+}
+
+.form_details_modal form .field_modal input::placeholder {
+  font-family: Vazir, Arial, sans-serif;
+  color: #999;
+  transition: all 0.3s ease;
+  font-family: Vazir, Arial, sans-serif;
+  
+}
+
+
+
+form .field_modal input:focus::placeholder{
+  color:#8e69e4;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+form .field_modal input:hover::placeholder {
+  color: #B799FF;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+form .field_modal:focus::placeholder{
+  color:#8e69e4;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+form .field_modal:hover::placeholder {
+  color: #B799FF;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+
+.field_modal select:hover option[value=""]:not(:disabled) {
+  color: #B799FF; /* Change the color to your desired hover color */
+}
+
+
+form .btn{
+  
+  height: 50px;
+  width:100%;
+  border-radius: 35px;
+  position:relative;
+  overflow: hidden;
+  font-family: Vazir, Arial, sans-serif;
+
+
+}
+form .btn .btn_layer{
+  
+  width:300%;
+  height: 100%;
+  position: absolute;
+  left:-100%;
+  border-radius: 30px;
+  /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd_modal4fe9); */
+  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF,#E6FFFD);
+  transition: all 0.3s ease
+}
+form .btn:hover .btn_layer{
+  left:0;
+}
+form .btn input[type="submit"]{
+  display:inline;
+  font-family: Ios15Medium;
+  height:100%;
+  width:100%;
+  position:relative;
+  color:#fff;
+  z-index: 1;
+  border:none;
+  padding-left: 0;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight:500;
+  cursor:pointer;
+  background: none;
+  text-shadow: rgb(214, 215, 218) 0px 0px 3px;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+/* CSS */
+ .button-20 {
+  appearance: button;
+  background-color: #4D4AE8;
+  background-image: linear-gradient(180deg, rgba(255, 255, 255, .15), rgba(255, 255, 255, 0));
+  border: 1px solid #8886f5;
+  border-radius: 1rem;
+  box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset,rgba(46, 54, 80, 0.075) 0 1px 1px;
+  box-sizing: border-box;
+  color: #f5cd3c;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Inter,sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  margin-left: -60px;
+  margin-right: -25%;
+  /* padding: .5rem 1rem; */
+  text-align: center;
+  text-transform: none;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  font-family: Vazir, Arial, sans-serif;
+
+}
+
+.button-20:focus:not(:focus-visible),
+.button-20:focus {
+  outline: 0;
+}
+
+.button-20:hover {
+    background-color: #b588f5;
+    border-color: #bb93f6;
+  }
+  
+.button-20:focus {
+    background-color: #b588f5;
+    border-color: #b588f5;
+    box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset, rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+  }
+
+.button-20:active {
+  background-color: #3E3BBA;
+  background-image: none;
+  border-color: #3A38AE;
+  box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset;
+}
+
+.button-20:active:focus {
+  box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(104, 101, 235, 0.5) 0 0 0 .2rem;
+}
+
+.button-20:disabled {
+  background-image: none;
+  box-shadow: none;
+  opacity: .65;
+  pointer-events: none;
+}
+
+.select-field_modal option:checked {
+  color: blue; /* Set the font color for the selected option */
+}
+
+.modal-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.523); /* Adjust the opacity as needed */
+  z-index: -1; /* Ensure the overlay appears above other elements */
+}
+
+
+.field_modal .custom-select {
+  position: relative;
+  display: inline-block;
+}
+
+.field_modal .select-trigger {
+  background-color: white;
+  padding: 0 30px 0 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  outline: none;
+  color: rgb(188, 186, 186);
+}
+
+.field_modal .select-trigger:hover {
+  background-color: #f0f0f0;
+}
+
+.field_modal .arrow-down {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid rgb(188, 186, 186);
+}
+
+.field_modal .options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  list-style: none;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ccc;
+  border-top: none;
+  display: none;
+}
+
+.field_modal .options li {
+  padding: 10px;
+  cursor: pointer;
+  font-family: "Vazir", Arial, sans-serif;
+}
+
+.field_modal .options li:hover {
+  background-color: #f0f0f0;
+}
+
+.field_modal .custom-select.open .options {
+  display: block;
+}
+
+.custom-swal-container .swal2-popup {
+  border-radius: 15px; /* Adjust the radius as per your preference */
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
+}
+
+.custom-swal-container .swal2-title {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Adjust the shadow values as per your preference */
+}
+
+.custom-swal-container .swal2-content {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Adjust the shadow values as per your preference */
+}

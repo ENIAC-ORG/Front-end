@@ -1,0 +1,305 @@
+@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+
+:root{
+  background: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+.pt_bd{
+  display: grid;
+  height:100%;
+  width:100%;
+  place-items: center;
+  background: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%) no-repeat 100%;
+  /*background-image: linear-gradient(62deg , #e68efc 0%, #E0C3FC 100%);*/
+  /* background-image: linear-gradient(62deg , #B799FF 0%, #E0C3FC 100%); */
+/* background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%); */
+} 
+
+
+
+.pt_wrapper{
+  max-width: 390px;
+  min-height: 390px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: rgb(66,38,77) 0px 20px 30px -10px;
+  margin-top: 30%;
+
+}
+.pt_wrapper .pt_header{
+  display: flex;
+  width:200%;
+
+
+}
+.pt_wrapper .pt_title{
+  font-family: Ios15Medium;
+  width: 50%;
+  font-size:32px;
+  color: #767575;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: rgb(161, 185, 247) 0px 0px 7px;
+  transition: all 0.6s cubic-bezier(0.68 , -0.55 , 0.265, 1.55);
+}
+
+.pt_wrapper .form_container{
+  width:100%;
+  overflow:hidden;
+}
+
+.pt_wrapper .slider_controls{
+  position: relative;
+  width:100%;
+  height:50px;
+  overflow:hidden;
+  display: flex;
+  margin:30px 0 10px 0;
+  justify-content: space-between;
+  border: 1px solid lightgray;
+  border-radius: 35px;
+}
+
+.slider_controls .slide{
+  font-family: Ios15Medium;
+  width:100%;
+  color:#fff;
+  height:100%;
+  line-height: 48px;
+  font-size: 22px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+  z-index: 1;
+  transition: all 0.6s ease;
+  text-shadow: rgb(214, 215, 218) 0px 0px 4px;
+}
+input[type="radio"]{
+  display: none;
+}
+.slider_controls label.signup{
+  /* color: #000; */
+  color:#767575;
+  color:#1f1d75;
+}
+
+.slider_controls .slider_tab{
+  height:100%;
+  width: 50%;
+  left:0;
+  z-index: 0;
+  /*background: -webkit-linear-gradient(left,#5a0066 , #5c0080 , #9500b3,#8a00e6);*/
+  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  position: absolute;
+  border-radius: 35px;
+  transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
+}
+
+
+#signup:checked ~ .slider_tab{
+  left:50%;
+}
+#signup:checked ~ label.signup{
+  color:#fff;
+  user-select: none;
+}
+
+#signup:checked ~ label.login{
+  /* color:#000; */
+  color:#767575;
+}
+#login:checked ~ label.signup{
+  /* color:#000; */
+  color:#767575;
+}
+#login:checked ~ label.login{
+  user-select: none;
+}
+.form_container .form_details{
+  display:flex;
+  width:200%;
+}
+.form_container .form_details form{
+ 
+  width:50%;
+  transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
+}
+.form_details form .fp_field {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  height: 50px;
+  margin-top: 20px;
+}
+
+.form_details form .fp_field input {
+  width: 100%;
+  height: 100%;
+  direction: rtl;
+  outline: none;
+  padding-left: 15px;
+  border: none;
+  border-bottom: 2px solid #adadad;
+  font-size: 18px;
+  transition: border-color 0.3s ease;
+  color: gray;
+  caret-color: rgb(152, 103, 175);
+}
+.form_details form .fp_field span {
+    display: grid;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    direction: rtl;
+    outline: none;
+    padding-left: 15px;
+    border: none;
+    
+    font-size: 18px;
+    transition: border-color 0.3s ease;
+    color: gray;
+    caret-color: rgb(152, 103, 175);
+  }
+
+.form_details form .fp_field input:hover {
+  border-bottom-color: #cdbdf3;
+}
+
+.form_details form .fp_field input:focus {
+  border-bottom-color: #b396f6;
+}
+
+.form_details form .fp_field input::placeholder {
+  font-family: Ios15Medium;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.form_details form .fp_field .fp_eye {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Adjust the position of the toggle icon */
+  transform: translateY(-50%);
+  cursor: pointer;
+  opacity: 0.4;
+  transition: color 0.3s ease;
+}
+
+.form_details form .fp_field .fp_eye:hover {
+  color: #aa87fd;
+}
+
+
+.fp_checkmark {
+  position: absolute;
+  top: 50%;
+  left: 10px; /* Adjust the position of the toggle icon */
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+
+form .fp_field input:focus::placeholder{
+  color: #B799FF;}
+
+form .fp_field input:hover::placeholder {
+  color: #B799FF;
+}
+.fp_pass_link{
+  margin-top: 5px;
+  font-family: Ios15Medium;
+  color: #B799FF;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  
+}
+.fp_pass_link a:hover
+{
+  color: #dccffd;
+}
+.fp_pass_link a::grammar-error
+{
+  color: #824ff9;
+}
+
+form .btn{
+  
+  height: 50px;
+  width:100%;
+  border-radius: 35px;
+  position:relative;
+  overflow: hidden;
+
+}
+form .btn .btn_layer{
+  
+  width:300%;
+  height: 100%;
+  position: absolute;
+  left:-100%;
+  border-radius: 30px;
+  /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd4fe9); */
+  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF,#E6FFFD);
+  transition: all 0.3s ease
+}
+form .btn:hover .btn_layer{
+  left:0;
+}
+form .btn input[type="submit"]{
+  font-family: Ios15Medium;
+  height:100%;
+  width:100%;
+  position:relative;
+  color:#fff;
+  z-index: 1;
+  border:none;
+  padding-left: 0;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight:500;
+  cursor:pointer;
+  background: none;
+  text-shadow: rgb(214, 215, 218) 0px 0px 3px;
+}
+.ver_error_input1 {
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  direction: rtl;
+  outline: none;
+  margin-top: 7px;
+  padding-right: 20px;
+  padding-left: 17px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  margin: 15px;
+  transition: border-color 0.3s ease;
+  color: #7c7c7e;
+  caret-color: #bba2f7;
+}
+
+.ver_error_input2 {
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  direction: rtl;
+  outline: none;
+  margin-top: 7px;
+  padding-left: 15px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  transition: border-color 0.3s ease;
+  color: #bba2f7;
+  caret-color: #bba2f7;
+}

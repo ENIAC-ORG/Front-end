@@ -1,0 +1,367 @@
+.prof_body {
+    display: flex;
+    flex-wrap: wrap;
+    height: fit-content;
+    background-image: linear-gradient(62deg, #B799FF 0%, #AEE2FF 100%);
+    justify-content: space-around;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    /* font-family: Ios15Medium; */
+
+    /* gap: 20px; */
+}
+
+
+
+.prof_Box {
+    gap:50px;
+    padding: 3%;
+    border-radius: 35px;
+    height:fit-content;
+    width: fit-content;
+    background-color: rgb(224, 223, 223);
+}
+.panel{
+    min-width: fit-content;
+}
+
+.profile-nav {
+    margin-top: 20px;
+    /* font-family: Ios15Medium; */
+
+}
+
+.profile-nav .user-heading {
+    background-image: linear-gradient(50deg, #8f77c8 0%, #a5d9f5 50%, #80a8be 100%);
+    color: #fff;
+    border-radius: 4px 4px 0px 0px;
+    -webkit-border-radius: 15px 15px 0 0;
+    padding: 30px;
+    text-align: center;
+    min-width: fit-content;
+}
+
+.profile-nav .user-heading.round a {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 10px solid rgba(4, 9, 29, 0.3);
+    display: inline-block;
+}
+
+.profile-nav .user-heading a img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.profile-nav .user-heading h1 {
+    font-size: 25px;
+    font-family: Ios15Medium;
+    font-weight: 600;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    margin-bottom: 8px;
+}
+
+.profile-nav .user-heading p {
+    font-size: 20px;
+    font-family: Ios15Medium;
+    color: rgb(203, 203, 203);
+    text-shadow:2px 1px 0px  #818181;
+
+}
+
+.profile-nav ul {
+    margin-top: 0px;
+    font-family: Ios15Medium;
+
+
+}
+
+.profile-nav ul>li {
+    border-bottom: 1px solid #8e95b5;
+    margin-top: 0px;
+    line-height: 22px;
+    width: 100%;
+
+}
+
+.profile-nav ul>li:last-child {
+    border-bottom: none;
+}
+
+.profile-nav ul>li>label {
+    height: 100%;
+    border-radius: 0 0 1 1;
+    -webkit-border-radius:  5px 0px 0px 5px;
+    color: #89817f;
+    border-left: 5px solid #fff;
+    font-size: medium;
+    width: initial;
+    font-family: Ios15Medium;
+
+
+}
+
+.profile-nav ul>li:last-child>a:last-child {
+    border-radius: 0 0 4px 4px;
+    -webkit-border-radius: 0 0 4px 4px;
+}
+
+.profile-nav ul>li>label>i {
+    font-size: 15px;
+    padding-right: 10px;
+    padding-left: 5px;
+}
+
+
+
+/* .bio-graph-heading {
+    background: #fbc02d;
+    color: #fff;
+    text-align: center;
+    font-style: italic;
+    padding: 40px 110px;
+    border-radius: 4px 4px 0 0;
+    -webkit-border-radius: 4px 4px 0 0;
+    font-size: 16px;
+    font-weight: 300;
+    
+} */
+
+.bio-graph-info {
+    color: #89817e;
+    padding-right:  50px;
+
+}
+
+.bio-graph-info h1 {
+    font-family: Ios15Medium;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 20px;
+    
+}
+
+.bio-row {
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+    padding: 0 15px;
+    font-size: larger;
+}
+.bio-row p {
+    font-family: Ios15Medium;
+   
+}
+
+.bio-row p span {
+    font-family: Ios15Medium;
+    padding-right: 10px;
+    /* width: 150px; */
+    display: inline-block;
+}
+.component-wrapper span
+{
+    width: auto;
+
+}
+
+.row label {
+    color: #5d6db7;
+    font-size: large;
+    display: inline-block;
+    width: 100px;
+}
+.swal-button--deny
+{
+    color: green;
+}
+.row form
+{
+    font-family: Ios15Medium;
+    min-width: fit-content;
+}
+
+.profile_input {
+    font-family: Ios15Medium;
+    border-radius: 15px;
+    padding-right: 15px;
+    margin-right: 50px;
+    padding-left: 10px;
+    height: 35px;
+    width: 400px;
+    border: 2px solid #adadad;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    caret-color: #AEE2FF;
+}
+.component-wrapper{
+    margin-right: 50px;
+    height: 35px;
+    width: 400px;
+    position: relative;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    --jb-date-input-border-radius:20px;
+    --jb-date-input-border-color: #393131;;
+    --jb-date-input-border-size: 2px;
+    --jb-date-input-border-color-focus:#2e2e2e;
+    --jb-date-input-bgcolor:#fff;
+    --jb-date-input-border-bottom-width:1px;
+    --jb-date-input-label-font-size	:17px;
+    --jb-date-input-value-color:#8a8a8a;
+    --jb-date-input-value-font-size:1.3em;
+    --jb-date-input-calender-wrapper-bg-color:#fefefe;
+    --jb-date-input-calender-wrapper-border-radius:0;
+    --jb-calendar-day-bgcolor-hover	:#849dff;
+    --jb-calendar-arrow-button-border-radius:5px;
+    --jb-calendar-section-position:absolute;
+
+  }
+
+
+
+.profile_input_G {
+
+    border-radius: 15px;
+    padding-right: 15px;
+    padding-left: 10px;
+    margin-right: 50px;
+
+    height: 35px;
+    width: 400px;
+    border: 2px solid #adadad;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    caret-color: #AEE2FF;
+}
+
+.profile_input:focus {
+    color: #000000;
+}
+
+
+
+@media (max-width: 800px) {
+    .profile_input {
+        width: 300px;
+        margin-right: 0%;
+
+    }
+    .profile_input_G {
+        width: 300px;
+        margin-right: 0%;
+
+    }
+    /* .bio-row p span {
+        padding-right: 10px;
+        width: 10px;
+        display: inline-block;
+    } */
+    .component-wrapper{
+        padding-right: 0px;
+        margin-right: 0;
+        height: 35px;
+        width: 300px;
+        position: relative;
+        
+      }
+
+}
+
+.profile_sub_error
+{
+    margin-right: 60px;
+    font-size: small;
+    /* color: #496cf5; */
+    color:red;
+}
+
+
+/* CSS */
+.button-86 {
+  all: unset;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  position: relative;
+  font-family: Ios15Medium;
+  color: #f0f0f0;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-86::after,
+.button-86::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -99999;
+  transition: all .4s;
+}
+
+.button-86::before {
+  transform: translate(0%, 0%);
+  width: 100%;
+  height: 100%;
+  background: #849dff;
+  border-radius: 10px;
+}
+
+
+
+  
+  /* .custom-style{
+    --jb-date-input-border-radius:100px;
+    --jb-date-input-border-color:#888;
+    --jb-date-input-border-color-focus:#000;
+    --jb-date-input-bgcolor:#fff;
+    --jb-date-input-message-box-color:blue;
+    --jb-date-input-border-bottom-width:1px;
+    --jb-date-input-label-font-size	:1.3em;
+    --jb-date-input-value-color:#434343;
+    --jb-date-input-value-font-size:1.3em;
+    --jb-date-input-calender-wrapper-bg-color:#fefefe;
+    --jb-date-input-calender-wrapper-border-radius:0;
+    --jb-calendar-arrow-button-border-radius:0;
+  } */
+
+.button-86::after {
+  transform: translate(10px, 10px);
+  width: 35px;
+  height: 35px;
+  background: #ffffff15;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 50px;
+}
+
+.button-86:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+}
+
+.button-86:hover::after {
+  border-radius: 10px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.button-86:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}
