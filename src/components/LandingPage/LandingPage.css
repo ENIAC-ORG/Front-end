@@ -1,0 +1,132 @@
+.starter_text{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: x-large;
+  font-family: Ios15Medium;
+}
+.color-h1{
+  color: #1e4b29;
+}
+
+.mybtn{
+  background-color: none;
+}
+.card-group{
+  display: flex;
+}
+.vgr-cards .card{
+    display: flex;
+    flex-flow: wrap;
+    flex: 100%;
+    margin-bottom: 40px;
+
+    &:nth-child(even) .card-img-body {
+      order: 2;
+    }
+
+    &:nth-child(even) .card-body {
+      padding-left: 0;
+      padding-right: 1.25rem;
+    }
+
+    @media (max-width: 576px) {
+      display: block;
+    }
+  
+
+  .card-img-body {
+    flex: 1;
+    overflow: hidden;
+    position: relative;
+
+    @media (max-width: 576px) {
+      width: 100%;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+
+    @media (max-width: 1140px) {
+      margin: 0;
+      transform: none;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  .card-body {
+    flex: 2;
+    padding: 0 0 0 1.25rem;
+
+    @media (max-width: 576px) {
+      padding: 0;
+    }
+  }
+}
+.bg-D8EFD3{
+  background-color: #e5ede3;
+}
+
+.card-text{
+  font-family: Ios15Medium;
+  font-size: 125%;
+}
+
+.font-Ios{
+  font-family: Ios15Medium;
+}
+
+.button-28 {
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid  #1c4626;
+  border-radius: 15px;
+  box-sizing: border-box;
+  color: #1c4626;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Ios15Medium;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: normal;
+  margin: 0;
+  min-height: 60px;
+  min-width: 0;
+  outline: none;
+  padding: 16px 24px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 30%;
+  will-change: transform;
+}
+
+.button-28:disabled {
+  pointer-events: none;
+}
+
+.button-28:hover {
+  color: #fff;
+  background-color:  #1c4626;
+  box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+  transform: translateY(-2px);
+}
+
+.button-28:active {
+  box-shadow: none;
+  transform: translateY(0);
+}
+
+.p-custom{
+  padding: 8rem;
+}
