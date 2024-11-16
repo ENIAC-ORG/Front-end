@@ -1,0 +1,134 @@
+
+.header
+{
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+  justify-content: space-between;
+  margin: auto;
+  padding-right: 0px;
+  border-color: black;
+  border: 4px;
+
+}
+.BrandName
+{
+  display: flex;
+  padding-left: 5%;
+  font-weight: 200;
+  font-family:cursive;  
+}
+
+.StartButton
+{
+  background-image: linear-gradient(-62deg , #B799FF 0%, #AEE2FF 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: .35rem 0.75rem;
+  margin-right: 3%;
+  cursor: pointer;
+  border: 1px;
+  font-family: Ios15Medium;
+  font-weight: bold;
+  border-radius: 35px;
+  box-shadow: 0 1px 5px rgb(87, 86, 86);
+  border: 2px;
+  width: 10%;
+  color: #393838;
+
+}
+.StartButton:hover
+{
+  background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+  border-color: rgb(230, 255, 253);
+  align-items: stretch;
+  box-shadow: 0 1px 5px rgb(0, 0, 0);
+  color: rgb(246, 242, 224);
+
+}
+.Desc
+{
+  align-self: center;
+  direction: rtl;
+  background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+  border-radius: 50px;
+  text-align: center;
+  font-size: 150%;
+  font-display: flex;
+  font-family: Ios15Medium;
+  color: #393838;
+  width: fit-content;
+  height: 399px;
+  padding: 5% 1% 4% 1%;
+  position: absolute;
+  right: 5%;
+  margin-left: 5%;
+  margin-bottom: 3%;
+  box-shadow: 1px 1.5px 3px 1px rgb(0, 0, 0);
+}
+.Landingbody
+{
+  padding-top: 0%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0px;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  height: 90vh;
+}
+.footer
+{
+  position: absolute;
+  bottom: 2.5%;
+  min-height: 80px;
+  text-align: center;
+  width: 100%;
+  font-size: smaller;
+  font-weight: lighter;
+  background-color: #ffffff;
+  color: #727070;
+  align-items: flex-end;
+  display: flex;
+  align-content: flex-start;
+  justify-content: center;
+  font-family: Ios15Medium;
+}
+.signup
+{
+  background-image: linear-gradient(-62deg , #B799FF 0%, #AEE2FF 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: .35rem 0.75rem;
+  margin-right: 3%;
+  cursor: pointer;
+  border-radius: 35px;
+  margin-top: 50px;
+  font-size: large;
+  font-weight: bolder;
+  font-family: Ios15Medium;
+  width: 30%;
+  box-shadow: 0 1px 5px rgb(87, 86, 86);
+  border: 2px;
+  color: #393838;
+
+}
+.signup:hover
+{
+  background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+  align-items: stretch;
+  box-shadow: 0 1px 5px rgb(0, 0, 0);
+  color: rgb(246, 242, 224);
+}
+.imageimagecover
+{
+  margin-left: 3.6%;
+  width: 380px;
+  height: 400px;
+}

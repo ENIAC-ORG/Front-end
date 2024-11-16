@@ -1,0 +1,141 @@
+.container {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.slide {
+    /* width: 100%; */
+    /* height: 100%; */
+    opacity: 1;
+}
+.img1_title
+{
+    color: rgb(255, 255, 255);
+    text-align: center;
+    padding-left: 2.7rem;
+    padding-top: 450px;
+    font-size: 100px;
+    font-family: Ios15Medium;
+    text-shadow:2px 2px   rgb(130, 79, 144);
+    ;
+}
+   
+.img3_box {
+    padding: 70px;
+}
+
+.img3_title {
+    text-align: right;
+    color: rgb(130, 79, 144);
+    text-shadow: 1px 2px 3px rgb(118, 118, 118);
+    font-size: 50px;
+    font-family: Ios15Medium;
+}
+
+.img3_p {
+    direction: rtl;
+    padding-right: 30px;
+    line-height: 2.5rem;
+    font-size: 30px;
+    font-family: Ios15Medium;
+    text-align: right;
+    color: rgb(130, 79, 144);
+    text-shadow: 1px 2px 3px rgb(95, 95, 95);
+}
+
+
+.img4_box{
+    padding: 0;
+}
+.img4_text1{
+    /* direction: rtl; */
+    font-size: 30px;
+    font-family: Ios15Medium;
+    color: #a07df1;
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
+    padding-top: 50px;
+    padding-left: 50px;
+}
+.img4_text2{
+    font-size: 30px;
+    font-family: Ios15Medium;
+    color: #a07df1;
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
+    padding-top: 50px;
+    padding-left: 150px;
+}
+
+.img4_text3{
+    /* direction: rtl; */
+    font-size: 30px;
+    font-family: Ios15Medium;
+    color: #a07df1;
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
+    padding-top: 10px;
+    padding-left:250px ;
+}
+.img4_text4{
+    /* direction: rtl; */
+    font-size: 30px;
+    font-family: Ios15Medium;
+    color: #a07df1;
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
+    padding-top: 30px;
+    padding-left: 20px;
+}
+.img4_text5{
+    /* direction: rtl; */
+    font-size: 30px;
+    font-family: Ios15Medium;
+    color: #a07df1;
+    text-shadow: 2px 3px 4px rgb(0, 0, 0);
+    padding-top: 40px;
+    padding-left: 250px;
+}
+@media screen and (max-width: 800px) {
+    .img3_box
+    {
+        padding: 45px;
+        padding-right: 30px;
+    }
+    .img3_title
+    {
+        font-size:xx-large;
+    }
+    .img3_p
+    {
+        font-size: medium;
+        line-height: 1.5rem;
+        /* width: 400px; */
+    }
+    .img4_text1
+    {
+        font-size: 25px;
+        padding-top: 30px;
+    }
+    .img4_text2
+    {
+        font-size: 20px;
+        padding-left: 120px;
+    }
+    .img4_text3
+    {
+        font-size: 20px;
+        padding-left: 400px;
+        padding-top: 0px;
+    }
+    .img4_text4
+    {
+        font-size: 20px;
+        padding-left: 30px;
+    }
+    .img4_text5
+    {
+        font-size: 20px;
+        padding-top: 90px;
+        padding-left: 380px;
+    }
+  }
+/* ---------- */
+

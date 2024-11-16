@@ -1,0 +1,368 @@
+.patient_prof_body {
+    display: flex;
+    direction: rtl;
+    flex-wrap: wrap;
+    height: fit-content;
+    background-image: linear-gradient(62deg, #B799FF 0%, #AEE2FF 100%);
+    justify-content: space-around;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+}
+.patient_prof_box {
+    margin-left: 10%;
+    margin-right: 10%;
+    gap:50px;
+    padding: 3%;
+    border-radius: 35px;
+    height:100%;
+    width: 200%;
+    min-width: fit-content;
+    background-color: rgb(224, 223, 223);
+
+}
+
+.patient_prof_insidebox h5{
+    text-align: center;
+    color: #5e5e5e;
+    font-family: Ios15Medium;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 20px;
+}
+
+.patient_prof_header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    text-align: center;
+    font-family: Ios15Medium;
+}
+
+.patient_prof_header h1 {
+    color: #89817e;
+    font-family: Ios15Medium;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0 0 20px;
+    
+}
+
+.patient_prof_pages
+{
+    width: 430px;
+    font-size: larger;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px;
+    justify-content: space-evenly;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-color: #000000;
+    border-radius: 12px 12px 0px 0px;
+    background-color: white;
+    box-shadow: 0 6px 0 #fff, 0 1px 6px rgba(0,0,0, .35);
+}
+
+.patient_prof_insidebox{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* justify-content: space-evenly; */
+    gap: 10px;
+}
+
+.patient_prof_box_header
+{
+    display: flex;
+    /* margin-top: 15px; */
+    color: #89817f;
+    text-align: start;
+    font-family: Ios15Medium;
+}
+
+.patient_prof_box_header_ic{
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+
+}
+.patient_prof_box_header h1{
+    font-size: 25px;
+    font-family: Ios15Medium;
+    font-weight: 600;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    margin-bottom: 8px;}
+
+.patient_prof_res{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.patient_prof_res_card{
+    font-family:Ios15Medium ;
+    background-color: #ffffff;
+    box-shadow:  0 1px 6px rgba(0,0,0, .35);
+    width: 400px;
+    height: fit-content;
+    padding: 3%;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.patient_prof_res_card h3{
+    font-family:Ios15Medium ;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.patient_prof_res_card hr{
+    height: 1px;
+    margin-bottom: 15px;
+    color: black;
+}
+
+.patient_prof_res_card h5{
+    font-family:Ios15Medium ;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.patient_prof_res_card p{
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.patient_prof_res_card ul li span{
+    font-family: Ios15Medium;
+    padding-right: 10px;
+    width: 90px;
+    display: inline-block;
+}
+
+.patient_prof_history_card{
+    font-family:Ios15Medium ;
+    background-color: #ffffff;
+    box-shadow:  0 1px 6px rgba(0,0,0, .35);
+    width: 400px;
+    height: fit-content;
+    padding: 3%;
+    border-radius: 5px;
+    /* text-align: center; */
+}
+
+.patient_prof_history_card h3{
+    font-family:Ios15Medium ;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.patient_prof_history_card hr{
+    height: 1px;
+    margin-bottom: 15px;
+    color: black;
+}
+
+.patient_prof_history_card h5{
+    font-family:Ios15Medium ;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.patient_prof_history_card ul li span{
+    font-family: Ios15Medium;
+    padding-right: 10px;
+    width: 150px;
+    display: inline-block;
+}
+
+
+
+.profile_input {
+    font-family: Ios15Medium;
+    border-radius: 15px;
+    padding-right: 15px;
+    margin-right: 50px;
+    padding-left: 10px;
+    height: 35px;
+    width: 400px;
+    border: 2px solid #adadad;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    caret-color: #AEE2FF;
+}
+.component-wrapper{
+    margin-right: 50px;
+    height: 35px;
+    width: 400px;
+    position: relative;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    --jb-date-input-border-radius:20px;
+    --jb-date-input-border-color: #393131;;
+    --jb-date-input-border-size: 2px;
+    --jb-date-input-border-color-focus:#2e2e2e;
+    --jb-date-input-bgcolor:#fff;
+    --jb-date-input-border-bottom-width:1px;
+    --jb-date-input-label-font-size	:17px;
+    --jb-date-input-value-color:#8a8a8a;
+    --jb-date-input-value-font-size:1.3em;
+    --jb-date-input-calender-wrapper-bg-color:#fefefe;
+    --jb-date-input-calender-wrapper-border-radius:0;
+    --jb-calendar-day-bgcolor-hover	:#849dff;
+    --jb-calendar-arrow-button-border-radius:5px;
+    --jb-calendar-section-position:absolute;
+
+  }
+
+
+
+.profile_input_G {
+
+    border-radius: 15px;
+    padding-right: 15px;
+    padding-left: 10px;
+    margin-right: 50px;
+
+    height: 35px;
+    width: 400px;
+    border: 2px solid #adadad;
+    font-size: 17px;
+    color: rgb(149, 147, 147);
+    caret-color: #AEE2FF;
+}
+
+.profile_input:focus {
+    color: #000000;
+}
+
+
+
+@media (max-width: 800px) {
+    .profile_input {
+        width: 300px;
+        margin-right: 0%;
+
+    }
+    .profile_input_G {
+        width: 300px;
+        margin-right: 0%;
+
+    }
+    /* .bio-row p span {
+        padding-right: 10px;
+        width: 10px;
+        display: inline-block;
+    } */
+    .component-wrapper{
+        padding-right: 0px;
+        margin-right: 0;
+        height: 35px;
+        width: 300px;
+        position: relative;
+        
+      }
+
+}
+
+.profile_sub_error
+{
+    margin-right: 60px;
+    font-size: x-small;
+    color: #496cf5;
+}
+
+
+/* CSS */
+.button-86 {
+  all: unset;
+  width: 100px;
+  height: 30px;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  position: relative;
+  font-family: Ios15Medium;
+  color: #f0f0f0;
+  cursor: pointer;
+  z-index: 1;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-86::after,
+.button-86::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -99999;
+  transition: all .4s;
+}
+
+.button-86::before {
+  transform: translate(0%, 0%);
+  width: 100%;
+  height: 100%;
+  background: #849dff;
+  border-radius: 10px;
+}
+
+
+
+  
+  /* .custom-style{
+    --jb-date-input-border-radius:100px;
+    --jb-date-input-border-color:#888;
+    --jb-date-input-border-color-focus:#000;
+    --jb-date-input-bgcolor:#fff;
+    --jb-date-input-message-box-color:blue;
+    --jb-date-input-border-bottom-width:1px;
+    --jb-date-input-label-font-size	:1.3em;
+    --jb-date-input-value-color:#434343;
+    --jb-date-input-value-font-size:1.3em;
+    --jb-date-input-calender-wrapper-bg-color:#fefefe;
+    --jb-date-input-calender-wrapper-border-radius:0;
+    --jb-calendar-arrow-button-border-radius:0;
+  } */
+
+.button-86::after {
+  transform: translate(10px, 10px);
+  width: 35px;
+  height: 35px;
+  background: #ffffff15;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border-radius: 50px;
+}
+
+.button-86:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+}
+
+.button-86:hover::after {
+  border-radius: 10px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.button-86:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}

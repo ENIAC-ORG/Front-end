@@ -1,0 +1,125 @@
+
+
+.navbar {
+    background-color: #351f67;
+    height: 50px;
+    padding-left: 1%;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 100%;
+    /* min-width: 65%; */
+}
+
+.p1 {
+    /* display: flex; */
+    /* align-items: center; */
+    /* This centers the flex items vertically */
+    font-size: 1.25rem;
+    /* This is typically 20px */
+    line-height: 1.75rem;
+    justify-content: space-between;
+    display: flex;
+    /* left: 55px; */
+    /* This is typically 28px */
+}
+
+.fBar {
+    margin-inline-end: 4px;
+    cursor: pointer;
+    color: rgb(255 255 255);
+}
+
+.sitetitle {
+    color: #ffffff;
+    /* This sets the text color to white */
+    font-weight: 600;
+    font-family: cursive;
+    cursor: default;
+    /* text-align: end; */
+    /* padding-left: 510px; */
+    /* white-space: 50px; */
+    /* padding-right: 100%; */
+    text-align: center;
+}
+
+.navcontainer {
+    left: 0px;
+    display: flex;
+    column-gap: 15px;
+}
+
+.navcon2 {
+    position: relative;
+    min-width: 65%;
+
+}
+
+.con {
+    color: #ffffff;
+}
+
+.con :hover {
+    color: #8e8d8d;
+    height: 20px;
+    width: 20px;
+}
+
+.FB {
+    width: 18px;
+    height: 18px;
+}
+
+.profile_btn {
+    color: #ffffff;
+    background-color: #351f67;
+    border: none;
+    width: 18px;
+    height: 18px;
+}
+
+.profile_btn:hover {
+    color: #8e8d8d;
+}
+
+.profile_menu {
+    margin-top: 5px;
+    direction: rtl;
+    display: grid;
+    position: relative;
+    text-align: center;
+    vertical-align:middle;
+    width: 9rem;
+    background-color: rgb(235, 235, 235);
+    border-radius: 15px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    z-index: 10;
+    /* top: 100%; */
+    /* left: 8rem; */
+
+}
+
+.profile_menu:focus-within {
+    display: block;
+}
+
+.prof_list {
+    list-style-type: none;
+    padding-top: 0.5rem;
+    padding-left: 0px;
+    padding-right: 0px;
+    font-size: 12px;
+    color: #807f7f;
+    font-family: Ios15Medium;
+    cursor: pointer;
+}
+
+.prof_list li :hover {
+    color: #351f67;
+    font-size: 14px;
+    text-shadow: 1px 1px rgb(148, 148, 148);
+
+}

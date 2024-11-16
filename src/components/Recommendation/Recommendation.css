@@ -1,0 +1,24 @@
+.doctor_h2{
+    direction: rtl;
+    font-size: x-large;
+    font-family: Ios15Medium;
+    color: gray;
+}
+.doctor_h3{
+    direction: rtl;
+    font-size: 50px;
+    font-family: Ios15Medium;
+    color: gray;
+}
+.recom_text{
+    direction: rtl;
+    margin-bottom: 10px;
+    font-size: x-large;
+    font-family: Ios15Medium;
+}
+.custom-container {
+    padding-left: 5%;
+    padding-right: 5%;
+    
+  }
+  

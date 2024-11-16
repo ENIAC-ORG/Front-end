@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+.glasser-body {
+  direction: rtl;
+  font-family: 'Anek Malayalam', sans-serif;
+  background: linear-gradient(62deg, #b799ff 0%, #aee2ff 100%) no-repeat;
+  color: #413f45;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 15px 15px; /* Adjust padding */
+  font-family: Ios15Medium;
+}
+
+.glasser-quiz-container {
+  width: 600px; /* Decrease container width */
+  height: auto;
+  max-width: 100%;
+  min-height: 300px; /* Decrease minimum height */
+  background: #ffffff;
+  border-radius: 15px; /* Decrease border radius */
+  margin-top: 5px; /* Decrease margin top */
+  padding: 40px 60px; /* Adjust padding */
+  box-sizing: border-box;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
+}
+
+.glasser-quiz-container .glasser-active-question-no {
+  font-size: 30px; /* Decrease font size */
+  font-weight: 500;
+  color:#99adfd;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Decrease text shadow */
+}
+
+.glasser-quiz-container .glasser-total-question {
+  font-size: 18px; /* Decrease font size */
+  font-weight: 500;
+  color: #959496;
+}
+
+.glasser-quiz-container h2 {
+  font-size: 18px; /* Decrease font size */
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  color: #636363;
+}
+
+.glasser-quiz-container ul {
+  margin-top: 20px; /* Adjust margin top */
+  margin-right: -30px; /* Adjust margin right */
+}
+
+.glasser-quiz-container ul li {
+  text-decoration: none;
+  list-style: none;
+  color: #47464e;
+  font-size: 16px; /* Decrease font size */
+  background: #ffffff;
+  border: 1px solid #d6d6d8;
+  border-radius: 15px; /* Decrease border radius */
+  padding: 10px; /* Decrease padding */
+  margin-top: 15px; /* Decrease margin top */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-right: 41px;
+  text-align: center;
+}
+
+.glasser-quiz-container ul .glasser-selected-answer {
+  background: #d6dafc;
+  border: 1px solid #a9a5fa;
+}
+
+.glasser-quiz-container button {
+  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  border-radius: 12px; /* Decrease border radius */
+  font-size: 18px; /* Decrease font size */
+  color: #ffffff;
+  padding: 12px 40px; /* Decrease padding */
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px; /* Decrease margin top */
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
+}
+
+.glasser-quiz-container button:hover {
+  background: -webkit-linear-gradient(left, #7e77e0, #7e77e0, #7e77e0);
+}
+
+.glasser-quiz-container button:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+.glasser-flex-right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.glasser-result h3 {
+  font-size: 20px; /* Decrease font size */
+  letter-spacing: 1px; /* Decrease letter spacing */
+  text-align: center;
+}
+
+.glasser-result p {
+  font-size: 16px; /* Decrease font size */
+  font-weight: 500;
+}
+
+.glasser-result p span {
+  color: #6459fa;
+  font-size: 25px; /* Decrease font size */
+}
+
+.glasser-button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px; /* Decrease margin top */
+}
+
+.glasser-button-group button {
+  flex: 0 0 150px; /* Decrease button width */
+  margin: 0 10px; /* Decrease margin */
+}
+
+.glasser-button-group span {
+  margin-top: 15px; /* Decrease margin top */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.glasser-button-group span:hover {
+  color: rgb(169, 163, 250);
+}
+
+.custom-swal-container .swal2-popup {
+  border-radius: 15px; /* Decrease border radius */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Decrease box shadow */
+}
+
+.custom-swal-container .swal2-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
+  font-size: 24px; /* Decrease font size */
+}
+
+.custom-swal-container .swal2-content {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
+  font-size: 18px; /* Decrease font size */
+}
+
+.mbti-progress-bar {
+  direction: ltr; /* Set direction to right-to-left */
+}
+
+.custom-color .progress-bar {
+  background-color: #99adfd;
+}

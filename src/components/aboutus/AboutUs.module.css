@@ -1,0 +1,138 @@
+:root {
+    font-family: Ios15Medium;
+}
+
+.backgroundaboutus {
+    color: rgba(0, 0, 0, 0.87);
+}
+
+.aboutusbody {
+    margin: 0;
+    padding: 0;
+    background-color: #E6FFFD;
+    display: grid;
+    top:0;
+    left:0;
+    z-index:-1;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.24);
+}
+
+
+@font-face {
+    font-family: Ios15Medium;
+    src: local('Ios15Medium'), url(./Ios15Medium.ttf) format('truetype');
+}
+
+.headeraboutus {
+    font-size: 35px;
+    font-family: Ios15Medium;
+    text-decoration-style: double;
+    text-align: center;
+}
+
+.paragsize {
+    direction: rtl;
+    font-size: 25px;
+    text-align: center;
+    font-family: Ios15Medium;
+    margin-bottom: 20px;
+    text-align: right;
+    line-height: 50px;
+    width: 50%;
+    margin: auto;
+    color: #000000;
+    padding: 5px;
+}
+
+.tableaboutus {
+    margin-top: 60px;
+    margin-bottom: 0px;
+    border-collapse: collapse;
+    width: 75%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 15px;
+}
+
+.button1 {
+    background-color: #ACBCFF;
+    border: none;
+    color: #3a61fe;
+    padding: 20px 32px;
+    margin-left: 10px;
+    margin-right: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-family: Ios15Medium;
+    font-size: 20px;
+    width: 329px;
+    height: 70px;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    border-radius: 8px;
+    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 8px;
+}
+
+
+.imagegit {
+    align-items: center;
+    width: 8%;
+}
+
+.icons {
+    width: 2%;
+}
+
+
+.image1space {
+    border-radius: 50px;
+    width: 90%;
+    height: 100%;
+    box-shadow: 1px 1px 5px rgb(138, 138, 138) inset;
+    margin-left: 5%;
+    margin-right: -50%;
+}
+
+/* CSS */
+.button_69 {
+  background-color: initial;
+  background-image: linear-gradient(#8614f8 0, #760be0 100%);
+  border-radius: 5px;
+  border-style: none;
+  box-shadow: rgba(245, 244, 247, .25) 0 1px 1px inset;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Ios15Medium;
+  font-size: 16px;
+  font-weight: 500;
+  height: 60px;
+  line-height: 60px;
+  margin-left: -4px;
+  outline: 0;
+  text-align: center;
+  transition: all .3s cubic-bezier(.05, .03, .35, 1);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: bottom;
+  width: 190px;
+}
+
+.button_69:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 1000px) {
+  .button_69 {
+    font-size: 14px;
+    height: 55px;
+    line-height: 55px;
+    width: 150px;
+  }
+}
