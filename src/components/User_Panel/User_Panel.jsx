@@ -22,29 +22,24 @@ import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 
 const User_Panel = () => {
+
+function toPersianDigits(str) {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return str.replace(/\d/g, (digit) => persianDigits[digit]);
+}
+
   const navigate = useNavigate();
   const [pages, setdisplay] = useState(1);
   const [user_info, setinfo] = useState({
     FirstName: "",
     LastName: "",
     Email: "",
-    BirthDay: "00-00-00",
+    BirthDay: null,
     Gender: "",
     PhoneNumber: "",
   });
-  var date = new DateObject(user_info.BirthDay);
+  const date = new DateObject({ calendar: "persian", date: user_info.BirthDay ? new Date(user_info.BirthDay) : new Date(), locale: "fa", format: "DD-MM-YYYY", digit: "fa" });
   date.convert(persian);
-  const eng = "0123456789";
-  const fars = "۰۱۲۳۴۵۶۷۸۹";
-  const convertPersian = (input) => {
-    let res = "";
-    const str = input.toString();
-    for (let c of str) {
-      if (eng.indexOf(c) != -1) res += fars.charAt(c);
-      else res += c;
-    }
-    return res;
-  };
   async function GetUserInfo(event) {
     event.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
@@ -52,10 +47,9 @@ const User_Panel = () => {
       withReactContent(Swal)
         .fire({
           icon: "warning",
-          html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
+          title: "!برای مشاهده اطلاعات شخصی ورود به  اکانت خود الزامی است",
           background: "#473a67",
           color: "#b4b3b3",
-          direction: "rtl",
           width: "35rem",
           backdrop: `
       rgba(84, 75, 87.0.9)
@@ -63,17 +57,14 @@ const User_Panel = () => {
       no-repeat`,
           showDenyButton: true,
           confirmButtonText: "ورود به سایت",
+          confirmButtonColor: '#55AD9B',
           denyButtonText: "صفحه اصلی",
           denyButtonColor: "#89817e",
-          confirmButtonColor: "rgb(183, 153, 255)",
           customClass: {
             actions: "my-actions",
             confirmButton: "order-2",
             denyButton: "order-3",
           },
-          // preCancel: () => {
-          //   navigate("/Signup");
-          // },
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -85,34 +76,32 @@ const User_Panel = () => {
     else {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/get_user/",
+          "http://127.0.0.1:8000/accounts/get_user/",
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${accessToken}`, // Bearer <access token >
+              Authorization: `Bearer ${accessToken}`,
               "Content-Type": "application/json",
             },
           }
         );
         if (response.status == 200) {
           const data = response.data.user;
-
           setinfo({
             FirstName: data.firstname == null ? "" : data.firstname,
             LastName: data.lastname == null ? "" : data.lastname,
             Email: data.email,
             BirthDay:
-              data.date_of_birth == null ? "00-00-0000" : data.date_of_birth,
+              data.date_of_birth == null ? "11-11-2024" : data.date_of_birth,
             Gender: data.gender == null ? "" : data.gender,
             PhoneNumber: data.phone_number == null ? "" : data.phone_number,
           });
-          console.log(convertPersian(data.date_of_birth));
         }
       } catch (error) {
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
             icon: "error",
-            html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
+            title: "!برای مشاهده اطلاعات شخصی ورود به  اکانت خود الزامی است",
             background: "#473a67",
             color: "#b4b3b3",
             width: "35rem",
@@ -121,6 +110,7 @@ const User_Panel = () => {
           left top
           no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: '#55AD9B',
             preConfirm: () => {
               navigate("/Signup");
             },
@@ -129,6 +119,7 @@ const User_Panel = () => {
       }
     }
   }
+
 
   return (
     <>
@@ -151,11 +142,9 @@ const User_Panel = () => {
                     <a href="#">
                       <img
                         src={
-                          user_info.Gender == "M"
-                            ? male_avatar
-                            : user_info.Gender == "F"
-                            ? female_avatar
-                            : nogender_avatar
+                          user_info.Gender == "M" ? male_avatar :
+                            user_info.Gender == "F" ? female_avatar :
+                              nogender_avatar
                         }
                         alt="Avatar"
                       />
@@ -180,11 +169,11 @@ const User_Panel = () => {
                         style={
                           pages == 1
                             ? {
-                                background: "#f8f7f5",
-                                borderLeft: "5px solid #2d42fb",
-                                color: " #89817f",
-                                width: "100%",
-                              }
+                              background: "#f8f7f5",
+                              borderLeft: "5px solid #55AD9B",
+                              color: " #89817f",
+                              width: "100%",
+                            }
                             : {}
                         }
                       >
@@ -193,7 +182,7 @@ const User_Panel = () => {
                           className="fa fa-user"
                           style={
                             pages == 1
-                              ? { color: "#2d42fb" }
+                              ? { color: "#55AD9B" }
                               : { color: "#89817f" }
                           }
                         />
@@ -210,11 +199,11 @@ const User_Panel = () => {
                         style={
                           pages == 2
                             ? {
-                                background: "#f8f7f5",
-                                borderLeft: "5px solid #2d42fb",
-                                color: " #89817f",
-                                width: "100%",
-                              }
+                              background: "#f8f7f5",
+                              borderLeft: "5px solid #55AD9B",
+                              color: " #89817f",
+                              width: "100%",
+                            }
                             : {}
                         }
                       >
@@ -223,7 +212,7 @@ const User_Panel = () => {
                           className="fa fa-edit"
                           style={
                             pages == 2
-                              ? { color: "#2d42fb" }
+                              ? { color: "#55AD9B" }
                               : { color: "#89817f" }
                           }
                         />{" "}
@@ -236,11 +225,11 @@ const User_Panel = () => {
                         style={
                           pages == 3
                             ? {
-                                background: "#f8f7f5",
-                                borderLeft: "5px solid #2d42fb",
-                                color: " #89817f",
-                                width: "100%",
-                              }
+                              background: "#f8f7f5",
+                              borderLeft: "5px solid #55AD9B",
+                              color: " #89817f",
+                              width: "100%",
+                            }
                             : {}
                         }
                       >
@@ -249,7 +238,7 @@ const User_Panel = () => {
                           className="fa fa-key"
                           style={
                             pages == 3
-                              ? { color: "#2d42fb" }
+                              ? { color: "#55AD9B" }
                               : { color: "#89817f" }
                           }
                         />{" "}
@@ -274,53 +263,47 @@ const User_Panel = () => {
                       <div className="bio-row">
                         <p>
                           <MdDriveFileRenameOutline
-                            style={{ color: "#ACBCFF" }}
+                            style={{ color: "#489182" }}
                           />
-                          <span style={{ width: "150px" }}>نام </span>:{" "}
-                          {user_info.FirstName}
+                          <span>نام </span>: {user_info.FirstName}
                         </p>
                       </div>
                       <div className="bio-row">
                         <p>
                           <MdDriveFileRenameOutline
-                            style={{ color: "#ACBCFF" }}
+                            style={{ color: "#489182" }}
                           />
-                          <span style={{ width: "150px" }}>نام خانوادگی </span>:{" "}
-                          {user_info.LastName}
+                          <span>نام خانوادگی </span>: {user_info.LastName}
                         </p>
                       </div>
                       <div className="bio-row">
                         <p>
-                          <TbGenderBigender style={{ color: "#ACBCFF" }} />
-                          <span style={{ width: "150px" }}>جنسیت</span>:{" "}
+                          <TbGenderBigender style={{ color: "#489182" }} />
+                          <span>جنسیت</span>:{" "}
                           {user_info.Gender === "F"
                             ? "مونث"
                             : user_info.Gender === "M"
-                            ? "مذکر"
-                            : "نامشخص"}
+                              ? "مذکر"
+                              : "نامشخص"}
                         </p>
                       </div>
                       <div className="bio-row">
                         <p>
-                          <FaRegCalendarDays style={{ color: "#ACBCFF" }} />
-                          <span style={{ width: "150px" }}>
-                            تاریخ تولد
-                          </span>: {convertPersian(date.format("YYYY/MM/DD"))}
+                          <FaRegCalendarDays style={{ color: "#489182" }} />
+                          <span>تاریخ تولد</span>:{" "}
+                          {toPersianDigits(date.format("YYYY/MM/DD"))}
                         </p>
                       </div>
                       <div className="bio-row">
                         <p>
-                          <FaPhoneFlip style={{ color: "#ACBCFF" }} />
-                          <span style={{ width: "150px" }}>
-                            شماره همراه{" "}
-                          </span>: {convertPersian(user_info.PhoneNumber)}
+                          <FaPhoneFlip style={{ color: "#489182" }} />
+                          <span>شماره همراه </span>: {toPersianDigits(user_info.PhoneNumber)}
                         </p>
                       </div>
                       <div className="bio-row">
                         <p>
-                          <MdAlternateEmail style={{ color: "#ACBCFF" }} />
-                          <span style={{ width: "150px" }}>ایمیل </span>:{" "}
-                          {user_info.Email}
+                          <MdAlternateEmail style={{ color: "#489182" }} />
+                          <span>ایمیل </span>: {user_info.Email}
                         </p>
                       </div>
                     </div>

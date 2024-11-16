@@ -4,41 +4,28 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import validator from "validator";
 import withReactContent from "sweetalert2-react-content";
-
+import { ToastContainer, toast } from "react-toastify";
 import { TbGenderBigender } from "react-icons/tb";
 import { FaRegCalendarDays, FaPhoneFlip } from "react-icons/fa6";
 import { MdDriveFileRenameOutline, MdAlternateEmail } from "react-icons/md";
 
-import { JBDateInput } from "jb-date-input-react";
-import DatePicker from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import gregorian from "react-date-object/calendars/gregorian";
-import persian_fa from "react-date-object/locales/persian_fa";
-import DateObject from "react-date-object";
+function toPersianDigits(str) {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  return str.replace(/\d/g, (digit) => persianDigits[digit]);
+}
+function toEnglishDigits(str) {
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+  return str.replace(/[۰-۹]/g, (digit) => englishDigits[persianDigits.indexOf(digit)]);
+}
 
 function ChangeInformation({ p_pages, user_info, setinfo }) {
-  const eng = "0123456789";
-  const fars = "۰۱۲۳۴۵۶۷۸۹";
-  const convertlan = (input, s, e) => {
-    let res = "";
-    const str = input.toString();
-    for (let c of str) {
-      if (s.indexOf(c) != -1) res += e[s.indexOf(c)];
-      else res += c;
-    }
-    return res;
-  };
   const [sub1, setSub1] = useState(true);
   const [sub2, setSub2] = useState(true);
   const [sub3, setSub3] = useState(true);
   const [sub4, setSub4] = useState(true);
-  const num = convertlan(user_info.PhoneNumber, eng, fars);
-  const [number, setnum] = useState(user_info.PhoneNumber.toString());
-  console.log("-" + number);
-  var date = new DateObject(user_info.BirthDay);
-  date.convert(persian);
-  const [in_Date, setDate] = useState(date.format().toString());
-
+  let p = toPersianDigits(user_info.PhoneNumber)
+  const [phone_, setValue] = useState(p);
   const GetFirstName = (event) => {
     if (
       validator.isAlpha(event.target.value.replace(" ", ""), "fa-IR") |
@@ -62,8 +49,15 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
     else setSub2(false);
   };
   const GetNumber = (event) => {
-    const num = convertlan(event.target.value, fars, eng);
-    if (validator.isNumeric(num) & (num.length == 11)) setSub3(true);
+    const persianValue = event.target.value;
+    const englishValue = toPersianDigits(persianValue);
+    setValue(englishValue); console.log(phone_);
+    const phone = toEnglishDigits(event.target.value)
+    if (
+      validator.isNumeric(phone) &
+      (phone.length == 11)
+    )
+      setSub3(true);
     else setSub3(false);
   };
 
@@ -71,48 +65,34 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
     const n_firstname = document.getElementById("user_firstname").value;
     const n_lastname = document.getElementById("user_lastname").value;
     const n_gender = document.getElementById("user_gender").value;
-    const n_birthday = in_Date?.format();
-    const n_phonenumber = convertlan(number, fars, eng);
-    console.log(n_phonenumber);
-    var d = new DateObject({
-      date: convertlan(n_birthday, fars, eng),
-      format: "YYYY-MM-DD",
-      calendar: persian,
-    });
-    d.convert(gregorian);
-    console.log("_" + d.format());
+    const n_birthday = document.querySelector("jb-date-input").value;
+    const n_phonenumber = toEnglishDigits(document.getElementById("user_phonenumber").value);
     event.preventDefault();
     if (!(sub1 & sub2 & sub3))
-      withReactContent(Swal).fire({
-        icon: "warning",
-        title: "!تغییر درست فیلد ها برای اصلاح اطلاعات الزامی است",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "35rem",
-        backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
-        confirmButtonText: "تایید",
+      toast.warn( "!تغییر درست فیلد ها الزامی است", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     else if (sub4)
-      withReactContent(Swal).fire({
-        icon: "warning",
-        title: "!تغییری برای اعمال وجود ندارد",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "35rem",
-        backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
-        confirmButtonText: "تایید",
+      toast.warn( "!تغییری برای اعمال وجود ندارد", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     else {
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/complete_info/",
+          "http://127.0.0.1:8000/accounts/complete_info/",
           {
             method: "POST",
             headers: {
@@ -122,76 +102,62 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
             data: {
               firstname: n_firstname,
               lastname: n_lastname,
-              phone_number: convertlan(n_phonenumber, fars, eng),
-              date_of_birth: d.format("YYYY-MM-DD"),
+              phone_number: n_phonenumber,
+              date_of_birth: n_birthday,
               gender: n_gender,
             },
           }
         );
         if (response.status == 200) {
           setSub4(true);
-          withReactContent(Swal).fire({
-            icon: "success",
-            title: "!اطلاعات شما با موفقیت ثبت شد",
-            background: "#473a67",
-            color: "#b4b3b3",
-            width: "35rem",
-            backdrop: `
-        rgba(84, 75, 87.0.9)
-        left top
-        no-repeat`,
-            confirmButtonText: "تایید",
-          });
-          var dd = new DateObject({
-            date: convertlan(n_birthday, fars, eng),
-            format: "YYYY-MM-DD",
-            calendar: persian,
+          toast.success( "!اطلاعات شما با موفقیت ثبت شد", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
           setinfo({
             FirstName: n_firstname,
             LastName: n_lastname,
             Email: user_info.Email,
-            BirthDay: d.format("YYYY-MM-DD"),
+            BirthDay: n_birthday,
             Gender: n_gender,
             PhoneNumber: n_phonenumber,
           });
         }
       } catch (error) {
         if (error.response.status == 500)
-          withReactContent(Swal).fire({
-            icon: "error",
-            title: "!ثبت اطلاعات موفقیت آمیز نبود",
-            background: "#473a67",
-            color: "#b4b3b3",
-            width: "35rem",
-            backdrop: `
-          rgba(84, 75, 87.0.9)
-          left top
-          no-repeat`,
-            confirmButtonText: "تایید",
+          toast.error( "!ثبت اطلاعات موفقیت آمیز نبود", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
         if (error.response.status == 400) {
           const msg = error.response.data;
-          console.log(n_phonenumber);
           if (msg.phone_number != null)
-            withReactContent(Swal).fire({
-              icon: "error",
-              title: "!شماره باید در قالب ایران باشد",
-              background: "#473a67",
-              color: "#b4b3b3",
-              width: "35rem",
-              backdrop: `
-          rgba(84, 75, 87.0.9)
-          left top
-          no-repeat`,
-              confirmButtonText: "تایید",
-            });
+          toast.error( "!شماره باید در قالب ایران باشد", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         }
       }
     }
   }
   return (
     <div className="panel" style={{ direction: "rtl" }} onLoad={SendUserInfo}>
+    <ToastContainer />
       <div
         className="panel-body bio-graph-info"
         style={p_pages == 2 ? { display: "inline-block" } : { display: "none" }}
@@ -200,10 +166,11 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
         <div className="row">
           <div className="bio-row">
             <p>
-              <MdDriveFileRenameOutline style={{ color: "#ACBCFF" }} />
+              <MdDriveFileRenameOutline style={{ color: "#489182" }} />
               <span>نام: </span>
               <br />
               <input
+              tabIndex="1"
                 type="text"
                 id="user_firstname"
                 defaultValue={user_info.FirstName}
@@ -223,10 +190,11 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
           </div>
           <div className="bio-row">
             <p>
-              <MdDriveFileRenameOutline style={{ color: "#ACBCFF" }} />
+              <MdDriveFileRenameOutline style={{ color: "#489182" }} />
               <span>نام خانوادگی :</span>
               <br />
               <input
+              tabIndex="2"
                 type="text"
                 id="user_lastname"
                 defaultValue={user_info.LastName}
@@ -246,10 +214,11 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
           </div>
           <div className="bio-row">
             <p>
-              <TbGenderBigender style={{ color: "#ACBCFF" }} />
+              <TbGenderBigender style={{ color: "#489182" }} />
               <span>جنسیت:</span>
               <br />
               <select
+              tabIndex="3"
                 id="user_gender"
                 className="profile_input_G"
                 defaultValue={user_info.Gender}
@@ -271,54 +240,38 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
           </div>
           <div className="bio-row" style={{ display: "flex" }}>
             <p>
-              <FaRegCalendarDays style={{ color: "#ACBCFF" }} />
+              <FaRegCalendarDays style={{ color: "#489182" }} />
               <span>تاریخ تولد:</span>
               <br />
-              <div
-                class="component-wrapper"
-                onClick={(e) => {
-                  setSub4(false);
-                }}
-              >
-                <DatePicker
-                  format="YYYY-MM-DD"
-                  id="user_birthday"
-                  value={in_Date}
-                  onChange={setDate}
-                  style={{
-                    width: "400px",
-                    borderRadius: "15px",
-                    paddingRight: "15px",
-                    marginLeft: "10px",
-                    height: "35px",
-                    border: "2px solid #adadad",
-                    fontSize: "17px",
-                    color: "rgb(149, 147, 147)",
-                    caretColor: "#AEE2FF",
-                    boxSizing: "border-box",
+              <div class="component-wrapper">
+                <jb-date-input
+                tabIndex="4"
+                  onClick={(e) => {
+                    setSub4(false);
                   }}
-                  fixRelativePosition={"start"}
-                  calendar={persian}
-                  locale={persian_fa}
+                  id="user_birthday"
+                  input-type="JALALI"
+                  format="YYYY-MM-DD"
+                  value={user_info.BirthDay}
                 />
               </div>
             </p>
           </div>
           <div className="bio-row">
             <p>
-              <FaPhoneFlip style={{ color: "#ACBCFF" }} />
+              <FaPhoneFlip style={{ color: "#489182" }} />
               <span>شماره همراه :</span>
               <br />
               <input
+              tabIndex="5"
                 type="text"
                 id="user_phonenumber"
-                defaultValue={convertlan(user_info.PhoneNumber, eng, fars)}
-                value={number ? convertlan(number, eng, fars) : ""}
+                defaultValue={toPersianDigits(user_info.PhoneNumber)}
+                value={phone_}
                 className="profile_input"
                 onChange={(e) => {
                   GetNumber(e);
                   setSub4(false);
-                  setnum(convertlan(e.target.value, eng, fars));
                 }}
               />
               <div
@@ -330,7 +283,7 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
             </p>
           </div>
           <button
-            className="button-86"
+            className="button-8"
             role="button"
             style={{ width: "25%", marginRight: "60%" }}
             onClick={(e) => {
