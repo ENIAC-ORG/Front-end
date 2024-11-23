@@ -23,7 +23,7 @@
 .btn {
     font-weight: 600;
     transition: .5s;
-    background-color: #ACBCFF;
+    background-color: #63ad97 !important;
     font-family: Ios15Medium;
 }
 
@@ -323,7 +323,7 @@
 /*** Services Start ***/
 
 .services .services-item {
-    box-shadow: 0 0 60px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 60px rgba(54, 56, 55, 0.2);
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -360,7 +360,7 @@
     opacity: 1;
     transition: .5s;
     text-align: center;
-    background-color: #AEE2FF;
+    background-color: #aeffef;
 }
 
 .services-item:hover .services-content-icon {
@@ -493,7 +493,7 @@
 
 .team-item {
     border-top: 30px solid var(--bs-secondary) !important;
-    background: rgba(30, 30, 174, 0.8);
+    background: rgba(30, 174, 140, 0.8);
 }
 
 .team-content::before {
@@ -680,12 +680,20 @@
 
 .TestHeader {
     text-align: center;
-    font-size: 8rem;
+    padding-bottom: 10px;
     font-family: Ios15Medium;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(67, 110, 68, 0.459);
+    color: #395350 !important;
 }
 
 .TestName {
     margin-bottom: 0.75rem;
-    font-size: 2.75rem;
+    font-size: 2.0rem;
     font-family: Ios15Medium;
+    color: #707877;
 }
+
+.bg-dark-custom {
+    background-color: #c8e1c4;
+  }

@@ -5,7 +5,8 @@ import "./Tests.css";
 
 const Tests = () => {
   return (
-    <div className="container-fluid services py-5 my-5" style={{backgroundColor: "rgba(234, 222, 249, 0.993)"}}>
+    <div className="bg-dark-custom m-5 rounded rounded-5">
+    <div className="container-fluid services py-5">
       <html>
         <head>
           <link
@@ -81,6 +82,7 @@ const Tests = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

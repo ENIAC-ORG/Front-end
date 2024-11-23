@@ -24,11 +24,11 @@ const CounterUp = ({ EndNum, label }) => {
       <div
         className="CounterUpContainer"
         onMouseEnter={(e) => {
-          e.target.style.backgroundColor = "#710bbe";
+          e.target.style.backgroundColor = "#88C273";
           e.currentTarget.style.transform = "translateY(-10px)";
         }}
         onMouseLeave={(e) => {
-          e.target.style.backgroundColor = " #8b42f7";
+          e.target.style.backgroundColor = " #49947d";
           e.currentTarget.style.transform = "translateY(0px)";
         }}
       >
@@ -36,7 +36,6 @@ const CounterUp = ({ EndNum, label }) => {
           style={{
             textAlign: "center",
             verticalAlign: "center",
-            // fontSize: "44px",
             fontWeight: "bolder",
             textShadow: "2px 2px 2px 4px rgb(0, 0, 0, 0.5)",
             transition:
@@ -45,6 +44,7 @@ const CounterUp = ({ EndNum, label }) => {
             color: "white",
             fontSize: "42px"
           }}
+
         >
           {label}
         </p>

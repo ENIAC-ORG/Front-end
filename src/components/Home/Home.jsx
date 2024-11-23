@@ -8,7 +8,7 @@ import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar.jsx";
 import AboutSection from "../Recommendation/Recommendation.jsx";
 function Home() {
   return (
-    <>
+    <div style={{backgroundColor: "#FFFFFF"}}>
       <NavBar_SideBar />
       <Slider />
       {/* <AboutSection /> */}
@@ -16,7 +16,7 @@ function Home() {
       <Doctors_Home />
       <Statistic />
       <Footer />
-    </>
+    </div>
   );
 }
 
