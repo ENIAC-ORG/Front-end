@@ -1,7 +1,7 @@
 import CountUp from "react-countup";
 import { useState } from "react";
 import ScrollTrigger from "react-scroll-trigger";
-import "./styles.css";
+import "./counter.css";
 
 function toFarsiNumber(n) {
   const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];

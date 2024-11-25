@@ -61,7 +61,7 @@ const Doctor_Home = () => {
                   alt="img2"
                 />
                 <div className="project1-content">
-                  <HashLink to="/Doctors#Baby" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" }}>
+                  <HashLink to="/Doctors#Baby" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" , color: "rgb(174, 200, 223)"}}>
                     حوزه کودک
                     <p
                       className="m-0 text-white"
