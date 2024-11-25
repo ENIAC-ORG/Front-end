@@ -50,7 +50,6 @@
 .mbti-quiz-container ul {
   margin-top: 30px;
   margin-right: -40px;
-  /* text-align: justify; */
 }
 
 .mbti-quiz-container ul li {
@@ -74,18 +73,17 @@
 }
 
 .mbti-quiz-container button {
-  background: -webkit-linear-gradient(left,#15B392, #AEE2FF);
-  border-radius: 15px; /* Adjust border radius */
-  font-size: 20px; /* Adjust font size */
+  background: -webkit-linear-gradient(left,#15B392, #7ab198, #15B392);
+  border-radius: 15px; 
+  font-size: 20px; 
   color: #ffffff;
-  padding: 15px 60px; /* Adjust padding */
+  padding: 15px 60px; 
   outline: none;
   border: none;
   cursor: pointer;
   margin-top: 50px;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  /* width: 100px; */
 }
 
 .mbti-quiz-container button:hover {
@@ -104,30 +102,30 @@
 }
 
 .mbti-result h3 {
-  font-size: 25px; /* Adjust font size */
-  letter-spacing: 2px; /* Adjust letter spacing */
+  font-size: 25px; 
+  letter-spacing: 2px;
   text-align: center;
 }
 
 .mbti-result p {
-  font-size: 20px; /* Adjust font size */
+  font-size: 20px;
   font-weight: 500;
 }
 
 .mbti-result p span {
   color: #59fac2;
-  font-size: 30px; /* Adjust font size */
+  font-size: 30px;
 }
 
 .mbti-button-group {
   display: flex;
   justify-content: space-between;
-  margin-top: 50px; /* Adjust margin */
+  margin-top: 50px;
 }
 
 .mbti-button-group button {
-  flex: 0 0 200px; /* Adjust button width */
-  margin: 0 20px; /* Adjust margin */
+  flex: 0 0 200px; 
+  margin: 0 20px; 
 }
 
 .mbti-button-group span {
@@ -142,22 +140,22 @@
 }
 
 .custom-swal-container .swal2-popup {
-  border-radius: 20px; /* Adjust border radius */
+  border-radius: 20px;
   box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
 }
 
 .custom-swal-container .swal2-title {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  font-size: 28px; /* Adjust font size */
+  font-size: 28px; 
 }
 
 .custom-swal-container .swal2-content {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-  font-size: 21px; /* Adjust font size */
+  font-size: 21px;
 }
 
 .mbti-progress-bar {
-  direction: ltr; /* Set direction to right-to-left */
+  direction: ltr; 
 }
 
 .custom-color .progress-bar {
