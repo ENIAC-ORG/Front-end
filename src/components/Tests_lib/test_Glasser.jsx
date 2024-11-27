@@ -242,7 +242,7 @@ const GlasserTest = () => {
     left top
     no-repeat`,
       customClass: {
-        container: "custom-swal-container",
+        container: "custom-swal2-container",
       },
     }).then((result) => {
       if (result.isConfirmed) {

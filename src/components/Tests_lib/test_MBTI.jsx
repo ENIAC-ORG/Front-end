@@ -349,7 +349,7 @@ const MBTITest = () => {
                     </button>
 
                     <span
-                      style={{ fontSize: "19px" }}
+                      style={{ fontSize: "19px" , fontFamily: "Ios15Medium"}}
                       onClick={showConfirmSwal}
                       className="mbti-complete-test"
                     >
@@ -366,7 +366,7 @@ const MBTITest = () => {
               </div>
             </div>
           )}
-          {showResult && ( // Conditionally render result
+          {showResult && ( 
             <div className="mbti-result">
               <h3
                 style={
