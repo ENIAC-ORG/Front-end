@@ -8,7 +8,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 }
 
 .modal {
@@ -88,7 +88,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   text-align: center;
   margin-bottom: 7%;
   margin-top: -2%;
@@ -96,7 +96,7 @@
 
 .medical-wrapper_modal .medical-title_modal {
   font-family: Ios15Medium;
-  width: 50%;
+  width: 100%;
   font-size: 22px;
   color: #767575;
   font-weight: 700;
@@ -114,14 +114,14 @@
 .medical-form_container_modal .medical-form_details_modal{
   display:flex;
   width:200%;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 .medical-form_container_modal .medical-form_details_modal form{
  margin-top: 10px;
   width:50%;
   transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -133,7 +133,7 @@
   width: 100%;
   height: 50px;
   margin-top: 20px;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   transition: border-color 0.3s ease;
   /* margin-top: 10px; */
 
@@ -151,7 +151,7 @@
   transition: border-color 0.3s ease;
   color: rgb(164, 161, 161);
   caret-color: rgb(152, 103, 175);
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   background-color: white;
 
 }
@@ -165,10 +165,10 @@
 }
 
 .medical-form_details_modal form .medical-field_modal input::placeholder {
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   color: #999;
   transition: all 0.3s ease;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   
 }
 
@@ -176,14 +176,14 @@
 
 form .medical-field_modal input:focus::placeholder{
   color:#b67bf9;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
 
 form .medical-field_modal input:hover::placeholder {
   color: #cc99ff;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -203,7 +203,7 @@ form .medical-field_modal input:hover::placeholder {
 
   color: rgb(122, 122, 122);
   caret-color: rgb(152, 103, 175);
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -223,7 +223,7 @@ form .medical-field_modal input:hover::placeholder {
   /* transition: border-color 0.3s ease; */
   color: rgb(189, 188, 188);
   caret-color: rgb(152, 103, 175);
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   background-color: white;
   border: none !important;
   border-bottom: none !important;
@@ -237,7 +237,7 @@ form .medical-field_modal input:hover::placeholder {
   width: 100%;
   height: 30px;
   margin-top: 10px;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   transition: border-color 0.3s ease;
   border-bottom: "2px solid #adadad",
 }
@@ -326,24 +326,24 @@ form .medical-field_modal input:hover::placeholder {
 }
 /* 
 .form_details_modal form .field_modal_date::placeholder {
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   color: #999;
   transition: all 0.3s ease;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   
 } */
 
 
 form .medical-field_modal_date .medical-input_date:focus::placeholder{
   color:#8e69e4;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
 
 form .medical-field_modal_date .medical-input_date:hover::placeholder {
   color: #B799FF;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 ************************** */
@@ -354,14 +354,14 @@ form .medical-field_modal_date .medical-input_date:hover::placeholder {
 
 form .medical-field_modal:focus::placeholder{
   color:#c687fd;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
 
 form .medical-field_modal:hover::placeholder {
   color: #cf99ff;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -378,7 +378,7 @@ form .medical-btn{
   border-radius: 35px;
   position:relative;
   overflow: hidden;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 
 }
@@ -390,8 +390,8 @@ form .medical-btn .medical-btn_layer{
   left:-100%;
   border-radius: 30px;
   /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd_modal4fe9); */
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF,#E6FFFD);
-  transition: all 0.3s ease
+  background: -webkit-linear-gradient(left,#2e7853 , #6eae8d,#d5e6dd);
+  transition: all 0.5s ease
 }
 form .medical-btn:hover .medical-btn_layer{
   left:0;
@@ -412,7 +412,7 @@ form .medical-btn input[type="submit"]{
   cursor:pointer;
   background: none;
   text-shadow: rgb(214, 215, 218) 0px 0px 3px;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -443,7 +443,7 @@ form .medical-btn input[type="submit"]{
   -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
 
 }
 
@@ -572,7 +572,7 @@ form .medical-btn input[type="submit"]{
     width: 100%;
     height: 50px;
     margin-top: 20px;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     transition: border-color 0.3s ease;
     /* margin-top: 10px; */
   
@@ -590,7 +590,7 @@ form .medical-btn input[type="submit"]{
     transition: border-color 0.3s ease;
     color: rgb(164, 161, 161);
     caret-color: #54bafd;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     background-color: white;
   
   }
@@ -606,10 +606,10 @@ form .medical-btn input[type="submit"]{
   }
   
   .medical-form_details_modal form .medical-field_modal2::placeholder {
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     color: #999;
     transition: all 0.3s ease;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     
   }
   
@@ -623,10 +623,10 @@ form .medical-btn input[type="submit"]{
   }
   
   .medical-form_details_modal form .medical-field_modal2 input::placeholder {
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     color: #999;
     transition: all 0.3s ease;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
     
   }
   
@@ -634,28 +634,28 @@ form .medical-btn input[type="submit"]{
   
   form .medical-field_modal2 input:focus::placeholder{
     color:#4bb6fd;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
   
   }
   
   
   form .medical-field_modal2 input:hover::placeholder {
     color:#54bafd;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
   
   }
   
   
   form .medical-field_modal2:focus::placeholder{
     color:#54bafd;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
   
   }
   
   
   form .medical-field_modal2:hover::placeholder {
     color: #54bafd;
-    font-family: Vazir, Arial, sans-serif;
+    font-family: Ios15Medium;
   
   }
   
