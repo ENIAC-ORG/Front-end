@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Swal from "sweetalert2";
 import axios from "axios";
+import Swal from "sweetalert2";
+import moment from "moment";
 import DatePicker from "react-multi-date-picker";
 import persian from "react-date-object/calendars/persian";
 import persian_fa from "react-date-object/locales/persian_fa";
+import gregorian from "react-date-object/calendars/gregorian";
+import DateObject from "react-date-object";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import {
@@ -19,238 +22,366 @@ import phone_icon from "../../assets/phone.png";
 import person_icon from "../../assets/person.png";
 import "./styles.css";
 
-
-
-const CompleteInfo = ({ doctorId }) => {
+const CompleteInfo = (doctorId) => {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
-    phonenumber: "",
-    dateOfBirth: "",
-    gender: "",
-  });
-  const [genderOption, setGenderOption] = useState("gender");
-  const [showModal, setShowModal] = useState(false);
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [phonenumber, setPhonenumber] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [gender, setGender] = useState("");
+  const [genderOption, setGenderOption] = useState("");
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    getUserInfo();
+    fetchUserInfo();
   }, []);
 
-  const getUserInfo = async () => {
+  const fetchUserInfo = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://127.0.0.1:8000//accounts/get_user/", {
-        headers: { Authorization: `Bearer ${token}` },
+      const response = await axios.get("http://127.0.0.1:8000/accounts/get_user/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       });
-
+    
       if (response.status === 200) {
-        const { firstname, lastname, phone_number, date_of_birth, gender } = response.data.user;
-        setFormData({
-          firstname: firstname || "",
-          lastname: lastname || "",
-          phonenumber: phone_number || "",
-          dateOfBirth: date_of_birth || "",
-          gender: gender || "",
-        });
-        setGenderOption(
-          gender === "M" ? "male" : gender === "F" ? "female" : gender === "B" ? "other" : "gender"
+        const { firstname, lastname, phone_number, gender, date_of_birth } =
+          response.data.user;
+    
+        setFirstname(firstname || "");
+        setLastname(lastname || "");
+        setPhonenumber(phone_number || "");
+        setDateOfBirth(
+          date_of_birth
+            ? new DateObject({
+                date: date_of_birth,
+                format: "YYYY-MM-DD",
+                calendar: persian,
+              })
+            : ""
         );
+  
+    
+        const genderMapping = {
+          M: { gender: "M", option: "male" },
+          F: { gender: "F", option: "female" },
+          B: { gender: "B", option: "other" },
+        };
+    
+        if (gender && genderMapping[gender]) {
+          setGender(genderMapping[gender].gender);
+          setGenderOption(genderMapping[gender].option);
+        } else {
+          setGender("");
+          setGenderOption("gender");
+        }
       }
     } catch (error) {
       console.error("Error fetching user info:", error);
     }
   };
 
-  const handleInputChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+  const handleClose = (event) => {
+    event.preventDefault();
+    setShow(false);
   };
 
-  const validateForm = () => {
-    const errors = [];
-    const { firstname, lastname, phonenumber, dateOfBirth, gender } = formData;
-
-    if (!firstname) errors.push("!وارد کردن نام الزامی است");
-    else if (!isPersianString(firstname)) errors.push("!نام باید فقط شامل حروف فارسی باشد");
-    else if (firstname.length > 20) errors.push("!نام طولانی است");
-
-    if (!lastname) errors.push("!وارد کردن نام خانوادگی الزامی است");
-    else if (!isPersianString(lastname)) errors.push("!نام خانوادگی باید فقط شامل حروف فارسی باشد");
-    else if (lastname.length > 30) errors.push("!نام خانوادگی طولانی است");
-
-    const phoneRegex = /^(?:\+98|0)(?:\s?)9[0-9]{9}/;
-    if (!phonenumber.trim()) errors.push("!وارد کردن شماره تماس الزامی است");
-    else if (!phoneRegex.test(phonenumber)) errors.push("!قالب شماره درست نیست");
-
-    if (!gender) errors.push("!انتخاب جنسیت الزامی است");
-
-    if (!dateOfBirth) errors.push("!وارد کردن تاریخ تولد الزامی است");
-
-    return errors;
+  const handleGenderChange = (selectedValue) => {
+    const genderMapping = { male: "M", female: "F", other: "B" };
+    setGenderOption(selectedValue); 
+    setGender(genderMapping[selectedValue] || ""); 
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const errors = validateForm();
-
-    if (errors.length) {
-      Swal.fire({
-        icon: "error",
-        title: "!خطا",
-        html: errors.join("<br>"),
-        confirmButtonText: "تایید",
-      });
-      return;
-    }
-
-    try {
-      const token = localStorage.getItem("accessToken");
-      const dateObj = new Date(formData.dateOfBirth);
-      const payload = {
-        ...formData,
-        date_of_birth: dateObj.toISOString().split("T")[0], // Convert to YYYY-MM-DD
-      };
-
-      const response = await axios.post("http://127.0.0.1:8000//accounts/complete_info/", payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      if (response.status === 200) {
-        toast.success("!اطلاعات شما با موفقیت ثبت شد");
-        setShowModal(false);
-      }
-    } catch (error) {
-      Swal.fire({ icon: "error", title: "!خطا در ارسال درخواست" });
-    }
-  };
-
-  const handleGenderChange = (value) => {
-    setGenderOption(value);
-    setFormData((prev) => ({
-      ...prev,
-      gender: value === "male" ? "M" : value === "female" ? "F" : value === "other" ? "B" : "",
-    }));
-  };
-
-  const checkAndProceed = () => {
+  const validateInfo = () => {
     if (
-      !formData.firstname ||
-      !formData.lastname ||
-      !formData.phonenumber ||
-      !formData.gender ||
-      !formData.dateOfBirth
+      !firstname ||
+      !lastname ||
+      !phonenumber ||
+      genderOption === "gender" ||
+      !dateOfBirth
     ) {
-      setShowModal(true);
+      setShow(true);
     } else {
-      toast.warn("!شما قبلا اطلاعات خود را ثبت کرده اید");
+      toast.warn("!شما قبلا اطلاعات خود را ثبت کرده اید", {
+        position: "bottom-left",
+        autoClose: 3000,
+      });
+      setShow(false);
       navigate("/Reserve", { state: doctorId });
     }
   };
 
+  const sendUserInfo = async (event) => {
+    event.preventDefault();
+    const errorMessages = [];
+    const errors = {
+      firstname: validatePersianString(firstname, "نام", 20),
+      lastname: validatePersianString(lastname, "نام خانوادگی", 30),
+      phonenumber:
+        !phonenumber ? "!وارد کردن شماره تلفن الزامی است" :
+        phonenumber && !/^(?:\+98|0)(?:\s?)9[0-9]{9}/.test(phonenumber) ||
+        phonenumber.length > 15
+          ? "!قالب شماره درست نیست"
+          : null,
+      gender: !gender ? "!انتخاب جنسیت الزامی است" : null,
+      dateOfBirth: validateDateOfBirth(dateOfBirth),
+    };
+
+    Object.values(errors).forEach((err) => {
+      if (err) errorMessages.push(err);
+    });
+
+    const gregorianDate = new DateObject(dateOfBirth).convert(gregorian);
+    if (errorMessages.length > 0) {
+      showAlert("!خطا", errorMessages.join("<br>"));
+    } else {
+      try {
+        const token = localStorage.getItem("accessToken");
+        const response = await axios.post(
+          "http://127.0.0.1:8000/accounts/complete_info/",
+          {
+            firstname,
+            lastname,
+            phone_number: phonenumber,
+            date_of_birth:  gregorianDate.format("YYYY-MM-DD"),
+            gender,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          toast.success("!اطلاعات شما با موفقیت ثبت شد", {
+            position: "bottom-left",
+            autoClose: 3000,
+          });
+          setShow(false);
+        } else {
+          showAlert("!خطا در ثبت اطلاعات");
+        }
+      } catch (error) {
+        console.error("Error saving user info:", error);
+        showAlert("!خطا در ارسال درخواست");
+      }
+    }
+  };
+
+  const validatePersianString = (value, field, maxLength) => {
+    if (!value) return `!وارد کردن ${field} الزامی است`;
+    if (!isPersianString(value)) return `!${field} باید فقط شامل حروف فارسی باشد`;
+    if (value.length > maxLength) return `!${field} طولانی است`;
+    return null;
+  };
+
+  const validateDateOfBirth = (dob) => {
+    if (!dob) return "!وارد کردن تاریخ تولد الزامی است";
+
+    const engDate = convertToEnglishNumbers(dob.format());
+    const gregorianDate = new DateObject({
+      date: engDate,
+      format: "YYYY-MM-DD",
+      calendar: persian,
+    }).convert(gregorian);
+
+    const dobDate = new Date(gregorianDate.format());
+    const today = new Date();
+
+    if (isNaN(dobDate.getTime()) || dobDate > today) return "!تاریخ تولد اشتباه است";
+    const minDateOfBirth = new Date();
+    minDateOfBirth.setFullYear(today.getFullYear() - 18);
+    if ( dobDate > minDateOfBirth) return "!شما باید حداقل ۱۸ سال داشته باشید";
+  }
+
+  const showAlert = (title, html = null) => {
+    Swal.fire({
+      icon: "error",
+      title,
+      html,
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
+      confirmButtonText: "تایید",
+      confirmButtonColor: '#0a8ca0',
+      showConfirmButton: true,
+    });
+  };
+  
+
   return (
     <>
-      <Button variant="primary" onClick={checkAndProceed}>
+      <Button variant="primary" onClick={validateInfo} className="button-20">
         رزرو نوبت
       </Button>
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header>
-          <Modal.Title>تکمیل اطلاعات</Modal.Title>
+      <Modal
+        backdrop="static"
+        show={show}
+        onHide={handleClose}
+        className="bd_modal modal wrapper_modal"
+        centered
+      >
+        <Modal.Header className="header_modal">
+          <Modal.Title className="title_modal">تکمیل اطلاعات</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <form onSubmit={handleSubmit}>
-            <div className="field_modal">
-              <input
-                type="text"
+
+        <div className="form_container_modal">
+          <div className="form_details_modal">
+            <form className="form login">
+              <InputField
+                value={firstname}
+                onChange={setFirstname}
                 placeholder="نام"
-                style={{
-                  backgroundImage: `url(${person_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                }}
-                value={formData.firstname}
-                onChange={(e) => handleInputChange("firstname", e.target.value)}
+                icon={person_icon}
               />
-            </div>
-            <div className="field_modal">
-              <input
-                type="text"
+              <InputField
+                value={lastname}
+                onChange={setLastname}
                 placeholder="نام خانوادگی"
-                style={{
-                  backgroundImage: `url(${person_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                }}
-                value={formData.lastname}
-                onChange={(e) => handleInputChange("lastname", e.target.value)}
+                icon={person_icon}
               />
-            </div>
-            <div className="field_modal">
-              <input
-                type="text"
+              <PhoneNumberField
+                value={phonenumber ? convertToPersianNumbers(phonenumber) : ""}
+                onChange={(newValue) => setPhonenumber(convertToEnglishNumbers(newValue))}
                 placeholder="شماره تماس"
-                style={{
-                  backgroundImage: `url(${phone_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                }}
-                value={convertToPersianNumbers(formData.phonenumber)}
-                onChange={(e) =>
-                  handleInputChange("phonenumber", convertToEnglishNumbers(e.target.value))
-                }
+                icon={phone_icon}
               />
-            </div>
-            <div className="field_modal">
-              <select
-                style={{
-                  backgroundImage: `url(${gender_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                }}
+              <GenderSelector
                 value={genderOption}
-                onChange={(e) => handleGenderChange(e.target.value)}
-              >
-                <option value="gender" disabled>
-                  جنسیت
-                </option>
-                <option value="male">مرد</option>
-                <option value="female">زن</option>
-                <option value="other">سایر</option>
-              </select>
-            </div>
-            <div className="field_modal">
-              <DatePicker
-                placeholder="تاریخ تولد"
-                style={{
-                  backgroundImage: `url(${date_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                }}
-                value={formData.dateOfBirth}
-                onChange={(date) => handleInputChange("dateOfBirth", date)}
-                calendar={persian}
-                locale={persian_fa}
+                onChange={(selectedValue) => handleGenderChange(selectedValue)}
               />
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <Button variant="secondary" onClick={() => setShowModal(false)}>
-                بستن
-              </Button>
-              <Button type="submit" variant="primary">
-                ارسال
-              </Button>
-            </div>
-          </form>
-        </Modal.Body>
+              <DatePickerField value={dateOfBirth ? new DateObject({ date: dateOfBirth, calendar: persian }) : ""} onChange={(date) => setDateOfBirth(date)} />
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div className="field_modal btn-modal" style={{ marginRight: "10px" }}>
+                  <div className="btn_layer_modal"></div>
+                  <input
+                    type="submit"
+                    value="بستن"
+                    onClick={handleClose}
+                  />
+                </div>
+                <div className="field_modal btn-modal" style={{ marginLeft: "10px" }}>
+                  <div className="btn_layer_modal"></div>
+                  <input
+                    type="submit"
+                    value="ارسال"
+                    onClick={sendUserInfo}
+                  />
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
       </Modal>
-      <ToastContainer />
     </>
   );
 };
+
+const InputField = ({ value, onChange, placeholder, icon }) => (
+  <div className="field_modal">
+    <input
+      className="input"
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{
+        backgroundImage: `url(${icon})`,
+        backgroundRepeat: "no-repeat",
+        paddingRight: "40px",
+        backgroundPosition: "right",
+      }}
+    />
+  </div>
+);
+
+const PhoneNumberField = ({ value, onChange, placeholder, icon }) => (
+  <div className="field_modal">
+    <input
+      className="input"
+      type="text"
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
+      placeholder={placeholder}
+      style={{
+        backgroundImage: `url(${icon})`,
+        backgroundRepeat: "no-repeat",
+        paddingRight: "40px",
+        backgroundPosition: "right",
+      }}
+    />
+  </div>
+);
+
+const GenderSelector = ({ value, onChange }) => (
+<div className="field_modal">
+  <select
+    className="input"
+    value={value}
+    onChange={(e) => {
+      const selectedValue = e.target.value;
+      onChange(selectedValue);
+    }}
+    style={{
+      backgroundImage: `url(${gender_icon})`,
+      backgroundRepeat: "no-repeat",
+      paddingRight: "40px",
+      backgroundPosition: "right",
+      backgroundColor: "white",
+      fontSize: "15px",
+      textShadow: "rgb(156, 154, 154) 1px 2px 3px",
+      color: value === "gender" ? "rgb(188, 186, 186)" : "#555", 
+    }}
+  >
+    <option value="gender" disabled hidden>
+      جنسیت
+    </option>
+    <option value="male">مرد</option>
+    <option value="female">زن</option>
+    <option value="other">سایر</option>
+  </select>
+</div>
+
+);
+
+const DatePickerField = ({ value, onChange }) => (
+  <div
+    className="field_modal"
+    style={{
+      backgroundImage: `url(${date_icon})`,
+      backgroundRepeat: "no-repeat",
+      backgroundPosition: "right",
+      borderBottom: "2px solid #adadad",
+      color: "gray"
+    }}
+  >
+    <DatePicker
+      placeholder="تاریخ تولد"
+      value={value}
+      format="YYYY-MM-DD"
+      onChange={onChange}
+      style={{
+        border: "0px",
+        width: "350px",
+        backgroundColor: "white",
+        direction: "rtl",
+      }}
+      calendar={persian}
+      locale={persian_fa}
+    />
+  </div>
+);
+
+
 
 export default CompleteInfo;
