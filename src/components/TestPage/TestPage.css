@@ -162,19 +162,19 @@ VERSION:	Versoin Number
 }
 
 .btn-primary {
-  background: #B799FF;
+  background: #79b4a1;
   color: #fff;
 }
 
 .btn-primary:hover {
   background: #e6e6e6;
-  color:#B799FF ;
+  color:#5db196 ;
   border-radius: 10px;
 }
 
 .btn-primary:active {
   background-color: #e3e3e3;
-  color: #B799FF; 
+  color: #5db196; 
 }
 
 .btn-primary:active::before {
@@ -187,22 +187,22 @@ VERSION:	Versoin Number
 .btn-primary:not(:disabled):not(.disabled):active,
 .show > .btn-primary.dropdown-toggle {
   color: #fff;
-  background-color: #B799FF;
-  border-color: #B799FF;
+  background-color: #7abf96;
+  border-color: #66a98d;
 }
 
 .Test_btn-secondary {
   background: #fff;
-  color: #B799FF;
+  color: #67ac90;
   border: 1px solid #fff;
 }
 
 .Test_btn-secondary::before {
-  background: #B799FF;
+  background: #64a48e;
 }
 
 .Test_btn-secondary:active {
-  background: #B799FF;
+  background: #629877;
   color: #fff;
   border: 1px solid #fff;
 }
@@ -214,7 +214,7 @@ VERSION:	Versoin Number
 }
 
 .btn-primary-outline {
-  border: 1px solid #B799FF;
+  border: 1px solid #4b7a6a;
 
   background: transparent;
 }
@@ -224,12 +224,12 @@ VERSION:	Versoin Number
 }
 
 .btn-primary-outline:hover {
-  background: #B799FF;
-  color: #B799FF;
+  background: #56967d;
+  color: #457a64;
 }
 
 .btn-primary-outline:active {
-  background: #B799FF;
+  background: #50846c;
   color: #fff;
 }
 
@@ -239,12 +239,12 @@ VERSION:	Versoin Number
 } */
  
 ::-moz-selection {
-  background: #B799FF;
+  background: #50836c;
   color: #fff;
 }
 
  ::selection {
-  background: #B799FF;
+  background: #579276;
   color: #fff;
 }
 
@@ -315,7 +315,7 @@ select:focus {
 }
 
 .Test_section {
-  background-color: #B799FF;
+  background-color: #69a68e;
   padding-top: 90px;
   padding-bottom: 90px;
 }
@@ -365,7 +365,7 @@ select:focus {
 }
 
 .Test_bg-primary {
-  background: #B799FF ;
+  background: #67a187 ;
 }
 
 .bg-secondary {
@@ -380,7 +380,7 @@ select:focus {
   font-family: Ios15Medium;
 }
 .text-primary {
-  color: #B799FF !important;
+  color: #78b79c !important;
 }
 
 .Test_text-color {
@@ -499,7 +499,7 @@ select:focus {
   height: 10px;
   width: 10px;
   border-radius: 50%;
-  background: #B799FF;
+  background: #82c8a8;
   left: -25px;
   top: 5px;
 }
@@ -538,19 +538,19 @@ select:focus {
 }
 
 .navigation {
-  background-image: linear-gradient(to right, transparent 50%, #B799FF 50%);
+  background-image: linear-gradient(to right, transparent 50%, #99ffc2 50%);
   transition: .2s ease;
 }
 
 @media (max-width: 575px) {
   .navigation {
-    background-image: linear-gradient(to right, transparent 70%, #B799FF 30%);
+    background-image: linear-gradient(to right, transparent 70%, #99ffc2 30%);
   }
 }
 
 .navbar-nav {
   padding-left: 50px;
-  background: #B799FF;
+  background: #75b69c;
 }
 
 @media (max-width: 991px) {
@@ -642,7 +642,7 @@ link:focus,
 
 .navbar .dropdown-menu {
   box-shadow: 0px 3px 9px 0px rgba(0, 0, 0, 0.12);
-  border-bottom: 5px solid #B799FF;
+  border-bottom: 5px solid #82ceac;
   padding: 15px;
   top: 96px;
   border-radius: 0;
@@ -737,7 +737,7 @@ link:focus,
 
 .hero-slider .prevArrow:hover,
 .hero-slider .nextArrow:hover {
-  color: #B799FF;
+  color: #6eb399;
 }
 
 .hero-slider .prevArrow {
@@ -761,7 +761,7 @@ link:focus,
 }
 
 .hero-slider .slick-dots li.slick-active button {
-  background: #B799FF;
+  background: #6eba94;
 }
 
 .hero-slider .slick-dots li button {
@@ -778,7 +778,7 @@ link:focus,
 /* banner feature */
 .feature-icon {
   font-size: 50px;
-  color: #B799FF;
+  color: #73bc99;
   display: inline-block;
 }
 
@@ -862,7 +862,7 @@ link:focus,
   height: 80px;
   width: 80px;
   border-radius: 50%;
-  background: #B799FF;
+  background: #67af97;
   color: #fff;
   font-size: 20px;
   text-align: center;
@@ -895,7 +895,7 @@ link:focus,
   width: 80%;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
-  background: #B799FF;
+  background: #639e79;
   border-radius: 50%;
   top: 50%;
   left: 50%;
@@ -919,7 +919,7 @@ link:focus,
 /* events */
 .card-date {
   position: absolute;
-  background: #B799FF;
+  background: #6da98a;
   font-family: "futura-bold";
   text-align: center;
   padding: 10px;
@@ -944,7 +944,7 @@ link:focus,
 /* /teacher */
 /* footer */
 .newsletter {
-  background-image: linear-gradient(to right, transparent 50%, #B799FF 50%);
+  background-image: linear-gradient(to right, transparent 50%, #62b095 50%);
   margin-bottom: -100px;
   position: relative;
   z-index: 1;

@@ -56,10 +56,10 @@ const CourseList = () => {
           <div className="container">
             <div className="row">
               <div className="col-12 text-center">
-                <h2 className="Test_section-title text-white htitles h2">با تست روانشناسی و شخصیت شناسی توانایی‌هایتان را بشناسید
+                <h2 className="Test_section-title text-white htitles h2">با تست روانشناسی و شخصیت شناسی توانایی‌هایتان را بشناسید.
                 </h2>
                 <h6 className="text-white Test_font-secondary Test_mb-50 htitles h6" style={{fontSize: "22px"}}>
-                  برای شرکت در تست‌ها در اینیاک ثبت نام کنید
+                  برای شرکت در تست‌ها در اینیاک ثبت نام کنید.
                 </h6>
                 <a href="/Signup" className="Test_btn Test_btn-secondary Ta" style={{fontSize: "18px"}}>
                   ثبت نام
@@ -68,7 +68,7 @@ const CourseList = () => {
             </div>
           </div>
         </section>
-        <section className="Test_section-sm" style={{backgroundColor: "#e1f5fe"}}>
+        <section className="Test_section-sm" style={{backgroundColor: "rgb(220, 251, 236)"}}>
           <div className="container">
             <div className="row">
               <div className="col-12">
@@ -103,7 +103,7 @@ const CourseList = () => {
                       <li className="list-inline-item"></li>
                     </ul>
                     <a href="course-single.html" className="test_title Ta text-center">
-                      <h4 className="card-title htitles h4" style={{fontSize: "30px", color: "#B799FF"}}>MBTI</h4>
+                      <h4 className="card-title htitles h4" style={{fontSize: "30px", color: "#568e75"}}>MBTI</h4>
                     </a>
                     <p className="card-text mb-4 paragraph" style={{fontSize: "20px"}}>
                       {" "}
@@ -169,12 +169,12 @@ const CourseList = () => {
                       <li className="list-inline-item"></li>
                     </ul>
                     <a href="course-single.html" className="test_title Ta text-center">
-                      <h4 className="card-title Test_Card_title htitles h4" style={{fontSize: "30px", color: "#B799FF"}}>Glasser</h4>
+                      <h4 className="card-title Test_Card_title htitles h4" style={{fontSize: "30px", color: "#568e75"}}>Glasser</h4>
                     </a>
                     <p className="card-text mb-4 paragraph" style={{fontSize: "20px"}}>
                       {" "}
-                      تست شخصیت شناسی گلاسر 5 نیاز اساسی شما را بررسی کرده و در
-                      فرآیند شناخت پیش از ازدواج کمک می‌کند
+                      تست شخصیت شناسی گلاسر ۵ نیاز اساسی شما را بررسی کرده و در
+                      فرآیند شناخت پیش از ازدواج کمک می‌کند.
                     </p>
                     <div className="mt-auto text-center" style={{marginBottom: "4%"}}> {/* Center align the button */}
                       <a
@@ -217,7 +217,7 @@ const CourseList = () => {
                 >
                   <li className="question-item">
                     <div
-                    style= {{backgroundColor: "#e1f5fe"}}
+                    style= {{backgroundColor: "rgb(220, 251, 236)"}}
                       className={`title-row accordion-toggle ${
                         isExpandedone ? "" : "collapsed"
                       }`}
@@ -259,7 +259,7 @@ const CourseList = () => {
 
                   <li className="question-item">
                     <div
-                    style= {{backgroundColor: "#e1f5fe"}}
+                    style= {{backgroundColor: "rgb(220, 251, 236)"}}
                       className={`title-row accordion-toggle ${
                         isExpandedtwo ? "" : "collapsed"
                       }`}
@@ -297,7 +297,7 @@ const CourseList = () => {
                   </li>
                   <li className="question-item">
                     <div
-                    style= {{backgroundColor: "#e1f5fe"}}
+                    style= {{backgroundColor: "rgb(220, 251, 236)"}}
                       className={`title-row accordion-toggle ${
                         isExpandedthree ? "" : "collapsed"
                       }`}
@@ -333,7 +333,7 @@ const CourseList = () => {
                   </li>
                   <li className="question-item">
                     <div
-                    style= {{backgroundColor: "#e1f5fe"}}
+                    style= {{backgroundColor: "rgb(220, 251, 236)"}}
                       className={`title-row accordion-toggle ${
                         isExpandedfour ? "" : "collapsed"
                       }`}
