@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
 .glasser-body {
   direction: rtl;
-  background: -webkit-linear-gradient(left,#15B392, #C9E9D2);
+  background: -webkit-linear-gradient(left,#32b889d2, #a0dcdc);
   color: #413f45;
   display: flex;
   justify-content: center;
@@ -86,7 +86,8 @@
 }
 
 .glasser-quiz-container button {
-  background: -webkit-linear-gradient(left,#15B392, #7ab198, #15B392);
+  background: -webkit-linear-gradient(left,#5fb1a0, #8ec0a9, #5fb1a0);
+
   border-radius: 12px;
   font-size: 18px;
   color: #ffffff;
@@ -101,7 +102,8 @@
 }
 
 .glasser-quiz-container button:hover {
-  background: -webkit-linear-gradient(left, #1f8770, #1f8770, #1f8770);
+  background: -webkit-linear-gradient(left, #368776, #4db39d, #368776);
+
 }
 
 .glasser-quiz-container button:disabled {
