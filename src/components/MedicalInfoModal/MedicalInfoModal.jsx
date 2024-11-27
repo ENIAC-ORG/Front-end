@@ -130,8 +130,6 @@ function MedicalInfoModal({
     // Create the payload for the API
     const payload = {
       child_num: parseInt(childrenNum),
-      name: "zahra alizadeh", // Replace with a name field from your state if available
-      age: age, // Replace with an age field from your state if available
       family_history: medicalHistory,
       nationalID: ssid,
       treatment_histories: medicalRecords.map((record) => ({
@@ -144,6 +142,7 @@ function MedicalInfoModal({
       })),
     };
 
+    console.log(payload);
     try {
       const token = localStorage.getItem("accessToken");
 
@@ -164,7 +163,13 @@ function MedicalInfoModal({
           title: "موفقیت",
           text: "اطلاعات پزشکی شما با موفقیت ثبت شد.",
           confirmButtonText: "باشه",
-        });
+        }).then((response) => {
+          if (response.isConfirmed) {
+            CreateReservation(event);
+          } else {
+            CreateReservation(event);
+          }
+        });;
 
         // Clear fields after successful submission
         setAge(null);
@@ -239,37 +244,6 @@ function MedicalInfoModal({
     event.preventDefault(); // Prevent form submission
     toggleModal();
   };
-
-
-  // useEffect(() => {
-  //   console.log("changed");
-  //   updateHistoryStates();
-  // }, [
-  //   endDate1,
-  //   length1,
-  //   isFinished1,
-  //   reason2leave1,
-  //   method1,
-  //   drugs1,
-  //   endDate2,
-  //   length2,
-  //   isFinished2,
-  //   reason2leave2,
-  //   method2,
-  //   drugs2,
-  //   endDate3,
-  //   length3,
-  //   isFinished3,
-  //   reason2leave3,
-  //   method3,
-  //   drugs3,
-  //   medicalHistory,
-  //   ssid,
-  //   childrenNum,
-  //   isFinished1str,
-  //   isFinished2str,
-  //   isFinished3str,
-  // ]);
 
 
 
@@ -487,7 +461,7 @@ function MedicalInfoModal({
                   <input
                     type="submit"
                     value="ثبت"
-                    onClick={(e) => handleClose(e)}
+                    onClick={(e) => handleSendMedicalInfo(e)}
                   />
                 </div>
               </div>
