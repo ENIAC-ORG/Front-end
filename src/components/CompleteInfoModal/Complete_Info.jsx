@@ -163,11 +163,17 @@ const CompleteInfo = (doctorId) => {
           });
           setShow(false);
         } else {
-          showAlert("!خطا در ثبت اطلاعات");
+          toast.error("!خطایی رخ داد", {
+            position: "bottom-left",
+            autoClose: 3000,
+          });
         }
       } catch (error) {
         console.error("Error saving user info:", error);
-        showAlert("!خطا در ارسال درخواست");
+        toast.error("!خطا هنگام ارسال درخواست", {
+          position: "bottom-left",
+          autoClose: 3000,
+        });
       }
     }
   };
