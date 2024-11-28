@@ -4,10 +4,7 @@ import { JBDateInput } from "jb-date-input-react";
 import "./medical-info-modal-styles.css";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
-import DateObject from "react-date-object";
 import * as shamsi from "shamsi-date-converter";
-import { Calendar, utils } from "react-modern-calendar-datepicker";
-import Swal from "sweetalert2";
 
 import kid_icon from "../../assets/kid.png";
 import ssid_icon from "../../assets/id.png";
@@ -15,8 +12,10 @@ import one_icon from "../../assets/one.png";
 import two_icon from "../../assets/two.png";
 import three_icon from "../../assets/three.png";
 import four_icon from "../../assets/four.png";
-import doc_icon from "../../assets/doc.png";
+import five_icon from "../../assets/five.png";
 import circle_icon from "../../assets/circle.png";
+import age_icon from "../../assets/age.png";
+
 
 function MedicalInfoModal({
   showModal,
@@ -43,9 +42,10 @@ function MedicalInfoModal({
     drugs: "",
   });
 
-  // Functions to manage secondary modal
   const openRecordModal = () => setShowRecordModal(true);
-  const closeRecordModal = () => {
+  const closeRecordModal = () => setShowRecordModal(false);
+
+  const resetCurrentRecord = () =>
     setCurrentRecord({
       endDate: "",
       length: "",
@@ -54,81 +54,130 @@ function MedicalInfoModal({
       method: "",
       drugs: "",
     });
-    setShowRecordModal(false);
-  };
+
+  
+  const handleClose = (event) => {
+      event.preventDefault(); 
+      toggleModal();
+    };
 
   useEffect(() => {
     console.log("Current record updated:", currentRecord);
   }, [currentRecord]);
+
   useEffect(() => {
     console.log("Updated medical records:", medicalRecords);
   }, [medicalRecords]);
 
+  const convertToPersianNumbers = (value) =>
+    value.replace(/[0-9]/g, (char) =>
+      ({ 0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹" }[char] || char)
+    );
+
+  const convertToEnglishNumbers = (value) =>
+    value.replace(/[۰-۹]/g, (char) =>
+      ({ "۰": "0", "۱": "1", "۲": "2", "۳": "3", "۴": "4", "۵": "5", "۶": "6", "۷": "7", "۸": "8", "۹": "9" }[char] || char)
+    );
+
   function DateString(input) {
-    var changed = shamsi.jalaliToGregorian(input.year, input.month, input.day);
-    var y = `${changed[0]}`;
-    var m = changed[1] < 10 ? `0${changed[1]}` : `${changed[1]}`;
-    var d = changed[2] < 10 ? `0${changed[2]}` : `${changed[2]}`;
-    return [y, m, d].join("-");
-  }
+      var changed = shamsi.jalaliToGregorian(input.year, input.month, input.day);
+      var y = `${changed[0]}`;
+      var m = changed[1] < 10 ? `0${changed[1]}` : `${changed[1]}`;
+      var d = changed[2] < 10 ? `0${changed[2]}` : `${changed[2]}`;
+      return [y, m, d].join("-");
+    }
+    const handleAddRecord = (event) => {
+      event.preventDefault();
+    
+      const errors = [];
+    
+      if (!currentRecord.endDate.trim()) {
+        errors.push("لطفاً تاریخ پایان را وارد کنید.");
+      } else {
+        const endDateFormat = new Date(currentRecord.endDate);
+        const today = new Date();
+        if (isNaN(endDateFormat.getTime())) {
+          errors.push("تاریخ پایان معتبر نیست");
+        } else if (endDateFormat > today) {
+          errors.push("تاریخ پایان نمی‌تواند در آینده باشد");
+        }
+      }
 
-  const getReserved = async (event) => {
-    event.preventDefault();
-    getReserve();
+      if (!currentRecord.length.trim()) {
+        errors.push("لطفاً طول درمان را وارد کنید");
+      }
+
+      if (isNaN(currentRecord.length)) {
+        errors.push("طول درمان را به عدد وارد کنید");
+      }
+
+      if (currentRecord.isFinished === null) {
+        errors.push("اتمام یا عدم اتمام درمان را مشخص کنید");
+      }
+
+      if (currentRecord.isFinished === false && !currentRecord.reasonToLeave.trim()) {
+        errors.push("برای سوابق درمانی ناتمام، دلیل ترک درمان باید پر شود");
+      }
+      if (errors.length > 0) {
+        errors.forEach((error) =>
+          toast.error(error, {
+            position: "bottom-left",
+            autoClose: 3000,
+          })
+        );
+        return;
+      }
+    
+      setMedicalRecords([...medicalRecords, currentRecord]);
+      resetCurrentRecord();
+      closeRecordModal();
+      toast.success("!سابقۀ پزشکی شما با موفقیت ثبت شد", {
+        position: "bottom-left",
+        autoClose: 3000,
+      });
+    };
+    
+  const validateFields = () => {
+    const errorMessages = [];
+  
+    if (!age || !childrenNum || !ssid || medicalHistory === null) {
+      errorMessages.push("لطفاً تمام فیلدهای ضروری را پر کنید");
+    }
+    if (parseInt(age, 10) < 18) {
+      errorMessages.push("سن باید بیشتر از ۱۸ سال باشد");
+    }
+    if (ssid.length !== 10) {
+      errorMessages.push("قالب کد ملّی درست نیست");
+    }
+    for (let record of medicalRecords) {
+      if (!record.endDate || !record.length) {
+        errorMessages.push("تمام سوابق پزشکی باید تاریخ پایان و طول درمان داشته باشند");
+      }
+
+      if (record.isFinished === false && !record.reasonToLeave.trim()) {
+        errorMessages.push("برای سوابق درمانی ناتمام، دلیل ترک درمان باید پر شود");
+      }
+    }
+
+    if (errorMessages.length > 0) {
+      errorMessages.forEach((message) =>
+        toast.error(message, {
+          position: "bottom-left",
+          autoClose: 3000,
+        })
+      );
+      return false;
+    }
+    return true;
   };
-
-  const handleAddRecord = (event) => {
-    event.preventDefault();
-    setMedicalRecords([...medicalRecords, currentRecord]);
-    setCurrentRecord({
-      endDate: "",
-      length: "",
-      isFinished: null,
-      reasonToLeave: "",
-      method: "",
-      drugs: "",
-    });
-
-    closeRecordModal();
-    toast.success("!اطلاعات شما با موفقیت ثبت شد", {
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
-
-  };
+    
 
   const handleSendMedicalInfo = async (event) => {
-    event.preventDefault(); // Prevent page reload
+    event.preventDefault();
+    if (!validateFields()) return;
 
-    // Validate main fields
-    if (!childrenNum || !ssid || medicalHistory === null) {
-      Swal.fire({
-        icon: "error",
-        title: "خطا",
-        text: "لطفاً تمام فیلدهای ضروری را پر کنید.",
-        confirmButtonText: "باشه",
-      });
-      return;
-    }
-
-    // Validate medical records
-    if (medicalRecords.some((record) => !record.endDate || !record.length)) {
-      Swal.fire({
-        icon: "error",
-        title: "خطا",
-        text: "تمام سوابق پزشکی باید تاریخ پایان و طول درمان داشته باشند.",
-        confirmButtonText: "باشه",
-      });
-      return;
-    }
-
-    // Create the payload for the API
     const payload = {
+      age: parseInt(age),
       child_num: parseInt(childrenNum),
       family_history: medicalHistory,
       nationalID: ssid,
@@ -137,65 +186,58 @@ function MedicalInfoModal({
         length: parseInt(record.length),
         is_finished: record.isFinished,
         reason_to_leave: record.reasonToLeave || "Completed treatment",
-        approach: record.method || null,
-        special_drugs: record.drugs || null,
+        approach: record.method || "",
+        special_drugs: record.drugs || "",
       })),
     };
 
-    console.log(payload);
     try {
       const token = localStorage.getItem("accessToken");
-
-      const response = await axios.post(
-        "http://127.0.0.1:8000/TherapyTests/record/",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      const response = await axios.post("http://127.0.0.1:8000/TherapyTests/record/", payload, {
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+      });
 
       if (response.status === 200 || response.status === 201) {
-        Swal.fire({
-          icon: "success",
-          title: "موفقیت",
-          text: "اطلاعات پزشکی شما با موفقیت ثبت شد.",
-          confirmButtonText: "باشه",
-        }).then((response) => {
-          if (response.isConfirmed) {
-            CreateReservation(event);
-          } else {
-            CreateReservation(event);
-          }
-        });;
-
-        // Clear fields after successful submission
+        toast.success("اطلاعات پزشکی شما با موفقیت ثبت شد", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        handleClose(event)
+        CreateReservation(event);
         setAge(null);
         setChildrenNum(null);
         setMedicalHistory(null);
         setSsid("");
         setMedicalRecords([]);
-        closeRecordModal();
-        toggleModal(); // Close the modal
+        toggleModal();
       }
     } catch (error) {
-      console.error(error);
-      Swal.fire({
-        icon: "error",
-        title: "خطا",
-        text: "خطا در ثبت اطلاعات پزشکی. لطفاً دوباره تلاش کنید.",
-        confirmButtonText: "باشه",
+      toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید.", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
   };
 
+  const getReserved = async (event) => {
+    event.preventDefault();
+    getReserve();
+  };
 
   async function CreateReservation(event) {
     try {
       event.preventDefault();
-      const ReservationDate = DateString(daySelected); // Format today's date as "yyyy-mm-dd" string
+      const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
       const response = await axios("http://127.0.0.1:8000//reserve/create/", {
@@ -240,46 +282,6 @@ function MedicalInfoModal({
     }
   }
 
-  const handleClose = (event) => {
-    event.preventDefault(); // Prevent form submission
-    toggleModal();
-  };
-
-
-
-  const convertToPersianNumbers = (value) => {
-    const persianNumbersMap = {
-      0: "۰",
-      1: "۱",
-      2: "۲",
-      3: "۳",
-      4: "۴",
-      5: "۵",
-      6: "۶",
-      7: "۷",
-      8: "۸",
-      9: "۹",
-    };
-
-    return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
-  };
-
-  const convertToEnglishNumbers = (value) => {
-    const englishNumbersMap = {
-      "۰": "0",
-      "۱": "1",
-      "۲": "2",
-      "۳": "3",
-      "۴": "4",
-      "۵": "5",
-      "۶": "6",
-      "۷": "7",
-      "۸": "8",
-      "۹": "9",
-    };
-
-    return value.replace(/[۰-۹]/g, (char) => englishNumbersMap[char] || char);
-  };
 
   return (
     <>
@@ -306,6 +308,41 @@ function MedicalInfoModal({
                     fontSize: "20px",
                     direction: "rtl",
                     backgroundImage: `url(${one_icon})`,
+                    backgroundRepeat: "no-repeat",
+                    paddingRight: "40px",
+                    backgroundPosition: "right",
+                    textShadow: "0px 0px 6px rgba(0, 0, 0, 0.2)",
+                  }}
+                >
+                  سن خود را وارد کنید:
+                </h4>
+              </div>
+              <div className="medical-field_modal">
+              <input
+                  className="input"
+                  type="text"
+                  placeholder="سن"
+                  value={age ? convertToPersianNumbers(age) : ""}
+                  onChange={(event) => {
+                    setAge(convertToEnglishNumbers(event.target.value));
+                    console.log("age: ", age)
+
+                  }}
+                  style={{
+                    backgroundImage: `url(${age_icon})`,
+                    backgroundRepeat: "no-repeat",
+                    paddingRight: "40px",
+                    backgroundPosition: "right",
+                  }}
+                />
+              </div>
+              <div style={{ marginTop: "10%" }}>
+                <h4
+                  style={{
+                    color: "rgb(119, 120, 121)",
+                    fontSize: "20px",
+                    direction: "rtl",
+                    backgroundImage: `url(${two_icon})`,
                     backgroundRepeat: "no-repeat",
                     paddingRight: "40px",
                     backgroundPosition: "right",
@@ -341,7 +378,7 @@ function MedicalInfoModal({
                     color: "rgb(119, 120, 121)",
                     fontSize: "20px",
                     direction: "rtl",
-                    backgroundImage: `url(${two_icon})`,
+                    backgroundImage: `url(${three_icon})`,
                     backgroundRepeat: "no-repeat",
                     paddingRight: "40px",
                     backgroundPosition: "right",
@@ -396,7 +433,7 @@ function MedicalInfoModal({
                     color: "rgb(119, 120, 121)",
                     fontSize: "20px",
                     direction: "rtl",
-                    backgroundImage: `url(${three_icon})`,
+                    backgroundImage: `url(${four_icon})`,
                     backgroundRepeat: "no-repeat",
                     paddingRight: "40px",
                     backgroundPosition: "right",
@@ -432,14 +469,14 @@ function MedicalInfoModal({
                   color: "rgb(119, 120, 121)",
                   fontSize: "20px",
                   direction: "rtl",
-                  backgroundImage: `url(${three_icon})`,
+                  backgroundImage: `url(${five_icon})`,
                   backgroundRepeat: "no-repeat",
                   paddingRight: "40px",
                   backgroundPosition: "right",
                   textShadow: "0px 0px 6px rgba(0, 0, 0, 0.2)",
                 }}
               >
-                سوابق پزشکی
+                سوابق پزشکی: با استفاده از دکمۀ زیر سوابق پزشکی خود را ثبت نمایید.
               </h4>
               <div
                 className="medical-field_modal medical-btn"
@@ -460,7 +497,7 @@ function MedicalInfoModal({
                 <div className="medical-btn_layer">
                   <input
                     type="submit"
-                    value="ثبت"
+                    value="ارسال اطلاعات"
                     onClick={(e) => handleSendMedicalInfo(e)}
                   />
                 </div>
@@ -544,7 +581,6 @@ function MedicalInfoModal({
                           border: "none !important",
                           backgroundColor: "white",
                         }}
-                        // value={endDate1}
                         className="jb-date-input-web-component .medical-calendar-container"
                         calendarClassName="medical-custom-calendar"
                       ></JBDateInput>
@@ -571,7 +607,7 @@ function MedicalInfoModal({
                   <div className="medical-field_modal2">
                     <input
                       className="input"
-                      type="text" // Change input type to number
+                      type="text"
                       id="length"
                       placeholder="تعداد ماه‌ها"
                       value={currentRecord.length ? convertToPersianNumbers(currentRecord.length) : ""}
@@ -584,7 +620,6 @@ function MedicalInfoModal({
 
                       }}
                       style={{
-                        // backgroundImage: `url(${time_icon})`,
                         backgroundRepeat: "no-repeat",
                         paddingRight: "20px",
                         backgroundPosition: "right",
@@ -688,7 +723,6 @@ function MedicalInfoModal({
 
                           }}
                           style={{
-                            // backgroundImage: `url(${reason_icon})`,
                             backgroundRepeat: "no-repeat",
                             paddingRight: "20px",
                             backgroundPosition: "right",
@@ -732,7 +766,6 @@ function MedicalInfoModal({
 
                       }}
                       style={{
-                        // backgroundImage: `url(${reason_icon})`,
                         backgroundRepeat: "no-repeat",
                         paddingRight: "20px",
                         backgroundPosition: "right",
@@ -774,7 +807,6 @@ function MedicalInfoModal({
 
                       }}
                       style={{
-                        // backgroundImage: `url(${reason_icon})`,
                         backgroundRepeat: "no-repeat",
                         paddingRight: "20px",
                         backgroundPosition: "right",

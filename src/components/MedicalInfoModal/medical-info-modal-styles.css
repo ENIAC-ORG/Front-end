@@ -415,6 +415,26 @@ form .medical-btn input[type="submit"]{
 
 }
 
+form .medical-btn input[type="button"]{
+  display:inline;
+  font-family: Ios15Medium;
+  height:100%;
+  width:100%;
+  position:relative;
+  color:#fff;
+  z-index: 1;
+  border:none;
+  padding-left: 0;
+  border-radius: 15px;
+  font-size: 20px;
+  font-weight:500;
+  cursor:pointer;
+  background: none;
+  text-shadow: rgb(214, 215, 218) 0px 0px 3px;
+  font-family: Ios15Medium;
+
+}
+
 /* CSS */
  .medical-button-20 {
   appearance: button;
