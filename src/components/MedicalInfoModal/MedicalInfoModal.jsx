@@ -92,7 +92,7 @@ function MedicalInfoModal({
       const errors = [];
     
       if (!currentRecord.endDate.trim()) {
-        errors.push("لطفاً تاریخ پایان را وارد کنید.");
+        errors.push("لطفاً تاریخ پایان را وارد کنید");
       } else {
         const endDateFormat = new Date(currentRecord.endDate);
         const today = new Date();
@@ -217,7 +217,7 @@ function MedicalInfoModal({
         toggleModal();
       }
     } catch (error) {
-      toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید.", {
+      toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
