@@ -82,18 +82,31 @@ const UserManagement = () => {
           },
         }
       );
-      console.log("User accepted successfully:", response.data);
-      toast.success("کاربر با موفقیت تایید شد", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      if (response.status == 200) {
+        console.log("User accepted successfully:", response.data);
+        toast.success("کاربر با موفقیت تایید شد", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.error("Error: ", error);
+        toast.error("خطا در تایید کاربر", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
-      console.error("Error in handleAcceptUser:", error);
+      console.error("Error in handleAcceptUser catch:", error);
       toast.error("مشکلی در تایید کاربر وجود دارد", {
         position: "bottom-left",
         autoClose: 5000,
@@ -118,19 +131,31 @@ const UserManagement = () => {
           },
         }
       );
-      console.log("User denied successfully:", response.data);
-      toast.success("کاربر با موفقیت رد شد", {
-        position: "bottom-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-
+      if (response.status == 200) {
+        console.log("User denied successfully:", response.data);
+        toast.success("کاربر با موفقیت رد شد", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.log("Error: ", response);
+        toast.error("خطا در رد کاربر", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
     } catch (error) {
-      console.error("Error in handleAcceptUser:", error);
+      console.error("Error in handleAcceptUser Catch:", error);
       toast.error("مشکلی در رد کاربر وجود دارد", {
         position: "bottom-left",
         autoClose: 5000,
