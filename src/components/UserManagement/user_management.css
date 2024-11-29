@@ -1,21 +1,94 @@
 .custom-swal-container .swal2-popup {
-    border-radius: 20px; /* Adjust border radius */
+    border-radius: 20px;
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
   }
   
   .custom-swal-container .swal2-title {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    font-size: 28px; /* Adjust font size */
+    font-size: 28px; 
   }
   
   .custom-swal-container .swal2-content {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    font-size: 21px; /* Adjust font size */
+    font-size: 21px; 
   }
 
 
   input::placeholder {
     color: rgb(75, 74, 74);
-    opacity: 1; /* Ensure the placeholder color is solid */
+    opacity: 1; 
+  }
+
+  textarea::placeholder {
+    color: gray;
+    text-shadow: none;
+  }
+
+  textarea:focus {
+    outline: none; 
+    border-color: black; 
+    color:rgb(75, 74, 74)
+  }
+  
+  .modal-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 9px;
+  }
+  
+  .modal-button.confirm {
+    background-color: rgb(64, 123, 79);
+    color: #fff;
+  }
+  
+  .modal-button.confirm:hover {
+    background-color: rgb(34, 84, 49);
+  }
+  
+  .modal-button.cancel {
+    background-color: #ccc;
+    color: #000;
+  }
+  
+  .modal-button.cancel:hover {
+    background-color: #999;
+    color: #fff;
+  }
+  
+  .table-button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .table-button.approve {
+    background-color: #f8f9fa;
+    color: #000;
+    border: 1px solid #28a745;
+  }
+  
+  .table-button.approve.active {
+    background-color: #28a745;
+    color: #fff;
+  }
+  
+  .table-button.deny {
+    background-color: #f8f9fa;
+    color: #000;
+    border: 1px solid #dc3545;
+  }
+  
+  .table-button.deny.active {
+    background-color: #dc3545;
+    color: #fff;
+  }
+  
+  .table-button:hover {
+    filter: brightness(90%);
   }
   

@@ -1,60 +1,176 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
 import "./user_management.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 
-
-
 const UserManagement = () => {
-  const [search, setSearch] = useState('');
-  const [users, setUsers] = useState([
-    { firstname: 'زهرا', lastname: 'عباسیان', code: '665', approved: false, denied: false, denialReason: '' },
-    { firstname: 'علی', lastname: 'رضایی', code: '123', approved: false, denied: false, denialReason: '' },
-    { firstname: 'هلیا', lastname: 'شمس زاده', code: '999', approved: false, denied: false, denialReason: '' }
-  ]);
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [currentDenyIndex, setCurrentDenyIndex] = useState(null);
-  const [denialReason, setDenialReason] = useState('');
+  const [denialReason, setDenialReason] = useState("");
+  const intervalRef = useRef(null);
+  const [adminAccessToken, setAdminAccessToken] = useState("");
+
+  const convertToPersianNumbers = (value) => {
+    const persianNumbersMap = {
+      0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹",
+    };
+
+    // Ensure value is a string before applying replace
+    return String(value).replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+  };
+
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleToggleAction = (index, action) => {
-    if (action === 'approve') {
-      setUsers((prevUsers) =>
-        prevUsers.map((user, i) => {
-          if (i === index) {
-            return { ...user, approved: !user.approved, denied: false, denialReason: '' };
-          }
-          return user;
-        })
-      );
-    } else {
-      const user = users[index];
-      if (!user.denied) {
-        // Only open modal when the button is transitioning to "Denied"
-        setCurrentDenyIndex(index);
-        setDenialReason('');
-        setModalOpen(true);
-      } else {
-        // Undo deny action
-        setUsers((prevUsers) =>
-          prevUsers.map((user, i) => {
-            if (i === index) {
-              return { ...user, denied: false, denialReason: '' };
-            }
-            return user;
-          })
-        );
+  useEffect(() => {
+    getAdminAccessToken();
+    console.log("token: ", adminAccessToken);
+  }, []);
+
+  useEffect(() => {
+    fetchDoctors();
+    intervalRef.current = setInterval(fetchDoctors, 7000); 
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
+    };
+  }, []);
+
+  const getAdminAccessToken = async () => {
+    try {
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+      axios.defaults.xsrfCookieName = "csrftoken";
+      const response = await axios("http://127.0.0.1:8000//accounts/Login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: {
+          email: "eniakgroupiust@gmail.com",
+          password: "eniac@1403",
+        },
+      });
+      setAdminAccessToken(response.data.access);
+    } catch (error) {
+      toast.error("خطا", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
+  const handleAcceptUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/accept/${userId}/`, 
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${adminAccessToken}`,
+          },
+        }
+      );
+      console.log("User accepted successfully:", response.data);
+      toast.success("کاربر با موفقیت تایید شد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } catch (error) {
+      console.error("Error in handleAcceptUser:", error);
+      toast.error("مشکلی در تایید کاربر وجود دارد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  const handleDenyUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/deny/${userId}/`, 
+        { message: denialReason },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${adminAccessToken}`,
+          },
+        }
+      );
+      console.log("User denied successfully:", response.data);
+      toast.success("کاربر با موفقیت رد شد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+    } catch (error) {
+      console.error("Error in handleAcceptUser:", error);
+      toast.error("مشکلی در رد کاربر وجود دارد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+
+
+  const handleToggleAction = (e, index, action) => {
+    e.stopPropagation();
+    e.preventDefault();  
+
+    if (action === "approve") {
+      const user = users[index];
+
+      if (!user.isApproved) {
+        handleAcceptUser(user.id);  
+        setUsers((prevUsers) =>
+          prevUsers.map((user, i) =>
+            i === index ? { ...user, isApproved: true, isDenied: false, condition: "-" } : user
+          )
+        );
+      }
+    } else if (action === "deny") {
+      setCurrentDenyIndex(index);
+      setDenialReason("");
+      setModalOpen(true);
+    }
+  };
+
+
   const handleDenySubmit = () => {
     if (!denialReason.trim()) {
-      toast.error(  "دلیل عدم تایید را وارد کنید", {
+      toast.error("دلیل عدم تایید را وارد کنید", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -66,221 +182,270 @@ const UserManagement = () => {
       return;
     }
 
+    const userId = users[currentDenyIndex]?.id;
+    if (userId) {
+      handleDenyUser(userId);
+    }
+
     setUsers((prevUsers) =>
       prevUsers.map((user, i) => {
         if (i === currentDenyIndex) {
-          return { ...user, approved: false, denied: true, denialReason };
+          return {
+            ...user,
+            isApproved: false,
+            isDenied: true,
+            DenialReason: denialReason,
+            condition: `رد شده (${convertToPersianNumbers(user.applicationNum + 1)})`,
+            applicationNum: user.applicationNum + 1
+          };
         }
         return user;
       })
     );
 
     setModalOpen(false);
-    toast.success(  "کاربر با موفقیت رد شد", {
-      position: "bottom-left",
-      autoClose: 3000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-    });
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.firstname.toLowerCase().includes(search.toLowerCase()) ||
-    user.lastname.toLowerCase().includes(search.toLowerCase()) ||
-    user.code.includes(search)
-  );
 
-  async function GetAllDoctors(event) {
+  const fetchDoctors = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get(
-        "http://127.0.0.1:8000//DoctorPanel/pending_doctor",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      console.log(response.status);
-
-      if (response.status === 200 || response.status == 204) {
-        console.log(response.data);
-      }
-    } catch (error) {
-      console.log("something went wrong: ", error);
-      Swal.fire({
-        icon: "error",
-        title: "!خطا ",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "26rem",
-        height: "18rem",
-        confirmButtonText: "تایید",
-        customClass: {
-          container: "custom-swal-container",
+      const response = await axios.get("http://127.0.0.1:8000/DoctorPanel/pending_doctor", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
       });
+      const doctorsArray = response.data?.data || [];
+
+      if (Array.isArray(doctorsArray) && doctorsArray.length > 0) {
+        setUsers((prevUsers) => {
+          const updatedUsers = doctorsArray.map((doctor) => {
+            const existingUser = prevUsers.find((user) => user.id === doctor.id);
+
+            return {
+              id: doctor.id,
+              firstname: doctor.firstname,
+              lastname: doctor.lastname,
+              code: doctor.doctorate_code,
+              isApproved: existingUser ? existingUser.isApproved : false,
+              isDenied: existingUser ? existingUser.isDenied : false,
+              DenialReason: existingUser ? existingUser.DenialReason : "",
+              condition: existingUser ? existingUser.condition : "-",
+              applicationNum: existingUser ? existingUser.applicationNum : 0
+            };
+          });
+
+          return updatedUsers;
+        });
+      } else {
+        // If no data or empty array, ensure users state is cleared
+        setUsers([]);
+      }
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      toast.error("مشکلی در دریافت داده‌های پزشکان وجود دارد", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      // Set users to an empty array in case of error
+      setUsers([]);
     }
   };
 
+  const filteredUsers = users.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(search.toLowerCase()) ||
+      user.lastname.toLowerCase().includes(search.toLowerCase()) ||
+      user.code.includes(search)
+  );
 
   return (
     <>
-    <ToastContainer />
-    <div style={{ fontFamily: 'Ios15Medium', width: '100vw', height: '100vh', padding: '20px', backgroundColor: '#D0E8C5', direction: 'rtl', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2 style={{ textAlign: 'center', fontFamily: 'Ios15Medium' }}>مدیریت کاربران</h2>
+      <ToastContainer />
+      <div
+        style={{
+          fontFamily: "Ios15Medium",
+          width: "100vw",
+          height: "100vh",
+          padding: "20px",
+          backgroundColor: "#D0E8C5",
+          direction: "rtl",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
+        <h2 style={{ textAlign: "center", fontFamily: "Ios15Medium" }}>مدیریت کاربران</h2>
 
-      <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxWidth: '800px', fontFamily: 'Ios15Medium' }}>
-        <input
-          type="text"
-          value={search}
-          onChange={handleSearch}
-          placeholder="جستجو"
+        <div
           style={{
-            padding: '8px 12px',
-            borderRadius: '8px',
-            border: '1px solid #ccc',
-            width: '200px',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            outline: 'none',
-            fontSize: '16px',
-            fontFamily: 'Ios15Medium'
+            display: "flex",
+            gap: "10px",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+            width: "100%",
+            maxWidth: "800px",
+            fontFamily: "Ios15Medium",
           }}
-        />
-      </div>
+        >
+          <input
+            type="text"
+            value={search}
+            onChange={handleSearch}
+            placeholder="جستجو"
+            style={{
+              padding: "8px 12px",
+              borderRadius: "8px",
+              border: "1px solid #ccc",
+              width: "200px",
+              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
+              outline: "none",
+              fontSize: "16px",
+              fontFamily: "Ios15Medium",
+            }}
+          />
+        </div>
 
-      <table style={{
-        width: '90%',
-        maxWidth: '800px',
-        borderCollapse: 'collapse',
-        textAlign: 'center',
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)',
-        borderRadius: '8px',
-        overflow: 'hidden',
-        fontFamily: 'Ios15Medium'
-      }}>
-        <thead>
-          <tr style={{ backgroundColor: '#9EDF9C', fontFamily: 'Ios15Medium' }}>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>نام</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>نام خانوادگی</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>شمارۀ نظام پزشکی/روانشناسی</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.map((user, index) => (
-            <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#f9f9f9', fontFamily: 'Ios15Medium' }}>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>{user.firstname}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>{user.lastname}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd', fontFamily: 'Ios15Medium' }}>{user.code}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'center', gap: '10px', fontFamily: 'Ios15Medium' }}>
-                <button
-                  onClick={() => handleToggleAction(index, 'approve')}
-                  style={{
-                    backgroundColor: user.approved ? '#28a745' : '#f8f9fa',
-                    color: user.approved ? '#fff' : '#000',
-                    border: '1px solid #28a745',
-                    borderRadius: '5px',
-                    padding: '5px 10px',
-                    cursor: 'pointer',
-                    fontFamily: 'Ios15Medium'
-                  }}
-                >
-                  {user.approved ? 'تایید شده' : 'تایید کردن'}
-                </button>
-                <button
-                  onClick={() => handleToggleAction(index, 'deny')}
-                  style={{
-                    backgroundColor: user.denied ? '#dc3545' : '#f8f9fa',
-                    color: user.denied ? '#fff' : '#000',
-                    border: '1px solid #dc3545',
-                    borderRadius: '5px',
-                    padding: '5px 10px',
-                    cursor: 'pointer',
-                    fontFamily: 'Ios15Medium'
-                  }}
-                >
-                  {user.denied ? 'رد شده' : 'رد کردن'}
-                </button>
-              </td>
+        <table
+          style={{
+            width: "90%",
+            maxWidth: "800px",
+            borderCollapse: "collapse",
+            textAlign: "center",
+            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
+            borderRadius: "8px",
+            overflow: "hidden",
+            fontFamily: "Ios15Medium",
+          }}
+        >
+          <thead>
+            <tr style={{ backgroundColor: "#9EDF9C", fontFamily: "Ios15Medium" }}>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>نام</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>نام خانوادگی</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                شمارۀ نظام پزشکی/روانشناسی
+              </th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>عملیات</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>وضعیت</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <button onClick={(e) => GetAllDoctors(e)}>داده</button>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user, index) => (
+              <tr
+                key={index}
+                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", fontFamily: "Ios15Medium" }}
+              >
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.firstname}
+                </td>
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.lastname}
+                </td>
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.code}
+                </td>
+                <td
+                  style={{
+                    padding: "10px",
+                    borderBottom: "1px solid #ddd",
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "10px",
+                    fontFamily: "Ios15Medium",
+                  }}
+                >
+                  <button
+                    onClick={(e) => handleToggleAction(e, index, "approve")}
+                    className={`table-button approve ${user.isApproved ? "active" : ""}`}
+                  >
+                    {user.isApproved ? "تایید شده" : "تایید کردن"}
+                  </button>
 
-      {modalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100vh',
-          backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}>
-          <div style={{
-            width: '400px',
-            backgroundColor: '#fff',
-            padding: '20px',
-            borderRadius: '8px',
-            boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-            textAlign: 'center',
-            direction: 'rtl',
-          }}>
-            <h3>رد کردن کاربر</h3>
-            <textarea
-              value={denialReason}
-              onChange={(e) => setDenialReason(e.target.value)}
-              placeholder="دلیل رد کردن را وارد کنید"
+                  <button
+                    onClick={(e) => handleToggleAction(e, index, "deny")}
+                    className="table-button deny"
+                  >
+                    رد کردن
+                  </button>
+                </td>
+                <td
+                  style={{
+                    padding: "10px",
+                    borderBottom: "1px solid #ddd",
+                    fontFamily: "Ios15Medium",
+                  }}
+                >
+                  {user.condition}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {modalOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
               style={{
-                width: '90%',
-                height: '100px',
-                padding: '8px',
-                margin: '10px 0',
-                borderRadius: '5px',
-                border: '1px solid #ccc',
+                width: "400px",
+                backgroundColor: "rgb(230, 242, 231)",
+                padding: "20px",
+                borderRadius: "8px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+                textAlign: "center",
+                direction: "rtl",
               }}
-            />
-            <div style={{ marginTop: '20px' }}>
-              <button
-                onClick={handleDenySubmit}
+            >
+              <h3 style={{ fontFamily: "Ios15Medium", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>رد کردن کاربر</h3>
+              <textarea
+                value={denialReason}
+                onChange={(e) => setDenialReason(e.target.value)}
+                placeholder="دلیل رد کردن را وارد کنید."
                 style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  backgroundColor: '#dc3545',
-                  color: '#fff',
-                  border: 'none',
-                  cursor: 'pointer',
-                  marginRight: '5px',
+                  width: "90%",
+                  height: "100px",
+                  padding: "8px",
+                  margin: "10px 0",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
                 }}
-              >
-                ثبت
-              </button>
-              <button
-                onClick={() => setModalOpen(false)}
-                style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  backgroundColor: '#ccc',
-                  color: '#000',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-              >
-                انصراف
-              </button>
+              />
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  onClick={handleDenySubmit}
+                  className="modal-button confirm"
+                >
+                  ثبت
+                </button>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="modal-button cancel"
+                >
+                  انصراف
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
     </>
   );
 };
