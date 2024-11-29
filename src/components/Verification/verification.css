@@ -96,7 +96,7 @@ input[type="radio"]{
   left:0;
   z-index: 0;
   /*background: -webkit-linear-gradient(left,#5a0066 , #5c0080 , #9500b3,#8a00e6);*/
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd);
   position: absolute;
   border-radius: 35px;
   transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
