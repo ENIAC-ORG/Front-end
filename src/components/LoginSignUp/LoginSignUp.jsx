@@ -13,7 +13,7 @@ import lock_icon from "../../assets/password.png";
 import email_icon from "../../assets/email.png";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-
+import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 const LoginContainer = () => {
   const navigate = useNavigate();
 
@@ -22,6 +22,13 @@ const LoginContainer = () => {
   const [repeatPasswordType, setRepeatPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(eyeOff);
   const [repeatPasswordIcon, setRepeatPasswordIcon] = useState(eyeOff);
+  const [showModal, setShowModal] = useState(false);
+  const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
+
+  // Function to toggle the modal state
+  const toggleModal = () => {
+    setShowModal(!showModal);
+  };
 
   const handlePasswordToggle = () => {
     setPasswordType(passwordType === "password" ? "text" : "password");
@@ -631,11 +638,18 @@ const LoginContainer = () => {
                     </a>
                   </div>
                 </form>
+                
               </div>
             </div>
           </div>
         </div>
       </body>
+      <button onClick={toggleModal}>test</button>
+                <DoctorInfoModal
+                 
+                  showModal={showModal}
+                  toggleModal={toggleModal}
+                />
     </>
   );
 };
