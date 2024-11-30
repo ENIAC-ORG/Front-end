@@ -14,119 +14,152 @@
   align-items: center;
 }
 
-  
-  .custom-swal-container .swal2-popup {
-    border-radius: 20px;
-    box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
+.page-container .page-container-table {
+  overflow: scroll;
+  max-width: 100%;
+  width: 54%;
+  justify-content: center;
+}
+
+@media (max-width: 920px) {
+  .page-container .page-container-table {
+    overflow: scroll;
+  max-width: 90%;
+  width: 90%;
+  justify-content: center;
   }
-  
-  .custom-swal-container .swal2-title {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    font-size: 28px; 
+}
+
+@media (min-width: 921px) and (max-width: 1400px){
+  .page-container .page-container-table {
+    overflow: scroll;
+  max-width: 90%;
+  width: 60%;
+  justify-content: center;
   }
-  
-  .custom-swal-container .swal2-content {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-    font-size: 21px; 
+}
+
+@media (min-width: 1401px) and (max-width: 1700px){
+  .page-container .page-container-table {
+    overflow: scroll;
+  max-width: 90%;
+  width: 54%;
+  justify-content: center;
   }
+}
+.custom-swal-container .swal2-popup {
+  border-radius: 20px;
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5); 
+}
+
+.custom-swal-container .swal2-title {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-size: 28px; 
+}
+
+.custom-swal-container .swal2-content {
+  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+  font-size: 21px; 
+}
 
 
-  input::placeholder {
-    color: rgb(75, 74, 74);
-    opacity: 1; 
-  }
+input::placeholder {
+  color: rgb(75, 74, 74);
+  opacity: 1; 
+}
 
-  textarea::placeholder {
-    color: gray;
-    text-shadow: none;
-  }
+textarea::placeholder {
+  color: gray;
+  text-shadow: none;
+}
 
-  textarea:focus {
-    outline: none; 
-    border-color: black; 
-    color:rgb(75, 74, 74)
-  }
-  
-  .modal-button {
-    padding: 10px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    margin-left: 9px;
-  }
-  
-  .modal-button.confirm {
-    background-color: rgb(64, 123, 79);
-    color: #fff;
-  }
-  
-  .modal-button.confirm:hover {
-    background-color: rgb(34, 84, 49);
-  }
-  
-  .modal-button.cancel {
-    background-color: #ccc;
-    color: #000;
-  }
-  
-  .modal-button.cancel:hover {
-    background-color: #999;
-    color: #fff;
-  }
-  
-  .table-button {
-    padding: 5px 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: 1px solid transparent;
-    transition: all 0.3s ease;
-  }
-  
-  .table-button.approve {
-    background-color: #f8f9fa;
-    color: #000;
-    border: 1px solid #6ab37b;
-  }
-  
-  .table-button.approve.active {
-    background-color: #6ab37b;
-    color: #fff;
-  }
-  
-  .table-button.deny {
-    background-color: #f8f9fa;
-    color: #000;
-    border: 1px solid #d35e6a;
-  }
-  
-  .table-button.deny.active {
-    background-color: #d35e6a;
-    color: #fff;
-  }
-  
-  .table-button:hover {
-    filter: brightness(90%);
-  }
-  
-  /* Update the table header to have the background color #D3F1DF */
-table th {
-  background-color: #7cb293;  /* Change the background color */
+textarea:focus {
+  outline: none; 
+  border-color: black; 
+  color:rgb(75, 74, 74)
+}
+
+.modal-button {
   padding: 10px;
-  border-bottom: 1px solid #ddd;
-  font-family: "Ios15Medium";
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 9px;
+}
+
+.modal-button.confirm {
+  border-color: #faeae8;
+  background-color: #982a1c;
+  color: #fff;
+}
+
+.modal-button.confirm:hover {
+  background-color: rgb(100, 37, 32);
+}
+
+.modal-button.cancel {
+  background-color: #949494;
+  color: #000;
+}
+
+.modal-button.cancel:hover {
+  background-color: #605f5f;
+  color: #fff;
+}
+
+.table-button {
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.table-button.approve {
+  background-color: #f8f9fa;
+  color: #000;
+  border: 1px solid #6ab37b;
+}
+
+.table-button.approve.active {
+  background-color: #6ab37b;
+  color: #fff;
+}
+
+.table-button.deny {
+  background-color: #f8f9fa;
+  color: #000;
+  border: 1px solid #d35e6a;
+}
+
+.table-button.deny.active {
+  background-color: #d35e6a;
+  color: #fff;
+}
+
+.table-button:hover {
+  filter: brightness(90%);
+}
+
+/* Update the table header to have the background color #D3F1DF */
+table th {
+background-color: #7cb293;  /* Change the background color */
+padding: 10px;
+border-bottom: 1px solid #ddd;
+font-family: "Ios15Medium";
 }
 
 /* Optional: Update text color or other styling if needed */
 table th {
-  color: #333; /* You can change this to any text color that works well with the background */
+color: #333; /* You can change this to any text color that works well with the background */
 }
 
 /* Other existing styles */
 table tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+background-color: #f9f9f9;
 }
 
 table tbody tr:nth-child(odd) {
-  background-color: #fff;
+background-color: #fff;
 }

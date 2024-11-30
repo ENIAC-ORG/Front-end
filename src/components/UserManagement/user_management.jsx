@@ -133,6 +133,21 @@ const UserManagement = () => {
       );
       if (response.status == 200) {
         console.log("User denied successfully:", response.data);
+        setUsers((prevUsers) =>
+          prevUsers.map((user, i) => {
+            if (i === currentDenyIndex) {
+              return {
+                ...user,
+                isApproved: false,
+                isDenied: true,
+                DenialReason: denialReason,
+                condition: `رد شده (${convertToPersianNumbers(user.applicationNum + 1)})`,
+                applicationNum: user.applicationNum + 1
+              };
+            }
+            return user;
+          })
+        );
         toast.success("کاربر با موفقیت رد شد", {
           position: "bottom-left",
           autoClose: 5000,
@@ -144,7 +159,7 @@ const UserManagement = () => {
         });
       } else {
         console.log("Error: ", response);
-        toast.error("خطا در رد کاربر", {
+        toast.error("خطا در عدم تأیید کاربر", {
           position: "bottom-left",
           autoClose: 5000,
           hideProgressBar: false,
@@ -156,7 +171,7 @@ const UserManagement = () => {
       }
     } catch (error) {
       console.error("Error in handleAcceptUser Catch:", error);
-      toast.error("مشکلی در رد کاربر وجود دارد", {
+      toast.error("مشکلی در عدم تأیید کاربر وجود دارد", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -211,23 +226,6 @@ const UserManagement = () => {
     if (userId) {
       handleDenyUser(userId);
     }
-
-    setUsers((prevUsers) =>
-      prevUsers.map((user, i) => {
-        if (i === currentDenyIndex) {
-          return {
-            ...user,
-            isApproved: false,
-            isDenied: true,
-            DenialReason: denialReason,
-            condition: `رد شده (${convertToPersianNumbers(user.applicationNum + 1)})`,
-            applicationNum: user.applicationNum + 1
-          };
-        }
-        return user;
-      })
-    );
-
     setModalOpen(false);
   };
 
@@ -320,7 +318,7 @@ const UserManagement = () => {
             type="text"
             value={search}
             onChange={handleSearch}
-            placeholder="جستجو"
+            placeholder="جستجو ..."
             style={{
               padding: "8px 12px",
               borderRadius: "8px",
@@ -333,17 +331,18 @@ const UserManagement = () => {
             }}
           />
         </div>
-
+       <div className="page-container-table">
         <table
           style={{
-            width: "90%",
-            maxWidth: "800px",
+            width: "100%",
+            height: "60%",
+            maxHeight: "300px",
             borderCollapse: "collapse",
             textAlign: "center",
             boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
             borderRadius: "8px",
-            overflow: "hidden",
             fontFamily: "Ios15Medium",
+            // overflowY: "auto"
           }}
         >
           <thead>
@@ -386,14 +385,14 @@ const UserManagement = () => {
                     onClick={(e) => handleToggleAction(e, index, "approve")}
                     className={`table-button approve ${user.isApproved ? "active" : ""}`}
                   >
-                    {user.isApproved ? "تایید شده" : "تایید کردن"}
+                    {user.isApproved ? "تأیید شده" : "تأیید "}
                   </button>
 
                   <button
                     onClick={(e) => handleToggleAction(e, index, "deny")}
                     className="table-button deny"
                   >
-                    رد کردن
+                    عدم تأیید
                   </button>
                 </td>
                 <td
@@ -409,7 +408,7 @@ const UserManagement = () => {
             ))}
           </tbody>
         </table>
-
+        </div> 
         {modalOpen && (
           <div
             style={{
@@ -427,7 +426,7 @@ const UserManagement = () => {
             <div
               style={{
                 width: "400px",
-                backgroundColor: "rgb(230, 242, 231)",
+                backgroundColor: "#faeae8",
                 padding: "20px",
                 borderRadius: "8px",
                 boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
@@ -435,11 +434,11 @@ const UserManagement = () => {
                 direction: "rtl",
               }}
             >
-              <h3 style={{ fontFamily: "Ios15Medium", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>رد کردن کاربر</h3>
+              <h3 style={{ fontFamily: "Ios15Medium", color: "#982B1C", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>عدم تایید کاربر</h3>
               <textarea
                 value={denialReason}
                 onChange={(e) => setDenialReason(e.target.value)}
-                placeholder="دلیل رد کردن را وارد کنید."
+                placeholder="دلیل عدم تایید را وارد کنید."
                 style={{
                   width: "90%",
                   height: "100px",
