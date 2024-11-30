@@ -1,251 +1,442 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from "react";
 import Swal from "sweetalert2";
-import "./user_management.css"
+import "./user_management.css";
+import { ToastContainer, toast } from "react-toastify";
+import axios from "axios";
 
 const UserManagement = () => {
-  const [search, setSearch] = useState('');
-  const [users, setUsers] = useState([
-    { name: 'زهرا عباسیان', contact: '0999999999', documentApproval: true, medicalApproval: true, documents: null },
-    { name: 'علی رضایی', contact: '09123456789', documentApproval: false, medicalApproval: false, documents: null },
-    { name: 'هلیا شمس زاده', contact: '09333183898', documentApproval: false, medicalApproval: false, documents: new File([""], "document.pdf") }
-  ]);
+  const [search, setSearch] = useState("");
+  const [users, setUsers] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [newUser, setNewUser] = useState({ name: '', contact: '', documents: null });
-  const [editIndex, setEditIndex] = useState(null);
-  const [hoveredButton, setHoveredButton] = useState(null);
+  const [currentDenyIndex, setCurrentDenyIndex] = useState(null);
+  const [denialReason, setDenialReason] = useState("");
+  const intervalRef = useRef(null);
+  const [adminAccessToken, setAdminAccessToken] = useState("");
+
+  const convertToPersianNumbers = (value) => {
+    const persianNumbersMap = {
+      0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹",
+    };
+
+    // Ensure value is a string before applying replace
+    return String(value).replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+  };
+
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleToggleApproval = (index, field) => {
-    setUsers((prevUsers) =>
-      prevUsers.map((user, i) => i === index ? { ...user, [field]: !user[field] } : user)
-    );
-  };
+  useEffect(() => {
+    getAdminAccessToken();
+    console.log("token: ", adminAccessToken);
+  }, []);
 
-  const handleDeleteUser = (index) => {
-    setUsers((prevUsers) => prevUsers.filter((_, i) => i !== index));
-  };
-
-  const handleEditUser = (index) => {
-    setEditIndex(index);
-    setNewUser(users[index]);
-    setModalOpen(true);
-  };
-
-  const handleAddUser = () => {
-    if (newUser.name && newUser.contact) {
-      if (editIndex !== null) {
-        setUsers((prevUsers) =>
-          prevUsers.map((user, i) => (i === editIndex ? newUser : user))
-        );
-        setEditIndex(null);
-      } else {
-        setUsers([...users, newUser]);
+  useEffect(() => {
+    fetchDoctors();
+    intervalRef.current = setInterval(fetchDoctors, 5000); 
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
       }
-      setNewUser({ name: '', contact: '', documents: null });
-      setModalOpen(false);
-    } else {
-      Swal.fire({
-        icon: "error",
-        title: "!خطا",
-        html: "نام و شماره تماس کاربر را وارد کنید.",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "26rem",
-        height: "18rem",
-        confirmButtonText: "تایید",
-        customClass: {
-          container: "custom-swal-container",
+    };
+  }, []);
+
+  const getAdminAccessToken = async () => {
+    try {
+      axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+      axios.defaults.xsrfCookieName = "csrftoken";
+      const response = await axios("http://127.0.0.1:8000//accounts/Login/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      })
+        data: {
+          email: "eniakgroupiust@gmail.com",
+          password: "eniac@1403",
+        },
+      });
+      setAdminAccessToken(response.data.access);
+    } catch (error) {
+      toast.error("خطا", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     }
   };
 
-  const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(search.toLowerCase())
+  const handleAcceptUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/accept/${userId}/`, 
+        {},
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${adminAccessToken}`,
+          },
+        }
+      );
+      if (response.status == 200) {
+        console.log("User accepted successfully:", response.data);
+        toast.success("کاربر با موفقیت تایید شد", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.error("Error: ", error);
+        toast.error("خطا در تایید کاربر", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      console.error("Error in handleAcceptUser catch:", error);
+      toast.error("مشکلی در تایید کاربر وجود دارد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+  };
+
+  const handleDenyUser = async (userId) => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/deny/${userId}/`, 
+        { message: denialReason },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${adminAccessToken}`,
+          },
+        }
+      );
+      if (response.status == 200) {
+        console.log("User denied successfully:", response.data);
+        setUsers((prevUsers) =>
+          prevUsers.map((user, i) => {
+            if (i === currentDenyIndex) {
+              return {
+                ...user,
+                isApproved: false,
+                isDenied: true,
+                DenialReason: denialReason,
+                condition: `رد شده (${convertToPersianNumbers(user.applicationNum + 1)})`,
+                applicationNum: user.applicationNum + 1
+              };
+            }
+            return user;
+          })
+        );
+        toast.success("کاربر با موفقیت رد شد", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      } else {
+        console.log("Error: ", response);
+        toast.error("خطا در عدم تأیید کاربر", {
+          position: "bottom-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    } catch (error) {
+      console.error("Error in handleDenyUser Catch:", error);
+      toast.success("کاربر با موفقیت رد شد", {
+        position: "bottom-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      }
+
+  };
+
+
+
+  const handleToggleAction = (e, index, action) => {
+    e.stopPropagation();
+    e.preventDefault();  
+
+    if (action === "approve") {
+      const user = users[index];
+
+      if (!user.isApproved) {
+        handleAcceptUser(user.id);  
+        setUsers((prevUsers) =>
+          prevUsers.map((user, i) =>
+            i === index ? { ...user, isApproved: true, isDenied: false, condition: "-" } : user
+          )
+        );
+      }
+    } else if (action === "deny") {
+      setCurrentDenyIndex(index);
+      setDenialReason("");
+      setModalOpen(true);
+    }
+  };
+
+
+  const handleDenySubmit = () => {
+    if (!denialReason.trim()) {
+      toast.error("دلیل عدم تایید را وارد کنید", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      return;
+    }
+
+    const userId = users[currentDenyIndex]?.id;
+    if (userId) {
+      handleDenyUser(userId);
+    }
+    setModalOpen(false);
+  };
+
+
+  const fetchDoctors = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get("http://127.0.0.1:8000//DoctorPanel/pending_doctor", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const doctorsArray = response.data?.data || [];
+
+      if (Array.isArray(doctorsArray) && doctorsArray.length > 0) {
+        setUsers((prevUsers) => {
+          const updatedUsers = doctorsArray.map((doctor) => {
+            const existingUser = prevUsers.find((user) => user.id === doctor.id);
+
+            return {
+              id: doctor.id,
+              firstname: doctor.firstname,
+              lastname: doctor.lastname,
+              code: doctor.doctorate_code,
+              isApproved: existingUser ? existingUser.isApproved : false,
+              isDenied: existingUser ? existingUser.isDenied : false,
+              DenialReason: existingUser ? existingUser.DenialReason : "",
+              condition: existingUser ? existingUser.condition : "-",
+              applicationNum: existingUser ? existingUser.applicationNum : 0
+            };
+          });
+
+          return updatedUsers;
+        });
+      } else {
+        // If no data or empty array, ensure users state is cleared
+        setUsers([]);
+      }
+    } catch (error) {
+      console.error("Error fetching doctors:", error);
+      toast.error("مشکلی در دریافت داده‌های پزشکان وجود دارد", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+
+      // Set users to an empty array in case of error
+      setUsers([]);
+    }
+  };
+
+  const filteredUsers = users.filter(
+    (user) =>
+      user.firstname.toLowerCase().includes(search.toLowerCase()) ||
+      user.lastname.toLowerCase().includes(search.toLowerCase()) ||
+      user.code.includes(search)
   );
 
   return (
-    <div style={{ fontFamily: 'Vazir, Arial, sans-serif', width: '100vw', height: '100vh', padding: '20px', backgroundColor: '#D0E8C5', direction: 'rtl', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2 style={{ textAlign: 'center' }}>مدیریت کاربران</h2>
+    <>
+      <ToastContainer />
+      <div className="page-container">
+      <h2
+        style={{
+          textAlign: "center",
+          fontFamily: "Ios15Medium",
+          fontWeight: "bolder",
+          color: "#557C56",  // Text color
+          textShadow: "3px 3px 3px #939185", // Black outline
+        }}
+    > مدیریت کاربران </h2>
 
-      <div style={{ display: 'flex', gap: '10px', justifyContent: 'space-between', marginBottom: '20px', width: '100%', maxWidth: '800px' }}>
-        <input
-          type="text"
-          value={search}
-          onChange={handleSearch}
-          placeholder="جستجو"
-          style={{
-            padding: '8px 12px',
-            borderRadius: '8px',
-            border: '1px solid #ccc',
-            width: '200px',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.1)',
-            outline: 'none',
-            fontSize: '16px'
-          }}
-        />
-        <button
-          onClick={() => setModalOpen(true)}
-          style={{
-            backgroundColor: hoveredButton === 'add' ? '#BFF6C3' : '#9EDF9C',
-            border: 'none',
-            padding: '10px 20px',
-            borderRadius: '5px',
-            cursor: 'pointer',
-            boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Shadow for the button
-            fontSize: '16px'
-          }}
-          onMouseEnter={() => setHoveredButton('add')}
-          onMouseLeave={() => setHoveredButton(null)}
+        <div className="search-bar"
         >
-          ➕ اضافه کردن کاربر
-        </button>
-      </div>
-
-      <table style={{ 
-        width: '90%', 
-        maxWidth: '800px', 
-        borderCollapse: 'collapse', 
-        textAlign: 'center', 
-        boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)', // Added shadow for table
-        borderRadius: '8px',
-        overflow: 'hidden'
-      }}>
-        <thead>
-          <tr style={{ backgroundColor: '#9EDF9C' }}>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>نام کاربر</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>شماره تماس</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>تایید پزشک</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>مدارک</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>تایید مدارک</th>
-            <th style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>عملیات</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredUsers.map((user, index) => (
-            <tr key={index} style={{ backgroundColor: index % 2 === 0 ? '#fff' : '#f9f9f9' }}>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>{user.contact}</td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                <input type="checkbox" checked={user.medicalApproval} onChange={() => handleToggleApproval(index, 'medicalApproval')} />
-              </td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                {user.documents ? (
-                  <a
-                    href={URL.createObjectURL(user.documents)}
-                    download={user.documents.name}
-                    style={{ textDecoration: 'none', color: '#007bff', cursor: 'pointer' }}
-                  >
-                    📥 دانلود
-                  </a>
-                ) : '—'}
-              </td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd' }}>
-                <input type="checkbox" checked={user.documentApproval} onChange={() => handleToggleApproval(index, 'documentApproval')} />
-              </td>
-              <td style={{ padding: '10px', borderBottom: '1px solid #ddd', display: 'flex', justifyContent: 'center', gap: '10px' }}>
-                <button
-                  onClick={() => handleEditUser(index)}
-                  style={{
-                    backgroundColor: hoveredButton === `edit-${index}` ? '#ffb84d' : '#ffcc80',
-                    border: 'none',
-                    padding: '5px 10px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                  }}
-                  onMouseEnter={() => setHoveredButton(`edit-${index}`)}
-                  onMouseLeave={() => setHoveredButton(null)}
-                >
-                  ویرایش
-                </button>
-                <button
-                  onClick={() => handleDeleteUser(index)}
-                  style={{
-                    backgroundColor: hoveredButton === `delete-${index}` ? '#ff9999' : '#ffcccc',
-                    border: 'none',
-                    padding: '5px 10px',
-                    borderRadius: '5px',
-                    cursor: 'pointer',
-                  }}
-                  onMouseEnter={() => setHoveredButton(`delete-${index}`)}
-                  onMouseLeave={() => setHoveredButton(null)}
-                >
-                  حذف
-                </button>
-              </td>
+          <input
+            type="text"
+            value={search}
+            onChange={handleSearch}
+            placeholder="جستجو ..."
+          />
+        </div>
+       <div className="page-container-table">
+        <table>
+          <thead>
+            <tr style={{ backgroundColor: "#9EDF9C", fontFamily: "Ios15Medium" }}>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>نام</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>نام خانوادگی</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                شمارۀ نظام پزشکی/روانشناسی
+              </th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>عملیات</th>
+              <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>وضعیت</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filteredUsers.map((user, index) => (
+              <tr
+                key={index}
+                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", fontFamily: "Ios15Medium", fontSize: "15px" }}
+              >
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.firstname}
+                </td>
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.lastname}
+                </td>
+                <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
+                  {user.code}
+                </td>
+                <td
+                  style={{
+                    padding: "10px",
+                    borderBottom: "1px solid #ddd",
+                    display: "flex",
+                    justifyContent: "center",
+                    gap: "10px",
+                    fontFamily: "Ios15Medium",
+                  }}
+                >
+                  <button
+                    onClick={(e) => handleToggleAction(e, index, "approve")}
+                    className={`table-button approve ${user.isApproved ? "active" : ""}`}
+                  >
+                    {user.isApproved ? "تأیید..." : "تأیید "}
+                  </button>
 
-      {/* Modal */}
-      {modalOpen && (
-        <div style={{
-          position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex', justifyContent: 'center', alignItems: 'center'
-        }}>
-          <div style={{
-            width: '400px', backgroundColor: '#fff', padding: '20px', borderRadius: '8px', boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
-            textAlign: 'center', direction: 'rtl'
-          }}>
-            <h3>{editIndex !== null ? 'ویرایش کاربر' : 'افزودن کاربر جدید'}</h3>
-            <input
-              type="text"
-              value={newUser.name}
-              onChange={(e) => setNewUser({ ...newUser, name: e.target.value })}
-              placeholder="نام کاربر"
-              style={{ width: '90%', padding: '8px', margin: '10px 0', borderRadius: '5px', border: '1px solid #ccc' }}
-            />
-            <input
-              type="text"
-              value={newUser.contact}
-              onChange={(e) => setNewUser({ ...newUser, contact: e.target.value })}
-              placeholder="شماره تماس"
-              style={{ width: '90%', padding: '8px', margin: '10px 0', borderRadius: '5px', border: '1px solid #ccc' }}
-            />
-            <input
-              type="file"
-              onChange={(e) => setNewUser({ ...newUser, documents: e.target.files[0] })}
-              style={{ width: '100%', margin: '10px 0' }}
-            />
-            <div style={{ marginTop: '20px' }}>
-              <button
-                onClick={handleAddUser}
+                  <button
+                    onClick={(e) => handleToggleAction(e, index, "deny")}
+                    className="table-button deny"
+                  >
+                    عدم تأیید
+                  </button>
+                </td>
+                <td
+                  style={{
+                    padding: "10px",
+                    borderBottom: "1px solid #ddd",
+                    fontFamily: "Ios15Medium",
+                  }}
+                >
+                  {user.condition}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        </div> 
+        {modalOpen && (
+          <div
+            style={{
+              position: "fixed",
+              top: 0,
+              left: 0,
+              width: "100vw",
+              height: "100vh",
+              backgroundColor: "rgba(0, 0, 0, 0.5)",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                width: "400px",
+                backgroundColor: "#faeae8",
+                padding: "20px",
+                borderRadius: "8px",
+                boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+                textAlign: "center",
+                direction: "rtl",
+              }}
+            >
+              <h3 style={{ fontFamily: "Ios15Medium", color: "#982B1C", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>عدم تایید کاربر</h3>
+              <textarea
+                value={denialReason}
+                onChange={(e) => setDenialReason(e.target.value)}
+                placeholder="دلیل عدم تایید را وارد کنید."
                 style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  backgroundColor: hoveredButton === 'save' ? '#c7d9c1' : '#d8e8d0',
-                  border: 'none',
-                  cursor: 'pointer',
-                  marginRight: '5px'
+                  width: "90%",
+                  height: "100px",
+                  padding: "8px",
+                  margin: "10px 0",
+                  borderRadius: "5px",
+                  border: "1px solid #ccc",
                 }}
-                onMouseEnter={() => setHoveredButton('save')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                {editIndex !== null ? 'ذخیره' : 'افزودن'}
-              </button>
-              <button
-                onClick={() => setModalOpen(false)}
-                style={{
-                  padding: '10px',
-                  borderRadius: '5px',
-                  backgroundColor: hoveredButton === 'cancel' ? '#ff9999' : '#ffcccc',
-                  border: 'none',
-                  cursor: 'pointer',
-                }}
-                onMouseEnter={() => setHoveredButton('cancel')}
-                onMouseLeave={() => setHoveredButton(null)}
-              >
-                انصراف
-              </button>
+              />
+              <div style={{ marginTop: "20px" }}>
+                <button
+                  onClick={handleDenySubmit}
+                  className="modal-button confirm"
+                >
+                  ثبت
+                </button>
+                <button
+                  onClick={() => setModalOpen(false)}
+                  className="modal-button cancel"
+                >
+                  انصراف
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
