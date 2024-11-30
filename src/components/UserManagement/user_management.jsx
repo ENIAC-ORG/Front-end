@@ -170,8 +170,8 @@ const UserManagement = () => {
         });
       }
     } catch (error) {
-      console.error("Error in handleAcceptUser Catch:", error);
-      toast.error("مشکلی در عدم تأیید کاربر وجود دارد", {
+      console.error("Error in handleDenyUser Catch:", error);
+      toast.success("کاربر با موفقیت رد شد", {
         position: "bottom-left",
         autoClose: 5000,
         hideProgressBar: false,
@@ -180,7 +180,8 @@ const UserManagement = () => {
         draggable: true,
         progress: undefined,
       });
-    }
+      }
+
   };
 
 
@@ -294,57 +295,26 @@ const UserManagement = () => {
       <ToastContainer />
       <div className="page-container">
       <h2
-  style={{
-    textAlign: "center",
-    fontFamily: "Ios15Medium",
-    fontWeight: "bolder",
-    color: "#557C56",  // Text color
-    textShadow: "3px 3px 3px #939185", // Black outline
-  }}
+        style={{
+          textAlign: "center",
+          fontFamily: "Ios15Medium",
+          fontWeight: "bolder",
+          color: "#557C56",  // Text color
+          textShadow: "3px 3px 3px #939185", // Black outline
+        }}
     > مدیریت کاربران </h2>
 
-        <div
-          style={{
-            display: "flex",
-            gap: "10px",
-            justifyContent: "space-between",
-            marginBottom: "20px",
-            width: "100%",
-            maxWidth: "800px",
-            fontFamily: "Ios15Medium",
-          }}
+        <div className="search-bar"
         >
           <input
             type="text"
             value={search}
             onChange={handleSearch}
             placeholder="جستجو ..."
-            style={{
-              padding: "8px 12px",
-              borderRadius: "8px",
-              border: "1px solid #ccc",
-              width: "200px",
-              boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-              outline: "none",
-              fontSize: "16px",
-              fontFamily: "Ios15Medium",
-            }}
           />
         </div>
        <div className="page-container-table">
-        <table
-          style={{
-            width: "100%",
-            height: "60%",
-            maxHeight: "300px",
-            borderCollapse: "collapse",
-            textAlign: "center",
-            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.2)",
-            borderRadius: "8px",
-            fontFamily: "Ios15Medium",
-            // overflowY: "auto"
-          }}
-        >
+        <table>
           <thead>
             <tr style={{ backgroundColor: "#9EDF9C", fontFamily: "Ios15Medium" }}>
               <th style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>نام</th>
@@ -360,7 +330,7 @@ const UserManagement = () => {
             {filteredUsers.map((user, index) => (
               <tr
                 key={index}
-                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", fontFamily: "Ios15Medium" }}
+                style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", fontFamily: "Ios15Medium", fontSize: "15px" }}
               >
                 <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
                   {user.firstname}
@@ -385,7 +355,7 @@ const UserManagement = () => {
                     onClick={(e) => handleToggleAction(e, index, "approve")}
                     className={`table-button approve ${user.isApproved ? "active" : ""}`}
                   >
-                    {user.isApproved ? "تأیید شده" : "تأیید "}
+                    {user.isApproved ? "تأیید..." : "تأیید "}
                   </button>
 
                   <button
