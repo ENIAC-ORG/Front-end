@@ -1,0 +1,172 @@
+.ft_body {
+  background: linear-gradient(62deg, #D8EFD3 0%, #e1be7b 100%) no-repeat;
+  padding: 2.5%;
+}
+
+.ft_Box {
+  gap: 50px;
+  padding: 3%;
+  border-radius: 35px;
+  height: 100%;
+  width: 90%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.nav-tabs a.nav-link.active,
+.nav-tabs a.nav-link.active:hover,
+.nav-tabs a.nav-link.active:focus {
+  border-color: #488c2f;
+  border-bottom-color: transparent;
+  background: linear-gradient(to top, #488c2f 20%, transparent 100%);
+  color: wheat;
+
+}
+
+.nav-tabs,
+.nav-tabs a.nav-link {
+  border-bottom: 2px solid #488c2f;
+  color: #488c2f;
+  font-family: "Ios15Medium";
+  text-align: start;
+}
+
+.nav-tabs a.nav-link:hover {
+  color: #5cb33c;
+  border-color: #488c2f;
+}
+
+
+.ft_paragraph {
+  font-family: "Ios15Medium";
+  font-size: large;
+  text-align: start;
+  color: #2b6416;
+}
+
+.ft_wrap .ft_hour_wrap {
+  background-color: #fff;
+  padding: 40px;
+  border-radius: 1rem 1rem 1rem 1rem;
+  box-shadow: 0 1em 4em rgba(0, 0, 0, 0.07);
+  width: 400px;
+}
+
+.ft_wrap .ft_hour_wrap h6 {
+  font-family: "Ios15Medium";
+  text-align: center;
+  font-weight: bold;
+  color: rgb(66, 38, 77);
+}
+
+.ft_hour_items {
+  padding-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-around;
+}
+
+.ft_hcard_bd {
+  font-size: large;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  border-color: #2b6416;
+  border: 3px solid #2b6416;
+  width: 100px;
+}
+
+.ft_hcard_bd:hover {
+  cursor: pointer;
+  border: 3px solid #4f9e32;
+  background-color: #326320;
+  color: white;
+}
+
+.ft_result {
+  padding-top: 8%;
+  list-style-type: none;
+  text-align: center;
+  direction: rtl;
+  font-family: Ios15Medium;
+  width: 200px;
+}
+
+.ft_result span {
+  padding-left: 5px;
+}
+
+
+/* CSS */
+.ft_button_74 {
+  background-color: #e1af52;
+  border: 2px solid #e3a635;
+  border-radius: 30px;
+  box-shadow: #939393 4px 4px 0 0;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: Ios15Medium;
+  font-weight: 300;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.ft_button_74:hover {
+  background-color: #e0c89b;
+}
+
+.ft_button_74:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: translate(2px, 2px);
+}
+
+@media (min-width: 768px) {
+  .ft_button_74 {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
+
+.ft_choices {
+  /* text-align:justify; */
+  list-style-type: none;
+}
+
+input[type="radio"] {
+  cursor: pointer;
+  display: inline-flex;
+  /* display:inline */
+}
+
+.ft_choices .reserve_choices_op {
+  font-family: Ios15Medium;
+  padding-right: 0px;
+
+}
+
+.ft_choices .reserve_choices_op span {
+  padding-right: 5px;
+}
+
+.ft_error_input {
+  width: 100%;
+  height: 10px;
+  text-align: center;
+  direction: rtl;
+  outline: none;
+  margin-top: 7px;
+  padding-left: 15px;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  transition: border-color 0.3s ease;
+  color: #4f9e32;
+  caret-color: #4f9e32;
+}
