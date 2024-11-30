@@ -59,11 +59,12 @@ const RecommendationPage = () => {
           icon: "error",
           title: "!خطا در ارسال پاسخ‌ها",
           html: "متاسفانه مشکلی رخ داد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#D8EFD3",
+          color: "#00000",
           width: "26rem",
           height: "18rem",
           confirmButtonText: "تایید",
+          confirmButtonColor: '#489182',
           customClass: {
             container: "custom-swal-container",
           },
@@ -79,11 +80,12 @@ const RecommendationPage = () => {
         icon: "error",
         title: "!خطا در ارسال درخواست",
         html: "متاسفانه مشکلی رخ داد",
-        background: "#473a67",
-        color: "#b4b3b3",
+        background: "#D8EFD3",
+        color: "#00000",
         width: "26rem",
         // height: "18rem",
         confirmButtonText: "تایید",
+        confirmButtonColor: '#489182',
         customClass: {
           container: "custom-swal-container",
         },
@@ -165,19 +167,20 @@ const RecommendationPage = () => {
   const cancelTest = () => {
     Swal.fire({
       icon: "warning",
-      title: "از انجام فرم منصرف شده اید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
+      title: "از انجام فرم منصرف شده‌اید؟",
+      background: "#D8EFD3",
+      color: "#00000",
       width: "26rem",
       height: "18rem",
       showCancelButton: true,
-      confirmButtonText: "بله",
-      cancelButtonText: "ادامه می‌دهم",
+      confirmButtonText: "ادامه می‌دهم",
+      cancelButtonText: "بله",
+      confirmButtonColor: '#489182',
       customClass: {
         container: "custom-swal-container",
       },
     }).then((result) => {
-      if (result.isConfirmed) {
+      if (!result.isConfirmed) {
         navigate("/");
       }
     });
@@ -187,12 +190,13 @@ const RecommendationPage = () => {
     Swal.fire({
       icon: "warning",
       title: "هنوز گزینه ای را انتخاب نکرده اید!",
-      background: "#473a67",
-      color: "#b4b3b3",
+      background: "#D8EFD3",
+      color: "#00000",
       width: "26rem",
       height: "18rem",
       showCancelButton: false,
       confirmButtonText: "باشه",
+      confirmButtonColor: '#489182',
       customClass: {
         container: "custom-swal-container",
       },
