@@ -1,11 +1,11 @@
 :root {
     font-family: Ios15Medium;
-    background: #e0f5ff;
+    /* background: #ffffff; */
 }
 
 /*** Spinner Start ***/
 
-#spinner {
+/* #spinner {
     opacity: 0;
     visibility: hidden;
     transition: opacity .8s ease-out, visibility 0s linear .5s;
@@ -16,14 +16,61 @@
     transition: opacity .8s ease-out, visibility 0s linear .0s;
     visibility: visible;
     opacity: 1;
+} */
+
+.Doctor_List_body {
+    margin: 0;
+    padding: 0;
+    display: grid;
+    /* width: 100%; */
+    /* width: fit-content; */
+    top: 0;
+    left: 0;
+    z-index: -1;
+    height: 100%;
 }
 
-
-.Doctor_List_title {
+.Doctor_List_body h1 {
     font-family: Ios15Medium;
-    color: gray;
+    font-size: 32px;
+    padding: 25px;
 }
 
+.DoctorList-background {
+    background-image: linear-gradient(-140deg,  #d1e9f5 0%, #b1d2c2  100%);
+}
+.doctorBox {
+    direction: rtl;
+    justify-self: center;
+    width: fit-content;
+
+    background: rgba(255, 255, 255, 0.3);
+    padding: 1rem;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
+    /* text-align: center; */
+    align-content: center;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+    margin-bottom: 60px;
+}
+
+.tabs {
+    font-family: Ios15medium;
+}
+
+.tabs-style {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tabs-style Tab{
+    position: relative;
+    cursor: pointer;
+}
 
 /*** Spinner End ***/
 
@@ -81,7 +128,7 @@
 
 /*** Topbar Start ***/
 
-.topbar .top-info {
+/* .topbar .top-info {
     letter-spacing: 1px;
 }
 
@@ -115,13 +162,13 @@
     to {
         left: 100%;
     }
-}
+} */
 
 /*** Topbar End ***/
 
 
 /*** Navbar Start ***/
-.navbar .navbar-nav {
+/* .navbar .navbar-nav {
     padding: 15px 0;
 }
 
@@ -164,14 +211,14 @@
     visibility: visible;
     transition: .5s;
     opacity: 1;
-}
+} */
 
 /*** Navbar End ***/
 
 
 /*** Carousel Start ***/
 
-.carousel-item {
+/* .carousel-item {
     position: relative;
 }
 
@@ -329,7 +376,7 @@
 .page-header .breadcrumb-item a {
     font-size: 18px;
     color: var(--bs-white);
-}
+} */
 
 /*** Carousel End ***/
 
@@ -344,11 +391,7 @@
     padding: 10px 0;
     position: relative;
     background: light;
-
 }
-
-
-
 
 .services-content::after {
     position: absolute;
@@ -408,7 +451,7 @@
 
 /*** Project Start ***/
 
-.project-img {
+/* .project-img {
     position: relative;
     padding: 15px;
 }
@@ -468,13 +511,13 @@
 .project-item:hover .project-img::before,
 .project-item:hover .project-img::after {
     opacity: 0;
-}
+} */
 
 /*** Project End ***/
 
 
 /*** Blog Start ***/
-.blog-item .blog-btn {
+/* .blog-item .blog-btn {
     z-index: 2;
 }
 
@@ -508,7 +551,7 @@
     top: 0;
     right: -140px;
     transition: 1s;
-}
+} */
 
 /*** Blog End ***/
 
@@ -516,10 +559,10 @@
 /*** Team Start ***/
 
 .team-item-new {
-    border-top: 20px solid #B799FF !important;
+    border-top: 20px solid #63AD97 !important;
     background: rgba(239, 239, 241, 0.8);
-    width: 225px;
-    height: 355px;
+    width: 190px;
+    height: 300px;
     /* box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px; */
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -530,10 +573,11 @@
     content: "";
     position: relative;
     top: -101px;
-    background: #B799FF;
+    background: #63AD97;
     clip-path: polygon(50% 50%, 100% 50%, 50% 100%, 0% 50%);
     padding: 60px;
     opacity: 1;
+    margin-top: 0.7px;
 }
 
 .team-img-icon {
@@ -548,7 +592,7 @@
 }
 
 .team-img img {
-    border: 10px solid #B799FF;
+    border: 10px solid #63AD97;
     transition: .5s;
 }
 
@@ -719,24 +763,36 @@
     font-family: Ios15Medium;
 }
 
-.distanceBetween2 {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 25px;
-    justify-content: center;
-    flex-wrap: wrap;
+.distanceBetweenDoctor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
-@media (max-width: 800px) {
-    .distanceBetween {
-        flex-direction: column;
+@media (max-width: 900px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(3, 1fr); /* tablet */
     }
-}
+  }
+
+@media (max-width: 710px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(2, 1fr); /* tablet */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(2, 1fr); /* mobile */
+    }
+  }
 
 .buttonReserve {
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    /* margin-left: 40px; */
+    margin-right: -80px;
 }
 
 .color-block {
@@ -768,56 +824,4 @@
     padding: 1%;
     margin: auto;
 
-}
-
-/* h1 {
-    text-align: center;
-    font-size: 80px;
-    font-family: 'wire one', serif;
-    font-weight: normal;
-}
-
-p {
-    font-size: 20px;
-    font-family: 'Raleway', serif;
-} */
-
-
-/*----------------*/
-/*  SCALLOP down  */
-/*----------------*/
-.scallop-down-new {
-    height: 27px;
-    width: 100%;
-    background: -webkit-gradient(radial, 50% 0, 10, 50% 0, 40, from(#d3c1ff), color-stop(0.49, #d3c1ff), color-stop(0.51, #e0f5ff));
-    -webkit-background-size: 49px 100%;
-}
-
-
-/*----------------*/
-/*  SCALLOP up    */
-/*----------------*/
-.scallop-up-new {
-    height: 27px;
-    width: 100%;
-    background: -webkit-gradient(radial, 50% 100%, 10, 50% 100%, 40, from(#d3c1ff), color-stop(0.49, #d3c1ff), color-stop(0.51, #e0f5ff));
-    -webkit-background-size: 49px 100%;
-}
-
-
-/* d3c1ff دالبر */
-/* e0f5ff  داخل */
-
-
-
-.slick-prev:before,
-.slick-next:before {
-    font-family: 'slick';
-    font-size: 35px !important;
-    line-height: 1;
-    opacity: .75;
-    color: #b396f6 !important;
-    -webkit-font-smoothing: antialiased;
-    margin-left: -30px;
-    -moz-osx-font-smoothing: grayscale;
 }

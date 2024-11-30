@@ -9,9 +9,39 @@ import "./DoctorProfile.jsx";
 import DoctorProfile from "./DoctorProfile.jsx";
 import Footer from "../Footer/Footer.jsx";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar.jsx";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import PropTypes from 'prop-types';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import Box from '@mui/material/Box';
+
+function CustomTabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
+    </div>
+  );
+}
+
+CustomTabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 const DoctorsList = () => {
   const navigate = useNavigate();
@@ -180,18 +210,16 @@ const DoctorsList = () => {
     },
   };
 
+  const [value, setValue] = React.useState(0);
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
     <>
-      <NavBar_SideBar />
-      <div
-        id="root"
-        className="purple-block-up"
-        style={{ background: "#e0f5ff" }}
-      >
-        <div
-          className="container-fluid my-1 team"
-          style={{ paddingTop: "0rem", paddingBottom: "3rem" }}
-        >
+      <body className="Doctor_List_body">
+        <NavBar_SideBar />
+        <div className="DoctorList-background">
           <html>
             <head>
               <link
@@ -206,26 +234,36 @@ const DoctorsList = () => {
               <link href="./owl.carousel.min.css" rel="stylesheet" />
             </head>
           </html>
-
-          <div className="container-fluid py-0 my-0 team">
-            <div className="container py-0">
-              <div
-                className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-                data-wow-delay=".3s"
-                style={{ maxWidth: "600px" }}
-              >
-                <h1 style={{ fontFamily: "Ios15Medium" }}>لیست مشاورها</h1>
-              </div>
-              {/* { <br /> } */}
-              <div
-                className="owl-carousel team-carousel wow fadeIn owl-loaded owl-drag"
-                data-wow-delay=".5s"
-                style={{ visibility: "visible" }}
-              >
-                <Slider {...settings}>
-                  {doctorProfile.map((index) => (
+          <div
+            className="text-center mx-auto pb-2 wow fadeIn"
+            data-wow-delay=".3s"
+            style={{ maxWidth: "600px" }}
+          >
+            <h1 style={{ color: 'gray' }}>لیست مشاورها</h1>
+            <div className="doctorBox">
+              <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                <Tabs
+                  style={{ display: "flex", flexWrap: "wrap" }}
+                  className="tabs-style"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="scrollable prevent tabs example"
+                  centered
+                  variant="scrollable"
+                  scrollButtons={false}>
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="بالینی" {...a11yProps(0)} />
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="کودک" {...a11yProps(1)} />
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="تحصیلی" {...a11yProps(2)} />
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="خانواده" {...a11yProps(3)} />
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="کوچینگ" {...a11yProps(4)} />
+                  <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="روان پزشکی" {...a11yProps(5)} />
+                </Tabs>
+              </Box>
+              <CustomTabPanel value={value} index={0}>
+                <div className="distanceBetweenDoctor">
+                  {doctorProfileFardi.map((index) => (
                     <DoctorProfile
-                      Id={index?.psychiatrist}
+                      Id={index?.id}
                       name={index?.name}
                       Description={index?.description}
                       Image={index?.image}
@@ -234,158 +272,88 @@ const DoctorsList = () => {
                       Psychiatrist={index?.psychiatrist}
                     />
                   ))}
-                </Slider>
-              </div>
+                </div>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={1}>
+                <div className="distanceBetweenDoctor">
+                  {doctorProfileBaby.map((index) => (
+                    <DoctorProfile
+                      Id={index?.id}
+                      name={index?.name}
+                      Description={index?.description}
+                      Image={index?.image}
+                      ProfileType={index?.profile_type}
+                      IsPrivate={index?.is_private}
+                      Psychiatrist={index?.psychiatrist}
+                    />
+                  ))}
+                </div>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={2}>
+                <div className="distanceBetweenDoctor">
+                  {doctorProfileEdu.map((index) => (
+                    <DoctorProfile
+                      Id={index?.id}
+                      name={index?.name}
+                      Description={index?.description}
+                      Image={index?.image}
+                      ProfileType={index?.profile_type}
+                      IsPrivate={index?.is_private}
+                      Psychiatrist={index?.psychiatrist}
+                    />
+                  ))}
+                </div>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={3}>
+                <div className="distanceBetweenDoctor">
+                  {doctorProfileFamily.map((index) => (
+                    <DoctorProfile
+                      Id={index?.id}
+                      name={index?.name}
+                      Description={index?.description}
+                      Image={index?.image}
+                      ProfileType={index?.profile_type}
+                      IsPrivate={index?.is_private}
+                      Psychiatrist={index?.psychiatrist}
+                    />
+                  ))}
+                </div>
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={4}>
+                {/* <div className="distanceBetweenDoctor">
+                      {doctorProfileFardi.map((index) => (
+                        <DoctorProfile
+                          Id={index?.id}
+                          name={index?.name}
+                          Description={index?.description}
+                          Image={index?.image}
+                          ProfileType={index?.profile_type}
+                          IsPrivate={index?.is_private}
+                          Psychiatrist={index?.psychiatrist}
+                        />
+                      ))}
+                    </div> */}
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={5}>
+                {/* <div className="distanceBetweenDoctor">
+                      {doctorProfileFardi.map((index) => (
+                        <DoctorProfile
+                          Id={index?.id}
+                          name={index?.name}
+                          Description={index?.description}
+                          Image={index?.image}
+                          ProfileType={index?.profile_type}
+                          IsPrivate={index?.is_private}
+                          Psychiatrist={index?.psychiatrist}
+                        />
+                      ))}
+                    </div> */}
+              </CustomTabPanel>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="scallop-up-new"></div>
-      <div id="Individual" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه فردی
-        </h1>
-        <div className="distanceBetween2">
-          {doctorProfileFardi.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="scallop-down-new"></div>
-
-      <div id="Baby" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه کودک
-        </h1>
-        <div className="distanceBetween2">
-          {doctorProfileBaby.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="scallop-up-new"></div>
-      <div id="edu" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه تحصیلی
-        </h1>
-        <div className="distanceBetween2">
-          {doctorProfileEdu.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))}
-        </div>
-      </div>
-      <div className="scallop-down-new"></div>
-
-      <div id="Family" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه خانواده
-        </h1>
-        <div className="distanceBetween2">
-          {doctorProfileFamily.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))}
-        </div>
-      </div>
-
-      <div className="scallop-up-new"></div>
-      <div id="migration" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه کوچینگ
-        </h1>
-        <div className="distanceBetween2">
-          {/* {doctorProfileFardi.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))} */}
-        </div>
-      </div>
-      <div className="scallop-down-new"></div>
-
-      <div id="psychiatry" className="color-block">
-        <h1
-          className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-          data-wow-delay=".3s"
-          style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-        >
-          حوزه روان پزشکی
-        </h1>
-        <div className="distanceBetween2">
-          {/* {doctorProfileFardi.map((index) => (
-            <DoctorProfile
-              Id={index?.id}
-              name={index?.name}
-              Description={index?.description}
-              Image={index?.image}
-              ProfileType={index?.profile_type}
-              IsPrivate={index?.is_private}
-              Psychiatrist={index?.psychiatrist}
-            />
-          ))} */}
-        </div>
-      </div>
-
-      <Footer />
+        <Footer />
+      </body>
     </>
   );
 };

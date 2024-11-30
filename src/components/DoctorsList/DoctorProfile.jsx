@@ -129,18 +129,18 @@ const DoctorProfile = ({
               data.firstname == null
                 ? false
                 : data.lastname == null
-                ? false
-                : data.date_of_birth == null
-                ? false
-                : data.gender == null
-                ? false
-                : data.phone_number == null
-                ? false
-                : true;
+                  ? false
+                  : data.date_of_birth == null
+                    ? false
+                    : data.gender == null
+                      ? false
+                      : data.phone_number == null
+                        ? false
+                        : true;
             if (check);
             else {
-              // navigate("/Reserve"); // ی جوری باید بهش بگی برای کدوم دکتره
-              //modal بچه ها نشون داده بشه
+              // navigate("/Reserve"); 
+              //modal
             }
           }
         } catch (error) {
@@ -270,21 +270,23 @@ const DoctorProfile = ({
                 </p>
               </div>
 
-              <div className="buttonReserveAndProfile">
+              <div>
                 {/* <div className="team-icon d-flex justify-content-center pb-4">
                                     <a className="btn btn-square btn-secondary text-white rounded-circle m-1" onClick={handleClickToDoctorPage}>
                                     <i className="fab material-symbols-outlined">account_circle</i>
                                     </a>
                                 </div> */}
-                <div
+
+
+                {/* <div
                   className="buttonReserve"
                   onLoad={GetUserInfo}
                   onClick={GetUserInfo2}
                 >
+                  <ToastContainer />
                   <CompleteInfoModal doctorId={Id} />
                   <RatingModal doctorId={Id} />
-                  <ToastContainer />
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
