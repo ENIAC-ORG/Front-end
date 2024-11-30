@@ -478,6 +478,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
+                  <button onClick={toggleModal}>doctor</button>
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">
@@ -641,20 +642,19 @@ const LoginContainer = () => {
                     </div>
                     <div className="signup_link">
                       {" "}
-
                       <a href="#" onClick={(e) => navigate("/Home")}>
                         {" "}
                         صفحه اصلی
                       </a>
                     </div>
                   </form>
+                  <DoctorInfoModal showModal={showModal} />
                 </div>
               </div>
             </div>
           </div>
         </body>
       </div>
-
     </>
   );
 };
