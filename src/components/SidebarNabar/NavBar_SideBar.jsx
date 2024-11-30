@@ -73,8 +73,8 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#55AD9B",
-          color: "#gray",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
