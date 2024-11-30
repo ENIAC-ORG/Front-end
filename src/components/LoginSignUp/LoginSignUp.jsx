@@ -206,8 +206,8 @@ const LoginContainer = () => {
       withReactContent(Swal).fire({
         icon: "success",
         title: "!با موفقیت وارد شدید",
-        background: "#473a67",
-        color: "#b4b3b3",
+        background: "#55AD9B",
+        color: "#black",
         width: "32rem",
         confirmButtonText: "باشه",
         preConfirm: () => {
@@ -439,217 +439,222 @@ const LoginContainer = () => {
 
   return (
     <>
-      <body className="bd">
-        <div className="hello">
-          <div className="wrapper">
-            <div className="header">
-              <div className="title login">ورود</div>
-              <div className="title signup">ثبت نام</div>
-            </div>
-
-            <div className="form_container">
-              <div className="slider_controls">
-                <input
-                  type="radio"
-                  name="slide"
-                  id="login"
-                  defaultChecked
-                  style={{ display: "none" }}
-                />
-                <input
-                  type="radio"
-                  name="slide"
-                  id="signup"
-                  style={{ display: "none" }}
-                />
-
-                <label
-                  htmlFor="login"
-                  className="slide login"
-                  onClick={handleSliderLoginClick}
-                >
-                  ورود
-                </label>
-                <label
-                  htmlFor="signup"
-                  className="slide signup"
-                  onClick={handleSliderSignupClick}
-                >
-                  ثبت نام
-                </label>
-                <div className="slider_tab"></div>
+      <div className="hello">
+        <body className="bd">
+          <div className="hello">
+            <div className="wrapper">
+              <div className="header">
+                <div className="title login">ورود</div>
+                <div className="title signup">ثبت نام</div>
               </div>
-              <div className="form_details">
-                <form action="#" className="login">
-                  <pre></pre>
-                  <div className="field">
-                    <input
-                      className="email1_input"
-                      type="text"
-                      name="email"
-                      placeholder="ایمیل"
-                      error={errorMessage.emailError}
-                      onChange={handleChange}
-                      style={{
-                        backgroundImage: `url(${email_icon})`,
-                        backgroundRepeat: "no-repeat",
-                        paddingRight: "40px",
-                        backgroundPosition: "right",
-                      }}
-                    />
-                  </div>
-                  {errorMessage.emailError && (
-                    <div className="error_input">{errorMessage.emailError}</div>
-                  )}
-                  <div className="field">
-                    <input
-                      className="password1_input"
-                      type={passwordType}
-                      placeholder="رمز عبور"
-                      onChange={handleChange}
-                      style={{
-                        backgroundImage: `url(${lock_icon})`,
-                        backgroundRepeat: "no-repeat",
-                        paddingRight: "40px",
-                        backgroundPosition: "right",
-                      }}
-                    />
-                    <span
-                      className="toggle-icon"
-                      onClick={handlePasswordToggle}
-                    >
-                      <Icon icon={passwordIcon} size={23} />
-                    </span>
-                  </div>
-                  {errorMessage.passError && (
-                    <div className="error_input">{errorMessage.passError}</div>
-                  )}
 
-                  <div className="pass_link">
-                    <a href="/ForgetPassword"> فراموشی رمز عبور</a>
-                  </div>
-                  <div className="field btn">
-                    <div className="btn_layer"></div>
-                    <input
-                      type="submit"
-                      value="ورود"
-                      onClick={handleLoginEnter}
-                    />
-                  </div>
-                  {errorMessage.backError && (
-                    <div className="error_input2" onChange={handleChange}>
-                      {errorMessage.backError}
+              <div className="form_container">
+                <div className="slider_controls">
+                  <input
+                    type="radio"
+                    name="slide"
+                    id="login"
+                    defaultChecked
+                    style={{ display: "none" }}
+                  />
+                  <input
+                    type="radio"
+                    name="slide"
+                    id="signup"
+                    style={{ display: "none" }}
+                  />
+
+                  <label
+                    htmlFor="login"
+                    className="slide login"
+                    onClick={handleSliderLoginClick}
+                  >
+                    ورود
+                  </label>
+                  <label
+                    htmlFor="signup"
+                    className="slide signup"
+                    onClick={handleSliderSignupClick}
+                  >
+                    ثبت نام
+                  </label>
+                  <div className="slider_tab"></div>
+                </div>
+                <div className="form_details">
+                  <form action="#" className="login">
+                    <pre></pre>
+                    <div className="field">
+                      <input
+                        className="email1_input"
+                        type="text"
+                        name="email"
+                        placeholder="ایمیل"
+                        error={errorMessage.emailError}
+                        onChange={handleChange}
+                        style={{
+                          backgroundImage: `url(${email_icon})`,
+                          backgroundRepeat: "no-repeat",
+                          paddingRight: "40px",
+                          backgroundPosition: "right",
+                        }}
+                      />
                     </div>
-                  )}
-                  <div className="signup_link">
-                    {" "}
-                    <a href="#" onClick={(e) => navigate("/Home")}>
+                    {errorMessage.emailError && (
+                      <div className="error_input">
+                        {errorMessage.emailError}
+                      </div>
+                    )}
+                    <div className="field">
+                      <input
+                        className="password1_input"
+                        type={passwordType}
+                        placeholder="رمز عبور"
+                        onChange={handleChange}
+                        style={{
+                          backgroundImage: `url(${lock_icon})`,
+                          backgroundRepeat: "no-repeat",
+                          paddingRight: "40px",
+                          backgroundPosition: "right",
+                        }}
+                      />
+                      <span
+                        className="toggle-icon"
+                        onClick={handlePasswordToggle}
+                      >
+                        <Icon icon={passwordIcon} size={23} />
+                      </span>
+                    </div>
+                    {errorMessage.passError && (
+                      <div className="error_input">
+                        {errorMessage.passError}
+                      </div>
+                    )}
+
+                    <div className="pass_link">
+                      <a href="/ForgetPassword"> فراموشی رمز عبور</a>
+                    </div>
+                    <div className="field btn">
+                      <div className="btn_layer"></div>
+                      <input
+                        type="submit"
+                        value="ورود"
+                        onClick={handleLoginEnter}
+                      />
+                    </div>
+                    {errorMessage.backError && (
+                      <div className="error_input2" onChange={handleChange}>
+                        {errorMessage.backError}
+                      </div>
+                    )}
+                    <div className="signup_link">
                       {" "}
-                      صفحه اصلی
-                    </a>
-                  </div>
-                </form>
-                {/*signup form*/}
-                <form action="#" className="signup">
-                  <pre></pre>
-                  {/*<div className="field">
+                      <a href="#" onClick={(e) => navigate("/Home")}>
+                        {" "}
+                        صفحه اصلی
+                      </a>
+                    </div>
+                  </form>
+                  {/*signup form*/}
+                  <form action="#" className="signup">
+                    <pre></pre>
+                    {/*<div className="field">
                     <input type="text" placeholder='Name'/>
                   </div>*/}
-                  <div className="field">
-                    <input
-                      className="email2_input"
-                      type="text"
-                      name="email"
-                      placeholder="ایمیل"
-                      onChange={handleChange}
-                      error={errorMessage.emailError}
-                      style={{
-                        backgroundImage: `url(${email_icon})`,
-                        backgroundRepeat: "no-repeat",
-                        paddingRight: "40px",
-                        backgroundPosition: "right",
-                      }}
-                    />
-                  </div>
-                  {errorMessage.emailError && (
-                    <div className="error_input">{errorMessage.emailError}</div>
-                  )}
-                  <div className="field">
-                    <input
-                      className="password2_input"
-                      type={passwordType}
-                      placeholder="رمز عبور"
-                      onChange={handleChange}
-                      style={{
-                        backgroundImage: `url(${lock_icon})`,
-                        backgroundRepeat: "no-repeat",
-                        paddingRight: "40px",
-                        backgroundPosition: "right",
-                      }}
-                    />
-                    <span
-                      className="toggle-icon"
-                      onClick={handlePasswordToggle}
-                    >
-                      <Icon icon={passwordIcon} size={23} />
-                    </span>
-                  </div>
-                  {errorMessage.passError && (
-                    <div className="error_input">{errorMessage.passError}</div>
-                  )}
-                  <div className="field">
-                    <input
-                      className="passwordConf_input"
-                      type={repeatPasswordType}
-                      placeholder="تکرار رمز عبور"
-                      onChange={handleChange}
-                      style={{
-                        backgroundImage: `url(${lock_icon})`,
-                        backgroundRepeat: "no-repeat",
-                        paddingRight: "40px",
-                        backgroundPosition: "right",
-                      }}
-                    />
-                    <span
-                      className="toggle-icon"
-                      onClick={handleRepeatPasswordToggle}
-                    >
-                      <Icon icon={repeatPasswordIcon} size={23} />
-                    </span>
-                  </div>
-                  {errorMessage.passErrorRep && (
-                    <div className="error_input">
-                      {errorMessage.passErrorRep}
+                    <div className="field">
+                      <input
+                        className="email2_input"
+                        type="text"
+                        name="email"
+                        placeholder="ایمیل"
+                        onChange={handleChange}
+                        error={errorMessage.emailError}
+                        style={{
+                          backgroundImage: `url(${email_icon})`,
+                          backgroundRepeat: "no-repeat",
+                          paddingRight: "40px",
+                          backgroundPosition: "right",
+                        }}
+                      />
                     </div>
-                  )}
-                  <div className="field btn">
-                    <div className="btn_layer"></div>
-                    <input
-                      type="submit"
-                      value="ثبت نام"
-                      onClick={handleSignupEnter}
-                    />
-                  </div>
-                  <div className="signup_link">
-                    {" "}
-                    <a href="#" onClick={(e) => navigate("/Home")}>
+                    {errorMessage.emailError && (
+                      <div className="error_input">
+                        {errorMessage.emailError}
+                      </div>
+                    )}
+                    <div className="field">
+                      <input
+                        className="password2_input"
+                        type={passwordType}
+                        placeholder="رمز عبور"
+                        onChange={handleChange}
+                        style={{
+                          backgroundImage: `url(${lock_icon})`,
+                          backgroundRepeat: "no-repeat",
+                          paddingRight: "40px",
+                          backgroundPosition: "right",
+                        }}
+                      />
+                      <span
+                        className="toggle-icon"
+                        onClick={handlePasswordToggle}
+                      >
+                        <Icon icon={passwordIcon} size={23} />
+                      </span>
+                    </div>
+                    {errorMessage.passError && (
+                      <div className="error_input">
+                        {errorMessage.passError}
+                      </div>
+                    )}
+                    <div className="field">
+                      <input
+                        className="passwordConf_input"
+                        type={repeatPasswordType}
+                        placeholder="تکرار رمز عبور"
+                        onChange={handleChange}
+                        style={{
+                          backgroundImage: `url(${lock_icon})`,
+                          backgroundRepeat: "no-repeat",
+                          paddingRight: "40px",
+                          backgroundPosition: "right",
+                        }}
+                      />
+                      <span
+                        className="toggle-icon"
+                        onClick={handleRepeatPasswordToggle}
+                      >
+                        <Icon icon={repeatPasswordIcon} size={23} />
+                      </span>
+                    </div>
+                    {errorMessage.passErrorRep && (
+                      <div className="error_input">
+                        {errorMessage.passErrorRep}
+                      </div>
+                    )}
+                    <div className="field btn">
+                      <div className="btn_layer"></div>
+                      <input
+                        type="submit"
+                        value="ثبت نام"
+                        onClick={handleSignupEnter}
+                      />
+                    </div>
+                    <div className="signup_link">
                       {" "}
-                      صفحه اصلی
-                    </a>
-                  </div>
-                </form>
-                
+
+                      <a href="#" onClick={(e) => navigate("/Home")}>
+                        {" "}
+                        صفحه اصلی
+                      </a>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </body>
-      <button onClick={toggleModal}>test</button>
-                <DoctorInfoModal
-                 
-                  showModal={showModal}
-                  toggleModal={toggleModal}
-                />
+        </body>
+      </div>
+
     </>
   );
 };

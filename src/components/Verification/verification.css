@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
 
 :root{
-  background: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%);
+  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd);
 }
 
 *{
@@ -10,12 +10,22 @@
   box-sizing: border-box;
 }
 .pt_bd{
-  display: grid;
+ 
+    background-image: url("./ver_bg2.png"); /* Replace with the correct path */
+    background-size: cover; /* Ensure the image covers the entire container */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent tiling */
+    min-height: 100vh; /* Full viewport height */
+    display: flex; /* Flexbox for centering */
+    justify-content: center;
+    align-items: center;
+  
+  /* display: grid;
   height:100%;
   width:100%;
   place-items: center;
-  background: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%) no-repeat 100%;
-  /*background-image: linear-gradient(62deg , #e68efc 0%, #E0C3FC 100%);*/
+  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd) no-repeat 100%;
+  background-image: linear-gradient(62deg , #e68efc 0%, #E0C3FC 100%); */
   /* background-image: linear-gradient(62deg , #B799FF 0%, #E0C3FC 100%); */
 /* background-image: linear-gradient(62deg , #B799FF 0%, #AEE2FF 100%); */
 } 
@@ -29,7 +39,7 @@
   padding: 30px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: rgb(66,38,77) 0px 20px 30px -10px;
+  box-shadow: rgb(34, 156, 107) 0px 20px 30px -10px;
   margin-top: 30%;
 
 }
@@ -46,7 +56,7 @@
   color: #767575;
   font-weight: 700;
   text-align: center;
-  text-shadow: rgb(161, 185, 247) 0px 0px 7px;
+  text-shadow: rgb(153, 242, 182) 0px 0px 7px;
   transition: all 0.6s cubic-bezier(0.68 , -0.55 , 0.265, 1.55);
 }
 
@@ -96,7 +106,7 @@ input[type="radio"]{
   left:0;
   z-index: 0;
   /*background: -webkit-linear-gradient(left,#5a0066 , #5c0080 , #9500b3,#8a00e6);*/
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF);
+  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd);
   position: absolute;
   border-radius: 35px;
   transition:all 0.6s cubic-bezier(0.68 , -0.55 , 0.265 , 1.55);
@@ -151,7 +161,7 @@ input[type="radio"]{
   font-size: 18px;
   transition: border-color 0.3s ease;
   color: gray;
-  caret-color: rgb(152, 103, 175);
+  caret-color: rgb(56, 133, 85);
 }
 .form_details form .fp_field span {
     display: grid;
@@ -174,7 +184,7 @@ input[type="radio"]{
 }
 
 .form_details form .fp_field input:focus {
-  border-bottom-color: #b396f6;
+  border-bottom-color: #169663;
 }
 
 .form_details form .fp_field input::placeholder {
@@ -194,7 +204,7 @@ input[type="radio"]{
 }
 
 .form_details form .fp_field .fp_eye:hover {
-  color: #aa87fd;
+  color: #4ca77b;
 }
 
 
@@ -208,15 +218,15 @@ input[type="radio"]{
 
 
 form .fp_field input:focus::placeholder{
-  color: #B799FF;}
+  color: #65ae8d;}
 
 form .fp_field input:hover::placeholder {
-  color: #B799FF;
+  color: #65ae8d;
 }
 .fp_pass_link{
   margin-top: 5px;
   font-family: Ios15Medium;
-  color: #B799FF;
+  color: #65ae8d;
   cursor: pointer;
   text-decoration: none;
   font-size: 15px;
@@ -224,11 +234,11 @@ form .fp_field input:hover::placeholder {
 }
 .fp_pass_link a:hover
 {
-  color: #dccffd;
+  color: #cffde9;
 }
 .fp_pass_link a::grammar-error
 {
-  color: #824ff9;
+  color: #1e825f;
 }
 
 form .btn{
@@ -248,7 +258,7 @@ form .btn .btn_layer{
   left:-100%;
   border-radius: 30px;
   /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd4fe9); */
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF,#E6FFFD);
+  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd);
   transition: all 0.3s ease
 }
 form .btn:hover .btn_layer{
@@ -285,7 +295,7 @@ form .btn input[type="submit"]{
   margin: 15px;
   transition: border-color 0.3s ease;
   color: #7c7c7e;
-  caret-color: #bba2f7;
+  caret-color: #76dca1;
 }
 
 .ver_error_input2 {
@@ -300,6 +310,6 @@ form .btn input[type="submit"]{
   font-size: 15px;
   font-weight: bold;
   transition: border-color 0.3s ease;
-  color: #bba2f7;
-  caret-color: #bba2f7;
+  color: #55AD9B;
+  caret-color: #55AD9B;
 }
