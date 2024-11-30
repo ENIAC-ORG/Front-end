@@ -34,7 +34,7 @@ const UserManagement = () => {
 
   useEffect(() => {
     fetchDoctors();
-    intervalRef.current = setInterval(fetchDoctors, 7000); 
+    intervalRef.current = setInterval(fetchDoctors, 5000); 
     return () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
@@ -235,7 +235,7 @@ const UserManagement = () => {
   const fetchDoctors = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://127.0.0.1:8000/DoctorPanel/pending_doctor", {
+      const response = await axios.get("http://127.0.0.1:8000//DoctorPanel/pending_doctor", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -294,20 +294,16 @@ const UserManagement = () => {
   return (
     <>
       <ToastContainer />
-      <div
-        style={{
-          fontFamily: "Ios15Medium",
-          width: "100vw",
-          height: "100vh",
-          padding: "20px",
-          backgroundColor: "#D0E8C5",
-          direction: "rtl",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <h2 style={{ textAlign: "center", fontFamily: "Ios15Medium" }}>مدیریت کاربران</h2>
+      <div className="page-container">
+      <h2
+  style={{
+    textAlign: "center",
+    fontFamily: "Ios15Medium",
+    fontWeight: "bolder",
+    color: "#557C56",  // Text color
+    textShadow: "3px 3px 3px #939185", // Black outline
+  }}
+    > مدیریت کاربران </h2>
 
         <div
           style={{
