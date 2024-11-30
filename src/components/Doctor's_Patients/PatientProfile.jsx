@@ -56,7 +56,7 @@ const Patient_Profile = ({ PatiantId, name, nationalID, gender }) => {
               </p>
             </div>
 
-            <div className="buttonReserveAndProfile">
+            <div>
               <div className="team-icon d-flex justify-content-center pb-4">
                 <a
                   className="btn btn-square btn-secondary text-white rounded-circle m-1"
