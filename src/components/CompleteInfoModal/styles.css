@@ -115,7 +115,7 @@
   margin-top: 20px;
   font-family: Vazir, Arial, sans-serif;
   transition: border-color 0.3s ease;
-
+}
 
 .form_details_modal .form .field_modal .input {
   width: 170%;
@@ -279,14 +279,14 @@
 
 
 form .field_modal_date .input_date:focus::placeholder {
-  color: #8e69e4;
+  color: #69e4c1;
 
   font-family: Vazir, Arial, sans-serif;
 }
 
 form .field_modal_date .input_date:hover::placeholder {
 
-  color: #b799ff;
+  color:  rgb(103, 175, 146);
 
   font-family: Vazir, Arial, sans-serif;
 }
@@ -309,7 +309,7 @@ form .field_modal_date .input_date:hover::placeholder {
 
 
 form .field_modal input:focus::placeholder {
-  color: #8e69e4;
+  color: #55ad9b;
 
 
 
@@ -318,26 +318,26 @@ form .field_modal input:focus::placeholder {
 
 form .field_modal input:hover::placeholder {
 
-  color: #b799ff;
+  color:  rgb(103, 175, 146);
 
   font-family: Vazir, Arial, sans-serif;
 }
 
 
 form .field_modal:focus::placeholder {
-  color: #8e69e4;
+  color: #55ad9b;
   font-family: Vazir, Arial, sans-serif;
 }
 
 form .field_modal:hover::placeholder {
 
-  color: #b799ff;
+  color: rgb(103, 175, 146);
   font-family: Vazir, Arial, sans-serif;
 }
 
 
 .field_modal select:hover option[value=""]:not(:disabled) {
-  color: #b799ff; /* Change the color to your desired hover color */
+  color: rgb(103, 175, 146); /* Change the color to your desired hover color */
 }
 
 form .btn { 
@@ -390,13 +390,13 @@ form .btn input[type="submit"] {
 .button-20 {
   appearance: button;
 
-  background-color: #4d4ae8;
+  background-color: #176641;
   background-image: linear-gradient(
     180deg,
     rgba(255, 255, 255, 0.15),
     rgba(255, 255, 255, 0)
   );
-  border: 1px solid #8886f5;
+  border: 1px solid #55ad9b;
 
   border-radius: 1rem;
   box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset,
@@ -430,15 +430,15 @@ form .btn input[type="submit"] {
 
 .button-20:hover {
 
-  background-color: #b588f5;
-  border-color: #bb93f6;
+  background-color: #369b87;
+  border-color: #55ad9b;
 }
 
 .button-20:focus {
-  background-color: #b588f5;
-  border-color: #b588f5;
+  background-color: #55ad9b;
+  border-color: #55ad9b;
   box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0 inset,
-    rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(104, 101, 235, 0.5) 0 0 0 0.2rem;
+    rgba(46, 54, 80, 0.075) 0 1px 1px, rgba(25, 141, 118, 0.5) 0 0 0 0.2rem;
 }
 
 
@@ -585,3 +585,4 @@ form .btn input[type="submit"] {
   }
 }
 
+}
