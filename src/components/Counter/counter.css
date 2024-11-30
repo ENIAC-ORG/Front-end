@@ -1,5 +1,5 @@
 .CounterUpContainer {
-  background: #8b42f7;
+  background: #49947d;
   top: 0%;
   margin-top: 50px;
   margin-bottom: 150px;
@@ -22,7 +22,7 @@
 
 .statistics-container {
   padding-top: 2%;
-  background-color: rgba(234, 222, 249, 0.993);
+  background-color: #c8e1c4 !important; 
 }
 
 .statistics-row {
@@ -36,9 +36,16 @@
   margin: 50px;
 }
 
+@media (max-width: 1024px) {
+  .CounterUpContainer {
+    width: 90%; /* Reduce width for smaller screens */
+  }
+}
+
 @media (max-width: 768px) {
   .statistics-item {
     flex-basis: 50%;
+    
   }
 }
 
@@ -46,6 +53,10 @@
   .statistics-item {
     flex-basis: 100%;
   }
+}
+
+.bg-dark {
+  background-color: #c8e1c4 !important;
 }
 
 
