@@ -1,4 +1,4 @@
-const Recommendation_Question = {
+const Patient_Recommendation_Question = {
     totalQuestions: 16,
     questions: [
         {
@@ -166,4 +166,4 @@ const Recommendation_Question = {
     ]
 }
 
-export default Recommendation_Question;
+export default Patient_Recommendation_Question;
