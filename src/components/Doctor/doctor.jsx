@@ -11,10 +11,11 @@ import myImage6 from "./img/couching.jpg";
 
 const Doctor_Home = () => {
   return (
-    <div className="container-fluid project py-5 mb-5" >
-      <div className="container">
+    <div className="bg-dark-custom2 m-5 rounded rounded-5">
+    <div className="container-fluid project py-2 mb-5" >
+      <div className="p-5">
         <div
-          className="text-center mx-auto pb-5 wow fadeIn"
+          className="text-center mx-auto pb-1 wow fadeIn"
           data-wow-delay=".3s"
           style={{ maxWidth: "600px" }}
         >
@@ -28,8 +29,8 @@ const Doctor_Home = () => {
         </a></div> */}
         <br /> <br />
 
-        <div className="row g-5">
-          <div className="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+        <div className="row m-0 g-5">
+          <div className=" col col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
             <div className="project1-item">
               <div className="project1-img">
                 <img
@@ -38,7 +39,7 @@ const Doctor_Home = () => {
                   alt="img1"
                 />
                 <div className="project1-content">
-                  <HashLink to="/Doctors#edu" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" }}>
+                  <HashLink to="/Doctors#edu" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" , color: "white"}}>
                     حوزه تحصیلی
                     <p
                       className="m-0 text-white"
@@ -60,7 +61,7 @@ const Doctor_Home = () => {
                   alt="img2"
                 />
                 <div className="project1-content">
-                  <HashLink to="/Doctors#Baby" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" }}>
+                  <HashLink to="/Doctors#Baby" className="text-center text-secondary" style={{ fontFamily: "Ios15Medium" , color: "rgb(174, 200, 223)"}}>
                     حوزه کودک
                     <p
                       className="m-0 text-white"
@@ -163,6 +164,7 @@ const Doctor_Home = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };
