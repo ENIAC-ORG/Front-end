@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useHref } from "react";
 import { FaUserDoctor } from "react-icons/fa6";
@@ -27,8 +27,7 @@ const NavBar_SideBar = () => {
   var log = localStorage.getItem("IN");
   const navigate = useNavigate();
   const [inside, setIN] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const sidebarRef = useRef(null);
+  const [sideBarToggle, setsideBarToggle] = useState(false);
   const [MenueToggle, setMenueToggle] = useState(false);
   const handsidebarToggle = () => {
     setsideBarToggle(!sideBarToggle);
@@ -73,8 +72,8 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#55AD9B",
-          color: "#gray",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
@@ -101,26 +100,11 @@ const NavBar_SideBar = () => {
       }
     }
   }
-
-  useEffect(() => {
-    function handleClickOutside(event) {
-      if (sidebarRef.current && !sidebarRef.current.contains(event.target)) {
-        setIsSidebarOpen(false);
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-
-  
-
   return (
     <>
       <div
         className={styles.navbar}
-        style={isSidebarOpen ? { marginRight: "16rem" } : {}}
+        style={sideBarToggle ? { marginRight: "16rem" } : {}}
         onLoad={(e) => getlog()}
       >
         <div className={styles.navcontainer}>
@@ -182,16 +166,11 @@ const NavBar_SideBar = () => {
         </div>
         <div className={styles.p1}>
           <div style={{ width: "90px" }}></div>
-          <FaBars className={styles.fBar} 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          />
+          <FaBars className={styles.fBar} onClick={handsidebarToggle} />
         </div>
       </div>
       {/* ----------------------------------------------------------------- */}
-      <div 
-        style={isSidebarOpen ? { display: "block" } : { display: "none" }}
-        ref={sidebarRef}
-      >
+      <div style={sideBarToggle ? { display: "block" } : { display: "none" }}>
         <div className={styles1.side_body}>
           <div className={styles1.side_p1}>
             <h1 className={styles1.side_title}>داشبورد</h1>
@@ -201,6 +180,7 @@ const NavBar_SideBar = () => {
             <li
               className={styles1.side_list_element}
               onClick={(e) => {
+                handsidebarToggle();
                 navigate("/Home");
               }}
             >
@@ -212,6 +192,7 @@ const NavBar_SideBar = () => {
               <li
                 className={styles1.side_list_element}
                 onClick={(e) => {
+                  handsidebarToggle();
                   navigate("/User_panel");
                 }}
               >
@@ -225,6 +206,7 @@ const NavBar_SideBar = () => {
             <li
               className={styles1.side_list_element}
               onClick={(e) => {
+                handsidebarToggle();
                 navigate("/TestPage");
               }}
             >
@@ -246,6 +228,7 @@ const NavBar_SideBar = () => {
             <li
               className={styles1.side_list_element}
               onClick={(e) => {
+                handsidebarToggle();
                 navigate("/Aboutus");
               }}
             >
@@ -258,6 +241,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/PatientsList");
                   }}
                 >
@@ -269,6 +253,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/DoctorPage");
                   }}
                 >
@@ -279,6 +264,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/DoctorFreeTime");
                   }}
                 >
@@ -290,6 +276,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/DoctorRatings");
                   }}
                 >
@@ -304,6 +291,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/TestResult");
                   }}
                 >
@@ -321,6 +309,7 @@ const NavBar_SideBar = () => {
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
+                    handsidebarToggle();
                     navigate("/User_Management");
                   }}
                 >
