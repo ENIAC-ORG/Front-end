@@ -123,6 +123,7 @@ function toPersianDigits(str) {
 
   return (
     <>
+    <body style={{ display:'grid' }}>
       <NavBar_SideBar />
       <div
         className="prof_body"
@@ -321,6 +322,7 @@ function toPersianDigits(str) {
         </div>
       </div>
       <Footer />
+      </body>
     </>
   );
 };
