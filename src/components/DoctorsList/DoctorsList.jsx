@@ -75,17 +75,16 @@ const DoctorsList = () => {
       if (error.response.status == 403) {
         withReactContent(Swal).fire({
           icon: "error",
-
           html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
-
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
               rgba(84, 75, 87.0.9)
               left top
               no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0",
           preConfirm: () => {
             navigate("/Signup");
           },

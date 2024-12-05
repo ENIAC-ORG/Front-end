@@ -70,34 +70,42 @@ const NavBar_SideBar = () => {
         console.log(response);
         const data = response.data;
         console.log(data);
-        withReactContent(Swal).fire({
+        Swal.fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
-          rgba(84, 75, 87.0.9)
-          left top
-          no-repeat`,
+      rgba(84, 75, 87.0.9)
+      left top
+      no-repeat`,
           confirmButtonText: "تایید",
-        });
+          confirmButtonColor: '#0a8ca0',
+          showConfirmButton: true,
+          preConfirm: () => {
+            navigate("/signup");
+          },
+  
+      });
       }
     } catch (error) {
       console.log(error);
       if (error.response.status === 403) {
-        withReactContent(Swal).fire({
+        Swal.fire({
           icon: "error",
-          title: "!",
-          background: "#473a67",
-          color: "#b4b3b3",
+          title: "!متاسفانه خطایی رخ داد",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
-          rgba(84, 75, 87.0.9)
-          left top
-          no-repeat`,
+      rgba(84, 75, 87.0.9)
+      left top
+      no-repeat`,
           confirmButtonText: "تایید",
-        });
+          confirmButtonColor: '#0a8ca0',
+          showConfirmButton: true,
+      });
       }
     }
   }

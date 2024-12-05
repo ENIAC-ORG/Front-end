@@ -7,7 +7,7 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import { IsValidEmail } from "./IsValidEmail";
 import { useNavigate } from "react-router-dom";
-
+import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import lock_icon from "../../assets/password.png";
 import email_icon from "../../assets/email.png";
@@ -203,17 +203,25 @@ const LoginContainer = () => {
         localStorage.setItem("role", role);
         localStorage.setItem("LogIn", true);
       }
-      withReactContent(Swal).fire({
+
+      Swal.fire({
         icon: "success",
         title: "!با موفقیت وارد شدید",
-        background: "#55AD9B",
-        color: "#black",
-        width: "32rem",
+        background: "#075662",
+        color: "#FFFF",
+        width: "35rem",
+        backdrop: `
+    rgba(84, 75, 87.0.9)
+    left top
+    no-repeat`,
         confirmButtonText: "باشه",
+        confirmButtonColor: '#0a8ca0',
+        showConfirmButton: true,
         preConfirm: () => {
           navigate("/Home");
         },
-      });
+
+    });
     } catch (error) {
       if (error.response.status === 400) {
         console.log(error);
@@ -439,6 +447,7 @@ const LoginContainer = () => {
 
   return (
     <>
+    <ToastContainer />
       <div className="hello">
         <body className="bd">
           <div className="hello">

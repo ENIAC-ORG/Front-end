@@ -139,21 +139,6 @@
   color: #15B392;
 }
 
-.custom-swal-container .swal2-popup {
-  border-radius: 15px; /* Decrease border radius */
-  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Decrease box shadow */
-}
-
-.custom-swal-container .swal2-title {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
-  font-size: 24px; /* Decrease font size */
-}
-
-.custom-swal-container .swal2-content {
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
-  font-size: 18px; /* Decrease font size */
-}
-
 .mbti-progress-bar {
   direction: ltr; /* Set direction to right-to-left */
 }

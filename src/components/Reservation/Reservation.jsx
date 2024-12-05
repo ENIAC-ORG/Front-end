@@ -471,9 +471,8 @@ const ReservationPage = () => {
                         showCancelButton: true,
                         cancelButtonText: "انصراف",
                         confirmButtonText: "تکمیل اطلاعات",
-                        customClass: {
-                          container: "custom-swal-container",
-                        },
+                        confirmButtonColor: "#0a8ca0",
+                        cancelButtonColor: "#0a8ca0",
                       }).then((result) => {
                         if (result.isConfirmed) {
                           toggleModal();

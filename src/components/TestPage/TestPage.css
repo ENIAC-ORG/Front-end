@@ -239,12 +239,12 @@ VERSION:	Versoin Number
 } */
  
 ::-moz-selection {
-  background: #B799FF;
+  background: #82c5a8;
   color: #fff;
 }
 
  ::selection {
-  background: #B799FF;
+  background: #82c5a8;
   color: #fff;
 }
 

@@ -94,15 +94,16 @@ const Testresult = () => {
       if (error.response.status == 404) {
         withReactContent(Swal).fire({
           icon: "error",
-          title: "!مریض مورد نظر پیدا نشد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          title: "!بیمار مورد نظر پیدا نشد",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
             rgba(84, 75, 87.0.9)
             left top
             no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0",
           preConfirm: () => {
             navigate("/Home");
           },
@@ -116,14 +117,15 @@ const Testresult = () => {
           withReactContent(Swal).fire({
             icon: "error",
             title: "! دسترسی به این صفحه مختص پزشک هست",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#FFFF",
             width: "40rem",
             backdrop: `
               rgba(84, 75, 87.0.9)
               left top
               no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: "#0a8ca0",
             preConfirm: () => {
               navigate("/Home");
             },
@@ -132,14 +134,15 @@ const Testresult = () => {
           withReactContent(Swal).fire({
             icon: "error",
             title: "! مریض مورد نظر پیدا نشد",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#FFFF",
             width: "40rem",
             backdrop: `
                 rgba(84, 75, 87.0.9)
                 left top
                 no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: "#0a8ca0",
             preConfirm: () => {
               navigate("/Home");
             },
