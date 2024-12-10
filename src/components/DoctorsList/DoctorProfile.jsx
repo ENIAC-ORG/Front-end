@@ -278,7 +278,7 @@ const DoctorProfile = ({
                                 </div> */}
 
 
-                {/* <div
+                <div
                   className="buttonReserve"
                   onLoad={GetUserInfo}
                   onClick={GetUserInfo2}
@@ -286,7 +286,7 @@ const DoctorProfile = ({
                   <ToastContainer />
                   <CompleteInfoModal doctorId={Id} />
                   <RatingModal doctorId={Id} />
-                </div> */}
+                </div>
               </div>
             </div>
           </div>
