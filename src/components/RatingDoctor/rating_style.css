@@ -291,7 +291,7 @@ form .field_modal:hover::placeholder {
 
 
 .field_modal select:hover option[value=""]:not(:disabled) {
-  color: #B799FF; /* Change the color to your desired hover color */
+  color: #a5f5d7; /* Change the color to your desired hover color */
 }
 
 
@@ -302,7 +302,7 @@ form .field_modal:hover::placeholder {
   border-radius: 35px;
   position:relative;
   overflow: hidden;
-  font-family: Vazir, Arial, sans-serif;
+  font-family: Ios15Medium;
   margin-left: -90px;
 
 }
@@ -314,7 +314,7 @@ form .field_modal:hover::placeholder {
   /* left:-100%; */
   border-radius: 30px;
   /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd_modal4fe9); */
-  background: -webkit-linear-gradient(left,#B799FF , #ACBCFF , #AEE2FF,#E6FFFD);
+  background: -webkit-linear-gradient(left,#50a987 , #90ddb9 , #abd6c7,#E6FFFD);
   transition: all 0.3s ease
 }
 .rating-btn:hover .rating-btn_layer{

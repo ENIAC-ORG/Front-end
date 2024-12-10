@@ -1,68 +1,65 @@
 import React from "react";
 import {
-  MDBCard,
-  MDBCardBody,
-  MDBCol,
-  MDBContainer,
-  MDBIcon,
-  MDBRow,
-  MDBTypography,
+    MDBCard,
+    MDBCardBody,
+    MDBCol,
+    MDBContainer,
+    MDBTypography,
+    MDBRow,
 } from "mdb-react-ui-kit";
+import Stars from "./Stars"; // Import the Stars component
 
-export default function Comments() {
-  return (
-    <section className="vh-100">
-      <MDBContainer className="py-5" style={{ maxWidth: "46vw" }}>
-        <MDBRow>
-          <MDBCol md="11" lg="9" xl="7">
-            <div className="d-flex flex-start mb-4">
-              {/* <img
-                className="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp"
-                alt="avatar"
-                width="65"
-                height="65"
-              /> */}
+export default function Comments({ comments }) {
+    return (
+        <section className="vh-100">
+            <MDBContainer className="py-5" style={{ maxWidth: "46vw" }}>
+                <MDBRow>
+                    {comments.map((comment, index) => (
+                        <MDBCol md="11" lg="9" xl="7" key={index}>
+                            <div className="d-flex flex-start mb-4">
+                                <MDBCard className="w-100">
+                                    <MDBCardBody
+                                        className="p-4"
+                                        style={{
+                                            direction: "rtl",
+                                            backgroundColor: "#e7f9ed",
+                                            borderRadius: "10px",
+                                        }}
+                                    >
+                                        <div>
+                                            <div style={{ display: "flex", alignItems: "center" }}>
+                                                <MDBTypography
+                                                    tag="h5"
+                                                    style={{ fontFamily: "Ios15Medium", marginRight: "10px" }}
+                                                >
+                                                    ناشناس
+                                                </MDBTypography>
+                                                {/* Add Stars component here */}
+                                                <Stars
+                                                    count={5}
+                                                    rating={comment.rating}
+                                                    setRating={() => { }} // No-op, since the stars are not interactive
+                                                    color="hsl(47, 90%, 60%)"
+                                                    iconSize={25}
+                                                    isInteractive={false} // Disable interaction
+                                                />
 
-              <MDBCard className="w-100">
-                <MDBCardBody className="p-4" style={{direction: "rtl", backgroundColor: "#e7f9ed"}}>
-                  <div>
-                    <MDBTypography tag="h5">ناشناس</MDBTypography>
-                    <p className="small" style={{color: "gray"}}>3 ساعت پیش</p>
-                    <p>
-                      درمانگر بسیار عالی ای هستند.
-                    </p>
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-
-            <div className="d-flex flex-start mb-4" style={{direction: "rtl", backgroundColor: "#e7f9ed"}}>
-              {/* <img
-                className="rounded-circle shadow-1-strong me-3"
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(31).webp"
-                alt="avatar"
-                width="65"
-                height="65"
-              /> */}
-
-              <MDBCard className="w-100">
-                <MDBCardBody className="p-4" style={{direction: "rtl"}}>
-                  <div>
-                    <MDBTypography tag="h5">Mindy Campbell</MDBTypography>
-                    <p className="small" style={{direction: "rtl"}}>5 hours ago</p>
-                    <p style={{direction: "rtl"}}>
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Delectus cumque
-                    </p>
-
-                  </div>
-                </MDBCardBody>
-              </MDBCard>
-            </div>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </section>
-  );
+                                            </div>
+                                            <p
+                                                className="small"
+                                                style={{ color: "gray", fontFamily: "Ios15Medium" }}
+                                            >
+                                                {comment.time}
+                                            </p>
+                                            <p style={{ fontFamily: "Ios15Medium" }}>{comment.content}</p>
+                                        </div>
+                                    </MDBCardBody>
+                                </MDBCard>
+                            </div>
+                        </MDBCol>
+                    ))}
+                </MDBRow>
+            </MDBContainer>
+        </section>
+    );
 }

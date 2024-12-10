@@ -6,13 +6,37 @@ import "react-toastify/dist/ReactToastify.css";
 import "./rating_style.css";
 import Stars from "./Stars";
 import axios from "axios";
-import Comments from "./Comments"; // Import the Comments component
+import Comments from "./Comments";
 import { TextField } from "@mui/material";
 
 const RatingModal = (doctorId) => {
   const [show, setShow] = useState(false);
   const [_comment, setValue] = useState("");
   const [_rating, setRating] = useState(0);
+
+  // Mock comments list
+  const [comments, setComments] = useState([
+    {
+      author: "ناشناس",
+      time: "3 ساعت پیش",
+      content: "درمانگر بسیار عالی ای هستند.",
+      rating: 5,
+    },
+    {
+      author: "Mindy Campbell",
+      time: "5 hours ago",
+      content:
+        "زیاد راضی نبودم",
+      rating: 2.5,
+    },
+    {
+      author: "Ali Reza",
+      time: "1 ساعت پیش",
+      content: "بسیار حرفه‌ای و دلسوز بودند.",
+      rating: 5,
+    },
+  ]);
+  
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -35,6 +59,16 @@ const RatingModal = (doctorId) => {
       });
 
       if (response.status === 200 || response.status === 201) {
+        // Add new comment to the list
+        setComments((prevComments) => [
+          {
+            author: "ناشناس", // Assuming the user stays anonymous
+            time: "لحظاتی پیش",
+            content: _comment,
+          },
+          ...prevComments,
+        ]);
+        setValue(""); // Clear the comment field
         setShow(false);
         toast.success("!نظر شما با موفقیت ثبت شد", {
           position: "bottom-left",
@@ -76,7 +110,7 @@ const RatingModal = (doctorId) => {
         onHide={() => setShow(false)}
         className="rating-bd_modal modal rating-wrapper_modal"
         centered
-        dialogClassName="scrollable-modal" // Custom class for styling
+        dialogClassName="scrollable-modal"
       >
         <div onClick={() => setShow(false)} className="rating_close_button">
           <IoIosClose className="rating_close_button_icon" />
@@ -85,7 +119,26 @@ const RatingModal = (doctorId) => {
           <Modal.Title className="rating-title_modal">اطلاعات و نظرات</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: "500px", overflowY: "auto" }}>
-          {/* Scrollable content */}
+          <div>
+            <h4
+              style={{
+                fontFamily: "Ios15Medium",
+                color: "gray",
+                fontSize: "22px",
+                textAlign: "center",
+                direction: "rtl",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: "-2%",
+              }}>اطلاعات دکتر</h4>
+            <div style={{ direction: "rtl", paddingTop: "20px", paddingRight: "30px" }}>
+              <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس</h5>
+              <h5 style={{ fontFamily: "Ios15Medium" }}>شماره تماس</h5>
+              <h5 style={{ fontFamily: "Ios15Medium" }}>شماره نظام</h5>
+              <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس</h5>
+
+            </div>
+          </div>
           <div className="rating-form_container_modal">
             <h4
               style={{
@@ -102,42 +155,47 @@ const RatingModal = (doctorId) => {
               به این درمانگر از ۱ تا ۵ چه امتیازی می‌دهید؟
             </h4>
             <Stars setRating={setRating} rating={_rating} />
+            <div>
+              <h4
+                style={{
+                  fontFamily: "Ios15Medium",
+                  // marginBottom: "6%",
+                  color: "gray",
+                  fontSize: "22px",
+                  textAlign: "center",
+                  direction: "rtl",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: "10%",
+                }}
+              >
+                نظر خود را در مورد این درمانگر بنویسید.
+              </h4>
+              <TextField
+                fullWidth
+                multiline
+                rows={1}
+                rowsMax={5}
+                autoComplete="off"
+                variant="outlined"
+                value={_comment}
+                onChange={handleChange}
+                dir="rtl" // Set the direction to RTL
+                InputLabelProps={{
+                  dir: "rtl", // Set the direction of the label to RTL
+                }}
+              />
+          <div
+            onClick={sendRating}
+            className="rating-field_modal rating-btn"
+            style={{ width: "96%", marginLeft: "2%" }}
+          >
+            <div className="rating-btn_layer"></div>
+            <input style={{fontFamily: "Ios15Medium"}} type="submit" value="ارسال نظر و امتیاز" />
           </div>
-           <div>
-            <h4
-              style={{
-                fontFamily: "Ios15Medium",
-                // marginBottom: "6%",
-                color: "gray",
-                fontSize: "22px",
-                textAlign: "center",
-                direction: "rtl",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: "10%",
-              }}
-            >
-              نظر خود را در مورد این درمانگر بنویسید.
-            </h4>
-            <TextField
-              fullWidth
-              multiline
-              rows={1}
-              rowsMax={4}
-              autoComplete="off"
-              variant="outlined"
-              value={_comment}
-              onChange={handleChange}
-              dir="rtl" // Set the direction to RTL
-              InputLabelProps={{
-                dir: "rtl", // Set the direction of the label to RTL
-              }}
-            />
-            
+            </div>
           </div>
-          <div style={{width: "100%"}}>
-          <Comments /> {/* Comments component */}
-          </div>
+          <Comments comments={comments} />
         </Modal.Body>
         <Modal.Footer>
           <div
