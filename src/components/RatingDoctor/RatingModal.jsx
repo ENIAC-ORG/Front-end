@@ -13,6 +13,7 @@ const RatingModal = (doctorId) => {
   const [show, setShow] = useState(false);
   const [_comment, setValue] = useState("");
   const [_rating, setRating] = useState(0);
+  const [activeTab, setActiveTab] = useState("info"); // Default to "اطلاعات دکتر"
 
   // Mock comments list
   const [comments, setComments] = useState([
@@ -24,19 +25,17 @@ const RatingModal = (doctorId) => {
     },
     {
       author: "Mindy Campbell",
-      time: "5 hours ago",
-      content:
-        "زیاد راضی نبودم",
+      time: "10 ساعت پیش",
+      content: "زیاد راضی نبودم",
       rating: 2.5,
     },
     {
       author: "Ali Reza",
-      time: "1 ساعت پیش",
+      time: "1 روز پیش",
       content: "بسیار حرفه‌ای و دلسوز بودند.",
       rating: 5,
     },
   ]);
-  
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -59,16 +58,16 @@ const RatingModal = (doctorId) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        // Add new comment to the list
         setComments((prevComments) => [
           {
-            author: "ناشناس", // Assuming the user stays anonymous
+            author: "ناشناس",
             time: "لحظاتی پیش",
             content: _comment,
+            rating: _rating,
           },
           ...prevComments,
         ]);
-        setValue(""); // Clear the comment field
+        setValue("");
         setShow(false);
         toast.success("!نظر شما با موفقیت ثبت شد", {
           position: "bottom-left",
@@ -119,94 +118,169 @@ const RatingModal = (doctorId) => {
           <Modal.Title className="rating-title_modal">اطلاعات و نظرات</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: "500px", overflowY: "auto" }}>
-          <div>
-            <h4
+          {/* Tab Navigation */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              borderBottom: "1px solid gray",
+              marginBottom: "20px",
+            }}
+          >
+            <button
+              onClick={() => setActiveTab("comments")}
               style={{
+                backgroundColor:
+                  activeTab === "comments" ? "rgb(232 246 236)" : "transparent",
+                border: "none",
+                padding: "10px 20px",
+                cursor: "pointer",
                 fontFamily: "Ios15Medium",
-                color: "gray",
-                fontSize: "22px",
-                textAlign: "center",
-                direction: "rtl",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "-2%",
-              }}>اطلاعات دکتر</h4>
-            <div style={{ direction: "rtl", paddingTop: "20px", paddingRight: "30px" }}>
-              <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس</h5>
-              <h5 style={{ fontFamily: "Ios15Medium" }}>شماره تماس</h5>
-              <h5 style={{ fontFamily: "Ios15Medium" }}>شماره نظام</h5>
-              <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس</h5>
-
-            </div>
-          </div>
-          <div className="rating-form_container_modal">
-            <h4
-              style={{
-                fontFamily: "Ios15Medium",
-                color: "gray",
-                fontSize: "22px",
-                textAlign: "center",
-                direction: "rtl",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: "-2%",
+                color: "#40513B",
+                fontSize: "20px",
               }}
             >
-              به این درمانگر از ۱ تا ۵ چه امتیازی می‌دهید؟
-            </h4>
-            <Stars setRating={setRating} rating={_rating} />
+              نظرات
+            </button>
+            <button
+              onClick={() => setActiveTab("info")}
+              style={{
+                backgroundColor: activeTab === "info" ? "rgb(232 246 236)" : "transparent",
+                border: "none",
+                padding: "10px 20px",
+                cursor: "pointer",
+                fontFamily: "Ios15Medium",
+                color: "#40513B",
+                fontSize: "20px",
+              }}
+            >
+              اطلاعات دکتر
+            </button>
+          </div>
+
+          {/* Tab Content */}
+          {activeTab === "info" && (
             <div>
               <h4
                 style={{
                   fontFamily: "Ios15Medium",
-                  // marginBottom: "6%",
                   color: "gray",
-                  fontSize: "22px",
-                  textAlign: "center",
+                  fontSize: "23px",
+                  fontWeight: "bold",
                   direction: "rtl",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginTop: "10%",
+                  marginBottom: "20px",
+                  textAlign: "center"
+
                 }}
               >
-                نظر خود را در مورد این درمانگر بنویسید.
+                اطلاعات دکتر
               </h4>
-              <TextField
-                fullWidth
-                multiline
-                rows={1}
-                rowsMax={5}
-                autoComplete="off"
-                variant="outlined"
-                value={_comment}
-                onChange={handleChange}
-                dir="rtl" // Set the direction to RTL
-                InputLabelProps={{
-                  dir: "rtl", // Set the direction of the label to RTL
+              <div
+                style={{
+                  direction: "rtl",
+                  paddingTop: "20px",
+                  paddingRight: "30px",
+                  marginBottom: "27%",
                 }}
-              />
-          <div
-            onClick={sendRating}
-            className="rating-field_modal rating-btn"
-            style={{ width: "96%", marginLeft: "2%" }}
-          >
-            <div className="rating-btn_layer"></div>
-            <input style={{fontFamily: "Ios15Medium"}} type="submit" value="ارسال نظر و امتیاز" />
-          </div>
+              >
+                <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس: خیابان نمونه</h5>
+                <h5 style={{ fontFamily: "Ios15Medium" }}>شماره تماس: 123456789</h5>
+                <h5 style={{ fontFamily: "Ios15Medium" }}>شماره نظام: 12345</h5>
+              </div>
+              <div
+                onClick={sendRating}
+                className="rating-field_modal rating-btn"
+                style={{ width: "96%", marginLeft: "2%" }}
+              >
+                <div className="rating-btn_layer">
+                  <input
+                    style={{ fontFamily: "Ios15Medium" }}
+                    type="submit"
+                    value="رزرو وقت مشاوره"
+                  />
+                </div>
+              </div>
             </div>
-          </div>
-          <Comments comments={comments} />
+          )}
+          {activeTab === "comments" && (
+            <div>
+              <h4
+                style={{
+                  fontFamily: "Ios15Medium",
+                  color: "gray",
+                  fontSize: "23px",
+                  fontWeight: "bold",
+                  direction: "rtl",
+                  marginBottom: "20px",
+                  textAlign: "center"
+
+                }}
+              >
+                نظرات کاربران
+              </h4>
+              <div className="rating-form_container_modal">
+                <h4
+                  style={{
+                    fontFamily: "Ios15Medium",
+                    color: "gray",
+                    fontSize: "20px",
+                    direction: "rtl",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginBottom: "-2%",
+                  }}
+                >
+                  به این درمانگر از ۱ تا ۵ چه امتیازی می‌دهید؟
+                </h4>
+                <Stars setRating={setRating} rating={_rating} iconSize={45} />
+                <div style={{height:"110px"}}>
+                  <h4
+                    style={{
+                      fontFamily: "Ios15Medium",
+                      color: "gray",
+                      fontSize: "20px",
+                      direction: "rtl",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginTop: "5%",
+                    }}
+                  >
+                    نظر خود را در مورد این درمانگر بنویسید.
+                  </h4>
+                  <TextField
+                    fullWidth
+                    multiline
+                    rows={1}
+                    rowsMax={5}
+                    autoComplete="off"
+                    variant="outlined"
+                    value={_comment}
+                    onChange={handleChange}
+                    dir="rtl"
+                    InputLabelProps={{
+                      dir: "rtl",
+                    }}
+                  />
+
+                </div>
+                <div
+                  onClick={sendRating}
+                  className="rating-field_modal rating-btn"
+                  style={{ width: "96%", marginLeft: "2%" }}
+                >
+                  <div className="rating-btn_layer">
+                    <input
+                      style={{ fontFamily: "Ios15Medium" }}
+                      type="submit"
+                      value="ارسال نظر و امتیاز"
+                    />
+                  </div>
+                </div>
+              </div>
+              <Comments comments={comments} />
+            </div>
+          )}
         </Modal.Body>
-        <Modal.Footer>
-          <div
-            onClick={sendRating}
-            className="rating-field_modal rating-btn"
-            style={{ width: "96%", marginLeft: "2%" }}
-          >
-            <div className="rating-btn_layer"></div>
-            <input type="submit" value="ارسال" />
-          </div>
-        </Modal.Footer>
       </Modal>
     </>
   );

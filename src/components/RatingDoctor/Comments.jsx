@@ -12,11 +12,11 @@ import Stars from "./Stars"; // Import the Stars component
 export default function Comments({ comments }) {
     return (
         <section className="vh-100">
-            <MDBContainer className="py-5" style={{ maxWidth: "46vw" }}>
+            <MDBContainer className="py-5" style={{width: "100%"}}>
                 <MDBRow>
                     {comments.map((comment, index) => (
-                        <MDBCol md="11" lg="9" xl="7" key={index}>
-                            <div className="d-flex flex-start mb-4">
+                        <MDBCol md="11" lg="9" xl="7" key={index} style={{width: "100%"}}>
+                            <div className="d-flex flex-start mb-4" style={{width: "100%"}}>
                                 <MDBCard className="w-100">
                                     <MDBCardBody
                                         className="p-4"

@@ -1,5 +1,5 @@
 /* Add responsive styles here */
-@media (max-width: 768px) {
+@media (min-width: 501px) and (max-width: 768px) {
   .rating-button-20 {
     font-size: 14px; /* Adjust font size for smaller screens */
   }
@@ -109,7 +109,7 @@ color: #767575;
   color: #767575;
   font-weight: 700;
   text-align: center;
-  text-shadow: rgb(161, 185, 247) 0px 0px 7px;
+  text-shadow: rgb(139, 239, 202) 0px 0px 7px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -306,21 +306,23 @@ form .field_modal:hover::placeholder {
   margin-left: -90px;
 
 }
-.rating-btn .rating-btn_layer{
-  
-  width:300%;
+.rating-btn .rating-btn_layer {
+  width: 100%;
   height: 100%;
   position: absolute;
-  /* left:-100%; */
+  text-shadow: #767575;
   border-radius: 30px;
-  /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd_modal4fe9); */
-  background: -webkit-linear-gradient(left,#50a987 , #90ddb9 , #abd6c7,#E6FFFD);
-  transition: all 0.3s ease
+  background: -webkit-linear-gradient(left, #0b7d57, #379371, #6bb895, #9cf1d2);
+  background-size: 150%; /* Make the background larger for transition */
+  background-position: left; /* Start position */
+  transition: background-position 0.5s ease; /* Smooth transition */
 }
-.rating-btn:hover .rating-btn_layer{
-  left:0;
-  margin-left: -90px;
+
+.rating-btn:hover .rating-btn_layer {
+  background-position: right; /* Shift the gradient position */
 }
+
+
 .rating-btn input[type="submit"]{
   display:inline;
   font-family: Ios15Medium;
