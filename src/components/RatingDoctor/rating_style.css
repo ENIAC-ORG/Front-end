@@ -78,6 +78,7 @@ color: #767575;
 
   .rating-wrapper_modal .title_modal {
     font-size: 34px;
+    width: 50%;
   }
 
   .rating-form_details_modal form .field_modal .input {
@@ -86,10 +87,10 @@ color: #767575;
 }
 
 .rating-wrapper_modal {
-  margin-left: 33%;
+  margin-left: 28%;
   margin-top: 40px;
   max-height: 622px;
-  max-width: 500px;
+  max-width: 42%;
   background: #fff;
   padding: 30px;
   padding-top: 5px ;
