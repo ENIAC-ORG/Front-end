@@ -8,6 +8,7 @@ import Stars from "./Stars";
 import axios from "axios";
 import Comments from "./Comments";
 import { TextField } from "@mui/material";
+import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx"
 
 import person_img from "../../assets/unknown.jpg";
 
@@ -316,19 +317,7 @@ const RatingInfoModal = (doctorId) => {
                 </h5>
               </div>
 
-              <div
-                onClick={sendRating}
-                className="rating-field_modal rating-btn"
-                style={{ width: "96%", margin: "20px auto", display: "flex", justifyContent: "center" }}
-              >
-                <div className="rating-btn_layer">
-                  <input
-                    style={{ fontFamily: "Ios15Medium" }}
-                    type="submit"
-                    value="رزرو وقت مشاوره"
-                  />
-                </div>
-              </div>
+              <CompleteInfoModal doctorId={doctorId} />
             </div>
           )}
           {activeTab === "comments" && (

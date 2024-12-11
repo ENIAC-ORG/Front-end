@@ -286,7 +286,7 @@ const DoctorProfile = ({
                   onLoad={GetUserInfo}
                   onClick={GetUserInfo2}
                 >
-                  <CompleteInfoModal doctorId={Id} />
+                  
                   <RatingInfoModal doctorId={Id} />
                 </div>
               </div>
