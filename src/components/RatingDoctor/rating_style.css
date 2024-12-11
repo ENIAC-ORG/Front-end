@@ -456,6 +456,7 @@ form .field_modal:hover::placeholder {
 .value-color {
   color: #618a6a;
   font-size: 18px;
+  font-family: "Ios15Medium";
 }
 
 
