@@ -10,6 +10,22 @@ import {
 import Stars from "./Stars"; // Import the Stars component
 
 export default function Comments({ comments }) {
+    const convertToPersianNumbers = (value) => {
+        const persianNumbersMap = {
+          '0': '۰',
+          '1': '۱',
+          '2': '۲',
+          '3': '۳',
+          '4': '۴',
+          '5': '۵',
+          '6': '۶',
+          '7': '۷',
+          '8': '۸',
+          '9': '۹',
+        };
+    
+        return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+      };
     return (
         <section className="vh-100">
             <MDBContainer className="py-2" style={{width: "100%"}}>
@@ -49,7 +65,7 @@ export default function Comments({ comments }) {
                                                 className="small"
                                                 style={{ color: "gray", fontFamily: "Ios15Medium" }}
                                             >
-                                                {comment.time}
+                                                {convertToPersianNumbers(comment.time)}
                                             </p>
                                             <p style={{ fontFamily: "Ios15Medium" }}>{comment.content}</p>
                                         </div>

@@ -331,7 +331,7 @@ const RatingInfoModal = (doctorId) => {
                   حوزۀ فعالیت: <span className="value-color">{field}</span>
                 </h5>
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
-                  آدرس کلینیک: <span className="value-color">{clinicAddr}</span>
+                  آدرس کلینیک: <span className="value-color">{convertToPersianNumbers(clinicAddr)}</span>
                 </h5>
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
                   شماره تماس کلینیک:{" "}
