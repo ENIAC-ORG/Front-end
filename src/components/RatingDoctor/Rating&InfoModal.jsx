@@ -253,12 +253,14 @@ const RatingInfoModal = (doctorId) => {
               style={{
                 backgroundColor:
                   activeTab === "comments" ? "rgb(232 246 236)" : "transparent",
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
                 border: "none",
                 padding: "10px 20px",
                 cursor: "pointer",
                 fontFamily: "Ios15Medium",
                 color: "#40513B",
                 fontSize: "20px",
+                
               }}
             >
               نظرات
@@ -267,6 +269,7 @@ const RatingInfoModal = (doctorId) => {
               onClick={() => setActiveTab("info")}
               style={{
                 backgroundColor: activeTab === "info" ? "rgb(232 246 236)" : "transparent",
+                textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
                 border: "none",
                 padding: "10px 20px",
                 cursor: "pointer",
@@ -291,6 +294,7 @@ const RatingInfoModal = (doctorId) => {
                   direction: "rtl",
                   marginBottom: "20px",
                   textAlign: "center",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
                 اطلاعات دکتر
@@ -365,9 +369,9 @@ const RatingInfoModal = (doctorId) => {
                   fontSize: "19px",
                   fontWeight: "bold",
                   direction: "rtl",
-                  marginBottom: "30px",
+                  marginBottom: "5%",
                   textAlign: "center",
-                  // paddingTop: "10%"
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
                 ثبت نظر و امتیاز
@@ -456,7 +460,8 @@ const RatingInfoModal = (doctorId) => {
                   direction: "rtl",
                   marginBottom: "20px",
                   textAlign: "center",
-                  paddingTop: "10%"
+                  paddingTop: "6%",
+                  textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
                 نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
