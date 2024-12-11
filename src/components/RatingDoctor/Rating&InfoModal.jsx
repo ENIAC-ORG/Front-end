@@ -357,8 +357,21 @@ const RatingInfoModal = (doctorId) => {
           )}
           {activeTab === "comments" && (
             <div>
-
               <div className="rating-form_container_modal">
+              <h4
+                style={{
+                  fontFamily: "Ios15Medium",
+                  color: "#4e695c",
+                  fontSize: "19px",
+                  fontWeight: "bold",
+                  direction: "rtl",
+                  marginBottom: "30px",
+                  textAlign: "center",
+                  // paddingTop: "10%"
+                }}
+              >
+                ثبت نظر و امتیاز
+              </h4>
                 <h4
                   style={{
                     fontFamily: "Ios15Medium",
