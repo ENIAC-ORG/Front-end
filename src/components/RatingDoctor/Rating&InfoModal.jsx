@@ -297,7 +297,7 @@ const RatingInfoModal = (doctorId) => {
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
-                اطلاعات دکتر
+                مشخصات دکتر
               </h4>
               <div
                 style={{
