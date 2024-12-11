@@ -231,6 +231,7 @@ const RatingInfoModal = (doctorId) => {
           setShow(false);
           setValue(""); // Clear the TextField
           setRating(0); // Reset the rating
+          setActiveTab("info");
         }} className="rating_close_button">
           <IoIosClose className="rating_close_button_icon" />
         </div>
