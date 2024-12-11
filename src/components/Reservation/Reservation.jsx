@@ -65,7 +65,7 @@ const ReservationPage = () => {
   const location = useLocation();
   const initialState = location.state || {};
   const [res_type, setres_type] = useState("حضوری");
-  const [doctor_id, setCode] = useState(initialState.doctorId || "");
+  const [doctor_id, setCode] = useState(initialState);
   const [responseData, setResponseData] = useState([]);
   const [FreeTiems, setFreeTimes] = useState([]);
   const [selectVal, setSelectVal] = useState(-1);
@@ -97,7 +97,7 @@ const ReservationPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "http://127.0.0.1:8000/TherapyTests/record_check/",
+        "http://46.249.100.141:8070/TherapyTests/record_check/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -122,39 +122,34 @@ const ReservationPage = () => {
     }
   }
 
-  const setdatetime = () => {
-    var d = new Date(
-      selectedDay.year,
-      selectedDay.month,
-      selectedDay.day
-    ).getDay();
+  const Setdatetime = (date_) => {
     var temp = [];
     for (let i = 0; i < FreeTiems.length; i++)
-      if (FreeTiems[i].date == DateString(selectedDay))
+      if (FreeTiems[i].date == DateString(date_))
         temp.push(FreeTiems[i].time);
     for (let i = 0; i < responseData.length; i++) {
-      if (responseData[i].date == DateString(selectedDay)) {
+      if (responseData[i].date == DateString(date_)) {
         var ind = temp.indexOf(responseData[i].time);
         if (ind > -1) {
           temp.splice(ind, 1);
         }
       }
     }
-    return temp;
+    setTime(temp);
   };
-  useEffect(() => {
-    setTimeout(() => {
-      {
-        setTime(setdatetime(selectedDay));
-      }
-    }, 100);
-  });
+  
+
+  const handleCalender = (e) =>{
+    setSelectedDay(e);
+    setSelect(-1);
+    Setdatetime(e);    
+  }
 
   async function getFreeTime() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://127.0.0.1:8000/reserve/get-free-time/${doctor_id}/`,
+        `http://46.249.100.141:8070/reserve/get-free-time/${doctor_id}/`,
         {
           method: "GET",
           headers: {
@@ -187,7 +182,7 @@ const ReservationPage = () => {
       const endDate = formatDate(addDays(new Date(), 30));
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://127.0.0.1:8000/reserve/between_dates/",
+        "http://46.249.100.141:8070/reserve/between_dates/",
         {
           method: "POST",
           headers: {
@@ -220,17 +215,12 @@ const ReservationPage = () => {
   }
 
   const [doctorProfile, setDoctorProfile] = useState([]);
-  const baseUrl = "http://127.0.0.1:8000/profile/doctors/";
-
-  // Alternatively, you can use string concatenation:
-  const url = baseUrl + doctor_id + "/";
-
   useEffect(() => {
     //  تابع برای دریافت اطلاعات پروفایل دکتراز بک‌اند
     const fetchDoctorProfile = async () => {
       const token = localStorage.getItem("accessToken");
       try {
-        const response = await axios.get(url, {
+        const response = await axios.get(`http://46.249.100.141:8070/profile/doctors/${doctor_id}/`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -258,7 +248,7 @@ const ReservationPage = () => {
     try {
       const ReservationDate = DateString(selectedDay); // Format today's date as "yyyy-mm-dd" string
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://127.0.0.1:8000/reserve/create/", {
+      const response = await axios("http://46.249.100.141:8070/reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -282,6 +272,7 @@ const ReservationPage = () => {
           draggable: true,
           progress: undefined,
         });
+        Setdatetime(selectedDay);
         CheckMedicalInfo();
       }
     } catch (error) {
@@ -316,6 +307,7 @@ const ReservationPage = () => {
   useEffect(() => {
     getFreeTime();
     getReservation();
+    Setdatetime(selectedDay);    
   }, []);
 
   const [position, setPosition] = useState("right");
@@ -350,7 +342,7 @@ const ReservationPage = () => {
                 time={time}
                 index={index}
                 selected={selected}
-                onClick={(event) => {
+                onClick={() => {
                   setSelect((prev) => (prev == index ? -1 : index));
                 }}
               />
@@ -495,8 +487,8 @@ const ReservationPage = () => {
               locale={persian_fa}
               value={selectedDay}
               onChange={(e) => {
-                setSelectedDay(e);
-                setSelect(-1);
+                handleCalender(e);
+                
               }}
               minDate={new DateObject()}
               maxDate={new DateObject().add(1, "month")}
