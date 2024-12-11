@@ -24,48 +24,19 @@ const RatingInfoModal = (doctorId) => {
   const [telephoneNum, setTelephoneNum] = useState("");
   const [doctorCode, setDoctorCode] = useState("");
   const [fullname, setFullname] = useState("");
+  const [description, setDescription] = useState("");
+
   const [loading, setLoading] = useState(false); // Loading state
 
 
   // Mock comments list
-  const [comments, setComments] = useState([
-    {
-      author: "ناشناس",
-      time: "3 ساعت پیش",
-      content: "درمانگر بسیار عالی ای هستند.",
-      rating: 5,
-    },
-    {
-      author: "Mindy Campbell",
-      time: "10 ساعت پیش",
-      content: "زیاد راضی نبودم",
-      rating: 2.5,
-    },
-    {
-      author: "Ali Reza",
-      time: "1 روز پیش",
-      content: "بسیار حرفه‌ای و دلسوز بودند.",
-      rating: 5,
-    },
-    {
-      author: "سعید",
-      time: "10 روز پیش",
-      content: "عالیییییی.",
-      rating: 5,
-    },
-    {
-      author: "سعید",
-      time: "10 روز پیش",
-      content: "فوق العاده.",
-      rating: 5,
-    }
-  ]);
+  const [comments, setComments] = useState([]);
 
   const getDoctorInfo = async (doctorId) => {
     setLoading(true); // Start loading
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios(`http://127.0.0.1:8000//DoctorPanel/getdoctorinfo/${doctorId}/`, {
+      const response = await axios(`http://46.249.100.141:8070//DoctorPanel/getdoctorinfo/${doctorId}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -80,6 +51,8 @@ const RatingInfoModal = (doctorId) => {
         setTelephoneNum(response.data.clinic_telephone_number);
         setDoctorCode(response.data.doctorate_code);
         setFullname(response.data.fullname);
+        setDescription(response.data.description);
+
       }
     } catch (error) {
       console.log(error.response)
@@ -98,10 +71,51 @@ const RatingInfoModal = (doctorId) => {
     }
   };
 
+  async function getRatings(doctorId) {
+    try {
+    const token = localStorage.getItem("accessToken");
+    const response = await axios(`http://46.249.100.141:8070//Rating/get/${doctorId}/`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        psychiatrist: doctorId.doctorId,
+        rating: _rating,
+        comments: _comment,
+      },
+    });
+
+    console.log(response.data.comments);
+    if (response.status === 200 || response.status === 201) {
+      const commentsArray = response.data.comments|| [];
+      if (Array.isArray(commentsArray) && commentsArray.length > 0) {
+        setComments((prevComments) => {
+          const updatedComments = commentsArray.map((comment) => {
+              return {
+              fullname: comment.patient_name,
+              date: comment.date,
+              rating: comment.rating,
+              comment: comment.comments
+            };
+          });
+
+          return updatedComments;
+        });
+      }
+      console.log(comments);
+    }
+  } catch (error) {
+    console.log(error.response.data)
+  }
+};
+
+
   async function sendRating() {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://127.0.0.1:8000//Rating/Rate/", {
+      const response = await axios("http://46.249.100.141:8070//Rating/Rate/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -115,15 +129,7 @@ const RatingInfoModal = (doctorId) => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        setComments((prevComments) => [
-          {
-            author: "ناشناس",
-            time: "لحظاتی پیش",
-            content: _comment,
-            rating: _rating,
-          },
-          ...prevComments,
-        ]);
+        getRatings(doctorId.doctorId)
         setValue("");
         setShow(false);
         toast.success("!نظر شما با موفقیت ثبت شد", {
@@ -140,7 +146,7 @@ const RatingInfoModal = (doctorId) => {
       console.log(error.response.data)
       console.log(error.response.data.error);
       if (_rating == 0) {
-        toast.error("حداقل امتیاز قابل قبول 1 می‌باشد", {
+        toast.error("حداقل امتیاز قابل قبول ۱ می‌باشد", {
           position: "bottom-left",
           autoClose: 2000,
           hideProgressBar: false,
@@ -154,6 +160,17 @@ const RatingInfoModal = (doctorId) => {
       }
       if (error.response.data.error == "You can only rate a psychiatrist if you have had a reservation with them.") {
         toast.error("برای امتیازدهی رزرو زمان مشاوره الزامی است", {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          fontFamily: "Ios15Medium"
+        });
+      } else if (error.response.data.error == "You have already rated this psychiatrist.") {
+        toast.error("حداکثر تعداد دفعات ثبت نظر یک بار است", {
           position: "bottom-left",
           autoClose: 2000,
           hideProgressBar: false,
@@ -181,6 +198,7 @@ const RatingInfoModal = (doctorId) => {
   useEffect(() => {
     if (show) {
       getDoctorInfo(doctorId.doctorId);
+      getRatings(doctorId.doctorId);
     }
   }, [show, doctorId.doctorId]);
 
@@ -353,6 +371,10 @@ const RatingInfoModal = (doctorId) => {
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
                   شماره نظام:{" "}
                   <span className="value-color">{convertToPersianNumbers(doctorCode)}</span>
+                </h5>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
+                  توضیحات:{" "}
+                  <span className="value-color">{convertToPersianNumbers(description)}</span>
                 </h5>
               </div>
 
