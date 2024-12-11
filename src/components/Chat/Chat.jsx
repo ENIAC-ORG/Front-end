@@ -24,6 +24,11 @@ function GetTimeDiff(date) {
     ? `${hour} ساعت`
     : `${days} روز`;
 }
+function toPersianDigits(str) {
+  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return str.replace(/\d/g, (digit) => persianDigits[digit]);
+}
+
 const Chat = () => {
   const scrollRef = useRef(null);
   const [conversationList, SetConversationsList] = new useState([]);
@@ -56,9 +61,9 @@ const Chat = () => {
               name: response.data.conversation.name,
               id: response.data.conversation.id,
               createTime: "اکنون",
-            },
+            },...conversationList
           ],
-          ...conversationList
+          
         );
         SetConversations([]);
         SetId(response.data.conversation.id);
@@ -133,6 +138,7 @@ const Chat = () => {
   }
 
   async function SendMessage() {
+    console.log(new_message)
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
@@ -168,7 +174,7 @@ const Chat = () => {
                 style={{ borderRadius: "15px", width: "100%" }}
               >
                 <div class="card-body">
-                  <div class="row justify-content-center px-sm-3">
+                  <div class="row justify-content-center px-sm-3 ">
                     <div class="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
                       <div class="py-4">
                         <div class="input-group rounded p-3" dir="rtl">
@@ -191,11 +197,12 @@ const Chat = () => {
                         >
                           {conversationList.length == 0 && (
                             <p
-                              className=" fs-5"
+                              className=" fs-5 font-custom"
                               style={{
                                 position: "absolute",
                                 top: "45%",
                                 width: "100%",
+                                color:"#198754"
                               }}
                             >
                               !هنوز مکالمه ای شروع نکرده اید
@@ -203,7 +210,7 @@ const Chat = () => {
                           )}
                           <ul class="list-unstyled mb-0">
                             {conversationList.map((conversation) => (
-                              <li class="p-2 border-bottom">
+                              <li class="p-2" style={{borderBottom:"1px solid black"}}>
                                 <div
                                   onClick={() =>
                                     GetConversation(conversation.id)
@@ -213,8 +220,8 @@ const Chat = () => {
                                   <div class="d-flex flex-row">
                                     <div class="pt-1">
                                       <p
-                                        class="fw-bold  mb-0"
-                                        style={{ color: "#667c2a" }}
+                                        class="fw-bold mb-0 font-custom"
+                                        style={{ color: "#198754" }}
                                       >
                                         {conversation.name == ""
                                           ? "گفت‌و‌گو جدید"
@@ -222,9 +229,9 @@ const Chat = () => {
                                       </p>
                                     </div>
                                   </div>
-                                  <div class="pt-1">
-                                    <p class="small text-muted mb-1">
-                                      {conversation.createTime}
+                                  <div class="pt-4">
+                                    <p class="small mb-1 font-custom" style={{color:""}} dir="rtl">
+                                      {toPersianDigits(conversation.createTime)}
                                     </p>
                                   </div>
                                 </div>
@@ -251,7 +258,7 @@ const Chat = () => {
                               <>
                                 <div class="d-flex flex-row justify-content-end">
                                   <div>
-                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-success">
+                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-success font-custom">
                                       {message.message}
                                     </p>
                                   </div>
@@ -313,7 +320,7 @@ const Chat = () => {
                                   </svg>{" "}
                                   <div className=" w-50">
                                     <p
-                                      class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary"
+                                      class="small p-2 ms-3 mb-1 rounded-3 bg-body-tertiary font-custom"
                                       align="right"
                                     >
                                       {message.response}
@@ -325,24 +332,6 @@ const Chat = () => {
                           </div>
 
                           <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
-                            {/* <img
-                          src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava6-bg.webp"
-                          alt="avatar 3"
-                          style={{
-                            width: "40px",
-                            height: "100%",
-                            marginRight: "1%",
-                          }}
-                        /> */}
-                            {/* <input
-                            type="textArea"
-                            class="form-control form-control-lg rounded-2"
-                            style={{overflowY:'auto'}}
-                            id="exampleFormControlInput2"
-                            placeholder="Type message"
-                            onChange={handleInputChange}
-                            // value={new_message}
-                          /> */}
                             <TextField
                               multiline
                               autoComplete="off"
