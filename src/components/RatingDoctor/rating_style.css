@@ -89,7 +89,7 @@ color: #767575;
 .rating-wrapper_modal {
   margin-left: 28%;
   margin-top: 40px;
-  max-height: 622px;
+  max-height: 630px;
   max-width: 42%;
   background: #fff;
   padding: 30px;
@@ -452,4 +452,11 @@ form .field_modal:hover::placeholder {
   max-height: 500px;
   overflow-y: auto;
 }
+
+.value-color {
+  color: #618a6a;
+  font-size: 18px;
+}
+
+
 

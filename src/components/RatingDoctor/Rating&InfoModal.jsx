@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Button, Modal } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { IoIosClose } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,11 +9,22 @@ import axios from "axios";
 import Comments from "./Comments";
 import { TextField } from "@mui/material";
 
-const RatingModal = (doctorId) => {
+import person_img from "../../assets/unknown.jpg";
+
+
+const RatingInfoModal = (doctorId) => {
   const [show, setShow] = useState(false);
   const [_comment, setValue] = useState("");
   const [_rating, setRating] = useState(0);
   const [activeTab, setActiveTab] = useState("info"); // Default to "اطلاعات دکتر"
+  const [img, setImg] = useState("");
+  const [field, setField] = useState("");
+  const [clinicAddr, setClinicAddr] = useState("");
+  const [telephoneNum, setTelephoneNum] = useState("");
+  const [doctorCode, setDoctorCode] = useState("");
+  const [fullname, setFullname] = useState("");
+  const [loading, setLoading] = useState(false); // Loading state
+
 
   // Mock comments list
   const [comments, setComments] = useState([
@@ -37,8 +48,41 @@ const RatingModal = (doctorId) => {
     },
   ]);
 
-  const handleChange = (event) => {
-    setValue(event.target.value);
+  const getDoctorInfo = async (doctorId) => {
+    setLoading(true); // Start loading
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios(`http://127.0.0.1:8000//DoctorPanel/getdoctorinfo/${doctorId}/`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      });
+      console.log(response.data);
+      if (response.data) {
+        setImg(response.data.image);
+        setField(response.data.field);
+        setClinicAddr(response.data.clinic_address);
+        setTelephoneNum(response.data.clinic_telephone_number);
+        setDoctorCode(response.data.doctorate_code);
+        setFullname(response.data.fullname);
+      }
+    } catch (error) {
+      console.log(error.response)
+      toast.error("خطا", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        fontFamily: "Ios15Medium"
+      });
+    } finally {
+      setLoading(false); // Stop loading
+    }
   };
 
   async function sendRating() {
@@ -80,22 +124,62 @@ const RatingModal = (doctorId) => {
         });
       }
     } catch (error) {
-      console.log(error);
-      toast.error("!مشکلی در ارسال نظر وجود دارد", {
-        position: "bottom-left",
-        autoClose: 2000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      console.log(error.response.data.error);
+      if (error.response.data.error == "You can only rate a psychiatrist if you have had a reservation with them.") {
+        toast.error("برای امتیازدهی رزرو زمان مشاوره الزامی است", {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          fontFamily: "Ios15Medium"
+        });
+      } else {
+        toast.error("!مشکلی در ارسال نظر وجود دارد", {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          fontFamily: "Ios15Medium"
+        });
+      }
     }
   }
 
+  useEffect(() => {
+    if (show) {
+      getDoctorInfo(doctorId.doctorId);
+    }
+  }, [show, doctorId.doctorId]);
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  const convertToPersianNumbers = (value) => {
+    const persianNumbersMap = {
+      '0': '۰',
+      '1': '۱',
+      '2': '۲',
+      '3': '۳',
+      '4': '۴',
+      '5': '۵',
+      '6': '۶',
+      '7': '۷',
+      '8': '۸',
+      '9': '۹',
+    };
+
+    return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+  };
+
   return (
     <>
-      <ToastContainer />
       <Button
         variant="primary"
         onClick={() => setShow(true)}
@@ -111,13 +195,14 @@ const RatingModal = (doctorId) => {
         centered
         dialogClassName="scrollable-modal"
       >
+        <ToastContainer />
         <div onClick={() => setShow(false)} className="rating_close_button">
           <IoIosClose className="rating_close_button_icon" />
         </div>
         <Modal.Header className="rating-header_modal">
           <Modal.Title className="rating-title_modal">اطلاعات و نظرات</Modal.Title>
         </Modal.Header>
-        <Modal.Body style={{ maxHeight: "500px", overflowY: "auto" }}>
+        <Modal.Body style={{ maxHeight: "490px", overflowY: "auto" }}>
           {/* Tab Navigation */}
           <div
             style={{
@@ -164,33 +249,77 @@ const RatingModal = (doctorId) => {
               <h4
                 style={{
                   fontFamily: "Ios15Medium",
-                  color: "gray",
+                  color: "#4e695c",
                   fontSize: "23px",
                   fontWeight: "bold",
                   direction: "rtl",
                   marginBottom: "20px",
-                  textAlign: "center"
-
+                  textAlign: "center",
                 }}
               >
                 اطلاعات دکتر
               </h4>
               <div
                 style={{
-                  direction: "rtl",
-                  paddingTop: "20px",
-                  paddingRight: "30px",
-                  marginBottom: "27%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  textAlign: "center",
+                  // padding: "20px",
                 }}
               >
-                <h5 style={{ fontFamily: "Ios15Medium" }}>آدرس: خیابان نمونه</h5>
-                <h5 style={{ fontFamily: "Ios15Medium" }}>شماره تماس: 123456789</h5>
-                <h5 style={{ fontFamily: "Ios15Medium" }}>شماره نظام: 12345</h5>
+                {/* Doctor's Image */}
+                <div
+                  style={{
+                    width: "90px",
+                    height: "90px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    marginBottom: "10px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    marginTop: "1%"
+                  }}
+                >
+                  <img
+                    src={person_img} // Provide a default image URL if no image is available
+                    alt="Doctor"
+                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                  />
+                </div>
               </div>
+              <div style={{
+                direction: "rtl",
+                // paddingTop: "20px",
+                paddingRight: "30px",
+                // marginBottom: "27%",
+              }}>
+                {/* Doctor's Information */}
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
+                  نام دکتر: <span className="value-color">{fullname}</span>
+                </h5>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px" , color: "#535453"}}>
+                  حوزۀ فعالیت: <span className="value-color">{field}</span>
+                </h5>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
+                  آدرس کلینیک: <span className="value-color">{clinicAddr}</span>
+                </h5>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
+                  شماره تماس کلینیک:{" "}
+                  <span className="value-color">{convertToPersianNumbers(telephoneNum)}</span>
+                </h5>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
+                  شماره نظام:{" "}
+                  <span className="value-color">{convertToPersianNumbers(doctorCode)}</span>
+                </h5>
+              </div>
+
               <div
                 onClick={sendRating}
                 className="rating-field_modal rating-btn"
-                style={{ width: "96%", marginLeft: "2%" }}
+                style={{ width: "96%", margin: "20px auto", display: "flex", justifyContent: "center" }}
               >
                 <div className="rating-btn_layer">
                   <input
@@ -204,26 +333,13 @@ const RatingModal = (doctorId) => {
           )}
           {activeTab === "comments" && (
             <div>
-              <h4
-                style={{
-                  fontFamily: "Ios15Medium",
-                  color: "gray",
-                  fontSize: "23px",
-                  fontWeight: "bold",
-                  direction: "rtl",
-                  marginBottom: "20px",
-                  textAlign: "center"
-
-                }}
-              >
-                نظرات کاربران
-              </h4>
+              
               <div className="rating-form_container_modal">
                 <h4
                   style={{
                     fontFamily: "Ios15Medium",
                     color: "gray",
-                    fontSize: "20px",
+                    fontSize: "18px",
                     direction: "rtl",
                     justifyContent: "center",
                     alignItems: "center",
@@ -233,12 +349,12 @@ const RatingModal = (doctorId) => {
                   به این درمانگر از ۱ تا ۵ چه امتیازی می‌دهید؟
                 </h4>
                 <Stars setRating={setRating} rating={_rating} iconSize={45} />
-                <div style={{height:"110px"}}>
+                <div style={{ height: "110px" }}>
                   <h4
                     style={{
                       fontFamily: "Ios15Medium",
                       color: "gray",
-                      fontSize: "20px",
+                      fontSize: "18px",
                       direction: "rtl",
                       justifyContent: "center",
                       alignItems: "center",
@@ -276,7 +392,22 @@ const RatingModal = (doctorId) => {
                     />
                   </div>
                 </div>
+                
               </div>
+              <h4
+                style={{
+                  fontFamily: "Ios15Medium",
+                  color: "#4e695c",
+                  fontSize: "19px",
+                  fontWeight: "bold",
+                  direction: "rtl",
+                  marginBottom: "20px",
+                  textAlign: "center",
+                  paddingTop: "10%"
+                }}
+              >
+              نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
+              </h4>
               <Comments comments={comments} />
             </div>
           )}
@@ -286,4 +417,4 @@ const RatingModal = (doctorId) => {
   );
 };
 
-export default RatingModal;
+export default RatingInfoModal;

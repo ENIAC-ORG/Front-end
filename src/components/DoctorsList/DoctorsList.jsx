@@ -248,7 +248,7 @@ const DoctorsList = () => {
                   value={value}
                   onChange={handleChange}
                   aria-label="scrollable prevent tabs example"
-                  centered
+                  // centered
                   variant="scrollable"
                   scrollButtons={false}>
                   <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="بالینی" {...a11yProps(0)} />

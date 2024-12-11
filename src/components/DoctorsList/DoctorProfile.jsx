@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx";
 import { ToastContainer } from "react-toastify";
 import DoctorPage from "../SeeingDoctorReservation/DoctorPage.jsx";
-import RatingModal from "../RatingDoctor/RatingModal.jsx";
+import RatingInfoModal from "../RatingDoctor/Rating&InfoModal.jsx";
 
 const DoctorProfile = ({
   Id,
@@ -231,6 +231,9 @@ const DoctorProfile = ({
       //             no-repeat`})
     } else {
       return (
+        <>
+        <ToastContainer />
+                 
         <div
           className="rounded team-item-new"
           style={{ fontFamily: "Ios15Medium" }}
@@ -283,14 +286,14 @@ const DoctorProfile = ({
                   onLoad={GetUserInfo}
                   onClick={GetUserInfo2}
                 >
-                  <ToastContainer />
                   <CompleteInfoModal doctorId={Id} />
-                  <RatingModal doctorId={Id} />
+                  <RatingInfoModal doctorId={Id} />
                 </div>
               </div>
             </div>
           </div>
         </div>
+        </>
       );
     }
   }
