@@ -47,6 +47,18 @@ const RatingInfoModal = (doctorId) => {
       content: "بسیار حرفه‌ای و دلسوز بودند.",
       rating: 5,
     },
+    {
+      author: "سعید",
+      time: "10 روز پیش",
+      content: "عالیییییی.",
+      rating: 5,
+    },
+    {
+      author: "سعید",
+      time: "10 روز پیش",
+      content: "فوق العاده.",
+      rating: 5,
+    }
   ]);
 
   const getDoctorInfo = async (doctorId) => {
@@ -331,7 +343,7 @@ const RatingInfoModal = (doctorId) => {
                 </h5>
               </div>
 
-              <CompleteInfoModal doctorId={doctorId} />
+              <CompleteInfoModal doctorId={doctorId.doctorId} />
             </div>
           )}
           {activeTab === "comments" && (

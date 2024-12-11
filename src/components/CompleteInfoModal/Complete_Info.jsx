@@ -110,7 +110,7 @@ const CompleteInfo = (doctorId) => {
         autoClose: 3000,
       });
       setShow(false);
-      navigate("/Reserve", { state: doctorId });
+      navigate("/Reserve", { state: doctorId.doctorId });
     }
   };
 
