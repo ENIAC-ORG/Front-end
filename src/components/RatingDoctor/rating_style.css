@@ -158,7 +158,7 @@ color: #767575;
   font-size: 18px;
   transition: border-color 0.3s ease;
   color: gray;
-  caret-color: rgb(152, 103, 175);
+  caret-color: rgb(65, 110, 84);
   font-family: Vazir, Arial, sans-serif;
 
 }
@@ -460,4 +460,8 @@ form .field_modal:hover::placeholder {
 }
 
 
-
+.MuiOutlinedInput-input {
+  padding: 18.5px 14px;
+  font-family: Ios15Medium !important;
+  color: #65786d !important;
+}

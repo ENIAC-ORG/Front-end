@@ -217,13 +217,21 @@ const RatingInfoModal = (doctorId) => {
       <Modal
         backdrop="static"
         show={show}
-        onHide={() => setShow(false)}
+        onHide={() => {
+          setShow(false);
+          setValue(""); // Clear the TextField
+          setRating(0); // Reset the rating
+        }}
         className="rating-bd_modal modal rating-wrapper_modal"
         centered
         dialogClassName="scrollable-modal"
       >
         <ToastContainer />
-        <div onClick={() => setShow(false)} className="rating_close_button">
+        <div onClick={() => {
+          setShow(false);
+          setValue(""); // Clear the TextField
+          setRating(0); // Reset the rating
+        }} className="rating_close_button">
           <IoIosClose className="rating_close_button_icon" />
         </div>
         <Modal.Header className="rating-header_modal">
@@ -266,7 +274,7 @@ const RatingInfoModal = (doctorId) => {
                 fontSize: "20px",
               }}
             >
-              اطلاعات دکتر
+              مشخصات دکتر
             </button>
           </div>
 
@@ -327,7 +335,7 @@ const RatingInfoModal = (doctorId) => {
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
                   نام دکتر: <span className="value-color">{fullname}</span>
                 </h5>
-                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px" , color: "#535453"}}>
+                <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
                   حوزۀ فعالیت: <span className="value-color">{field}</span>
                 </h5>
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
@@ -348,7 +356,7 @@ const RatingInfoModal = (doctorId) => {
           )}
           {activeTab === "comments" && (
             <div>
-              
+
               <div className="rating-form_container_modal">
                 <h4
                   style={{
@@ -382,12 +390,28 @@ const RatingInfoModal = (doctorId) => {
                     fullWidth
                     multiline
                     rows={1}
-                    rowsMax={5}
+                    maxRows={5}
                     autoComplete="off"
                     variant="outlined"
                     value={_comment}
                     onChange={handleChange}
                     dir="rtl"
+                    sx={{
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: "gray", // Outline color
+                        },
+                        "&:hover fieldset": {
+                          borderColor: "darkgray", // Outline color on hover
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: "gray", // Outline color when focused
+                        },
+                      },
+                      "& .MuiInputBase-input": {
+                        color: "gray", // Text color
+                      },
+                    }}
                     InputLabelProps={{
                       dir: "rtl",
                     }}
@@ -407,7 +431,7 @@ const RatingInfoModal = (doctorId) => {
                     />
                   </div>
                 </div>
-                
+
               </div>
               <h4
                 style={{
@@ -421,7 +445,7 @@ const RatingInfoModal = (doctorId) => {
                   paddingTop: "10%"
                 }}
               >
-              نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
+                نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
               </h4>
               <Comments comments={comments} />
             </div>
