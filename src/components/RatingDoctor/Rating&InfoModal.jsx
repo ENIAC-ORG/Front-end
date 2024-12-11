@@ -125,7 +125,21 @@ const RatingInfoModal = (doctorId) => {
         });
       }
     } catch (error) {
+      console.log(error.response.data)
       console.log(error.response.data.error);
+      if (_rating == 0) {
+        toast.error("حداقل امتیاز قابل قبول 1 می‌باشد", {
+          position: "bottom-left",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          fontFamily: "Ios15Medium"
+        });
+        return
+      }
       if (error.response.data.error == "You can only rate a psychiatrist if you have had a reservation with them.") {
         toast.error("برای امتیازدهی رزرو زمان مشاوره الزامی است", {
           position: "bottom-left",
