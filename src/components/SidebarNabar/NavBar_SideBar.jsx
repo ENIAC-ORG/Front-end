@@ -55,7 +55,7 @@ const NavBar_SideBar = () => {
     event.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
     try {
-      const response = await axios("http://127.0.0.1:8000/accounts/Logout/", {
+      const response = await axios("http://46.249.100.141:8070/accounts/Logout/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,

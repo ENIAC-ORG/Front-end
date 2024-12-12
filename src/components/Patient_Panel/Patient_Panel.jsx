@@ -45,7 +45,7 @@ const Patient_Panel = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        `http://127.0.0.1:8000//TherapyTests/record/${PatientId}/`,
+        `http://46.249.100.141:8070//TherapyTests/record/${PatientId}/`,
         {
           method: "GET",
           headers: {

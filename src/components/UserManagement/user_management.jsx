@@ -46,7 +46,7 @@ const UserManagement = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://127.0.0.1:8000//accounts/Login/", {
+      const response = await axios("http://46.249.100.141:8070//accounts/Login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const UserManagement = () => {
   const handleAcceptUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/accept/${userId}/`, 
+        `http://46.249.100.141:8070//DoctorPanel/pending_doctor/accept/${userId}/`, 
         {},
         {
           headers: {
@@ -122,7 +122,7 @@ const UserManagement = () => {
   const handleDenyUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000//DoctorPanel/pending_doctor/deny/${userId}/`, 
+        `http://46.249.100.141:8070//DoctorPanel/pending_doctor/deny/${userId}/`, 
         { message: denialReason },
         {
           headers: {
@@ -234,7 +234,7 @@ const UserManagement = () => {
   const fetchDoctors = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://127.0.0.1:8000//DoctorPanel/pending_doctor", {
+      const response = await axios.get("http://46.249.100.141:8070//DoctorPanel/pending_doctor", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

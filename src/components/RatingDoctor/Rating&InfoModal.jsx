@@ -13,7 +13,14 @@ import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx"
 import person_img from "../../assets/unknown.jpg";
 
 
-const RatingInfoModal = (doctorId) => {
+const RatingInfoModal = ({ doctorId,
+  name,
+  Description,
+  Image,
+  ProfileType,
+  IsPrivate,
+  Psychiatrist,
+ }) => {
   const [show, setShow] = useState(false);
   const [_comment, setValue] = useState("");
   const [_rating, setRating] = useState(0);
@@ -33,6 +40,8 @@ const RatingInfoModal = (doctorId) => {
   const [comments, setComments] = useState([]);
 
   const getDoctorInfo = async (doctorId) => {
+    console.log(doctorId);
+
     setLoading(true); // Start loading
     try {
       const token = localStorage.getItem("accessToken");
@@ -52,7 +61,6 @@ const RatingInfoModal = (doctorId) => {
         setDoctorCode(response.data.doctorate_code);
         setFullname(response.data.fullname);
         setDescription(response.data.description);
-
       }
     } catch (error) {
       console.log(error.response)
@@ -81,7 +89,7 @@ const RatingInfoModal = (doctorId) => {
         Authorization: `Bearer ${token}`,
       },
       data: {
-        psychiatrist: doctorId.doctorId,
+        psychiatrist: doctorId,
         rating: _rating,
         comments: _comment,
       },
@@ -122,16 +130,16 @@ const RatingInfoModal = (doctorId) => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          psychiatrist: doctorId.doctorId,
+          psychiatrist: doctorId,
           rating: _rating,
           comments: _comment,
         },
       });
 
       if (response.status === 200 || response.status === 201) {
-        getRatings(doctorId.doctorId)
-        setValue("");
-        setShow(false);
+        getRatings(doctorId)
+        // setValue("");
+        // setShow(false);
         toast.success("!نظر شما با موفقیت ثبت شد", {
           position: "bottom-left",
           autoClose: 2000,
@@ -197,10 +205,10 @@ const RatingInfoModal = (doctorId) => {
 
   useEffect(() => {
     if (show) {
-      getDoctorInfo(doctorId.doctorId);
-      getRatings(doctorId.doctorId);
+      getDoctorInfo(doctorId);
+      getRatings(doctorId);
     }
-  }, [show, doctorId.doctorId]);
+  }, [show, doctorId]);
 
   const handleChange = (event) => {
     setValue(event.target.value);
@@ -208,37 +216,61 @@ const RatingInfoModal = (doctorId) => {
 
   const convertToPersianNumbers = (value) => {
     const persianNumbersMap = {
-      '0': '۰',
-      '1': '۱',
-      '2': '۲',
-      '3': '۳',
-      '4': '۴',
-      '5': '۵',
-      '6': '۶',
-      '7': '۷',
-      '8': '۸',
-      '9': '۹',
+      '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷','8': '۸','9': '۹',
     };
-
     return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
   };
 
   return (
     <>
-      <Button
-        variant="primary"
+    <div
+        className="rounded team-item-new"
+        style={{ fontFamily: "Ios15Medium", cursor: "pointer" }}
         onClick={() => setShow(true)}
-        className="rating-button-20"
       >
-        امتیازدهی
-      </Button>
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+        />
+        <div className="team-content">
+          <div className="team-img-icon">
+            <div className="team-img rounded-circle">
+              <img
+                src={Image}
+                className="img-fluid w-100 rounded-circle"
+                alt={`${name}'s Image`}
+              />
+            </div>
+            <div className="team-name text-center py-3">
+              <h4
+                className="m-0"
+                style={{ color: "gray", fontFamily: "Ios15Medium" }}
+              >
+                {name}
+              </h4>
+              <p
+                className="m-0"
+                style={{ fontFamily: "Ios15Medium", color: "gray" }}
+              >
+                {ProfileType}
+              </p>
+              <p
+                className="m-0"
+                style={{ fontFamily: "Ios15Medium", color: "gray" }}
+              >
+                {Description}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
       <Modal
         backdrop="static"
         show={show}
         onHide={() => {
           setShow(false);
-          setValue(""); // Clear the TextField
-          setRating(0); // Reset the rating
+          setValue(""); 
+          setRating(0); 
         }}
         className="rating-bd_modal modal rating-wrapper_modal"
         centered
@@ -247,14 +279,14 @@ const RatingInfoModal = (doctorId) => {
         <ToastContainer />
         <div onClick={() => {
           setShow(false);
-          setValue(""); // Clear the TextField
-          setRating(0); // Reset the rating
+          setValue("");
+          setRating(0); 
           setActiveTab("info");
         }} className="rating_close_button">
           <IoIosClose className="rating_close_button_icon" />
         </div>
         <Modal.Header className="rating-header_modal">
-          <Modal.Title className="rating-title_modal">اطلاعات و نظرات</Modal.Title>
+          <Modal.Title className="rating-title_modal">مشخصات و نظرات</Modal.Title>
         </Modal.Header>
         <Modal.Body style={{ maxHeight: "490px", overflowY: "auto" }}>
           {/* Tab Navigation */}
@@ -296,18 +328,18 @@ const RatingInfoModal = (doctorId) => {
                 fontSize: "20px",
               }}
             >
-              مشخصات دکتر
+              مشخصات درمانگر
             </button>
           </div>
 
           {/* Tab Content */}
           {activeTab === "info" && (
             <div>
-              <h4
+              {/* <h4
                 style={{
                   fontFamily: "Ios15Medium",
                   color: "#4e695c",
-                  fontSize: "23px",
+                  fontSize: "21px",
                   fontWeight: "bold",
                   direction: "rtl",
                   marginBottom: "20px",
@@ -315,8 +347,8 @@ const RatingInfoModal = (doctorId) => {
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
-                مشخصات دکتر
-              </h4>
+                مشخصات درمانگر
+              </h4> */}
               <div
                 style={{
                   display: "flex",
@@ -356,7 +388,7 @@ const RatingInfoModal = (doctorId) => {
               }}>
                 {/* Doctor's Information */}
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
-                  نام دکتر: <span className="value-color">{fullname}</span>
+                  نام درمانگر: <span className="value-color">{fullname}</span>
                 </h5>
                 <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", marginBottom: "10px", color: "#535453" }}>
                   حوزۀ فعالیت: <span className="value-color">{field}</span>
@@ -378,7 +410,7 @@ const RatingInfoModal = (doctorId) => {
                 </h5>
               </div>
 
-              <CompleteInfoModal doctorId={doctorId.doctorId} />
+              <CompleteInfoModal doctorId={doctorId} />
             </div>
           )}
           {activeTab === "comments" && (

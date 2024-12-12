@@ -55,15 +55,14 @@ export default function Comments({ comments }) {
                       <div style={{ display: "flex", alignItems: "center" }}>
                         <MDBTypography
                           tag="h5"
-                          style={{ fontFamily: "Ios15Medium", marginRight: "10px" }}
+                          style={{ fontFamily: "Ios15Medium", marginRight: "10px", color: "#222222e0" }}
                         >
                         ناشناس
                         </MDBTypography>
-                        {/* Add Stars component here */}
                         <Stars
                           count={5}
                           rating={comment.rating}
-                          setRating={() => { }} // No-op, since the stars are not interactive
+                          setRating={() => { }} 
                           color="hsl(47, 90%, 60%)"
                           iconSize={25}
                           isInteractive={false} // Disable interaction
@@ -75,7 +74,7 @@ export default function Comments({ comments }) {
                       >
                         {convertToPersianNumbers(convertToPersianDate(comment.date))}
                       </p>
-                      <p style={{ fontFamily: "Ios15Medium" }}>{comment.comment}</p>
+                      <p style={{ fontFamily: "Ios15Medium", color: "#4a4b4a" }}>{comment.comment}</p>
                     </div>
                   </MDBCardBody>
                 </MDBCard>

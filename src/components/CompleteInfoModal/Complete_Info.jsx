@@ -40,7 +40,7 @@ const CompleteInfo = (doctorId) => {
   const fetchUserInfo = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://127.0.0.1:8000/accounts/get_user/", {
+      const response = await axios.get("http://46.249.100.141:8070/accounts/get_user/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ const CompleteInfo = (doctorId) => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-          "http://127.0.0.1:8000/accounts/complete_info/",
+          "http://46.249.100.141:8070/accounts/complete_info/",
           {
             firstname,
             lastname,

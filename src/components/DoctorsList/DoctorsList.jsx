@@ -50,7 +50,7 @@ const DoctorsList = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://127.0.0.1:8000//accounts/get_user/",
+        "http://46.249.100.141:8070//accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -100,7 +100,7 @@ const DoctorsList = () => {
     const fetchDoctorProfile = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/"
+          "http://46.249.100.141:8070//profile/doctors/"
         );
         setDoctorProfile(response.data);
       } catch (error) {
@@ -116,7 +116,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFardi = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "فردی",
@@ -138,7 +138,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileBaby = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "کودک",
@@ -160,7 +160,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFamily = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "زوج",
@@ -181,7 +181,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileEdu = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "نوجوان",
