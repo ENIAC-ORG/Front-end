@@ -32,6 +32,9 @@
 
 .modal-content {
   margin-top: 0px;
+  /* background-color: rgb(247, 252, 249); */
+  background-color: white;
+  border: none;
 }
 
 .rating-bd_modal {
@@ -97,6 +100,8 @@ color: #767575;
   border-radius: 15px;
   overflow: hidden;
   box-shadow: rgb(12, 7, 14) 0px 20px 30px -10px;
+  /* background-color: rgb(247, 252, 249); */
+  background-color: white;
 }
 
 .rating-wrapper_modal .rating-header_modal {
@@ -118,6 +123,7 @@ color: #767575;
   width: 100%;
   overflow: hidden;
   margin-top: 6%;
+  /* background-color: rgb(247, 252, 249); */
 }
 
 

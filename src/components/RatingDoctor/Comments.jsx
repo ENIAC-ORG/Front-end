@@ -47,7 +47,7 @@ export default function Comments({ comments }) {
                     className="p-4"
                     style={{
                       direction: "rtl",
-                      backgroundColor: "#e7f9ed",
+                      backgroundColor: "rgb(212, 236, 220)",
                       borderRadius: "10px",
                     }}
                   >

@@ -319,7 +319,7 @@ const RatingInfoModal = ({ doctorId,
                   onClick={() => setActiveTab("comments")}
                   style={{
                     backgroundColor:
-                      activeTab === "comments" ? "rgb(232 246 236)" : "transparent",
+                      activeTab === "comments" ? "rgb(224, 244, 230)" : "transparent",
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
                     border: "none",
                     padding: "10px 20px",
@@ -335,7 +335,7 @@ const RatingInfoModal = ({ doctorId,
                   onClick={() => setActiveTab("info")}
                   style={{
                     backgroundColor:
-                      activeTab === "info" ? "rgb(232 246 236)" : "transparent",
+                      activeTab === "info" ? "rgb(224, 244, 230)" : "transparent",
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
                     border: "none",
                     padding: "10px 20px",
@@ -503,23 +503,39 @@ const RatingInfoModal = ({ doctorId,
                     </div>
 
                   </div>
-                  <h4
-                    style={{
-                      fontFamily: "Ios15Medium",
-                      color: "#4e695c",
-                      fontSize: "19px",
-                      fontWeight: "bold",
-                      direction: "rtl",
-                      marginBottom: "20px",
-                      textAlign: "center",
-                      paddingTop: "6%",
-                      textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
-                    }}
-                  >
-                    نظرات سایر مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
-                  </h4>
-                  {/* <p>میانگین امتیازات: {convertToPersianNumbers(avgRating.toString())}/۵</p> */}
-                  {comments.length !== 0 && <Comments comments={comments} />}
+                  <>
+                    <h4
+                      style={{
+                        fontFamily: "Ios15Medium",
+                        color: "#4e695c",
+                        fontSize: "19px",
+                        fontWeight: "bold",
+                        direction: "rtl",
+                        marginBottom: "20px",
+                        textAlign: "center",
+                        paddingTop: "6%",
+                        textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
+                      }}
+                    >
+                      نظرات سایر مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
+                    </h4>
+                    {comments.length !== 0 ? (
+                      <Comments comments={comments} />
+                    ) : (
+                      <p
+                        style={{
+                          fontFamily: "Ios15Medium",
+                          color: "#6c757d",
+                          fontSize: "16px",
+                          direction: "rtl",
+                          textAlign: "center",
+                        }}
+                      >
+                        تا کنون هیچ نظری ثبت نشده است.
+                      </p>
+                    )}
+                  </>
+
                 </div>
               )}
             </>
