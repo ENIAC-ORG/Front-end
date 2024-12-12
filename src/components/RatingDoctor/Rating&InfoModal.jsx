@@ -32,6 +32,7 @@ const RatingInfoModal = ({ doctorId,
   const [doctorCode, setDoctorCode] = useState("");
   const [fullname, setFullname] = useState("");
   const [description, setDescription] = useState("");
+  const [avgRating, setAvgRating] = useState("");
 
   const [loading, setLoading] = useState(false); // Loading state
 
@@ -112,7 +113,8 @@ const RatingInfoModal = ({ doctorId,
           return updatedComments;
         });
       }
-      console.log(comments);
+      setAvgRating(response.data.average_score);
+      // console.log(comments);
     }
   } catch (error) {
     console.log(error.response.data)
@@ -362,8 +364,8 @@ const RatingInfoModal = ({ doctorId,
                 {/* Doctor's Image */}
                 <div
                   style={{
-                    width: "90px",
-                    height: "90px",
+                    width: "105px",
+                    height: "105px",
                     borderRadius: "50%",
                     overflow: "hidden",
                     marginBottom: "10px",
@@ -520,6 +522,7 @@ const RatingInfoModal = ({ doctorId,
               >
                 نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
               </h4>
+              {/* <p>میانگین امتیازات: {convertToPersianNumbers(avgRating.toString())}/۵</p> */}
               <Comments comments={comments} />
             </div>
           )}
