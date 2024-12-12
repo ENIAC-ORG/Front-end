@@ -501,7 +501,7 @@ const RatingInfoModal = ({ doctorId,
                     <input
                       style={{ fontFamily: "Ios15Medium" }}
                       type="submit"
-                      value="ارسال نظر و امتیاز"
+                      value="ارسال"
                     />
                   </div>
                 </div>
