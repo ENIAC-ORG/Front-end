@@ -55,7 +55,8 @@ const RatingInfoModal = ({ doctorId,
       });
       console.log(response.data);
       if (response.data) {
-        setImg(response.data.image);
+        // const imgURL = "http://46.249.100.141:8070" + response.data.image;
+        setImg(Image);
         setField(response.data.field);
         setClinicAddr(response.data.clinic_address);
         setTelephoneNum(response.data.clinic_telephone_number);
@@ -376,7 +377,7 @@ const RatingInfoModal = ({ doctorId,
                   }}
                 >
                   <img
-                    src={person_img} // Provide a default image URL if no image is available
+                    src={Image} // Provide a default image URL if no image is available
                     alt="Doctor"
                     style={{ width: "100%", height: "100%", objectFit: "cover" }}
                   />
@@ -520,10 +521,10 @@ const RatingInfoModal = ({ doctorId,
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)"
                 }}
               >
-                نظرات مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
+                نظرات سایر مراجعین ({convertToPersianNumbers(comments.length.toString())} نظر)
               </h4>
               {/* <p>میانگین امتیازات: {convertToPersianNumbers(avgRating.toString())}/۵</p> */}
-              <Comments comments={comments} />
+              {comments.length !== 0 && <Comments comments={comments} />}
             </div>
           )}
         </Modal.Body>
