@@ -54,8 +54,8 @@ function DoctorInfoModal({
       drugs: "",
     });
 
-  const handleClose = (event) => {
-    event.preventDefault();
+  const handleClose = () => {
+    
     toggleModal();
   };
 
@@ -202,59 +202,29 @@ function DoctorInfoModal({
     return true;
   };
 
-  const handleSendMedicalInfo = async (event) => {
-    event.preventDefault();
-    if (!validateFields()) return;
+  const handleSendMedicalInfo = async () => {
+   
 
-    const payload = {
-      age: parseInt(age),
-      child_num: parseInt(childrenNum),
-      family_history: medicalHistory,
-      nationalID: ssid,
-      treatment_histories: medicalRecords.map((record) => ({
-        end_date: record.endDate,
-        length: parseInt(record.length),
-        is_finished: record.isFinished,
-        reason_to_leave: record.reasonToLeave || "Completed treatment",
-        approach: record.method || "",
-        special_drugs: record.drugs || "",
-      })),
-    };
+    // const payload = {
+    //   age: parseInt(age),
+    //   child_num: parseInt(childrenNum),
+    //   family_history: medicalHistory,
+    //   nationalID: ssid,
+    //   treatment_histories: medicalRecords.map((record) => ({
+    //     end_date: record.endDate,
+    //     length: parseInt(record.length),
+    //     is_finished: record.isFinished,
+    //     reason_to_leave: record.reasonToLeave || "Completed treatment",
+    //     approach: record.method || "",
+    //     special_drugs: record.drugs || "",
+    //   })),
+    // };
 
-    try {
-      const token = localStorage.getItem("accessToken");
-      const response = await axios.post(
-        "http://127.0.0.1:8000/TherapyTests/record/",
-        payload,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.status === 200 || response.status === 201) {
-        toast.success("اطلاعات پزشکی شما با موفقیت ثبت شد", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-        handleClose(event);
-        CreateReservation(event);
-        setAge(null);
-        setChildrenNum(null);
-        setMedicalHistory(null);
-        setSsid("");
-        setMedicalRecords([]);
-        toggleModal();
-      }
-    } catch (error) {
-      toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
+    
+      //const token = localStorage.getItem("accessToken");
+      //console.log(token);
+      console.log("helooooooooo");
+      toast.success("اطلاعات پزشکی شما با موفقیت ثبت شد", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -263,7 +233,34 @@ function DoctorInfoModal({
         draggable: true,
         progress: undefined,
       });
-    }
+      navigate("/verification", { state: data });
+      handleClose();
+      //CreateReservation(event);
+
+      setSsid("");
+      setMedicalRecords([]);
+      toggleModal();
+      
+      // axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
+      // axios.defaults.xsrfCookieName = "csrftoken";
+      // const response = await axios.post(
+      //   "http://127.0.0.1:8000/accounts/doctorapplication/",
+
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       "Content-Type": "application/json",
+      //     },
+      //     data: {
+      //       firstname: age,
+      //       lastname: childrenNum,
+      //       doctorate_code: ssid,
+      //     },
+      //   }
+      // );
+
+
+    
   };
 
   const getReserved = async (event) => {
@@ -534,7 +531,7 @@ function DoctorInfoModal({
                   <input
                     type="submit"
                     value="ارسال اطلاعات"
-                    onClick={(e) => handleSendMedicalInfo(e)}
+                    onClick={handleSendMedicalInfo}
                   />
                 </div>
               </div>

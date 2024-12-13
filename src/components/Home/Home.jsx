@@ -13,8 +13,7 @@ function Home() {
       <NavBar_SideBar />
       {/* <Slider /> */}
       <HomeCarousel />
-
-      {/* <AboutSection /> */}
+      <AboutSection />
       <Tests />
       <Doctors_Home />
       <Statistic />
