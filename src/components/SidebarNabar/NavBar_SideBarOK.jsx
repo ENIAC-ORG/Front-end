@@ -72,14 +72,15 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0"
         });
       }
     } catch (error) {
@@ -88,14 +89,15 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "error",
           title: "!",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0"
         });
       }
     }
