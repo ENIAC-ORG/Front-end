@@ -177,6 +177,7 @@ const Doctor_FreeTime_Edit = () => {
       if (response.status === 200 || response.status === 201) {
         setSelectedHours([]);
         GetFreeTime();
+        setSelectedDayweek(-1);
         toast.success("زمان منتخب شما با موفقیت ثبت شد", {
           position: "bottom-left",
           autoClose: 3000,

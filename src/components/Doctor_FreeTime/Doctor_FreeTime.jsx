@@ -12,7 +12,7 @@ import Doctor_FreeTime_Edit from "./Doctor_FreeTime_Edit";
 const Doctor_FreeTime = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [Page, SetPage] = useState(0);
+  const [Page, SetPage] = useState(1);
 
   return (
     <>
