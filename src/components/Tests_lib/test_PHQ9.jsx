@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from "react";
-import MBTI from "./questions_MBTI";
+import PHQ9 from "./questions_PHQ9";
 import ProgressBar from "react-bootstrap/ProgressBar";
 import Swal from "sweetalert2";
-import "./mbti_style.css";
+import "./phq9_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 
-const MBTITest = () => {
+const PHQ9Test = () => {
   const navigate = useNavigate();
   const [activeQuestion, setActiveQuestion] = useState(0);
   const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(MBTI.questions.length).fill(null)
+    Array(PHQ9.questions.length).fill(null)
   );
   const [showResult, setShowResult] = useState(false);
-  const [mbtiResult, setMbtiResult] = useState(null);
+  const [phq9Result, setPhq9Result] = useState({});
   const [result, setResult] = useState({
     doneAnswers: 0,
     emptyAnswers: 0,
   });
 
-  const { questions } = MBTI;
+  const { questions } = PHQ9;
   const { question, choices } = questions[activeQuestion];
 
   useEffect(() => {
@@ -29,15 +29,19 @@ const MBTITest = () => {
       updatedAnswers[activeQuestion] = selectedAnswers[activeQuestion];
       return updatedAnswers;
     });
+    console.log(selectedAnswers);
   }, [activeQuestion]);
 
-  const sendAsnwersToBack = async (data) => {
+  const sendAnswersToBack = async (data) => {
     try {
       const token = localStorage.getItem("accessToken");
-      console.log(data);
+      const dataString = JSON.stringify(data);
+      console.log(dataString);
       const response = await axios.post(
-        "http://46.249.100.141:8070//TherapyTests/MBTI/",
-        data,
+        "http://46.249.100.141:8070//TherapyTests/nmd/",
+        {
+          data: dataString,
+        },
         {
           method: "POST",
           headers: {
@@ -49,8 +53,8 @@ const MBTITest = () => {
 
       if (response.status === 200) {
         setShowResult(true);
-        console.log(response.data);
-        setMbtiResult(response.data.result);
+        console.log(response);
+        console.log(response.data.result);
       } else {
         Swal.fire({
           icon: "error",
@@ -94,7 +98,7 @@ const MBTITest = () => {
   const loginMessage = () => {
     Swal.fire({
       icon: "warning",
-      title: "!برای انجام تست، ورود به حساب کاربری الزامی است",
+      title: "!برای انجام تست، ورود به حساب خود الزامی است",
       html: "آیا می‌خواهید وارد شوید؟",
       background: "#473a67",
       color: "#b4b3b3",
@@ -131,15 +135,14 @@ const MBTITest = () => {
     if (activeQuestion !== questions.length - 1) {
       setActiveQuestion((prev) => prev + 1);
     } else {
-      const updatedSelectedAnswersForBack = {};
+      const updatedAnswersForBack = {};
       for (let i = 1; i < questions.length; i++) {
-        if (selectedAnswers[i] == 0) updatedSelectedAnswersForBack[i] = "a";
-        else {
-          updatedSelectedAnswersForBack[i] = "b";
-        }
+        updatedAnswersForBack[i] = {
+          res: selectedAnswers[i] + 1,
+        };
       }
-      // console.log(updatedSelectedAnswersForBack);
-      sendAsnwersToBack(updatedSelectedAnswersForBack);
+      sendAnswersToBack(updatedAnswersForBack);
+      // setShowResult(true);
     }
   };
 
@@ -150,6 +153,7 @@ const MBTITest = () => {
   };
 
   const onAnswerSelected = (index) => {
+    console.log(activeQuestion);
     const updatedAnswers = [...selectedAnswers];
     updatedAnswers[activeQuestion] = index;
     setSelectedAnswers(updatedAnswers);
@@ -188,8 +192,8 @@ const MBTITest = () => {
       width: "26rem",
       height: "18rem",
       showCancelButton: true,
-      cancelButtonText: "ادامه می‌دهم",
       confirmButtonText: "بله",
+      cancelButtonText: "ادامه می‌دهم",
       customClass: {
         container: "custom-swal-container",
       },
@@ -203,27 +207,7 @@ const MBTITest = () => {
   };
 
   const showTheResult = () => {
-    console.log(mbtiResult);
-    Swal.fire({
-      icon: "info",
-      title: "نتیجۀ تست شخصیت‌شناسی شما",
-      html: mbtiResult,
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      // showCancelButton: true,
-      confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
-      // cancelButtonText: "صفحۀ اصلی",
-      customClass: {
-        container: "custom-swal-container",
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate("/");
-      }
-    });
-  };
+    };
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
@@ -236,10 +220,14 @@ const MBTITest = () => {
   return (
     <>
       <NavBar_SideBar />
-      <body className="mbti-body">
+      <body className="phq9-body">
         <div
-          className="mbti-quiz-container"
-          style={showResult ? { marginTop: "6%" } : {}}
+          className="phq9-quiz-container"
+          style={
+            activeQuestion === 0
+              ? { marginTop: "1%" }
+              : { marginTop: "1%" }
+          }
         >
           {!showResult && (
             <div>
@@ -247,26 +235,27 @@ const MBTITest = () => {
                 <h2
                   style={{
                     fontSize: "30px",
-                    color: "#55AD9B",
+                    color: "#9a94fb",
                     marginBottom: "10px",
                     textAlign: "center",
+                    fontFamily: "Ios15medium"
                   }}
                 >
-                  تست شخصیت‌شناسی MBTI
+                  تست شخصیت‌شناسی PHQ9
                 </h2>
               )}
-              <div className="mbti-header">
+              {/* <div className="phq9-header">
                 {activeQuestion !== 0 && (
                   <>
                     <ProgressBar
                       animated
                       className="mbti-progress-bar custom-color"
-                      now={(activeQuestion + 1) * (100 / questions.length)}
+                    //   now={(activeQuestion + 1) * (100 / questions.length)}
                     />
-                    <span className="mbti-active-question-no">
+                    <span className="phq9-active-question-no">
                       {convertToPersianNumbers(addLeadingZero(activeQuestion))}
                     </span>
-                    <span className="mbti-total-question">
+                    <span className="phq9-total-question">
                       /
                       {convertToPersianNumbers(
                         addLeadingZero(questions.length - 1)
@@ -274,13 +263,13 @@ const MBTITest = () => {
                     </span>
                   </>
                 )}
-              </div>
+              </div> */}
               <h2
                 style={
                   activeQuestion === 0
                     ? {
                         lineHeight: "1.8",
-                        fontSize: "22px",
+                        fontSize: "21px",
                         paddingTop: "20px",
                       }
                     : {}
@@ -294,7 +283,7 @@ const MBTITest = () => {
                     key={index}
                     className={
                       selectedAnswers[activeQuestion] === index
-                        ? "mbti-selected-answer"
+                        ? "phq9-selected-answer"
                         : ""
                     }
                     onClick={() => onAnswerSelected(index)}
@@ -303,11 +292,14 @@ const MBTITest = () => {
                   </li>
                 ))}
               </ul>
-              <div className="mbti-button-group">
+              <div
+                className="phq9-button-group"
+                style={{ fontSize: "14px" }}
+              >
                 {activeQuestion === 0 ? (
                   <>
                     <button
-                      style={{ width: "40px", fontSize: "16px" }}
+                      style={{ width: "40px", fontSize: "14px" }}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -333,7 +325,7 @@ const MBTITest = () => {
                       }
                       style={
                         activeQuestion === questions.length - 1
-                          ? { fontSize: "18px" }
+                          ? { fontSize: "14px" }
                           : {}
                       }
                     >
@@ -343,9 +335,9 @@ const MBTITest = () => {
                     </button>
 
                     <span
-                      style={{ fontSize: "19px" }}
+                      style={{ fontSize: "16px" }}
                       onClick={showConfirmSwal}
-                      className="mbti-complete-test"
+                      className="phq9-complete-test"
                     >
                       اتمام آزمون
                     </span>
@@ -360,8 +352,8 @@ const MBTITest = () => {
               </div>
             </div>
           )}
-          {showResult && ( // Conditionally render result
-            <div className="mbti-result">
+          {showResult && (
+            <div className="phq9-result" style={{ marginTop: "40px" }}>
               <h3
                 style={
                   showResult
@@ -375,9 +367,11 @@ const MBTITest = () => {
               >
                 آزمون شما به پایان رسید!
               </h3>
-              <p>
-                پاسخ‌های شما پردازش شد. برای دیدن نتیجۀ آزمون خود، برروی دکمۀ
-                زیر کلیک کنید.
+              <p style={{ fontSize: "20px", paddingTop: "30px" }}>
+                پاسخ‌های شما پردازش شد. نتیجۀ این آزمون می‌گوید نیاز شما به هر
+                یک از نیازهای اساسی "عشق"، "بقا"، "آزادی"، "قدرت" و "سرگرمی و
+                تفریح" چقدر است. برای دیدن نتیجۀ آزمون خود، برروی دکمۀ زیر کلیک
+                کنید.
               </p>
               <button
                 style={{
@@ -399,4 +393,4 @@ const MBTITest = () => {
   );
 };
 
-export default MBTITest;
+export default PHQ9Test;
