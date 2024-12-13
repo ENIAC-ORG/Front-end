@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
-.glasser-body {
+.phq9-body {
   direction: rtl;
-  font-family: 'Anek Malayalam', sans-serif;
   background: -webkit-linear-gradient(left,#15B392, #C9E9D2);
   color: #413f45;
   display: flex;
@@ -13,7 +12,7 @@
   height: 95vh;
 }
 
-.glasser-quiz-container {
+.phq9-quiz-container {
   width: 600px; /* Decrease container width */
   height: 96%;
   max-width: 100%;
@@ -26,33 +25,34 @@
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
 }
 
-.glasser-quiz-container .glasser-active-question-no {
+.phq9-quiz-container .phq9-active-question-no {
   font-size: 30px; /* Decrease font size */
   font-weight: 500;
   color:#76baab;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Decrease text shadow */
 }
 
-.glasser-quiz-container .glasser-total-question {
+.phq9-quiz-container .phq9-total-question {
   font-size: 18px; /* Decrease font size */
   font-weight: 500;
   color: #959496;
 }
 
-.glasser-quiz-container h2 {
+.phq9-quiz-container h2 {
   font-size: 18px; /* Decrease font size */
   font-weight: 500;
   margin: 0;
   text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   color: #636363;
+  font-family: Ios15medium;
 }
 
-.glasser-quiz-container ul {
+.phq9-quiz-container ul {
   margin-top: 20px; /* Adjust margin top */
   margin-right: -30px; /* Adjust margin right */
 }
 
-.glasser-quiz-container ul li {
+.phq9-quiz-container ul li {
   text-decoration: none;
   list-style: none;
   color: #47464e;
@@ -66,14 +66,15 @@
   transition: color 0.3s ease;
   margin-right: 41px;
   text-align: center;
+  font-family: Ios15medium;
 }
 
-.glasser-quiz-container ul .glasser-selected-answer {
+.phq9-quiz-container ul .phq9-selected-answer {
   background: #bee4cf;
   border: 1px solid #83bfa1;
 }
 
-.glasser-quiz-container button {
+.phq9-quiz-container button {
   background: -webkit-linear-gradient(left,#15B392, #AEE2FF);
   border-radius: 12px; /* Decrease border radius */
   font-size: 18px; /* Decrease font size */
@@ -85,57 +86,58 @@
   margin-top: 30px; /* Decrease margin top */
   transition: all 0.3s ease;
   box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
+  font-family: Ios15medium;
 }
 
-.glasser-quiz-container button:hover {
+.phq9-quiz-container button:hover {
   background: -webkit-linear-gradient(left, #15B392, #15B392, #15B392);
 }
 
-.glasser-quiz-container button:disabled {
+.phq9-quiz-container button:disabled {
   background: #e7e8e9;
   color: #9fa3a9;
   cursor: not-allowed;
 }
 
-.glasser-flex-right {
+.phq9-flex-right {
   display: flex;
   justify-content: flex-end;
 }
 
-.glasser-result h3 {
+.phq9-result h3 {
   font-size: 20px; /* Decrease font size */
   letter-spacing: 1px; /* Decrease letter spacing */
   text-align: center;
 }
 
-.glasser-result p {
+.phq9-result p {
   font-size: 16px; /* Decrease font size */
   font-weight: 500;
 }
 
-.glasser-result p span {
+.phq9-result p span {
   color: #59fac2;
   font-size: 25px; /* Decrease font size */
 }
 
-.glasser-button-group {
+.phq9-button-group {
   display: flex;
   justify-content: space-between;
   margin-top: 30px; /* Decrease margin top */
 }
 
-.glasser-button-group button {
+.phq9-button-group button {
   flex: 0 0 150px; /* Decrease button width */
   margin: 0 10px; /* Decrease margin */
 }
 
-.glasser-button-group span {
+.phq9-button-group span {
   margin-top: 15px; /* Decrease margin top */
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.glasser-button-group span:hover {
+.phq9-button-group span:hover {
   color: #15B392;
 }
 
@@ -160,4 +162,8 @@
 
 .custom-color .progress-bar {
   background-color: #76baab !important;
+}
+
+.phq9-complete-test {
+    font-family: Ios15medium;
 }

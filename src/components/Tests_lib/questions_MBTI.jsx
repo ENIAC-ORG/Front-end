@@ -59,7 +59,7 @@ const MBTI = {
             question: "کدام عبارت در مورد شما درست است؟",
             choices: [
                 { text: "با احتیاط انتخاب کنید.", answer: true, id: 0},
-                { text: "چیزی را بدون فکر کردن انتخاب کنید.", answer: true, id: 1},
+                { text: "چیزی را بدون فکر کردن انتخاب کنید", answer: true, id: 1},
             ],
         },
         {
