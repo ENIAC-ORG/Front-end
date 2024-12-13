@@ -171,51 +171,54 @@ const GlasserTest = () => {
     Swal.fire({
       icon: "warning",
       title: "آیا از ادامۀ آزمون منصرف شده اید؟",
-      html: "در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "29rem",
-      height: "15rem",
-      showCancelButton: true,
+      html: ".در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
+      confirmButtonColor: '#0a8ca0',
+      cancelButtonColor: '#0a8ca0',
+      showConfirmButton: true,
+      showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
-      } else {
-        // do nothing
-      }
+      } 
     });
   };
 
   const cancelTest = () => {
     Swal.fire({
       icon: "warning",
-      title: "از انجام آزمون منصرف شده اید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      showCancelButton: true,
+      title: "آیا از انجام آزمون منصرف شده اید؟",
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
+      confirmButtonColor: '#0a8ca0',
+      cancelButtonColor: '#0a8ca0',
+      showConfirmButton: true,
+      showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
-      } else {
-        // do nothing
       }
     });
   };
 
   const showTheResult = () => {
-    console.log(glasserResult);
     Swal.fire({
       icon: "info",
       title: "نتیجۀ گلاسر شما",
@@ -228,15 +231,18 @@ const GlasserTest = () => {
           <p>قدرت: ${convertToPersianNumbers(glasserResult["power"])} از ۵</p>
           <p>سرگرمی: ${convertToPersianNumbers(glasserResult["fun"])} از ۵</p>
         `,
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      // showCancelButton: true,
-      confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
-      // cancelButtonText: "صفحۀ اصلی",
+        background: "#075662",
+        color: "#FFFF",
+        width: "35rem",
+        confirmButtonColor: '#0a8ca0',
+        showConfirmButton: true,
+        confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
+        backdrop: `
+    rgba(84, 75, 87.0.9)
+    left top
+    no-repeat`,
       customClass: {
-        container: "custom-swal-container",
+        container: "custom-swal2-container",
       },
     }).then((result) => {
       if (result.isConfirmed) {
@@ -261,7 +267,7 @@ const GlasserTest = () => {
           className="glasser-quiz-container"
           style={
             activeQuestion === 0 || showResult
-              ? { marginTop: "4%" }
+              ? { marginTop: "4%", height: "85%" }
               : { marginTop: "2%" }
           }
         >
@@ -271,7 +277,7 @@ const GlasserTest = () => {
                 <h2
                   style={{
                     fontSize: "30px",
-                    color: "#9a94fb",
+                    color: "#55AD9B",
                     marginBottom: "10px",
                     textAlign: "center",
                   }}
@@ -394,7 +400,7 @@ const GlasserTest = () => {
                   showResult
                     ? {
                         fontWeight: "bolder",
-                        color: "#9a94fb",
+                        color: "#55AD9B",
                         marginBottom: "33px",
                       }
                     : {}
