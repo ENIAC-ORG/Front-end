@@ -16,7 +16,12 @@ import withReactContent from "sweetalert2-react-content";
 import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 const LoginContainer = () => {
   const navigate = useNavigate();
-
+  const [flag, setflag] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    code: "",
+    url: "",
+  });
   const [loginLabelsColor, setLoginLabelsColor] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
   const [repeatPasswordType, setRepeatPasswordType] = useState("password");
@@ -25,6 +30,13 @@ const LoginContainer = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
 
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChangeBox = async (e) => {
+    const checked = e.target.checked;
+    setIsChecked(checked);
+  }
   // Function to toggle the modal state
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -122,7 +134,10 @@ const LoginContainer = () => {
       }
     }
   }
-
+  async function isDoctor(event) {
+    event.preventDefault();
+    setflag(true);
+  }
   async function handleLoginEnter(event) {
     event.preventDefault();
     const email = document.querySelector(".email1_input").value;
@@ -210,6 +225,7 @@ const LoginContainer = () => {
         color: "#black",
         width: "32rem",
         confirmButtonText: "باشه",
+        confirmButtonColor: "#0a8ca0",
         preConfirm: () => {
           navigate("/Home");
         },
@@ -331,17 +347,23 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://eniacgroup.ir:8070//accounts/signup/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          email: email,
-          password1: password,
-          password2: passwordConfirm,
-        },
-      });
+
+      const response = await axios(
+        "http://46.249.100.141:8070//accounts/signup/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            email: email,
+            password1: password,
+            password2: passwordConfirm,
+            is_doctor: isChecked,
+          },
+        }
+      );
+
       const data = response.data;
       //console.log('you logined successfully');
 
@@ -350,11 +372,12 @@ const LoginContainer = () => {
         //const accessToken = response.data.access;
         //const refreshToken = response.data.refresh;
         console.log("you signed in successfully");
+
         // Set tokens in local storage
-        //localStorage.setItem('accessToken', accessToken);
+        //localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       } else if (response.status === 201) {
-        //const accessToken = response.data.access;
+        const accessToken = response.data.access;
         //const refreshToken = response.data.refresh;
         console.log(response);
         console.log("you signed in successfully");
@@ -364,10 +387,11 @@ const LoginContainer = () => {
           code: response.data.code,
           url: response.data.url,
         };
-
+        //setShowModal(!showModal);
         navigate("/verification", { state: data });
+
         // Set tokens in local storage
-        //localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       }
     } catch (error) {
@@ -478,7 +502,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
-                  <button onClick={toggleModal}>doctor</button>
+
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">
@@ -620,6 +644,7 @@ const LoginContainer = () => {
                           backgroundPosition: "right",
                         }}
                       />
+
                       <span
                         className="toggle-icon"
                         onClick={handleRepeatPasswordToggle}
@@ -632,6 +657,23 @@ const LoginContainer = () => {
                         {errorMessage.passErrorRep}
                       </div>
                     )}
+                    <div className="is_doctor_ckeck">
+                      <input
+                        className="checkbox checkbox-circle"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        checked={isChecked}
+        onChange={handleChangeBox}
+                      />
+                      <label
+                        className="form-check-label"
+                        for="flexCheckDefault"
+                      >
+                        ثبت نام کادر انیاک
+                      </label>
+                    </div>
+
                     <div className="field btn">
                       <div className="btn_layer"></div>
                       <input

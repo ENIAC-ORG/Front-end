@@ -13,6 +13,7 @@ const Verification = () => {
   console.log("VerificationPage rendered");
   const location = useLocation();
   const initialState = location.state || {};
+  console.log(initialState);
   const [email, setEmail] = useState(initialState.email || "");
   const [code, setCode] = useState(initialState.code || "");
   const [url, setUrl] = useState(initialState.url || "");
@@ -74,15 +75,24 @@ const Verification = () => {
     const code_verify = document.querySelector(".ver_code").value;
     if (code === code_verify) {
       try {
-        const response = await axios(url, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          data: {
-            verification_code: code_verify,
-          },
-        });
+        const token = localStorage.getItem("accessToken");
+        console.log(token);
+        // const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NDYyMzQzLCJpYXQiOjE3MzM1OTgzNDMsImp0aSI6IjNhZWVhYWNiNGQ0YTQxOWRhZWI0YzQ2YTk2YjQzYjUxIiwidXNlcl9pZCI6N30.nreitTrXPRwxQxIvhfekPSAmtzeTslPx-iiieHOo-3M/"
+
+        const response = await axios(
+          "http://46.249.100.141:8070/accounts/activation_confirm/" +
+            token +
+            "/",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            data: {
+              verification_code: code_verify,
+            },
+          }
+        );
         const data = response.data;
         if (response.status === 200 || response.status === 201) {
           console.log("you can login now");

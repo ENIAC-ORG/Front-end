@@ -2,9 +2,8 @@ import React from "react";
 import "./Recommendation.css";
 import first_image from "./img/psychology3.jpg";
 import second_image from "./img/psychology2.jpg";
-import { FcBusinessContact } from "react-icons/fc";
+import { FcApproval } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
-
 
 const AboutSection = () => {
   const navigate = useNavigate();
@@ -49,32 +48,34 @@ const AboutSection = () => {
               animationName: "fadeIn",
             }}
           >
-            <h4 className="text-primary doctor_h2">راهنمای رزرو نوبت</h4>
+            <h4 className="recom_text_color doctor_h2">راهنمای رزرو نوبت</h4>
             <h1 className="mb-4 doctor_h3">پیشنهاد روان درمانگر</h1>
             <p className="recom_text">
               با قابلیت جدید اینیاک به کمک هوش مصنوعی دکتر مناسب خود را انتخاب
               کنید
             </p>
-            <h5 className="text-primary doctor_h2">
+            <h5 className="recom_text_color doctor_h2">
               {" "}
               پیشنهاد بهترین درمانگر برای شما بر اساس
             </h5>
             <p className=" recom_text">
-              <FcBusinessContact />
+              <FcApproval />
               ملاحظات شخصی
             </p>
             <p className=" recom_text">
-              <FcBusinessContact />
+              <FcApproval />
               سابقه درمانی
             </p>
             <p className=" recom_text">
-              <FcBusinessContact />
+              <FcApproval />
               تناسب تخصص پزشک و شرح حال شما
             </p>
             <a
               href="#"
               className="btn btn-secondary rounded-pill  px-5 py-3 text-white"
-              onClick={(e)=>{navigate("/RecommendationPage");}}
+              onClick={(e) => {
+                navigate("/RecommendationPage");
+              }}
             >
               شروع
             </a>

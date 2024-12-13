@@ -52,7 +52,7 @@
 .btn {
     font-weight: 600;
     transition: .5s;
-    background-color: #B799FF;
+    background-color: #63AD97;
     font-family: Ios15Medium;
 }
 
@@ -540,7 +540,7 @@
     background: rgba(239, 239, 241, 0.8);
 }
 
-.team-content::before {
+.team-content::before {                                              
     height: 200px;
     display: block;
     content: "";
