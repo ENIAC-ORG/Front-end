@@ -64,7 +64,7 @@ const ForgetPassword = () => {
     if (validator.isEmail(fp_Email)) {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/forgot_password/",
+          "http://eniacgroup.ir:8070//accounts/forgot_password/",
           {
             method: "POST",
             headers: {
@@ -89,10 +89,11 @@ const ForgetPassword = () => {
           withReactContent(Swal).fire({
             icon: "success",
             title: "!کد تایید صحت با موفقیت ارسال شد",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             confirmButtonText: "باشه",
+            confirmButtonColor: "#0a8ca0"
           });
         }
       } catch (error) {
@@ -100,10 +101,11 @@ const ForgetPassword = () => {
           withReactContent(Swal).fire({
             icon: "error",
             title: "!ایمیل وارد شده در سیستم ثبت نشده",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             confirmButtonText: "باشه",
+            confirmButtonColor: "#0a8ca0"
           });
         }
       }
@@ -112,20 +114,22 @@ const ForgetPassword = () => {
         withReactContent(Swal).fire({
           icon: "error",
           title: "!وارد کردن ایمیل الزامی است",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "26rem",
           height: "18rem",
           confirmButtonText: "باشه",
+          confirmButtonColor: "#0a8ca0"
         });
       } else {
         withReactContent(Swal).fire({
           icon: "error",
           title: "!قالب ایمیل وارد شده صحیح نمی باشد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "32rem",
           confirmButtonText: "باشه",
+          confirmButtonColor: "#0a8ca0"
         });
       }
     }
@@ -143,10 +147,11 @@ const ForgetPassword = () => {
       withReactContent(Swal).fire({
         icon: "error",
         title: "!درستی و تطابق رمز عبور را چک کنید",
-        background: "#473a67",
-        color: "#b4b3b3",
+        background: "#075662",
+        color: "#FFFF",
         width: "32rem",
         confirmButtonText: "باشه",
+        confirmButtonColor: "#0a8ca0"
       });
     } else {
       const response = await axios(fp_response.token, {
@@ -164,10 +169,11 @@ const ForgetPassword = () => {
         withReactContent(Swal).fire({
           icon: "error",
           title: "!عملیات تغییر رمز عبور موفق نبود، لطفا دوباره تلاش کنید",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "32rem",
           confirmButtonText: "باشه",
+          confirmButtonColor: "#0a8ca0"
         });
       } else {
         navigate("/Signup");

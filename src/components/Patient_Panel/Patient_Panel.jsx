@@ -45,7 +45,7 @@ const Patient_Panel = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        `http://127.0.0.1:8000//TherapyTests/record/${PatientId}/`,
+        `http://eniacgroup.ir:8070//TherapyTests/record/${PatientId}/`,
         {
           method: "GET",
           headers: {
@@ -87,15 +87,16 @@ const Patient_Panel = () => {
       if (error.response.status == 404) {
         withReactContent(Swal).fire({
           icon: "error",
-          title: "!مریض مورد نظر پیدا نشد",
-          background: "#473a67",
-          color: "#b4b3b3",
+          title: "!مراجعه‌کنندۀ مورد نظر پیدا نشد",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
             rgba(84, 75, 87.0.9)
             left top
             no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0",
           preConfirm: () => {
             navigate("/Home");
           },
@@ -108,15 +109,16 @@ const Patient_Panel = () => {
         )
           withReactContent(Swal).fire({
             icon: "error",
-            title: "! دسترسی به این صفحه مختص پزشک هست",
-            background: "#473a67",
-            color: "#b4b3b3",
+            title: "! دسترسی به این صفحه مختص پزشک است",
+            background: "#075662",
+            color: "#FFFF",
             width: "40rem",
             backdrop: `
               rgba(84, 75, 87.0.9)
               left top
               no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: "#0a8ca0",
             preConfirm: () => {
               navigate("/Home");
             },
@@ -125,14 +127,15 @@ const Patient_Panel = () => {
           withReactContent(Swal).fire({
             icon: "error",
             title: "! مریض مورد نظر پیدا نشد",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#FFFF",
             width: "40rem",
             backdrop: `
                 rgba(84, 75, 87.0.9)
                 left top
                 no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: "#0a8ca0",
             preConfirm: () => {
               navigate("/Home");
             },

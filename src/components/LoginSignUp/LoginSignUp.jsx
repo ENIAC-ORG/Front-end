@@ -8,6 +8,10 @@ import { eye } from "react-icons-kit/feather/eye";
 import { IsValidEmail } from "./IsValidEmail";
 import { useNavigate } from "react-router-dom";
 
+import { useLocation } from "react-router-dom";
+
+import { ToastContainer, toast } from "react-toastify";
+
 import axios from "axios";
 import lock_icon from "../../assets/password.png";
 import email_icon from "../../assets/email.png";
@@ -16,7 +20,15 @@ import withReactContent from "sweetalert2-react-content";
 import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 const LoginContainer = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const initialState = location.state || {};
 
+  const [flag, setflag] = useState(false);
+  const [data, setData] = useState({
+    email: "",
+    code: "",
+    url: "",
+  });
   const [loginLabelsColor, setLoginLabelsColor] = useState(false);
   const [passwordType, setPasswordType] = useState("password");
   const [repeatPasswordType, setRepeatPasswordType] = useState("password");
@@ -25,6 +37,13 @@ const LoginContainer = () => {
   const [showModal, setShowModal] = useState(false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
 
+
+  const [isChecked, setIsChecked] = useState(false);
+
+  const handleChangeBox = async (e) => {
+    const checked = e.target.checked;
+    setIsChecked(checked);
+  };
   // Function to toggle the modal state
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -92,7 +111,7 @@ const LoginContainer = () => {
   async function ResendCode(email) {
     try {
       const response = await axios(
-        "http://127.0.0.1:8000//accounts/activation_resend/",
+        "http://eniacgroup.ir:8070//accounts/activation_resend/",
         {
           method: "POST",
           headers: {
@@ -122,7 +141,14 @@ const LoginContainer = () => {
       }
     }
   }
-
+  async function isDoctor(event) {
+    event.preventDefault();
+    setflag(true);
+  }
+  async function isDoctor(event) {
+    event.preventDefault();
+    setflag(true);
+  }
   async function handleLoginEnter(event) {
     event.preventDefault();
     const email = document.querySelector(".email1_input").value;
@@ -168,18 +194,22 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://127.0.0.1:8000//accounts/Login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          email: email,
-          password: password,
-        },
-      });
+      const response = await axios(
+        "http://eniacgroup.ir:8070//accounts/Login/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            email: email,
+            password: password,
+          },
+        }
+      );
       const data = response.data;
       console.log("you logined successfully");
+      console.log(data);
 
       //closeLoading();
       if (response.status === 200) {
@@ -203,13 +233,19 @@ const LoginContainer = () => {
         localStorage.setItem("role", role);
         localStorage.setItem("LogIn", true);
       }
-      withReactContent(Swal).fire({
+
+      Swal.fire({
         icon: "success",
         title: "!با موفقیت وارد شدید",
-        background: "#55AD9B",
-        color: "#black",
-        width: "32rem",
+        background: "#075662",
+        color: "#FFFF",
+        width: "35rem",
+        backdrop: `
+    rgba(84, 75, 87.0.9)
+    left top
+    no-repeat`,
         confirmButtonText: "باشه",
+        confirmButtonColor: "#0a8ca0",
         preConfirm: () => {
           navigate("/Home");
         },
@@ -331,18 +367,25 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://127.0.0.1:8000//accounts/signup/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          email: email,
-          password1: password,
-          password2: passwordConfirm,
-        },
-      });
-      const data = response.data;
+
+      const response = await axios(
+        "http://46.249.100.141:8070//accounts/signup/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            email: email,
+            password1: password,
+            password2: passwordConfirm,
+            is_doctor: isChecked,
+          },
+        }
+      );
+
+      const data = response.data.url;
+      console.log("++"+ data);
       //console.log('you logined successfully');
 
       //closeLoading();
@@ -350,24 +393,33 @@ const LoginContainer = () => {
         //const accessToken = response.data.access;
         //const refreshToken = response.data.refresh;
         console.log("you signed in successfully");
+
         // Set tokens in local storage
-        //localStorage.setItem('accessToken', accessToken);
+        //localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       } else if (response.status === 201) {
-        //const accessToken = response.data.access;
-        //const refreshToken = response.data.refresh;
+        const accessToken = response.data.access;
         console.log(response);
         console.log("you signed in successfully");
-        //  { state: data }
         const data = {
           email: email,
           code: response.data.code,
           url: response.data.url,
         };
+        setShowModal(isChecked);
+        const url =response.data.url;
+          
+        const base = "activation_confirm/";
+        const startIndex = url.indexOf(base) + base.length;
+        const endIndex = url.lastIndexOf("/");
+        const token = url.substring(startIndex, endIndex);
 
+        console.log(token);
         navigate("/verification", { state: data });
+
         // Set tokens in local storage
-        //localStorage.setItem('accessToken', accessToken);
+        localStorage.setItem("accessToken", token);
+        //localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       }
     } catch (error) {
@@ -439,6 +491,7 @@ const LoginContainer = () => {
 
   return (
     <>
+      <ToastContainer />
       <div className="hello">
         <body className="bd">
           <div className="hello">
@@ -478,7 +531,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
-                  <button onClick={toggleModal}>doctor</button>
+
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">
@@ -620,6 +673,7 @@ const LoginContainer = () => {
                           backgroundPosition: "right",
                         }}
                       />
+
                       <span
                         className="toggle-icon"
                         onClick={handleRepeatPasswordToggle}
@@ -632,6 +686,23 @@ const LoginContainer = () => {
                         {errorMessage.passErrorRep}
                       </div>
                     )}
+                    <div className="is_doctor_ckeck">
+                      <input
+                        className="checkbox checkbox-circle"
+                        type="checkbox"
+                        value=""
+                        id="flexCheckDefault"
+                        checked={isChecked}
+                        onChange={handleChangeBox}
+                      />
+                      <label
+                        className="form-check-label"
+                        for="flexCheckDefault"
+                      >
+                        ثبت نام کادر انیاک
+                      </label>
+                    </div>
+
                     <div className="field btn">
                       <div className="btn_layer"></div>
                       <input

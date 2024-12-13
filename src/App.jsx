@@ -20,7 +20,8 @@ import DoctorRating from "./components/DoctorPannelRating/DoctorPannelRating.jsx
 import Doctor_FreeTime from "./components/Doctor_FreeTime/Doctor_FreeTime.jsx";
 import Testresult from "./components/User_TestResult/TestResult.jsx";
 import RecommendationPage from "./components/RecommendationPage/RecommendationPage.jsx";
-import UserManagement from  "./components/UserManagement/user_management.jsx"
+import UserManagement from  "./components/UserManagement/user_management.jsx";
+import Chat from "./components/Chat/Chat.jsx";
 
 function App() {
   return (
@@ -89,6 +90,9 @@ function App() {
           {" "}
         </Router.Route>
         <Router.Route path="/User_Management" element={<UserManagement />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/Chat" element={<Chat />}>
           {" "}
         </Router.Route>
       </Router.Routes>

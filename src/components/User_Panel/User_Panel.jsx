@@ -48,8 +48,8 @@ function toPersianDigits(str) {
         .fire({
           icon: "warning",
           title: "!برای مشاهده اطلاعات شخصی ورود به  اکانت خود الزامی است",
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#FFFF",
           width: "35rem",
           backdrop: `
       rgba(84, 75, 87.0.9)
@@ -57,14 +57,9 @@ function toPersianDigits(str) {
       no-repeat`,
           showDenyButton: true,
           confirmButtonText: "ورود به سایت",
-          confirmButtonColor: '#55AD9B',
+          confirmButtonColor: '#0a8ca0',
           denyButtonText: "صفحه اصلی",
-          denyButtonColor: "#89817e",
-          customClass: {
-            actions: "my-actions",
-            confirmButton: "order-2",
-            denyButton: "order-3",
-          },
+          denyButtonColor: "#0a8ca0"
         })
         .then((result) => {
           if (result.isConfirmed) {
@@ -76,7 +71,7 @@ function toPersianDigits(str) {
     else {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000/accounts/get_user/",
+          "http://eniacgroup.ir:8070/accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -101,16 +96,16 @@ function toPersianDigits(str) {
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
             icon: "error",
-            title: "!برای مشاهده اطلاعات شخصی ورود به  اکانت خود الزامی است",
-            background: "#473a67",
-            color: "#b4b3b3",
+            title: "!برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
             confirmButtonText: "تایید",
-            confirmButtonColor: '#55AD9B',
+            confirmButtonColor: '#0a8ca0',
             preConfirm: () => {
               navigate("/Signup");
             },

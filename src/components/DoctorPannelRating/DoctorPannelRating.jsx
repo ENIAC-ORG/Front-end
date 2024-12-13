@@ -28,7 +28,7 @@ export default function DoctorRating() {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://127.0.0.1:8000//DoctorPanel/get_rating/",
+        "http://eniacgroup.ir:8070//DoctorPanel/get_rating/",
         {
           method: "GET",
           headers: {

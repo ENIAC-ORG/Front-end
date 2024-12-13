@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx";
 import { ToastContainer } from "react-toastify";
 import DoctorPage from "../SeeingDoctorReservation/DoctorPage.jsx";
-import RatingModal from "../RatingDoctor/RatingModal.jsx";
+import RatingInfoModal from "../RatingDoctor/Rating&InfoModal.jsx";
 
 const DoctorProfile = ({
   Id,
@@ -20,19 +20,33 @@ const DoctorProfile = ({
   Psychiatrist,
 }) => {
   {
+    console.log(name);
+    console.log(Image);
+    console.log(Id);
+
     const navigate = useNavigate();
     const load = () => {
       console.log("++");
       console.log(name);
       console.log(Image);
+      console.log(Id);
     };
 
     async function GetUserInfo(event) {
+      const [info, setinfo] = useState({
+        FirstName: "",
+        LastName: "",
+        Email: "",
+        BirthDay: "",
+        Gender: "",
+        PhoneNumber: ""
+      });
+
       event.preventDefault();
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/get_user/",
+          "http://eniacgroup.ir:8070//accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -54,24 +68,25 @@ const DoctorProfile = ({
           });
         }
       } catch (error) {
+        console.log(error);
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
-            icon: "error",
-
-            html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
-
-            background: "#473a67",
-            color: "#b4b3b3",
+            icon: "warning",
+            html: "<div dir='rtl'>برای مشاهدۀ اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             backdrop: `
-              rgba(84, 75, 87.0.9)
-              left top
-              no-repeat`,
+        rgba(84, 75, 87.0.9)
+        left top
+        no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: '#0a8ca0',
+            showConfirmButton: true,
             preConfirm: () => {
-              navigate("/Signup");
+              navigate("/signup");
             },
-          });
+        });
         }
       }
     }
@@ -84,9 +99,9 @@ const DoctorProfile = ({
           .fire({
             icon: "warning",
 
-            html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-            background: "#473a67",
-            color: "#b4b3b3",
+            html: "<div dir='rtl'>!برای رزرو وقت ورود به اکانت خود الزامی است!</div>",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             backdrop: `
           rgba(84, 75, 87.0.9)
@@ -95,13 +110,8 @@ const DoctorProfile = ({
             showDenyButton: true,
             confirmButtonText: "ورود به سایت",
             denyButtonText: "صفحه اصلی",
-            denyButtonColor: "#89817e",
-            confirmButtonColor: "rgb(183, 153, 255)",
-            customClass: {
-              actions: "my-actions",
-              confirmButton: "order-2",
-              denyButton: "order-3",
-            },
+            denyButtonColor: "#075662",
+            confirmButtonColor: "#0a8ca0"
           })
           .then((result) => {
             if (result.isConfirmed) {
@@ -113,7 +123,7 @@ const DoctorProfile = ({
       else {
         try {
           const response = await axios(
-            "http://127.0.0.1:8000//accounts/get_user/",
+            "http://eniacgroup.ir:8070//accounts/get_user/",
             {
               method: "GET",
               headers: {
@@ -137,10 +147,16 @@ const DoctorProfile = ({
                       : data.phone_number == null
                         ? false
                         : true;
-            if (check);
+            if (check) {
+            }
             else {
-              // navigate("/Reserve"); 
-              //modal
+              Swal.fire({
+                icon: "warning",
+                html: "<div dir='rtl'>اطلاعات حساب شما ناقص است!</div>",
+                background: "#473a67",
+                color: "#b4b3b3",
+                confirmButtonText: "ویرایش اطلاعات",
+              });
             }
           }
         } catch (error) {
@@ -149,8 +165,8 @@ const DoctorProfile = ({
               .fire({
                 icon: "warning",
                 html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-                background: "#473a67",
-                color: "#b4b3b3",
+                background: "#075662",
+                color: "#FFFF",
                 width: "35rem",
                 backdrop: `
                 rgba(84, 75, 87.0.9)
@@ -159,13 +175,8 @@ const DoctorProfile = ({
                 showDenyButton: true,
                 confirmButtonText: "ورود به سایت",
                 denyButtonText: "صفحه اصلی",
-                denyButtonColor: "#89817e",
-                confirmButtonColor: "rgb(183, 153, 255)",
-                customClass: {
-                  actions: "my-actions",
-                  confirmButton: "order-2",
-                  denyButton: "order-3",
-                },
+                denyButtonColor: "#0a8ca0",
+                confirmButtonColor: "#0a8ca0"
               })
               .then((result) => {
                 if (result.isConfirmed) {
@@ -216,7 +227,6 @@ const DoctorProfile = ({
       }
     };
 
-    console.log(name);
     if (name == null && ProfileType == null) {
       // withReactContent(Swal)
       //     .fire({
@@ -231,10 +241,27 @@ const DoctorProfile = ({
       //             no-repeat`})
     } else {
       return (
+        <>
         <div
+          onLoad={GetUserInfo}
+          onClick={GetUserInfo2}
+        >
+        <RatingInfoModal 
+        doctorId={Id}
+        name={name}
+        Description={Description}
+        Image={Image}
+        ProfileType={ProfileType}
+        IsPrivate={IsPrivate}
+        Psychiatrist={Psychiatrist}
+        />
+
+        {/* <div
           className="rounded team-item-new"
-          style={{ fontFamily: "Ios15Medium" }}
+          style={{ fontFamily: "Ios15Medium", cursor:"pointer" }}
           onLoad={load}
+          // onClick={() => setShow(true)}
+          // onClick={handleModalClick}
         >
           <link
             rel="stylesheet"
@@ -269,28 +296,11 @@ const DoctorProfile = ({
                   {Description}
                 </p>
               </div>
-
-              <div>
-                {/* <div className="team-icon d-flex justify-content-center pb-4">
-                                    <a className="btn btn-square btn-secondary text-white rounded-circle m-1" onClick={handleClickToDoctorPage}>
-                                    <i className="fab material-symbols-outlined">account_circle</i>
-                                    </a>
-                                </div> */}
-
-
-                {/* <div
-                  className="buttonReserve"
-                  onLoad={GetUserInfo}
-                  onClick={GetUserInfo2}
-                >
-                  <ToastContainer />
-                  <CompleteInfoModal doctorId={Id} />
-                  <RatingModal doctorId={Id} />
-                </div> */}
-              </div>
             </div>
           </div>
+        </div> */}
         </div>
+        </>
       );
     }
   }

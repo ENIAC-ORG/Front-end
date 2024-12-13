@@ -21,6 +21,7 @@ import date_icon from "../../assets/date.png";
 import phone_icon from "../../assets/phone.png";
 import person_icon from "../../assets/person.png";
 import "./styles.css";
+import "../RatingDoctor/rating_style.css"
 
 const CompleteInfo = (doctorId) => {
   const navigate = useNavigate();
@@ -39,37 +40,37 @@ const CompleteInfo = (doctorId) => {
   const fetchUserInfo = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://127.0.0.1:8000/accounts/get_user/", {
+      const response = await axios.get("http://eniacgroup.ir:8070/accounts/get_user/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-    
+
       if (response.status === 200) {
         const { firstname, lastname, phone_number, gender, date_of_birth } =
           response.data.user;
-    
+
         setFirstname(firstname || "");
         setLastname(lastname || "");
         setPhonenumber(phone_number || "");
         setDateOfBirth(
           date_of_birth
             ? new DateObject({
-                date: date_of_birth,
-                format: "YYYY-MM-DD",
-                calendar: persian,
-              })
+              date: date_of_birth,
+              format: "YYYY-MM-DD",
+              calendar: persian,
+            })
             : ""
         );
-  
-    
+
+
         const genderMapping = {
           M: { gender: "M", option: "male" },
           F: { gender: "F", option: "female" },
           B: { gender: "B", option: "other" },
         };
-    
+
         if (gender && genderMapping[gender]) {
           setGender(genderMapping[gender].gender);
           setGenderOption(genderMapping[gender].option);
@@ -90,8 +91,8 @@ const CompleteInfo = (doctorId) => {
 
   const handleGenderChange = (selectedValue) => {
     const genderMapping = { male: "M", female: "F", other: "B" };
-    setGenderOption(selectedValue); 
-    setGender(genderMapping[selectedValue] || ""); 
+    setGenderOption(selectedValue);
+    setGender(genderMapping[selectedValue] || "");
   };
 
   const validateInfo = () => {
@@ -109,7 +110,7 @@ const CompleteInfo = (doctorId) => {
         autoClose: 3000,
       });
       setShow(false);
-      navigate("/Reserve", { state: doctorId });
+      navigate("/Reserve", { state: doctorId.doctorId });
     }
   };
 
@@ -121,10 +122,10 @@ const CompleteInfo = (doctorId) => {
       lastname: validatePersianString(lastname, "نام خانوادگی", 30),
       phonenumber:
         !phonenumber ? "!وارد کردن شماره تلفن الزامی است" :
-        phonenumber && !/^(?:\+98|0)(?:\s?)9[0-9]{9}/.test(phonenumber) ||
-        phonenumber.length > 15
-          ? "!قالب شماره درست نیست"
-          : null,
+          phonenumber && !/^(?:\+98|0)(?:\s?)9[0-9]{9}/.test(phonenumber) ||
+            phonenumber.length > 15
+            ? "!قالب شماره درست نیست"
+            : null,
       gender: !gender ? "!انتخاب جنسیت الزامی است" : null,
       dateOfBirth: validateDateOfBirth(dateOfBirth),
     };
@@ -140,12 +141,12 @@ const CompleteInfo = (doctorId) => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-          "http://127.0.0.1:8000/accounts/complete_info/",
+          "http://eniacgroup.ir:8070/accounts/complete_info/",
           {
             firstname,
             lastname,
             phone_number: phonenumber,
-            date_of_birth:  gregorianDate.format("YYYY-MM-DD"),
+            date_of_birth: gregorianDate.format("YYYY-MM-DD"),
             gender,
           },
           {
@@ -201,7 +202,7 @@ const CompleteInfo = (doctorId) => {
     if (isNaN(dobDate.getTime()) || dobDate > today) return "!تاریخ تولد اشتباه است";
     const minDateOfBirth = new Date();
     minDateOfBirth.setFullYear(today.getFullYear() - 18);
-    if ( dobDate > minDateOfBirth) return "!شما باید حداقل ۱۸ سال داشته باشید";
+    if (dobDate > minDateOfBirth) return "!شما باید حداقل ۱۸ سال داشته باشید";
   }
 
   const showAlert = (title, html = null) => {
@@ -222,13 +223,23 @@ const CompleteInfo = (doctorId) => {
       showConfirmButton: true,
     });
   };
-  
+
 
   return (
     <>
-      <Button variant="primary" onClick={validateInfo} className="button-20">
-        رزرو نوبت
-      </Button>
+      <div
+        onClick={validateInfo}
+        className="rating-field_modal rating-btn"
+        style={{ width: "96%", margin: "20px auto", display: "flex", justifyContent: "center" }}
+      >
+        <div className="rating-btn_layer">
+          <input
+            style={{ fontFamily: "Ios15Medium" }}
+            type="submit"
+            value="رزرو وقت مشاوره"
+          />
+        </div>
+      </div>
 
       <Modal
         backdrop="static"
@@ -330,33 +341,33 @@ const PhoneNumberField = ({ value, onChange, placeholder, icon }) => (
 );
 
 const GenderSelector = ({ value, onChange }) => (
-<div className="field_modal">
-  <select
-    className="input"
-    value={value}
-    onChange={(e) => {
-      const selectedValue = e.target.value;
-      onChange(selectedValue);
-    }}
-    style={{
-      backgroundImage: `url(${gender_icon})`,
-      backgroundRepeat: "no-repeat",
-      paddingRight: "40px",
-      backgroundPosition: "right",
-      backgroundColor: "white",
-      fontSize: "15px",
-      textShadow: "rgb(156, 154, 154) 1px 2px 3px",
-      color: value === "gender" ? "rgb(188, 186, 186)" : "#555", 
-    }}
-  >
-    <option value="gender" disabled hidden>
-      جنسیت
-    </option>
-    <option value="male">مرد</option>
-    <option value="female">زن</option>
-    <option value="other">سایر</option>
-  </select>
-</div>
+  <div className="field_modal">
+    <select
+      className="input"
+      value={value}
+      onChange={(e) => {
+        const selectedValue = e.target.value;
+        onChange(selectedValue);
+      }}
+      style={{
+        backgroundImage: `url(${gender_icon})`,
+        backgroundRepeat: "no-repeat",
+        paddingRight: "40px",
+        backgroundPosition: "right",
+        backgroundColor: "white",
+        fontSize: "15px",
+        textShadow: "rgb(156, 154, 154) 1px 2px 3px",
+        color: value === "gender" ? "rgb(188, 186, 186)" : "#555",
+      }}
+    >
+      <option value="gender" disabled hidden>
+        جنسیت
+      </option>
+      <option value="male">مرد</option>
+      <option value="female">زن</option>
+      <option value="other">سایر</option>
+    </select>
+  </div>
 
 );
 

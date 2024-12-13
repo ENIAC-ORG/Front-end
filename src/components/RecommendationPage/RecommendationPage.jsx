@@ -199,7 +199,7 @@ const RecommendationPage = () => {
   const cancelTest = () => {
     Swal.fire({
       icon: "error",
-      title: "از انجام فرم منصرف شده اید؟",
+      title: "از تکمیل فرم منصرف شده اید؟",
       background: "#075662",
       color: "#FFFF",
       width: "35rem",
