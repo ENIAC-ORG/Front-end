@@ -1,7 +1,7 @@
 import "./Chat.css";
 import axios from "axios";
 import Footer from "../Footer/Footer";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import { GrNewWindow } from "react-icons/gr";
 import { TextField, Box } from "@material-ui/core";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,6 +35,7 @@ const Chat = () => {
   const [OpenConversation, SetConversations] = new useState(null);
   const [Conv_id, SetId] = new useState(-1);
   const [new_message, setMessage] = new useState();
+  const [Loading, setStaus] = new useState(true);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -55,16 +56,14 @@ const Chat = () => {
         }
       );
       if (response.status == 200 || response.status == 201) {
-        SetConversationsList(
-          [
-            {
-              name: response.data.conversation.name,
-              id: response.data.conversation.id,
-              createTime: "اکنون",
-            },...conversationList
-          ],
-          
-        );
+        SetConversationsList([
+          {
+            name: response.data.conversation.name,
+            id: response.data.conversation.id,
+            createTime: "اکنون",
+          },
+          ...conversationList,
+        ]);
         SetConversations([]);
         SetId(response.data.conversation.id);
       }
@@ -138,7 +137,7 @@ const Chat = () => {
   }
 
   async function SendMessage() {
-    console.log(new_message)
+    setStaus(false);
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
@@ -157,22 +156,58 @@ const Chat = () => {
       if (response.status === 200 || response.status === 201) {
         setMessage("");
         SetConversations([...OpenConversation, response.data]);
+        setStaus(true);
       }
-    } catch (error) {}
+    } catch (error) {
+      setStaus(true);
+      console.log(error.response.data.message);
+      if (
+        error.response.data.message ==
+        "you did not have any Tests yet, first take the phq9 test."
+      )
+        toast.error(".ابتدا تست PHQ9 را باید بدهید", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,        });
+      if (
+        error.response.data.message ==
+        "you did not have any Tests more than 7 days before, first take the phq9 test."
+      )
+        toast.error(".از اخرین تست PHQ9 شما 7 روز می‌گذرد، دوباره آزون بدهید", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      if (error.response.data.message == "bad connection to open ai.")
+        toast.error("!هوش مصنوعی در حال حاضر امکان پاسخ دهی ندارد", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+    }
   }
 
   return (
     <>
       <NavBar_SideBar />
+      <ToastContainer style={{ width: "450px" }}/>
       <section>
         <div class="py-5" align="center">
           <div class="row">
             <div class="col-md-12">
-              <div
-                // class="card"
-                id="chat3"
-                style={{ borderRadius: "15px", width: "100%" }}
-              >
+              <div id="chat3" style={{ borderRadius: "15px", width: "100%" }}>
                 <div class="card-body">
                   <div class="row justify-content-center px-sm-3 ">
                     <div class="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
@@ -202,7 +237,7 @@ const Chat = () => {
                                 position: "absolute",
                                 top: "45%",
                                 width: "100%",
-                                color:"#198754"
+                                color: "#198754",
                               }}
                             >
                               !هنوز مکالمه ای شروع نکرده اید
@@ -210,7 +245,10 @@ const Chat = () => {
                           )}
                           <ul class="list-unstyled mb-0">
                             {conversationList.map((conversation) => (
-                              <li class="p-2" style={{borderBottom:"1px solid black"}}>
+                              <li
+                                class="p-2"
+                                style={{ borderBottom: "1px solid black" }}
+                              >
                                 <div
                                   onClick={() =>
                                     GetConversation(conversation.id)
@@ -230,7 +268,11 @@ const Chat = () => {
                                     </div>
                                   </div>
                                   <div class="pt-4">
-                                    <p class="small mb-1 font-custom" style={{color:""}} dir="rtl">
+                                    <p
+                                      class="small mb-1 font-custom"
+                                      style={{ color: "" }}
+                                      dir="rtl"
+                                    >
                                       {toPersianDigits(conversation.createTime)}
                                     </p>
                                   </div>
@@ -258,12 +300,50 @@ const Chat = () => {
                               <>
                                 <div class="d-flex flex-row justify-content-end">
                                   <div>
-                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 bg-success font-custom">
+                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 chat-my-message font-custom">
                                       {message.message}
                                     </p>
                                   </div>
-
-                                  <svg height="40px" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-56.32 -56.32 624.64 624.64" xml:space="preserve" fill="#198754" stroke="#198754" stroke-width="22.016"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="2.048"></g><g id="SVGRepo_iconCarrier"> <style type="text/css"> .st0 </style> <g> <path class="st0" d="M256,265.308c73.252,0,132.644-59.391,132.644-132.654C388.644,59.412,329.252,0,256,0 c-73.262,0-132.643,59.412-132.643,132.654C123.357,205.917,182.738,265.308,256,265.308z"></path> <path class="st0" d="M425.874,393.104c-5.922-35.474-36-84.509-57.552-107.465c-5.829-6.212-15.948-3.628-19.504-1.427 c-27.04,16.672-58.782,26.399-92.819,26.399c-34.036,0-65.778-9.727-92.818-26.399c-3.555-2.201-13.675-4.785-19.505,1.427 c-21.55,22.956-51.628,71.991-57.551,107.465C71.573,480.444,164.877,512,256,512C347.123,512,440.427,480.444,425.874,393.104z"></path> </g> </g></svg>                                                                  </div>
+                                  <svg
+                                    height="40px"
+                                    version="1.1"
+                                    id="_x32_"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    xmlns:xlink="http://www.w3.org/1999/xlink"
+                                    viewBox="-56.32 -56.32 624.64 624.64"
+                                    xml:space="preserve"
+                                    fill="#198754"
+                                    stroke="#198754"
+                                    stroke-width="22.016"
+                                  >
+                                    <g
+                                      id="SVGRepo_bgCarrier"
+                                      stroke-width="0"
+                                    ></g>
+                                    <g
+                                      id="SVGRepo_tracerCarrier"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke="#CCCCCC"
+                                      stroke-width="2.048"
+                                    ></g>
+                                    <g id="SVGRepo_iconCarrier">
+                                      {" "}
+                                      <style type="text/css"> .st0 </style>{" "}
+                                      <g>
+                                        {" "}
+                                        <path
+                                          class="st0"
+                                          d="M256,265.308c73.252,0,132.644-59.391,132.644-132.654C388.644,59.412,329.252,0,256,0 c-73.262,0-132.643,59.412-132.643,132.654C123.357,205.917,182.738,265.308,256,265.308z"
+                                        ></path>{" "}
+                                        <path
+                                          class="st0"
+                                          d="M425.874,393.104c-5.922-35.474-36-84.509-57.552-107.465c-5.829-6.212-15.948-3.628-19.504-1.427 c-27.04,16.672-58.782,26.399-92.819,26.399c-34.036,0-65.778-9.727-92.818-26.399c-3.555-2.201-13.675-4.785-19.505,1.427 c-21.55,22.956-51.628,71.991-57.551,107.465C71.573,480.444,164.877,512,256,512C347.123,512,440.427,480.444,425.874,393.104z"
+                                        ></path>{" "}
+                                      </g>{" "}
+                                    </g>
+                                  </svg>{" "}
+                                </div>
                                 <div class="d-flex flex-row justify-content-start">
                                   <svg
                                     height="45px"
@@ -271,8 +351,8 @@ const Chat = () => {
                                     data-name="Your Icons"
                                     id="Your_Icons"
                                     xmlns="http://www.w3.org/2000/svg"
-                                    fill="#198754"
-                                    stroke="#198754"
+                                    fill="#249861"
+                                    stroke="#249861"
                                     stroke-width="0.768"
                                   >
                                     <g
@@ -330,15 +410,17 @@ const Chat = () => {
                               </>
                             ))}
                           </div>
-
                           <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
                             <TextField
                               multiline
                               autoComplete="off"
                               variant="outlined"
-                              onChange={(event) =>
-                                setMessage(event.target.value)
-                              }
+                              onChange={(event) => {
+                                if (event.target.value.includes("\n")) {
+                                  SendMessage();
+                                  setMessage(event.target.value.slice(0, -1));
+                                } else setMessage(event.target.value);
+                              }}
                               dir="rtl"
                               InputLabelProps={{
                                 dir: "rtl",
@@ -353,8 +435,48 @@ const Chat = () => {
                               }}
                             />
 
-                            <a class="ms-3 fs-4 text-success" href="#!" onClick={SendMessage}>
-                              <FaPaperPlane />
+                            <a class="ms-3 fs-4 text-success text-decoration-none">
+                              {Loading && (
+                                <FaPaperPlane
+                                  onClick={() => {
+                                    setStaus(false);
+                                    SendMessage();
+                                  }}
+                                />
+                              )}
+                              {!Loading && (
+                                <>
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 300 150"
+                                  >
+                                    <path
+                                      fill="none"
+                                      stroke="#198754"
+                                      stroke-width="15"
+                                      stroke-linecap="round"
+                                      stroke-dasharray="300 385"
+                                      stroke-dashoffset="0"
+                                      d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
+                                    >
+                                      <animate
+                                        attributeName="stroke-dashoffset"
+                                        calcMode="spline"
+                                        dur="2.2"
+                                        values="685;-685"
+                                        keySplines="0 0 1 1"
+                                        repeatCount="indefinite"
+                                      ></animate>
+                                    </path>
+                                  </svg>
+                                  <div
+                                    className="text-white"
+                                    style={{ lineHeight: "5px" }}
+                                  >
+                                    ghhh
+                                  </div>
+                                </>
+                              )}
                             </a>
                           </div>
                         </>
