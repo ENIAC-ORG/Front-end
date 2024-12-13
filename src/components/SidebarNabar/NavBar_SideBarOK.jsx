@@ -54,7 +54,7 @@ const NavBar_SideBar = () => {
     event.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
     try {
-      const response = await axios("http://eniacgroup.ir:8070/accounts/Logout/", {
+      const response = await axios("http://46.249.100.141:8070/accounts/Logout/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -72,15 +72,14 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#075662",
-          color: "#FFFF",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
           confirmButtonText: "تایید",
-          confirmButtonColor: "#0a8ca0"
         });
       }
     } catch (error) {
@@ -89,15 +88,14 @@ const NavBar_SideBar = () => {
         withReactContent(Swal).fire({
           icon: "error",
           title: "!",
-          background: "#075662",
-          color: "#FFFF",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
           confirmButtonText: "تایید",
-          confirmButtonColor: "#0a8ca0"
         });
       }
     }

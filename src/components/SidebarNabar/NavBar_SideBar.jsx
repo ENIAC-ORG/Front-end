@@ -55,7 +55,7 @@ const NavBar_SideBar = () => {
     event.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
     try {
-      const response = await axios("http://eniacgroup.ir:8070/accounts/Logout/", {
+      const response = await axios("http://46.249.100.141:8070/accounts/Logout/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -70,42 +70,34 @@ const NavBar_SideBar = () => {
         console.log(response);
         const data = response.data;
         console.log(data);
-        Swal.fire({
+        withReactContent(Swal).fire({
           icon: "success",
           title: "!خروج از حساب با موفقیت رخ داد",
-          background: "#075662",
-          color: "#FFFF",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
           confirmButtonText: "تایید",
-          confirmButtonColor: '#0a8ca0',
-          showConfirmButton: true,
-          preConfirm: () => {
-            navigate("/signup");
-          },
-  
-      });
+        });
       }
     } catch (error) {
       console.log(error);
       if (error.response.status === 403) {
-        Swal.fire({
+        withReactContent(Swal).fire({
           icon: "error",
-          title: "!متاسفانه خطایی رخ داد",
-          background: "#075662",
-          color: "#FFFF",
+          title: "!",
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
-      rgba(84, 75, 87.0.9)
-      left top
-      no-repeat`,
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
           confirmButtonText: "تایید",
-          confirmButtonColor: '#0a8ca0',
-          showConfirmButton: true,
-      });
+        });
       }
     }
   }
@@ -122,7 +114,7 @@ const NavBar_SideBar = () => {
     };
   }, []);
 
-  
+
 
   return (
     <>
@@ -136,6 +128,7 @@ const NavBar_SideBar = () => {
             <div className={styles.profile_btn}>
               <FaUserCircle
                 className={styles.userProfile_icon}
+                style={{ cursor:"pointer" }}
                 // style={{ width: "26px", height: "26px" }}
                 onClick={(e) => setMenueToggle(~MenueToggle)}
               />
@@ -190,13 +183,13 @@ const NavBar_SideBar = () => {
         </div>
         <div className={styles.p1}>
           <div style={{ width: "90px" }}></div>
-          <FaBars className={styles.fBar} 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          <FaBars className={styles.fBar}
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           />
         </div>
       </div>
       {/* ----------------------------------------------------------------- */}
-      <div 
+      <div
         style={isSidebarOpen ? { display: "block" } : { display: "none" }}
         ref={sidebarRef}
       >
@@ -230,16 +223,7 @@ const NavBar_SideBar = () => {
             ) : (
               <></>
             )}
-            <li
-              className={styles1.side_list_element}
-              onClick={(e) => {
-                navigate("/TestPage");
-              }}
-            >
-              <label href="" className={styles1.side_list_element_text}>
-                <FaRegFileAlt className={styles1.side_icons} /> تست‌ها
-              </label>
-            </li>
+
             {/* <li
               className={styles1.side_list_element}
               onClick={(e) => {
@@ -307,7 +291,7 @@ const NavBar_SideBar = () => {
                   </label>
                 </li>
               </>
-            ) : role == "user" ? (
+            ) : role == "user" || role == "pending" ? (
               <>
                 <li
                   className={styles1.side_list_element}
@@ -326,6 +310,17 @@ const NavBar_SideBar = () => {
             )}
             {role == "admin" ? (
               <>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/TestResult");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <PiNotepadLight className={styles1.side_icons} />
+                    نتایج تست ها{" "}
+                  </label>
+                </li>
                 <li
                   className={styles1.side_list_element}
                   onClick={(e) => {
