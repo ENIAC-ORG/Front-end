@@ -55,8 +55,7 @@ function DoctorInfoModal({
       drugs: "",
     });
 
-  const handleClose = (event) => {
-    event.preventDefault();
+  const handleClose = () => {
     toggleModal();
   };
 
@@ -69,39 +68,35 @@ function DoctorInfoModal({
   }, [medicalRecords]);
 
   const convertToPersianNumbers = (value) =>
-    value.replace(
-      /[0-9]/g,
-      (char) =>
-        ({
-          0: "۰",
-          1: "۱",
-          2: "۲",
-          3: "۳",
-          4: "۴",
-          5: "۵",
-          6: "۶",
-          7: "۷",
-          8: "۸",
-          9: "۹",
-        }[char] || char)
+    value.replace(/[0-9]/g, (char) =>
+      ({
+        0: "۰",
+        1: "۱",
+        2: "۲",
+        3: "۳",
+        4: "۴",
+        5: "۵",
+        6: "۶",
+        7: "۷",
+        8: "۸",
+        9: "۹",
+      }[char] || char)
     );
 
   const convertToEnglishNumbers = (value) =>
-    value.replace(
-      /[۰-۹]/g,
-      (char) =>
-        ({
-          "۰": "0",
-          "۱": "1",
-          "۲": "2",
-          "۳": "3",
-          "۴": "4",
-          "۵": "5",
-          "۶": "6",
-          "۷": "7",
-          "۸": "8",
-          "۹": "9",
-        }[char] || char)
+    value.replace(/[۰-۹]/g, (char) =>
+      ({
+        "۰": "0",
+        "۱": "1",
+        "۲": "2",
+        "۳": "3",
+        "۴": "4",
+        "۵": "5",
+        "۶": "6",
+        "۷": "7",
+        "۸": "8",
+        "۹": "9",
+      }[char] || char)
     );
 
   function DateString(input) {
@@ -111,6 +106,7 @@ function DoctorInfoModal({
     var d = changed[2] < 10 ? `0${changed[2]}` : `${changed[2]}`;
     return [y, m, d].join("-");
   }
+
   const handleAddRecord = (event) => {
     event.preventDefault();
 
@@ -140,12 +136,10 @@ function DoctorInfoModal({
       errors.push("اتمام یا عدم اتمام درمان را مشخص کنید");
     }
 
-    if (
-      currentRecord.isFinished === false &&
-      !currentRecord.reasonToLeave.trim()
-    ) {
+    if (currentRecord.isFinished === false && !currentRecord.reasonToLeave.trim()) {
       errors.push("برای سوابق درمانی ناتمام، دلیل ترک درمان باید پر شود");
     }
+
     if (errors.length > 0) {
       errors.forEach((error) =>
         toast.error(error, {
@@ -203,32 +197,13 @@ function DoctorInfoModal({
     return true;
   };
 
-  const handleSendMedicalInfo = async (event) => {
-    event.preventDefault();
-    
-
-    const payload = {
-      age: parseInt(age),
-      child_num: parseInt(childrenNum),
-      family_history: medicalHistory,
-      nationalID: ssid,
-      treatment_histories: medicalRecords.map((record) => ({
-        end_date: record.endDate,
-        length: parseInt(record.length),
-        is_finished: record.isFinished,
-        reason_to_leave: record.reasonToLeave || "Completed treatment",
-        approach: record.method || "",
-        special_drugs: record.drugs || "",
-      })),
-    };
-
+  const handleSendMedicalInfo = async () => {
     try {
       const token = localStorage.getItem("accessToken");
       console.log(token);
       console.log("helooooooooo");
       const response = await axios.post(
         "http://eniacgroup.ir:8070/accounts/doctorapplication/",
-
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -252,8 +227,8 @@ function DoctorInfoModal({
           draggable: true,
           progress: undefined,
         });
-        handleClose(event);
-        CreateReservation(event);
+        handleClose();
+        CreateReservation();
         setAge(null);
         setChildrenNum(null);
         setMedicalHistory(null);
@@ -266,12 +241,15 @@ function DoctorInfoModal({
       toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
         position: "bottom-left",
         autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
       });
+
+      // navigate("/verification", { state: data }); // data and navigate not defined in given code
+      handleClose();
+      //CreateReservation();
+
+      setSsid("");
+      setMedicalRecords([]);
+      toggleModal();
     }
   };
 
@@ -281,8 +259,8 @@ function DoctorInfoModal({
   };
 
   async function CreateReservation(event) {
+    if (event) event.preventDefault();
     try {
-      event.preventDefault();
       const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
@@ -401,9 +379,7 @@ function DoctorInfoModal({
                   className="input"
                   type="text"
                   placeholder="نام خانوادگی"
-                  value={
-                    childrenNum ? convertToPersianNumbers(childrenNum) : ""
-                  }
+                  value={childrenNum ? convertToPersianNumbers(childrenNum) : ""}
                   onChange={(event) => {
                     setChildrenNum(convertToEnglishNumbers(event.target.value));
                     console.log("children: ", childrenNum);
@@ -438,7 +414,7 @@ function DoctorInfoModal({
                 <input
                   className="input"
                   type="text"
-                  placeholder="شناسه "
+                  placeholder="شناسه"
                   value={ssid ? convertToPersianNumbers(ssid) : ""}
                   onChange={(event) => {
                     setSsid(convertToEnglishNumbers(event.target.value));
@@ -452,17 +428,13 @@ function DoctorInfoModal({
                   }}
                 />
               </div>
-              {/* Medical Records List */}
 
-              <div
-                className="medical-field_modal medical-btn"
-                style={{ marginRight: "10px" }}
-              >
+              <div className="medical-field_modal medical-btn" style={{ marginRight: "10px" }}>
                 <div className="medical-btn_layer">
                   <input
                     type="submit"
                     value="ارسال اطلاعات"
-                    onClick={(e) => handleSendMedicalInfo(e)}
+                    onClick={handleSendMedicalInfo}
                   />
                 </div>
               </div>

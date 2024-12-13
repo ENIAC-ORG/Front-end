@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Vazir&display=swap");
 
 :root {
-  background: linear-gradient(62deg, #55AD9B 0%, #D8EFD3 100%) no-repeat;
+  background: linear-gradient(62deg, #55ad9b 0%, #d8efd3 100%) no-repeat;
   height: 100%;
 }
 
@@ -21,13 +21,11 @@
   align-items: center;
 }
 
- .bd {
-  
+.bd {
   height: 100%;
   width: 100%;
   place-items: center;
-
- }
+}
 .error {
   color: red;
   font-size: smaller;
@@ -36,6 +34,23 @@
   top: -10px;
   direction: ltr;
 }
+.checkbox {
+  padding-left: 20px;
+  margin-left: 10px;
+  color: #49a391;
+  background-color: #49a391;
+  font-family: Ios15Medium;
+}
+.checkbox.checkbox-circle label::before {
+  border-radius: 50%;
+}
+.is_doctor_ckeck {
+  direction: rtl;
+  padding-top: 15px;
+}
+.is_doctor_ckeck .checkbox[type="checkbox"]:checked {
+  accent-color: #49a391;
+}
 
 .wrapper {
   max-width: 390px;
@@ -43,8 +58,7 @@
   padding: 30px;
   border-radius: 15px;
   overflow: hidden;
-  box-shadow: 
-  rgb(80, 205, 144) 0px 20px 30px -10px;
+  box-shadow: rgb(80, 205, 144) 0px 20px 30px -10px;
 }
 .wrapper .header {
   display: flex;
@@ -106,7 +120,7 @@ input[type="radio"] {
   left: 0;
   z-index: 0;
   /*background: -webkit-linear-gradient(left,#5a0066 , #5c0080 , #9500b3,#8a00e6);*/
-  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3);
+  background: -webkit-linear-gradient(left, #55ad9b, #95d2b3, #d8efd3);
   position: absolute;
   border-radius: 35px;
   transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
@@ -173,8 +187,8 @@ input[type="radio"] {
   font-size: 13px;
   font-weight: bold;
   transition: border-color 0.3s ease;
-  color: #55AD9B;
-  caret-color: #55AD9B;
+  color: #55ad9b;
+  caret-color: #55ad9b;
 }
 .error_input2 {
   width: 100%;
@@ -188,16 +202,22 @@ input[type="radio"] {
   font-size: 15px;
   font-weight: bold;
   transition: border-color 0.3s ease;
-  color: #55AD9B;
-  caret-color: #55AD9B;
+  color: #55ad9b;
+  caret-color: #55ad9b;
+}
+.form-check-label {
+  font-family: Ios15Medium;
+  color: #999;
+  font-size: small;
+  transition: all 0.3s ease;
 }
 
 .form_details form .field input:hover {
-  border-bottom-color: #55AD9B;
+  border-bottom-color: #55ad9b;
 }
 
 .form_details form .field input:focus {
-  border-bottom-color: #55AD9B;
+  border-bottom-color: #55ad9b;
 }
 
 .form_details form .field input::placeholder {
@@ -239,7 +259,7 @@ form .field input:focus::placeholder {
 }
 
 form .field input:hover::placeholder {
-  color: #55AD9B;
+  color: #55ad9b;
 }
 .form_details form .pass_link {
   margin-top: 5px;
@@ -253,7 +273,7 @@ form .field input:hover::placeholder {
 .form_details form .pass_link a,
 .form_details form .signup_link a {
   font-family: Ios15Medium;
-  color: #55AD9B;
+  color: #55ad9b;
 
   text-decoration: none;
   font-size: 15px;
@@ -277,7 +297,7 @@ form .btn .btn_layer {
   left: -100%;
   border-radius: 30px;
   /* background:-webkit-linear-gradient(right,#350066,#710080,#a400b3, #bd4fe9); */
-  background: -webkit-linear-gradient(left, #55AD9B, #95D2B3, #D8EFD3, #e6fffd);
+  background: -webkit-linear-gradient(left, #55ad9b, #95d2b3, #d8efd3, #e6fffd);
   transition: all 0.3s ease;
 }
 form .btn:hover .btn_layer {
