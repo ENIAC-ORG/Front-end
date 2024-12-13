@@ -227,11 +227,12 @@ function DoctorInfoModal({
       console.log(token);
       console.log("helooooooooo");
       const response = await axios.post(
-        "http://eniacgroup.ir:8070/accounts/doctorapplication/",
+        "http://46.249.100.141:8070/accounts/doctorapplication/",
         {
+          method: "POST",
           headers: {
-            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           data: {
             firstname: age,

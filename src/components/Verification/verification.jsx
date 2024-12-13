@@ -104,7 +104,7 @@ const Verification = () => {
             confirmButtonColor: "#0a8ca0"
           });
           setShowModal(true);
-          const data = showmodal
+          const data = {flag:showmodal};
           navigate("/Signup", { state: data });
         }
       } catch (error) {

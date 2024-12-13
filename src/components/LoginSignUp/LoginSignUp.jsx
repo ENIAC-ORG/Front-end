@@ -22,7 +22,7 @@ const LoginContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const initialState = location.state || {};
-  const showmodal=initialState.data;
+
   const [flag, setflag] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -34,17 +34,17 @@ const LoginContainer = () => {
   const [repeatPasswordType, setRepeatPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(eyeOff);
   const [repeatPasswordIcon, setRepeatPasswordIcon] = useState(eyeOff);
-  const [showModal, setShowModal] = useState(false);
+  const [showModal, setShowModal] = useState(initialState.flag || false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
 
-
+  console.log(showModal);
 
   const [isChecked, setIsChecked] = useState(false);
 
   const handleChangeBox = async (e) => {
     const checked = e.target.checked;
     setIsChecked(checked);
-  }
+  };
   // Function to toggle the modal state
   const toggleModal = () => {
     setShowModal(!showModal);
@@ -195,16 +195,19 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://eniacgroup.ir:8070//accounts/Login/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        data: {
-          email: email,
-          password: password,
-        },
-      });
+      const response = await axios(
+        "http://eniacgroup.ir:8070//accounts/Login/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          data: {
+            email: email,
+            password: password,
+          },
+        }
+      );
       const data = response.data;
       console.log("you logined successfully");
       console.log(data);
@@ -247,8 +250,7 @@ const LoginContainer = () => {
         preConfirm: () => {
           navigate("/Home");
         },
-
-    });
+      });
     } catch (error) {
       if (error.response.status === 400) {
         console.log(error);
@@ -367,9 +369,6 @@ const LoginContainer = () => {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
 
-   
-
-
       const response = await axios(
         "http://46.249.100.141:8070//accounts/signup/",
         {
@@ -387,7 +386,7 @@ const LoginContainer = () => {
       );
 
       const data = response.data.url;
-      console.log(data)
+      console.log(data);
       //console.log('you logined successfully');
 
       //closeLoading();
@@ -395,7 +394,6 @@ const LoginContainer = () => {
         //const accessToken = response.data.access;
         //const refreshToken = response.data.refresh;
         console.log("you signed in successfully");
-
 
         // Set tokens in local storage
         //localStorage.setItem("accessToken", accessToken);
@@ -413,12 +411,19 @@ const LoginContainer = () => {
         };
         //setShowModal(!showModal);
         //setShowModal(!showModal);
+        const url =response.data.url;
+          
+        const base = "activation_confirm/";
+        const startIndex = url.indexOf(base) + base.length;
+        const endIndex = url.lastIndexOf("/");
+        const token = url.substring(startIndex, endIndex);
+
+        console.log(token);
         navigate("/verification", { state: data });
 
-
         // Set tokens in local storage
-        localStorage.setItem("accessToken", accessToken);
-        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("accessToken", token);
+        //localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       }
     } catch (error) {
@@ -490,7 +495,7 @@ const LoginContainer = () => {
 
   return (
     <>
-    <ToastContainer />
+      <ToastContainer />
       <div className="hello">
         <body className="bd">
           <div className="hello">
@@ -530,7 +535,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
-                  
+
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">
@@ -692,7 +697,7 @@ const LoginContainer = () => {
                         value=""
                         id="flexCheckDefault"
                         checked={isChecked}
-        onChange={handleChangeBox}
+                        onChange={handleChangeBox}
                       />
                       <label
                         className="form-check-label"
@@ -718,7 +723,7 @@ const LoginContainer = () => {
                       </a>
                     </div>
                   </form>
-                  <DoctorInfoModal showModal={showmodal} />
+                  <DoctorInfoModal showModal={true} />
                 </div>
               </div>
             </div>

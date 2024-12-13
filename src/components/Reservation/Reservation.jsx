@@ -473,7 +473,7 @@ const ReservationPage = () => {
                       });
                     }
                   }}
-                  style={{ marginBottom: '10px' }}
+                  style={{backgroundColor:'green', marginBottom: '10px' }}
                 >
                   ثبت
                 </button>

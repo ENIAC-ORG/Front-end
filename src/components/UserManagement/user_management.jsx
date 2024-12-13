@@ -46,7 +46,7 @@ const UserManagement = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("https://eniacgroup.ir:8070/accounts/Login/", {
+      const response = await axios("http://46.249.100.141:8070/accounts/Login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const UserManagement = () => {
   const handleAcceptUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://46.249.100.141:8070/DoctorPanel/pending_doctor/accept/${userId}/`, 
+        `http://46.249.100.141:8070/DoctorPanel/pending_doctor/accept/${adminAccessToken}/`, 
         {},
         {
           headers: {
