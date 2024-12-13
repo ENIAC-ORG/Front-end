@@ -749,11 +749,13 @@
     }
 }
 
-.buttonReserve {
+/* .buttonReserve {
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-evenly;
-}
+    justify-content: space-around;
+    margin-left: 40px;
+    margin-right: -110px;
+} */
 
 .colour-block {
     background: #AEE2FF;

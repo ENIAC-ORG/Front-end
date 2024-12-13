@@ -50,7 +50,7 @@ const DoctorsList = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/get_user/",
+        "http://46.249.100.141:8070//accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -75,16 +75,17 @@ const DoctorsList = () => {
       if (error.response.status == 403) {
         withReactContent(Swal).fire({
           icon: "error",
+
           html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
-          background: "#075662",
-          color: "#FFFF",
+
+          background: "#473a67",
+          color: "#b4b3b3",
           width: "35rem",
           backdrop: `
               rgba(84, 75, 87.0.9)
               left top
               no-repeat`,
           confirmButtonText: "تایید",
-          confirmButtonColor: "#0a8ca0",
           preConfirm: () => {
             navigate("/Signup");
           },
@@ -99,7 +100,7 @@ const DoctorsList = () => {
     const fetchDoctorProfile = async () => {
       try {
         const response = await axios.get(
-          "http://eniacgroup.ir:8070//profile/doctors/"
+          "http://46.249.100.141:8070//profile/doctors/"
         );
         setDoctorProfile(response.data);
       } catch (error) {
@@ -115,7 +116,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFardi = async () => {
       try {
         const response1 = await axios.get(
-          "http://eniacgroup.ir:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "فردی",
@@ -123,7 +124,7 @@ const DoctorsList = () => {
           }
         );
         setDoctorProfileFardi(response1.data);
-        // console.log(response1);
+        console.log(doctorProfileFardi);
       } catch (error) {
         console.error("Error fetching doctor profile:", error);
       }
@@ -137,7 +138,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileBaby = async () => {
       try {
         const response1 = await axios.get(
-          "http://eniacgroup.ir:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "کودک",
@@ -159,7 +160,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFamily = async () => {
       try {
         const response1 = await axios.get(
-          "http://eniacgroup.ir:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "زوج",
@@ -180,7 +181,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileEdu = async () => {
       try {
         const response1 = await axios.get(
-          "http://eniacgroup.ir:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "نوجوان",

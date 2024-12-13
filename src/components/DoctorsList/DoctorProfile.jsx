@@ -46,7 +46,7 @@ const DoctorProfile = ({
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://eniacgroup.ir:8070//accounts/get_user/",
+          "http://46.249.100.141:8070//accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -71,22 +71,22 @@ const DoctorProfile = ({
         console.log(error);
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
-            icon: "warning",
-            html: "<div dir='rtl'>برای مشاهدۀ اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
-            background: "#075662",
-            color: "#FFFF",
+            icon: "error",
+
+            html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
+
+            background: "#489182",
+            color: "#b4b3b3",
             width: "35rem",
             backdrop: `
-        rgba(84, 75, 87.0.9)
-        left top
-        no-repeat`,
+              rgba(84, 75, 87.0.9)
+              left top
+              no-repeat`,
             confirmButtonText: "تایید",
-            confirmButtonColor: '#0a8ca0',
-            showConfirmButton: true,
             preConfirm: () => {
-              navigate("/signup");
+              navigate("/Signup");
             },
-        });
+          });
         }
       }
     }
@@ -98,10 +98,9 @@ const DoctorProfile = ({
         withReactContent(Swal)
           .fire({
             icon: "warning",
-
-            html: "<div dir='rtl'>!برای رزرو وقت ورود به اکانت خود الزامی است!</div>",
-            background: "#075662",
-            color: "#FFFF",
+            html: "<div dir='rtl'>!برای نمایش اطلاعات ورود به اکانت خود الزامی است!</div>",
+            background: "#489182",
+            color: "#b4b3b3",
             width: "35rem",
             backdrop: `
           rgba(84, 75, 87.0.9)
@@ -110,8 +109,13 @@ const DoctorProfile = ({
             showDenyButton: true,
             confirmButtonText: "ورود به سایت",
             denyButtonText: "صفحه اصلی",
-            denyButtonColor: "#075662",
-            confirmButtonColor: "#0a8ca0"
+            denyButtonColor: "#89817e",
+            confirmButtonColor: "#bfd4c2", //rgb(67, 118, 74)",
+            customClass: {
+              actions: "my-actions",
+              confirmButton: "order-2",
+              denyButton: "order-3",
+            },
           })
           .then((result) => {
             if (result.isConfirmed) {
@@ -123,7 +127,7 @@ const DoctorProfile = ({
       else {
         try {
           const response = await axios(
-            "http://eniacgroup.ir:8070//accounts/get_user/",
+            "http://46.249.100.141:8070//accounts/get_user/",
             {
               method: "GET",
               headers: {
@@ -153,7 +157,7 @@ const DoctorProfile = ({
               Swal.fire({
                 icon: "warning",
                 html: "<div dir='rtl'>اطلاعات حساب شما ناقص است!</div>",
-                background: "#473a67",
+                background: "#489182",
                 color: "#b4b3b3",
                 confirmButtonText: "ویرایش اطلاعات",
               });
@@ -165,8 +169,8 @@ const DoctorProfile = ({
               .fire({
                 icon: "warning",
                 html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-                background: "#075662",
-                color: "#FFFF",
+                background: "#489182",
+                color: "#b4b3b3",
                 width: "35rem",
                 backdrop: `
                 rgba(84, 75, 87.0.9)
@@ -175,8 +179,13 @@ const DoctorProfile = ({
                 showDenyButton: true,
                 confirmButtonText: "ورود به سایت",
                 denyButtonText: "صفحه اصلی",
-                denyButtonColor: "#0a8ca0",
-                confirmButtonColor: "#0a8ca0"
+                denyButtonColor: "#89817e",
+                confirmButtonColor: "#bfd4c2", //rgb(183, 153, 255)",
+                customClass: {
+                  actions: "my-actions",
+                  confirmButton: "order-2",
+                  denyButton: "order-3",
+                },
               })
               .then((result) => {
                 if (result.isConfirmed) {
@@ -215,7 +224,7 @@ const DoctorProfile = ({
         // Swal.fire({
         //   icon: "warning",
         //   title: "!شما قبلا اطلاعات خود را ثبت کرده اید",
-        //   background: "#473a67",
+        //   background: "#489182",
         //   color: "#b4b3b3",
         //   width: "26rem",
         //   height: "18rem",
@@ -232,7 +241,7 @@ const DoctorProfile = ({
       //     .fire({
       //         icon: "warning",
       //         title: "!مشاوری یافت نشد",
-      //         background: "#473a67",
+      //         background: "#489182",
       //         color: "#b4b3b3",
       //         width: "35rem",
       //         backdrop: `
@@ -247,13 +256,13 @@ const DoctorProfile = ({
           onClick={GetUserInfo2}
         >
         <RatingInfoModal 
-        doctorId={Id}
-        name={name}
-        Description={Description}
-        Image={Image}
-        ProfileType={ProfileType}
-        IsPrivate={IsPrivate}
-        Psychiatrist={Psychiatrist}
+          doctorId={Id}
+          name={name}
+          Description={Description}
+          Image={Image}
+          ProfileType={ProfileType}
+          IsPrivate={IsPrivate}
+          Psychiatrist={Psychiatrist}
         />
 
         {/* <div
