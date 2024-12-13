@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx";
 import { ToastContainer } from "react-toastify";
 import DoctorPage from "../SeeingDoctorReservation/DoctorPage.jsx";
-import RatingModal from "../RatingDoctor/RatingModal.jsx";
+import RatingInfoModal from "../RatingDoctor/Rating&InfoModal.jsx";
 
 const DoctorProfile = ({
   Id,
@@ -20,19 +20,33 @@ const DoctorProfile = ({
   Psychiatrist,
 }) => {
   {
+    console.log(name);
+    console.log(Image);
+    console.log(Id);
+
     const navigate = useNavigate();
     const load = () => {
       console.log("++");
       console.log(name);
       console.log(Image);
+      console.log(Id);
     };
 
     async function GetUserInfo(event) {
+      const [info, setinfo] = useState({
+        FirstName: "",
+        LastName: "",
+        Email: "",
+        BirthDay: "",
+        Gender: "",
+        PhoneNumber: ""
+      });
+
       event.preventDefault();
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://127.0.0.1:8000//accounts/get_user/",
+          "http://eniacgroup.ir:8070//accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -54,6 +68,7 @@ const DoctorProfile = ({
           });
         }
       } catch (error) {
+        console.log(error);
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
             icon: "error",
@@ -113,7 +128,7 @@ const DoctorProfile = ({
       else {
         try {
           const response = await axios(
-            "http://127.0.0.1:8000//accounts/get_user/",
+            "http://eniacgroup.ir:8070//accounts/get_user/",
             {
               method: "GET",
               headers: {
@@ -137,10 +152,16 @@ const DoctorProfile = ({
                       : data.phone_number == null
                         ? false
                         : true;
-            if (check);
+            if (check) {
+            }
             else {
-              // navigate("/Reserve"); 
-              //modal
+              Swal.fire({
+                icon: "warning",
+                html: "<div dir='rtl'>اطلاعات حساب شما ناقص است!</div>",
+                background: "#473a67",
+                color: "#b4b3b3",
+                confirmButtonText: "ویرایش اطلاعات",
+              });
             }
           }
         } catch (error) {
@@ -216,7 +237,6 @@ const DoctorProfile = ({
       }
     };
 
-    console.log(name);
     if (name == null && ProfileType == null) {
       // withReactContent(Swal)
       //     .fire({
@@ -231,10 +251,27 @@ const DoctorProfile = ({
       //             no-repeat`})
     } else {
       return (
+        <>
         <div
+          onLoad={GetUserInfo}
+          onClick={GetUserInfo2}
+        >
+        <RatingInfoModal 
+        doctorId={Id}
+        name={name}
+        Description={Description}
+        Image={Image}
+        ProfileType={ProfileType}
+        IsPrivate={IsPrivate}
+        Psychiatrist={Psychiatrist}
+        />
+
+        {/* <div
           className="rounded team-item-new"
-          style={{ fontFamily: "Ios15Medium" }}
+          style={{ fontFamily: "Ios15Medium", cursor:"pointer" }}
           onLoad={load}
+          // onClick={() => setShow(true)}
+          // onClick={handleModalClick}
         >
           <link
             rel="stylesheet"
@@ -269,28 +306,11 @@ const DoctorProfile = ({
                   {Description}
                 </p>
               </div>
-
-              <div>
-                {/* <div className="team-icon d-flex justify-content-center pb-4">
-                                    <a className="btn btn-square btn-secondary text-white rounded-circle m-1" onClick={handleClickToDoctorPage}>
-                                    <i className="fab material-symbols-outlined">account_circle</i>
-                                    </a>
-                                </div> */}
-
-
-                {/* <div
-                  className="buttonReserve"
-                  onLoad={GetUserInfo}
-                  onClick={GetUserInfo2}
-                >
-                  <ToastContainer />
-                  <CompleteInfoModal doctorId={Id} />
-                  <RatingModal doctorId={Id} />
-                </div> */}
-              </div>
             </div>
           </div>
+        </div> */}
         </div>
+        </>
       );
     }
   }

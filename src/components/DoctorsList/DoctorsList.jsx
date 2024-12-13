@@ -50,7 +50,7 @@ const DoctorsList = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://127.0.0.1:8000//accounts/get_user/",
+        "http://eniacgroup.ir:8070//accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -100,7 +100,7 @@ const DoctorsList = () => {
     const fetchDoctorProfile = async () => {
       try {
         const response = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/"
+          "http://eniacgroup.ir:8070//profile/doctors/"
         );
         setDoctorProfile(response.data);
       } catch (error) {
@@ -116,7 +116,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFardi = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://eniacgroup.ir:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "فردی",
@@ -138,7 +138,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileBaby = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://eniacgroup.ir:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "کودک",
@@ -160,7 +160,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFamily = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://eniacgroup.ir:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "زوج",
@@ -181,7 +181,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileEdu = async () => {
       try {
         const response1 = await axios.get(
-          "http://127.0.0.1:8000//profile/doctors/typed/",
+          "http://eniacgroup.ir:8070//profile/doctors/typed/",
           {
             params: {
               profile_type: "نوجوان",
@@ -248,7 +248,7 @@ const DoctorsList = () => {
                   value={value}
                   onChange={handleChange}
                   aria-label="scrollable prevent tabs example"
-                  centered
+                  // centered
                   variant="scrollable"
                   scrollButtons={false}>
                   <Tab style={{ fontFamily: "Ios15medium", fontSize: "18px" }} label="بالینی" {...a11yProps(0)} />

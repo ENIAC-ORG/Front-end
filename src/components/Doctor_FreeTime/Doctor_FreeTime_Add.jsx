@@ -163,7 +163,7 @@ const Doctor_FreeTime_Add = () => {
   });
 
   const [doctorProfile, setDoctorProfile] = useState([]);
-  const baseUrl = "http://127.0.0.1:8000/profile/doctors";
+  const baseUrl = "http://eniacgroup.ir:8070/profile/doctors";
 
   // Alternatively, you can use string concatenation:
   const url = baseUrl + doctor_id + "/";
@@ -191,7 +191,7 @@ const Doctor_FreeTime_Add = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://127.0.0.1:8000/DoctorPanel/doctor/post-free-time/",
+        "http://eniacgroup.ir:8070/DoctorPanel/doctor/post-free-time/",
         {
           method: "POST",
           headers: {
