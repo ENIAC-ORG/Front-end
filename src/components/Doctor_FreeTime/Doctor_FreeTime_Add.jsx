@@ -165,7 +165,7 @@ const Doctor_FreeTime_Add = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://46.249.100.141:8070/DoctorPanel/doctor/post-free-time/",
+        "http://46.249.100.141:8070/DoctorPanel/doctor/post-free-times/",
         {
           method: "POST",
           headers: {
