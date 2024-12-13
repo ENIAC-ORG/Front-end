@@ -1,0 +1,45 @@
+ .form-control {
+     border-color: rgb(201, 200, 200);
+ }
+
+ .form-control:focus {
+     border-color: transparent;
+     box-shadow: inset 0px 0px 0px 1px transparent;
+ }
+
+ .badge-dot {
+     border-radius: 50%;
+     height: 10px;
+     width: 10px;
+     /* margin-left: 2.9rem; */
+     /* margin-top: -.75rem; */
+ }
+ .custom-form-input{
+    font-family: 'Ios15medium';
+    /* padding: 1px; */
+    width:100%;
+    border-color: #37401f;
+    color: #16641b;
+    /* border-radius: 20px; */
+
+    &:hover {
+        border-color: #916b48;
+    }
+
+    &::selection {
+        border-color: #489182;
+    }
+
+    input {
+        color: 'white'
+    }
+}
+
+.customize-chat-side{
+    background-color: rgb(25, 135, 84,0.1);
+    border-right: 2px solid #198754;
+}
+
+.chat-my-message{
+    background-color:#249861;
+}

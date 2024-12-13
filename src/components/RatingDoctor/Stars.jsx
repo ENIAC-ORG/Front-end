@@ -6,22 +6,27 @@ const DEFAULT_ICON = "★";
 const DEFAULT_UNSELECTED_COLOR = "grey";
 const DEFAULT_COLOR = "hsl(47, 90%, 60%)";
 
-export default function Stars({ count, rating,setRating, defaultRating, icon, color, iconSize }) {
-  // const [rating, setRating] = useState(defaultRating);
-  const [temporaryRating, setTemporaryRating] = useState(0);
+export default function Stars({
+  count,
+  rating,
+  setRating,
+  icon,
+  color,
+  iconSize,
+  isInteractive = true, // Add a prop to control interactivity
+}) {
+  const handleClick = (index) => {
+    if (isInteractive && setRating) {
+      setRating(index + 1);
+    }
+  };
 
   let stars = Array(count || DEFAULT_COUNT).fill(icon || DEFAULT_ICON);
-
-  const handleClick = (rating) => {
-    setRating(rating);
-  };
 
   return (
     <div className="starsContainer">
       {stars.map((item, index) => {
-        const isActiveColor =
-          (rating || temporaryRating) &&
-          (index < rating || index < temporaryRating);
+        const isActiveColor = index < rating;
 
         let elementColor = "";
 
@@ -39,10 +44,9 @@ export default function Stars({ count, rating,setRating, defaultRating, icon, co
               fontSize: iconSize ? `${iconSize}px` : "45px",
               color: elementColor,
               filter: `${isActiveColor ? "grayscale(0%)" : "grayscale(100%)"}`,
+              cursor: isInteractive ? "pointer" : "default",
             }}
-            onMouseEnter={() => setTemporaryRating(index + 1)}
-            onMouseLeave={() => setTemporaryRating(0)}
-            onClick={() => handleClick(index + 1)}
+            onClick={() => handleClick(index)}
           >
             {icon ? icon : DEFAULT_ICON}
           </div>

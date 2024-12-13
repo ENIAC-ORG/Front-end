@@ -36,7 +36,7 @@ const MBTITest = () => {
       const token = localStorage.getItem("accessToken");
       console.log(data);
       const response = await axios.post(
-        "http://127.0.0.1:8000//TherapyTests/MBTI/",
+        "http://eniacgroup.ir:8070//TherapyTests/MBTI/",
         data,
         {
           method: "POST",
@@ -159,62 +159,68 @@ const MBTITest = () => {
     Swal.fire({
       icon: "warning",
       title: "آیا از ادامۀ آزمون منصرف شده اید؟",
-      html: "در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "29rem",
-      height: "15rem",
-      showCancelButton: true,
+      html: ".در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
+      confirmButtonColor: '#0a8ca0',
+      cancelButtonColor: '#0a8ca0',
+      showConfirmButton: true,
+      showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
-      } else {
-        // do nothing
-      }
+      } 
     });
   };
 
   const cancelTest = () => {
     Swal.fire({
       icon: "warning",
-      title: "از انجام آزمون منصرف شده اید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      showCancelButton: true,
-      cancelButtonText: "ادامه می‌دهم",
+      title: "آیا از انجام آزمون منصرف شده اید؟",
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
       confirmButtonText: "بله",
-      customClass: {
-        container: "custom-swal-container",
-      },
+      cancelButtonText: "ادامه می‌دهم",
+      confirmButtonColor: '#0a8ca0',
+      cancelButtonColor: '#0a8ca0',
+      showConfirmButton: true,
+      showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
-      } else {
-        // do nothing
       }
     });
   };
 
   const showTheResult = () => {
-    console.log(mbtiResult);
     Swal.fire({
       icon: "info",
       title: "نتیجۀ تست شخصیت‌شناسی شما",
       html: mbtiResult,
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      // showCancelButton: true,
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+      confirmButtonColor: '#0a8ca0',
+      showConfirmButton: true,
       confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
-      // cancelButtonText: "صفحۀ اصلی",
+      backdrop: `
+    rgba(84, 75, 87.0.9)
+    left top
+    no-repeat`,
       customClass: {
         container: "custom-swal-container",
       },
@@ -343,7 +349,7 @@ const MBTITest = () => {
                     </button>
 
                     <span
-                      style={{ fontSize: "19px" }}
+                      style={{ fontSize: "19px" , fontFamily: "Ios15Medium"}}
                       onClick={showConfirmSwal}
                       className="mbti-complete-test"
                     >
@@ -360,14 +366,14 @@ const MBTITest = () => {
               </div>
             </div>
           )}
-          {showResult && ( // Conditionally render result
+          {showResult && ( 
             <div className="mbti-result">
               <h3
                 style={
                   showResult
                     ? {
                         fontWeight: "bolder",
-                        color: "#9a94fb",
+                        color: "#55AD9B",
                         marginBottom: "33px",
                       }
                     : {}

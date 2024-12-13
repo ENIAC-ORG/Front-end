@@ -101,14 +101,12 @@ const ReservationPage = () => {
       Swal.fire({
         icon: "error",
         title: "!خطا ",
-        background: "#473a67",
-        color: "#b4b3b3",
+        background: "#075662",
+        color: "#FFFF",
         width: "26rem",
         height: "18rem",
         confirmButtonText: "تایید",
-        customClass: {
-          container: "custom-swal-container",
-        },
+        cancelButtonColor: "#0a8ca0"
       });
     }
   }
@@ -419,16 +417,15 @@ const ReservationPage = () => {
                         icon: "info",
                         title: "!توجه ",
                         html: "برای ادامۀ فرایند رزرو باید اطلاعات پزشکی خود را کامل کنید",
-                        background: "#473a67",
-                        color: "#b4b3b3",
+                        background: "#075662",
+                        color: "#FFFF",
                         width: "26rem",
                         height: "18rem",
                         showCancelButton: true,
                         cancelButtonText: "انصراف",
                         confirmButtonText: "تکمیل اطلاعات",
-                        customClass: {
-                          container: "custom-swal-container",
-                        },
+                        confirmButtonColor: "#0a8ca0",
+                        cancelButtonColor: "#0a8ca0"
                       }).then((result) => {
                         if (result.isConfirmed) {
                           toggleModal();

@@ -100,7 +100,6 @@ const Doctor_FreeTime_Add = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const initialState = location.state || {};
-  const [res_type, setres_type] = useState("حضوری");
   const [doctor_id, setCode] = useState(initialState.doctorId || "");
   const hours = [
     "9:00:00",
@@ -162,36 +161,11 @@ const Doctor_FreeTime_Add = () => {
     }, 10);
   });
 
-  const [doctorProfile, setDoctorProfile] = useState([]);
-  const baseUrl = "http://127.0.0.1:8000/profile/doctors";
-
-  // Alternatively, you can use string concatenation:
-  const url = baseUrl + doctor_id + "/";
-
-  useEffect(() => {
-    const fetchDoctorProfile = async () => {
-      const token = localStorage.getItem("accessToken");
-      try {
-        const response = await axios.get(url, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setDoctorProfile(response.data);
-      } catch (error) {
-        console.error("Error fetching doctor profile:", error);
-      }
-    };
-
-    fetchDoctorProfile();
-  }, []);
-
   async function send_free_time() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://127.0.0.1:8000/DoctorPanel/doctor/post-free-time/",
+        "http://46.249.100.141:8070/DoctorPanel/doctor/post-free-time/",
         {
           method: "POST",
           headers: {

@@ -1,18 +1,24 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
-import Recommendation_Question from "./questions_Recommendation";
-import "./RecommendationPageCopy.css";
-import DoctorProfile from "../DoctorsList/DoctorProfile";
+import Patient_Recommendation_Question from "./Patient_Questions_Recommendation";
+import Doctor_Recommendation_Question from "./Doctor_Questions_Recommendation";
+import "./RecommendationPage.css";
+import DoctorProfile from "../DoctorsList/DoctorProfile.jsx";
 import "../DoctorsList/DoctorsList.css";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
 
 const RecommendationPage = () => {
   const navigate = useNavigate();
-  const { questions } = Recommendation_Question;
+  const IsDoctor = localStorage.getItem("role") == "doctor";
+  const { questions } = IsDoctor
+  ? Doctor_Recommendation_Question
+  : Patient_Recommendation_Question;
   const totalQuestions = questions.length;
 
   const [activeQuestion, setActiveQuestion] = useState(0);
@@ -21,26 +27,53 @@ const RecommendationPage = () => {
   );
   const [result, setResult] = useState({ doneAnswers: 0, emptyAnswers: 0 });
   const [showResult, setShowResult] = useState(false);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(["",""]);
 
   const handleInputChange = (event) => {
-    setInputValue(event.target.value);
+    if (!IsDoctor && activeQuestion == 3 && selectedAnswers[activeQuestion]?.includes(7)) {
+      inputValue[0] = event.target.value;
+    }
+    if (IsDoctor && activeQuestion == 2 && selectedAnswers[activeQuestion]?.includes(7)) {
+      inputValue[0] = event.target.value;
+    }
+    if (IsDoctor && activeQuestion == 4 && selectedAnswers[activeQuestion]?.includes(11)) {
+      inputValue[1] = event.target.value;
+    }
   };
-
-  const [doctorProfile, setDoctorProfile] = useState([]);
 
   const goToHomePage = () => {
     navigate("/");
   };
 
+  const [doctorProfile, setDoctorProfile] = useState([]);
+  useEffect(() => {
+    const fetchDoctorProfile = async () => {
+      try {
+        const response = await axios.get(
+          "http://46.249.100.141:8070//profile/doctors/8/"
+        );
+        setDoctorProfile(response.data);
+        console.log(Array.isArray(doctorProfile));
+        console.log(doctorProfile);      
+      } catch (error) {
+        console.error("Error fetching doctor profile:", error);
+      }
+    };
+
+    fetchDoctorProfile();
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated doctorProfile:", doctorProfile);
+  }, [doctorProfile]);
+
   const sendAnswersToBack = async (data) => {
     try {
       const token = localStorage.getItem("accessToken");
       const dataString = JSON.stringify(data);
-      console.log(dataString);
       const response = await axios({
         method: "POST",
-        url: "http://127.0.0.1:8000//recomSys/patient_recomend/",
+        // url: IsDoctor ? "http://46.249.100.141:8070//recomSys/doctor_recomend/":"http://46.249.100.141:8070//recomSys/patient_recomend/",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -49,50 +82,42 @@ const RecommendationPage = () => {
       });
 
       if (response.status === 200) {
+        if(IsDoctor)
+        {toast.success("!جواب های شما با موفقیت ثبت شدند", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+          navigate("/");}
+          else{
         console.log(response.data.doctors);
-        setDoctorProfile(response.data.doctors);
-        setShowResult(true);
-        console.log(response);
+        // setDoctorProfile(response.data.doctors);
+        // setShowResult(true);
+      }
       } else {
-        console.log(response.status);
-        Swal.fire({
-          icon: "error",
-          title: "!خطا در ارسال پاسخ‌ها",
-          html: "متاسفانه مشکلی رخ داد",
-          background: "#D8EFD3",
-          color: "#00000",
-          width: "26rem",
-          height: "18rem",
-          confirmButtonText: "تایید",
-          confirmButtonColor: '#489182',
-          customClass: {
-            container: "custom-swal-container",
-          },
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/");
-          }
+        toast.error("!متاسفانه خطایی در ارسال رخ داده", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       }
     } catch (error) {
-      console.log(error);
-      Swal.fire({
-        icon: "error",
-        title: "!خطا در ارسال درخواست",
-        html: "متاسفانه مشکلی رخ داد",
-        background: "#D8EFD3",
-        color: "#00000",
-        width: "26rem",
-        // height: "18rem",
-        confirmButtonText: "تایید",
-        confirmButtonColor: '#489182',
-        customClass: {
-          container: "custom-swal-container",
-        },
-      }).then((result) => {
-        if (result.isConfirmed) {
-          navigate("/");
-        }
+      toast.error("!متاسفانه خطایی در ارسال رخ داده", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
     }
   };
@@ -104,209 +129,176 @@ const RecommendationPage = () => {
   };
 
   const onClickNext = () => {
-    if (
-      selectedAnswers[activeQuestion] === null ||
-      (Array.isArray(selectedAnswers[activeQuestion]) &&
-        selectedAnswers[activeQuestion].length === 0)
-    ) {
-      notSelected();
-      return;
-    }
-
-    if (activeQuestion !== questions.length - 1) {
-      setActiveQuestion((prev) => prev + 1);
+    if (selectedAnswers[activeQuestion] == null) {
+      toast.warn("!هنوز گزینه ای انتخاب نکرده اید", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } else {
-      const updatedAnswersForBack = {};
-      for (let i = 0; i < questions.length; i++) {
-        if (Array.isArray(selectedAnswers[i])) {
-          let element = selectedAnswers[i].join(",");
-          if (i === 3 && selectedAnswers[i].includes(7)) {
-            element += "," + inputValue;
+      if (activeQuestion !== questions.length - 1) {
+        setActiveQuestion((prev) => prev + 1);
+      } else {
+        const updatedAnswersForBack = {};
+        for (let i = 0; i < questions.length; i++) {
+          if (Array.isArray(selectedAnswers[i])) {
+            let element = selectedAnswers[i].join(",");
+            if (i == 3 && selectedAnswers[i]?.includes(7)) {
+              element += "," + inputValue[0];
+            }
+            if (i == 2 && selectedAnswers[i]?.includes(7)) {
+              element += "," + inputValue[0];
+            }
+            if (i == 4 && selectedAnswers[i]?.includes(11)) {
+              element += "," + inputValue[1];
+            }
+            updatedAnswersForBack[i] = element;
+          } else {
+            updatedAnswersForBack[i] = selectedAnswers[i];
           }
-          updatedAnswersForBack[i] = element;
-        } else {
-          updatedAnswersForBack[i] = selectedAnswers[i];
+        }
+        sendAnswersToBack(updatedAnswersForBack);
+
+        console.log(activeQuestion);
+        if (activeQuestion === totalQuestions - 1) {
+          setShowResult(true);
+          // fetchDoctorProfile();
         }
       }
-      sendAnswersToBack(updatedAnswersForBack);
     }
   };
 
   const onAnswerSelected = (index) => {
     const updatedAnswers = [...selectedAnswers];
-    const isMultipleChoice = activeQuestion === 3;
+    const isMultipleChoice = (!IsDoctor && activeQuestion == 3) | 
+    (IsDoctor && activeQuestion == 2) | (IsDoctor && activeQuestion == 4);
 
     if (isMultipleChoice) {
       const currentAnswers = updatedAnswers[activeQuestion] || [];
       const answerIndex = currentAnswers.indexOf(index);
-
-      if (currentAnswers.includes(7)) {
-        if (answerIndex === -1) {
+      console.log(answerIndex);
+        if (answerIndex == -1) {
           updatedAnswers[activeQuestion] = [...currentAnswers, index];
         } else {
           updatedAnswers[activeQuestion] = currentAnswers.filter(
             (_, i) => i !== answerIndex
           );
         }
-      } else {
-        if (answerIndex === -1) {
-          updatedAnswers[activeQuestion] = [...currentAnswers, index];
-        } else {
-          updatedAnswers[activeQuestion] = currentAnswers.filter(
-            (_, i) => i !== answerIndex
-          );
-        }
-      }
     } else {
       updatedAnswers[activeQuestion] = index;
     }
 
     setSelectedAnswers(updatedAnswers);
+    console.log(selectedAnswers);
   };
 
   const cancelTest = () => {
     Swal.fire({
-      icon: "warning",
-      title: "از انجام فرم منصرف شده‌اید؟",
-      background: "#D8EFD3",
-      color: "#00000",
-      width: "26rem",
-      height: "18rem",
+      icon: "error",
+      title: "از تکمیل فرم منصرف شده اید؟",
+      background: "#075662",
+      color: "#FFFF",
+      width: "35rem",
+
+      backdrop: `
+  rgba(84, 75, 87.0.9)
+  left top
+  no-repeat`,
+      confirmButtonText: "بله",
+      cancelButtonText: "خیر",
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
+      showConfirmButton: true,
       showCancelButton: true,
-      confirmButtonText: "ادامه می‌دهم",
-      cancelButtonText: "بله",
-      confirmButtonColor: '#489182',
-      customClass: {
-        container: "custom-swal-container",
-      },
-    }).then((result) => {
-      if (!result.isConfirmed) {
+      preConfirm: () => {
         navigate("/");
-      }
-    });
-  };
-
-  const notSelected = () => {
-    Swal.fire({
-      icon: "warning",
-      title: "هنوز گزینه ای را انتخاب نکرده اید!",
-      background: "#D8EFD3",
-      color: "#00000",
-      width: "26rem",
-      height: "18rem",
-      showCancelButton: false,
-      confirmButtonText: "باشه",
-      confirmButtonColor: '#489182',
-      customClass: {
-        container: "custom-swal-container",
       },
     });
   };
-
-  useEffect(() => {
-    console.log(selectedAnswers);
-  }, [selectedAnswers]);
 
   return (
     <>
       <NavBar_SideBar />
-      <div align="center" className="recomBody">
+      <div align="center" className="recomBody p-5 pt-3">
         <br />
-        <h1
-          align="center"
-          style={{
-            fontFamily: "Ios15medium",
-            fontSize: "27px",
-            marginBottom: "20px",
-            marginTop: "0px",
-          }}
-        >
-          پیشنهاد روان درمانگر
-        </h1>
         {!showResult && (
-          <div className="recomBox" dir="rtl">
-            <form className="recform">
-              <label
-                className="question-style"
-                style={{ fontFamily: "Ios15medium" }}
-              >
+          <div className="recomBox col-lg-8 col-md-12 col-sm-12" dir="rtl">
+            <form className="recform p-5 pt-2 ">
+              <h3 className="question-style pb-4 font-custom">
                 {questions[activeQuestion].question}
-              </label>
-              <br />
-              <ul style={{}}>
-                {questions[activeQuestion].choices.map((choice, index) => (
-                  <li
-                    style={{}}
-                    key={index}
-                    className={
-                      activeQuestion === 3
-                        ? selectedAnswers[activeQuestion]?.includes(index)
+              </h3>
+              <div align="center">
+                <ul className="row d-flex justify-content-center align-items-stretch  w-75">
+                  {questions[activeQuestion].choices.map((choice, index) => (
+                    <li
+                      key={index}
+                      className={`col-6 mx-4 mb-3 ${ (Array.isArray(selectedAnswers[activeQuestion]) ?
+                        selectedAnswers[activeQuestion]?.includes(index) : selectedAnswers[activeQuestion] == index )
                           ? "Recommendation-selected-answer"
                           : ""
-                        : selectedAnswers[activeQuestion] === index
-                        ? "Recommendation-selected-answer"
-                        : ""
-                    }
-                    onClick={() => onAnswerSelected(index)}
-                  >
-                    {choice.text}
-                  </li>
-                ))}
-              </ul>
-              {activeQuestion === 3 &&
-              selectedAnswers[activeQuestion]?.includes(7) ? (
+                      }`}
+                      onClick={() => onAnswerSelected(index)}
+                    >
+                      {choice.text}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              {((!IsDoctor && activeQuestion == 3 && selectedAnswers[activeQuestion]?.includes(7)) || 
+              (IsDoctor && activeQuestion == 2 && selectedAnswers[activeQuestion]?.includes(7)) ||
+              (IsDoctor && activeQuestion == 4 && selectedAnswers[activeQuestion]?.includes(11))) ? (
                 <TextField
                   multiline
-                  rows={1}
-                  rowsMax={4}
                   autoComplete="off"
                   variant="outlined"
-                  // value={_comment}
                   onChange={handleInputChange}
-                  dir="rtl" // Set the direction to RTL
+                  dir="rtl" 
                   InputLabelProps={{
-                    dir: "rtl", // Set the direction of the label to RTL
+                    dir: "rtl",
                   }}
                   placeholder="موارد دیگر"
+                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
                   className="textbox-other"
+                  color="red"
                 />
               ) : (
                 ""
               )}
 
-              <div
-                className="button-group"
-                style={{ fontFamily: "Ios15medium" }}
-              >
-                <button
-                  type="button"
-                  className="button-style bottom-button-hover"
-                  onClick={onClickNext}
-                  disabled={
-                    activeQuestion === 3
-                      ? selectedAnswers[activeQuestion]?.length === 0
-                      : selectedAnswers[activeQuestion] === null
-                  }
-                >
-                  {activeQuestion === totalQuestions - 1 ? "پایان" : "بعدی"}
-                </button>
-                {activeQuestion !== 0 && (
+              <div className="button-group row font-custom">
+                <div className="col">
                   <button
-                    className="button-style bottom-button-hover"
                     type="button"
-                    onClick={onClickPrevious}
+                    className="button-style bottom-button-hover font-custom"
+                    onClick={onClickNext}
                   >
-                    قبلی
+                    {activeQuestion === totalQuestions - 1 ? "پایان" : "بعدی"}
                   </button>
-                )}
-                <button
-                  className="button-style bottom-button-hover"
-                  type="button"
-                  onClick={cancelTest}
-                  style={{ width: "200px" }}
-                >
-                  انصراف و بازگشت به صفحه اصلی
-                </button>
+                </div>
+                <div className="col">
+                  {activeQuestion !== 0 && (
+                    <button
+                      className="button-style bottom-button-hover font-custom"
+                      type="button"
+                      onClick={onClickPrevious}
+                    >
+                      قبلی
+                    </button>
+                  )}
+                </div>
+                <div className="col">
+                  <button
+                    className="button-style bottom-button-hover font-custom"
+                    type="button"
+                    onClick={cancelTest}
+                  >
+                    انصراف
+                  </button>
+                </div>
               </div>
             </form>
           </div>
@@ -315,33 +307,37 @@ const RecommendationPage = () => {
         {showResult && (
           <div className="recomBox">
             <h1
-              align="center"
-              style={{ fontFamily: "Ios15medium", fontSize: "25px" }}
+              className="font-custom text-center"
+              style={{ fontSize: "25px" }}
             >
-              نتایج:
+              :نتایج
             </h1>
+            <DoctorProfile
+              Id="8"
+              name="امیر امیری"
+              Description=""
+              Image="http://46.249.100.141:8070/media/images/doctors/profile_pics/team-2.jpg"
+              ProfileType="فردی"
+              IsPrivate=""
+              Psychiatrist="8"
+            />
 
             <div
-              className="owl-carousel team-carousel wow fadeIn owl-loaded owl-drag"
-              data-wow-delay=".5s"
-              style={{ visibility: "visible" }}
+              // className="owl-carousel team-carousel wow fadeIn owl-loaded owl-drag"
+              // data-wow-delay=".5s"
             >
-              <div
-                className="distanceBetween"
-                style={{ display: "flex", flexWrap: "wrap", gap: "5px" }}
-              >
-                {Array.isArray(doctorProfile) &&
-                  doctorProfile.map((index) => (
-                    <DoctorProfile
-                      Id={index?.psychiatrist}
-                      name={index?.name}
-                      Description={index?.description}
-                      Image={"http://127.0.0.1:8000/" + index?.image}
-                      ProfileType={index?.profile_type}
-                      IsPrivate={index?.is_private}
-                      Psychiatrist={index?.psychiatrist}
-                    />
-                  ))}
+              <div className="distanceBetweenDoctor">
+                {/* {doctorProfile.map((index) => (
+                  <DoctorProfile
+                    Id={index?.id}
+                    name={index?.name}
+                    Description={index?.description}
+                    Image={index?.image}
+                    ProfileType={index?.profile_type}
+                    IsPrivate={index?.is_private}
+                    Psychiatrist={index?.psychiatrist}
+                  />
+                ))} */}
               </div>
             </div>
           </div>
