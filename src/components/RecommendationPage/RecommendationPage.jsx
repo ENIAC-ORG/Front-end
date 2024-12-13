@@ -8,7 +8,7 @@ import Footer from "../Footer/Footer";
 import Patient_Recommendation_Question from "./Patient_Questions_Recommendation";
 import Doctor_Recommendation_Question from "./Doctor_Questions_Recommendation";
 import "./RecommendationPage.css";
-import DoctorProfile from "../DoctorsList/DoctorProfile";
+import DoctorProfile from "../DoctorsList/DoctorProfile.jsx";
 import "../DoctorsList/DoctorsList.css";
 import axios from "axios";
 import { TextField } from "@material-ui/core";
@@ -41,11 +41,31 @@ const RecommendationPage = () => {
     }
   };
 
-  const [doctorProfile, setDoctorProfile] = useState([]);
-
   const goToHomePage = () => {
     navigate("/");
   };
+
+  const [doctorProfile, setDoctorProfile] = useState([]);
+  useEffect(() => {
+    const fetchDoctorProfile = async () => {
+      try {
+        const response = await axios.get(
+          "http://46.249.100.141:8070//profile/doctors/8/"
+        );
+        setDoctorProfile(response.data);
+        console.log(Array.isArray(doctorProfile));
+        console.log(doctorProfile);      
+      } catch (error) {
+        console.error("Error fetching doctor profile:", error);
+      }
+    };
+
+    fetchDoctorProfile();
+  }, []);
+
+  useEffect(() => {
+    console.log("Updated doctorProfile:", doctorProfile);
+  }, [doctorProfile]);
 
   const sendAnswersToBack = async (data) => {
     try {
@@ -53,7 +73,7 @@ const RecommendationPage = () => {
       const dataString = JSON.stringify(data);
       const response = await axios({
         method: "POST",
-        url: IsDoctor ? "http://127.0.0.1:8000/recomSys/doctor_recomend/":"http://127.0.0.1:8000/recomSys/patient_recomend/",
+        // url: IsDoctor ? "http://46.249.100.141:8070//recomSys/doctor_recomend/":"http://46.249.100.141:8070//recomSys/patient_recomend/",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -75,8 +95,9 @@ const RecommendationPage = () => {
           navigate("/");}
           else{
         console.log(response.data.doctors);
-        setDoctorProfile(response.data.doctors);
-        setShowResult(true);}
+        // setDoctorProfile(response.data.doctors);
+        // setShowResult(true);
+      }
       } else {
         toast.error("!متاسفانه خطایی در ارسال رخ داده", {
           position: "bottom-left",
@@ -141,6 +162,12 @@ const RecommendationPage = () => {
           }
         }
         sendAnswersToBack(updatedAnswersForBack);
+
+        console.log(activeQuestion);
+        if (activeQuestion === totalQuestions - 1) {
+          setShowResult(true);
+          // fetchDoctorProfile();
+        }
       }
     }
   };
@@ -166,7 +193,7 @@ const RecommendationPage = () => {
     }
 
     setSelectedAnswers(updatedAnswers);
-    console.log(selectedAnswers)
+    console.log(selectedAnswers);
   };
 
   const cancelTest = () => {
@@ -201,7 +228,7 @@ const RecommendationPage = () => {
         {!showResult && (
           <div className="recomBox col-lg-8 col-md-12 col-sm-12" dir="rtl">
             <form className="recform p-5 pt-2 ">
-              <h3 className="question-style mb-5 pb-4 font-custom">
+              <h3 className="question-style pb-4 font-custom">
                 {questions[activeQuestion].question}
               </h3>
               <div align="center">
@@ -246,7 +273,7 @@ const RecommendationPage = () => {
                 <div className="col">
                   <button
                     type="button"
-                    className=" button-style bottom-button-hover font-custom"
+                    className="button-style bottom-button-hover font-custom"
                     onClick={onClickNext}
                   >
                     {activeQuestion === totalQuestions - 1 ? "پایان" : "بعدی"}
@@ -255,7 +282,7 @@ const RecommendationPage = () => {
                 <div className="col">
                   {activeQuestion !== 0 && (
                     <button
-                      className="button-style bottom-button-hover"
+                      className="button-style bottom-button-hover font-custom"
                       type="button"
                       onClick={onClickPrevious}
                     >
@@ -265,7 +292,7 @@ const RecommendationPage = () => {
                 </div>
                 <div className="col">
                   <button
-                    className="button-style bottom-button-hover"
+                    className="button-style bottom-button-hover font-custom"
                     type="button"
                     onClick={cancelTest}
                   >
@@ -283,26 +310,34 @@ const RecommendationPage = () => {
               className="font-custom text-center"
               style={{ fontSize: "25px" }}
             >
-              نتایج:
+              :نتایج
             </h1>
+            <DoctorProfile
+              Id="8"
+              name="امیر امیری"
+              Description=""
+              Image="http://46.249.100.141:8070/media/images/doctors/profile_pics/team-2.jpg"
+              ProfileType="فردی"
+              IsPrivate=""
+              Psychiatrist="8"
+            />
 
             <div
-              className="owl-carousel team-carousel wow fadeIn owl-loaded owl-drag invisible"
-              data-wow-delay=".5s"
+              // className="owl-carousel team-carousel wow fadeIn owl-loaded owl-drag"
+              // data-wow-delay=".5s"
             >
-              <div className="distanceBetween d-flex flex-wrap g-3">
-                {Array.isArray(doctorProfile) &&
-                  doctorProfile.map((index) => (
-                    <DoctorProfile
-                      Id={index?.psychiatrist}
-                      name={index?.name}
-                      Description={index?.description}
-                      Image={"http://127.0.0.1:8000/" + index?.image}
-                      ProfileType={index?.profile_type}
-                      IsPrivate={index?.is_private}
-                      Psychiatrist={index?.psychiatrist}
-                    />
-                  ))}
+              <div className="distanceBetweenDoctor">
+                {/* {doctorProfile.map((index) => (
+                  <DoctorProfile
+                    Id={index?.id}
+                    name={index?.name}
+                    Description={index?.description}
+                    Image={index?.image}
+                    ProfileType={index?.profile_type}
+                    IsPrivate={index?.is_private}
+                    Psychiatrist={index?.psychiatrist}
+                  />
+                ))} */}
               </div>
             </div>
           </div>
