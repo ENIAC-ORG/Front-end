@@ -516,7 +516,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
-                  <button onClick={toggleModal}>doctor</button>
+                  
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">
