@@ -227,7 +227,7 @@ function DoctorInfoModal({
       console.log(token);
       console.log("helooooooooo");
       const response = await axios.post(
-        "http://46.249.100.141:8070/accounts/doctorapplication/",
+        "http://eniacgroup.ir:8070/accounts/doctorapplication/",
 
         {
           headers: {
@@ -286,7 +286,7 @@ function DoctorInfoModal({
       const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
-      const response = await axios("http://46.249.100.141:8070//reserve/create/", {
+      const response = await axios("http://eniacgroup.ir:8070//reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -64,7 +64,7 @@ const ForgetPassword = () => {
     if (validator.isEmail(fp_Email)) {
       try {
         const response = await axios(
-          "http://46.249.100.141:8070//accounts/forgot_password/",
+          "http://eniacgroup.ir:8070//accounts/forgot_password/",
           {
             method: "POST",
             headers: {

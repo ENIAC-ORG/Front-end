@@ -92,7 +92,7 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://46.249.100.141:8070/accounts/complete_info/",
+          "http://eniacgroup.ir:8070/accounts/complete_info/",
           {
             method: "POST",
             headers: {

@@ -19,7 +19,7 @@ const Statistic = () => {
   async function getEndNumbers() {
     try {
       const response = await axios.get(
-        "http://46.249.100.141:8070//HomePage/count/",
+        "http://eniacgroup.ir:8070//HomePage/count/",
         {
           headers: {
             "Content-Type": "application/json",

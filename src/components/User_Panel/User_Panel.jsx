@@ -76,7 +76,7 @@ function toPersianDigits(str) {
     else {
       try {
         const response = await axios(
-          "http://46.249.100.141:8070/accounts/get_user/",
+          "http://eniacgroup.ir:8070/accounts/get_user/",
           {
             method: "GET",
             headers: {

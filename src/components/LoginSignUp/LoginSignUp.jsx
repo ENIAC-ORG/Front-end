@@ -92,7 +92,7 @@ const LoginContainer = () => {
   async function ResendCode(email) {
     try {
       const response = await axios(
-        "http://46.249.100.141:8070//accounts/activation_resend/",
+        "http://eniacgroup.ir:8070//accounts/activation_resend/",
         {
           method: "POST",
           headers: {
@@ -168,7 +168,7 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://46.249.100.141:8070//accounts/Login/", {
+      const response = await axios("http://eniacgroup.ir:8070//accounts/Login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -331,7 +331,7 @@ const LoginContainer = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://46.249.100.141:8070//accounts/signup/", {
+      const response = await axios("http://eniacgroup.ir:8070//accounts/signup/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
