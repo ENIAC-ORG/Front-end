@@ -142,3 +142,27 @@
 .font-custom{
     font-family: "Ios15medium";
 }
+
+.distanceBetweenDoctor {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+}
+
+@media (max-width: 900px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(3, 1fr); /* tablet */
+    }
+  }
+
+@media (max-width: 710px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(2, 1fr); /* tablet */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .distanceBetweenDoctor {
+      grid-template-columns: repeat(2, 1fr); /* mobile */
+    }
+  }
