@@ -97,7 +97,9 @@
   margin-top: 20px;
   font-family: Vazir, Arial, sans-serif;
   transition: border-color 0.3s ease;
+  
 }
+
 .form_details_modal .form .field_modal .input {
   width: 170%;
   height: 100%;
@@ -532,7 +534,6 @@ form .btn-modal input[type="submit"]{
 .custom-swal-container .swal2-content {
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5); /* Adjust the shadow values as per your preference */
 }
-
 
 /* Responsive adjustments */
 @media (max-width: 768px) {

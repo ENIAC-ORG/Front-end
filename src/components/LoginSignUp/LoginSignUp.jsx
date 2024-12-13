@@ -16,6 +16,7 @@ import withReactContent from "sweetalert2-react-content";
 import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 const LoginContainer = () => {
   const navigate = useNavigate();
+
   const [flag, setflag] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -29,6 +30,7 @@ const LoginContainer = () => {
   const [repeatPasswordIcon, setRepeatPasswordIcon] = useState(eyeOff);
   const [showModal, setShowModal] = useState(false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
+
 
 
   const [isChecked, setIsChecked] = useState(false);
@@ -138,6 +140,10 @@ const LoginContainer = () => {
     event.preventDefault();
     setflag(true);
   }
+  async function isDoctor(event) {
+    event.preventDefault();
+    setflag(true);
+  }
   async function handleLoginEnter(event) {
     event.preventDefault();
     const email = document.querySelector(".email1_input").value;
@@ -225,6 +231,7 @@ const LoginContainer = () => {
         color: "#black",
         width: "32rem",
         confirmButtonText: "باشه",
+        confirmButtonColor: "#0a8ca0",
         confirmButtonColor: "#0a8ca0",
         preConfirm: () => {
           navigate("/Home");
@@ -348,6 +355,9 @@ const LoginContainer = () => {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
 
+   
+
+
       const response = await axios(
         "http://46.249.100.141:8070//accounts/signup/",
         {
@@ -373,6 +383,7 @@ const LoginContainer = () => {
         //const refreshToken = response.data.refresh;
         console.log("you signed in successfully");
 
+
         // Set tokens in local storage
         //localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
@@ -388,9 +399,12 @@ const LoginContainer = () => {
           url: response.data.url,
         };
         //setShowModal(!showModal);
+        //setShowModal(!showModal);
         navigate("/verification", { state: data });
 
+
         // Set tokens in local storage
+        localStorage.setItem("accessToken", accessToken);
         localStorage.setItem("accessToken", accessToken);
         //localStorage.setItem('refreshToken', refreshToken);
       }
@@ -502,8 +516,7 @@ const LoginContainer = () => {
                   >
                     ثبت نام
                   </label>
-
-
+                  <button onClick={toggleModal}>doctor</button>
                   <div className="slider_tab"></div>
                 </div>
                 <div className="form_details">

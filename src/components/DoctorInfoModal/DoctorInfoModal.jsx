@@ -197,7 +197,31 @@ function DoctorInfoModal({
     return true;
   };
 
+
   const handleSendMedicalInfo = async () => {
+   
+
+  // const handleSendMedicalInfo = async (event) => {
+  //   event.preventDefault();
+    
+
+
+    // const payload = {
+    //   age: parseInt(age),
+    //   child_num: parseInt(childrenNum),
+    //   family_history: medicalHistory,
+    //   nationalID: ssid,
+    //   treatment_histories: medicalRecords.map((record) => ({
+    //     end_date: record.endDate,
+    //     length: parseInt(record.length),
+    //     is_finished: record.isFinished,
+    //     reason_to_leave: record.reasonToLeave || "Completed treatment",
+    //     approach: record.method || "",
+    //     special_drugs: record.drugs || "",
+    //   })),
+    // };
+
+
     try {
       const token = localStorage.getItem("accessToken");
       console.log(token);
@@ -239,17 +263,15 @@ function DoctorInfoModal({
     } catch (error) {
       console.log(error);
       toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
+
         position: "bottom-left",
         autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
-
-      // navigate("/verification", { state: data }); // data and navigate not defined in given code
-      handleClose();
-      //CreateReservation();
-
-      setSsid("");
-      setMedicalRecords([]);
-      toggleModal();
     }
   };
 
@@ -435,6 +457,7 @@ function DoctorInfoModal({
                     type="submit"
                     value="ارسال اطلاعات"
                     onClick={handleSendMedicalInfo}
+                    
                   />
                 </div>
               </div>
