@@ -71,22 +71,22 @@ const DoctorProfile = ({
         console.log(error);
         if (error.response.status == 403) {
           withReactContent(Swal).fire({
-            icon: "error",
-
-            html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
-
-            background: "#473a67",
-            color: "#b4b3b3",
+            icon: "warning",
+            html: "<div dir='rtl'>برای مشاهدۀ اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             backdrop: `
-              rgba(84, 75, 87.0.9)
-              left top
-              no-repeat`,
+        rgba(84, 75, 87.0.9)
+        left top
+        no-repeat`,
             confirmButtonText: "تایید",
+            confirmButtonColor: '#0a8ca0',
+            showConfirmButton: true,
             preConfirm: () => {
-              navigate("/Signup");
+              navigate("/signup");
             },
-          });
+        });
         }
       }
     }
@@ -99,9 +99,9 @@ const DoctorProfile = ({
           .fire({
             icon: "warning",
 
-            html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-            background: "#473a67",
-            color: "#b4b3b3",
+            html: "<div dir='rtl'>!برای رزرو وقت ورود به اکانت خود الزامی است!</div>",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             backdrop: `
           rgba(84, 75, 87.0.9)
@@ -110,13 +110,8 @@ const DoctorProfile = ({
             showDenyButton: true,
             confirmButtonText: "ورود به سایت",
             denyButtonText: "صفحه اصلی",
-            denyButtonColor: "#89817e",
-            confirmButtonColor: "rgb(183, 153, 255)",
-            customClass: {
-              actions: "my-actions",
-              confirmButton: "order-2",
-              denyButton: "order-3",
-            },
+            denyButtonColor: "#075662",
+            confirmButtonColor: "#0a8ca0"
           })
           .then((result) => {
             if (result.isConfirmed) {
@@ -170,8 +165,8 @@ const DoctorProfile = ({
               .fire({
                 icon: "warning",
                 html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-                background: "#473a67",
-                color: "#b4b3b3",
+                background: "#075662",
+                color: "#FFFF",
                 width: "35rem",
                 backdrop: `
                 rgba(84, 75, 87.0.9)
@@ -180,13 +175,8 @@ const DoctorProfile = ({
                 showDenyButton: true,
                 confirmButtonText: "ورود به سایت",
                 denyButtonText: "صفحه اصلی",
-                denyButtonColor: "#89817e",
-                confirmButtonColor: "rgb(183, 153, 255)",
-                customClass: {
-                  actions: "my-actions",
-                  confirmButton: "order-2",
-                  denyButton: "order-3",
-                },
+                denyButtonColor: "#0a8ca0",
+                confirmButtonColor: "#0a8ca0"
               })
               .then((result) => {
                 if (result.isConfirmed) {

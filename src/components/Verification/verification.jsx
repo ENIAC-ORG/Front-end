@@ -99,10 +99,11 @@ const Verification = () => {
           withReactContent(Swal).fire({
             icon: "success",
             title: "!ثبت نام با موفقیت انجام شد",
-            background: "#55AD9B",
-            color: "#black",
+            background: "#075662",
+            color: "#FFFF",
             width: "35rem",
             confirmButtonText: "تایید",
+            confirmButtonColor: "#0a8ca0"
           });
           navigate("/Signup");
         }

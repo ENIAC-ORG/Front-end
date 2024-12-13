@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import "react-multi-date-picker/styles/colors/teal.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 import img from "../../assets/Female_Avatar.jpg";
-import "./reservation.css";
+import styles from "./reservation.module.css";
 import "react-modern-calendar-datepicker/lib/DatePicker.css";
-import { utils } from "react-modern-calendar-datepicker";
+// import { Calendar, utils } from "react-modern-calendar-datepicker";
 import DateObject from "react-date-object";
+// import persian from "react-date-object/calendars/persian";
 import HourCard from "./HourCard";
 import { BsCalendarDate } from "react-icons/bs";
 import { IoMdTime } from "react-icons/io";
@@ -19,9 +19,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import MedicalInfoModal from "../MedicalInfoModal/MedicalInfoModal";
 import Swal from "sweetalert2";
-import { Calendar } from "react-multi-date-picker";
-import persian from "react-date-object/calendars/persian";
-import persian_fa from "react-date-object/locales/persian_fa";
+
+import { Calendar } from "react-multi-date-picker"
+import persian from "react-date-object/calendars/persian"
+import persian_fa from "react-date-object/locales/persian_fa"
 
 function DateString(input) {
   var changed = shamsi.jalaliToGregorian(input.year, input.month, input.day);
@@ -29,11 +30,6 @@ function DateString(input) {
   var m = changed[1] < 10 ? `0${changed[1]}` : `${changed[1]}`;
   var d = changed[2] < 10 ? `0${changed[2]}` : `${changed[2]}`;
   return [y, m, d].join("-");
-}
-
-function toPersianDigits(str) {
-  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return str.replace(/\d/g, (digit) => persianDigits[digit]);
 }
 
 function ChangeDate(input) {
@@ -65,25 +61,15 @@ const ReservationPage = () => {
   const location = useLocation();
   const initialState = location.state || {};
   const [res_type, setres_type] = useState("حضوری");
-  const [doctor_id, setCode] = useState(initialState);
+  const [doctor_id, setCode] = useState(initialState.doctorId || "");
   const [responseData, setResponseData] = useState([]);
   const [FreeTiems, setFreeTimes] = useState([]);
   const [selectVal, setSelectVal] = useState(-1);
-  const [selectedDay, setSelectedDay] = useState(
-    ChangeDate(utils().getToday())
+  const [selectedDay, setSelectedDay] = useState(new Date()
+    // ChangeDate(utils().getToday())
   );
-  const [LeftTimes, setTime] = useState([
-    "9:00:00",
-    "10:00:00",
-    "11:00:00",
-    "14:00:00",
-    "15:00:00",
-    "16:00:00",
-    "17:00:00",
-    "18:00:00",
-    "19:00:00",
-  ]);
-  const today = ChangeDate(utils().getToday());
+  const [LeftTimes, setTime] = useState([]);
+  // const today = ChangeDate(utils().getToday());
   const [selected, setSelect] = useState(-1);
   const [showModal, setShowModal] = useState(false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
@@ -97,7 +83,7 @@ const ReservationPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "http://eniacgroup.ir:8070/TherapyTests/record_check/",
+        "http://127.0.0.1:8000/TherapyTests/record_check/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -105,51 +91,67 @@ const ReservationPage = () => {
           },
         }
       );
+      console.log(response.status);
+
       if (response.status === 200) {
         setHasMedicalInfo(response.data.message);
       }
     } catch (error) {
       console.log("something went wrong: ", error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
+      Swal.fire({
+        icon: "error",
+        title: "!خطا ",
+        background: "#075662",
+        color: "#FFFF",
+        width: "26rem",
+        height: "18rem",
+        confirmButtonText: "تایید",
+        cancelButtonColor: "#0a8ca0"
       });
     }
   }
 
-  const Setdatetime = (date_) => {
-    var temp = [];
-    for (let i = 0; i < FreeTiems.length; i++)
-      if (FreeTiems[i].date == DateString(date_))
-        temp.push(FreeTiems[i].time);
-    for (let i = 0; i < responseData.length; i++) {
-      if (responseData[i].date == DateString(selectedDay)) {
-        var ind = temp.indexOf(responseData[i].time);
-        if (ind > -1) {
-          temp.splice(ind, 1);
-        }
-      }
-    }
-    setTime(temp);
-  };
-  
+  // const setdatetime = () => {
+  //   var d = new Date(
+  //     selectedDay.year,
+  //     selectedDay.month,
+  //     selectedDay.day
+  //   ).getDay();
+  //   var temp = [];
+  //   for (let i = 0; i < FreeTiems.length; i++)
+  //     if (FreeTiems[i].date == DateString(selectedDay))
+  //       temp.push(FreeTiems[i].time);
+  //   for (let i = 0; i < responseData.length; i++) {
+  //     if (responseData[i].date == DateString(selectedDay)) {
+  //       var ind = temp.indexOf(responseData[i].time);
+  //       if (ind > -1) {
+  //         temp.splice(ind, 1);
+  //       }
+  //     }
+  //   }
+  //   return temp;
+  // };
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     {
+  //       setTime(setdatetime(selectedDay));
+  //     }
+  //   }, 100);
+  // });
 
-  const handleCalender = (e) =>{
-    setSelectedDay(e);
-    setSelect(-1);
-    Setdatetime(e);    
-  }
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     {
+  //       getFreeTime();
+  //     }
+  //   }, 5000);
+  // });
 
   async function getFreeTime() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://eniacgroup.ir:8070/reserve/get-free-time/${doctor_id}/`,
+        `http://127.0.0.1:8000/reserve/get-free-time/${doctor_id}/`,
         {
           method: "GET",
           headers: {
@@ -164,25 +166,16 @@ const ReservationPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     }
   }
 
   async function getReservation() {
     try {
-      const startDate = formatDate(new Date()); 
-      const endDate = formatDate(addDays(new Date(), 30));
+      const startDate = formatDate(new Date()); // Format today's date as "yyyy-mm-dd" string
+      const endDate = formatDate(addDays(new Date(), 30)); // Format 30 days later as "yyyy-mm-dd" string
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://eniacgroup.ir:8070/reserve/between_dates/",
+        "http://127.0.0.1:8000/reserve/between_dates/",
         {
           method: "POST",
           headers: {
@@ -202,25 +195,22 @@ const ReservationPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     }
   }
 
   const [doctorProfile, setDoctorProfile] = useState([]);
+  const baseUrl = "http://127.0.0.1:8000/profile/doctors/";
+
+  // Alternatively, you can use string concatenation:
+  const url = baseUrl + doctor_id + "/";
+
   useEffect(() => {
     //  تابع برای دریافت اطلاعات پروفایل دکتراز بک‌اند
     const fetchDoctorProfile = async () => {
+      
       const token = localStorage.getItem("accessToken");
       try {
-        const response = await axios.get(`http://eniacgroup.ir:8070/profile/doctors/${doctor_id}/`, {
+        const response = await axios.get(url, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -229,15 +219,6 @@ const ReservationPage = () => {
         setDoctorProfile(response.data);
       } catch (error) {
         console.error("Error fetching doctor profile:", error);
-        toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
       }
     };
 
@@ -246,9 +227,10 @@ const ReservationPage = () => {
 
   async function CreateReservation() {
     try {
-      const ReservationDate = DateString(selectedDay); // Format today's date as "yyyy-mm-dd" string
+      // const ReservationDate = DateString(selectedDay); // Format today's date as "yyyy-mm-dd" string
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://eniacgroup.ir:8070/reserve/create/", {
+      console.log(LeftTimes[selected]);
+      const response = await axios("http://127.0.0.1:8000/reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -263,6 +245,8 @@ const ReservationPage = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
+        console.log("you reserved successfully");
+        // getReservation();
         toast.success("رزرو وقت شما با موفقیت انجام شد", {
           position: "bottom-left",
           autoClose: 3000,
@@ -272,10 +256,10 @@ const ReservationPage = () => {
           draggable: true,
           progress: undefined,
         });
-        Setdatetime(selectedDay);
         CheckMedicalInfo();
       }
     } catch (error) {
+      console.log(error);
       if (
         error.response.data.hasOwnProperty("message") &&
         error.response.data.message ===
@@ -303,87 +287,13 @@ const ReservationPage = () => {
       }
     }
   }
-
-  useEffect(() => {
-    getFreeTime();
-    getReservation();
-    Setdatetime(selectedDay);    
-  }, []);
-
-  const [position, setPosition] = useState("right");
-  useEffect(() => {
-    const handleResize = () => {
-      setPosition(window.innerWidth < 606 ? "bottom" : "right");
-    };
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-
-  function MyPlugin() {
-    return (
-      <div
-        className="row reserve_plugin"
-      >
-        <h6 className="reserve_hour_title">ساعت های قابل رزرو</h6>
-        <div className="reserve_hour_items row g-3  ">
-          {LeftTimes.length == 0 && (
-            <div className="Reservation_error_input">
-              زمانی جهت مشاوره یافت نشد!
-            </div>
-          )}
-          {LeftTimes.map((time, index, key) => (
-            <div
-              className="col-lg-5 col-xlg-5 col-md-5 col-sm-12"
-              align="center"
-            >
-              <HourCard
-                time={time}
-                index={index}
-                selected={selected}
-                onClick={() => {
-                  setSelect((prev) => (prev == index ? -1 : index));
-                }}
-              />
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  }
-
   return (
     <>
       <NavBar_SideBar />
       <ToastContainer />
-      <div className="d-grid py-5 all-page" onLoad={getReservation}>
-        <div className="container reserve_Box" onLoad={getFreeTime}>
-          <div className="Myrow g-3 w-100" dir="rtl" style={{ justifyContent:'center' }}>
-          <div className="col col-md-12 col-lg-5 col-xsm-12 reserve_docProfile " >
-            <button
-            dir="ltr"
-              className="col w-100 button_back"
-              onClick={(e) => {
-                navigate("/Home");
-              }}
-            >
-              <p>صفحه اصلی</p>
-              <svg
-                xmlns="/Doctors"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 23 22"
-                stroke="currentColor"
-                strokeWidth="4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </button>
+      <div className={styles.reserve_body} onLoad={getReservation}>
+        <div className={styles.reserve_Box} onLoad={getFreeTime}>
+          <div className={styles.reserve_docProfile}>
             <a href="#">
               <img
                 src={doctorProfile.image}
@@ -391,38 +301,89 @@ const ReservationPage = () => {
                 alt="image"
               />
             </a>
-            <h2 className="font-custom">{doctorProfile.name}</h2>
+            <h2 className={styles.reserve_docName}>{doctorProfile.name}</h2>
+          </div>
+          <div className={styles.reserve_wrap}>
+            <div className={styles.reserve_date_wrap}>
+            <Calendar
+      calendar={persian}
+      locale={persian_fa}
+      value={selectedDay}
+      onChange={(e) => {
+          setSelectedDay(e);
+          setSelect(-1);
+                }}
+                minDate={new DateObject()}
+    maxDate={new DateObject().add(1,"month")}
+    />
+              {/* <Calendar
+                value={selectedDay}
+                onChange={(e) => {
+                  setSelectedDay(e);
+                  setSelect(-1);
+                }}
+                minimumDate={today}
+                maximumDate={{
+                  year: today.year,
+                  month: today.month + 1,
+                  day: today.day,
+                }}
+                shouldHighlightWeekends
+                locale="fa"
+                colorPrimary="#9c7aed"
+                calendarClassName={styles.custom_calendar}
+                calendarTodayClassName="custom-today-day"
+                // disabledDays = [{utils().weekDaysList}]
+              /> */}
+            </div>
+
+            <div className={styles.reserve_hour_wrap}>
+              <h6>ساعت های قابل رزرو</h6>
+              <div className={styles.reserve_hour_items}>
+                {LeftTimes.length == 0 && (
+                  <div className={styles.Reservation_error_input}>
+                    زمانی جهت مشاوره یافت نشد
+                  </div>
+                )}
+                {LeftTimes.map((time, index, key) => (
+                  <HourCard
+                    time={time}
+                    index={index}
+                    selected={selected}
+                    onClick={(event) =>
+                      setSelect(selected == index ? -1 : index)
+                    }
+                  />
+                ))}
+              </div>
+            </div>
             <div
-              className="row fs-5"
-              dir="rtl"
-              align="center"
-              style={selected == -1 ? { display: "none" } : { display: "flex" }}
+              className={styles.reserve_result}
+              style={selected == -1 ? { display: "none" } : {}}
             >
-              <div className="col-12">
-                <span className="col-4 ms-1">
-                  <BsCalendarDate />
-                </span>
-                <span className="col-4 ms-4 font-custom"> تاریخ:</span>
-                <span className="col-4 ">
-                  {[
-                    toPersianDigits(`${selectedDay.year}`),
-                    toPersianDigits(`${selectedDay.month}`),
-                    toPersianDigits(`${selectedDay.day}`),
-                  ].join("/")}
-                </span>
-              </div>
-              <div className="col-12">
-                <span className="col-4 ms-1">
-                  <IoMdTime />
-                </span>
-                <span className="col-4 ms-4"> ساعت:</span>
-                <span className="col-4 ">
-                  {toPersianDigits(`${LeftTimes[selected]}`)}
-                </span>
-              </div>
-              <div className="reverse_choices_box">
-                <ul className="reserve_choices">
-                  <label className="reserve_choices_op">
+              تاریخ و زمان انتخابی:
+              <br />
+              <span>
+                <BsCalendarDate />
+              </span>
+              تاریخ:
+              <br />
+              {selectedDay.year +
+                "-" +
+                selectedDay.month +
+                "-" +
+                selectedDay.day}
+              <br />
+              <span>
+                <IoMdTime />
+              </span>
+              ساعت:
+              <br />
+              {LeftTimes[selected]}
+              <br />
+              <div className={styles.reverse_choices_box}>
+                <ul className={styles.reserve_choices}>
+                  <label className={styles.reserve_choices_op}>
                     <input
                       type="radio"
                       name="q1"
@@ -432,7 +393,7 @@ const ReservationPage = () => {
                     />
                     <span>حضوری</span>
                   </label>
-                  <label className="reserve_choices_op">
+                  <label className={styles.reserve_choices_op}>
                     <input
                       type="radio"
                       name="q1"
@@ -444,7 +405,7 @@ const ReservationPage = () => {
                   </label>
                 </ul>
                 <button
-                  className="button_74"
+                  className={styles.button_74}
                   onClick={(e) => {
                     console.log(hasMedicalInfo);
                     setSelectVal(selected);
@@ -464,41 +425,22 @@ const ReservationPage = () => {
                         cancelButtonText: "انصراف",
                         confirmButtonText: "تکمیل اطلاعات",
                         confirmButtonColor: "#0a8ca0",
-                        cancelButtonColor: "#0a8ca0",
+                        cancelButtonColor: "#0a8ca0"
                       }).then((result) => {
                         if (result.isConfirmed) {
                           toggleModal();
                         } else {
                         }
                       });
+                      console.log(LeftTimes[selected]);
+                      console.log(showModal);
                     }
                   }}
-                  style={{ marginBottom: '10px' }}
                 >
                   ثبت
                 </button>
               </div>
             </div>
-          </div>
-          <div className="col-8 col-md-12 col-lg-5 col-sm-12" align="center">
-            <Calendar
-              calendar={persian}
-              locale={persian_fa}
-              value={selectedDay}
-              onChange={(e) => {
-                handleCalender(e);
-                
-              }}
-              minDate={new DateObject()}
-              maxDate={new DateObject().add(1, "month")}
-              style={{
-                fontSize: "60px",
-                hieght: "500px",
-                borderTopRightRadius: "50px",
-              }}
-              className="custom_calendar teal"
-              plugins={[<MyPlugin position={position} />]}
-            /> 
             <MedicalInfoModal
               getReserve={getReservation}
               selectIndex={selectVal}
@@ -510,7 +452,6 @@ const ReservationPage = () => {
               toggleModal={toggleModal}
             />
           </div>
-        </div>
         </div>
       </div>
       <Footer />
