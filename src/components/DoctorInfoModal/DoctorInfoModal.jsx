@@ -20,11 +20,6 @@ import { GrConsole } from "react-icons/gr";
 function DoctorInfoModal({
   showModal,
   toggleModal,
-  daySelected,
-  doctorId,
-  resType,
-  left_times,
-  selectIndex,
   getReserve,
 }) {
   const [age, setAge] = useState(null);
@@ -199,34 +194,9 @@ function DoctorInfoModal({
 
 
   const handleSendMedicalInfo = async () => {
-   
-
-  // const handleSendMedicalInfo = async (event) => {
-  //   event.preventDefault();
-    
-
-
-    // const payload = {
-    //   age: parseInt(age),
-    //   child_num: parseInt(childrenNum),
-    //   family_history: medicalHistory,
-    //   nationalID: ssid,
-    //   treatment_histories: medicalRecords.map((record) => ({
-    //     end_date: record.endDate,
-    //     length: parseInt(record.length),
-    //     is_finished: record.isFinished,
-    //     reason_to_leave: record.reasonToLeave || "Completed treatment",
-    //     approach: record.method || "",
-    //     special_drugs: record.drugs || "",
-    //   })),
-    // };
-
-
-    try {
+     try {
       const token = localStorage.getItem("accessToken");
-      console.log(token);
-      console.log("helooooooooo");
-      const response = await axios.post(
+      const response = await axios (
         "http://46.249.100.141:8070/accounts/doctorapplication/",
         {
           method: "POST",
@@ -238,6 +208,7 @@ function DoctorInfoModal({
             firstname: age,
             lastname: childrenNum,
             doctorate_code: ssid,
+            id:1,
           },
         }
       );
@@ -253,18 +224,16 @@ function DoctorInfoModal({
           progress: undefined,
         });
         handleClose();
-        CreateReservation();
         setAge(null);
         setChildrenNum(null);
         setMedicalHistory(null);
         setSsid("");
         setMedicalRecords([]);
         toggleModal();
+        showModal = false;
       }
     } catch (error) {
-      console.log(error);
       toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
-
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -281,53 +250,7 @@ function DoctorInfoModal({
     getReserve();
   };
 
-  async function CreateReservation(event) {
-    if (event) event.preventDefault();
-    try {
-      const ReservationDate = DateString(daySelected);
-      const token = localStorage.getItem("accessToken");
-      console.log(doctorId);
-      const response = await axios("http://eniacgroup.ir:8070//reserve/create/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        data: {
-          type: resType,
-          date: ReservationDate,
-          time: left_times[selectIndex],
-          doctor_id: doctorId,
-        },
-      });
-      console.log("2");
 
-      if (response.status === 200 || response.status === 201) {
-        console.log("you reserved successfully");
-        getReserved(event);
-        toast.success("رزرو وقت شما با موفقیت انجام شد", {
-          position: "bottom-left",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("!رزرو موفقیت آمیز نبود، رفرش کنید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-  }
 
   return (
     <>

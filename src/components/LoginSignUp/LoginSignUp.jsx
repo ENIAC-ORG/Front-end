@@ -34,10 +34,9 @@ const LoginContainer = () => {
   const [repeatPasswordType, setRepeatPasswordType] = useState("password");
   const [passwordIcon, setPasswordIcon] = useState(eyeOff);
   const [repeatPasswordIcon, setRepeatPasswordIcon] = useState(eyeOff);
-  const [showModal, setShowModal] = useState(initialState.flag || false);
+  const [showModal, setShowModal] = useState(false);
   const [hasMedicalInfo, setHasMedicalInfo] = useState(null);
 
-  console.log(showModal);
 
   const [isChecked, setIsChecked] = useState(false);
 
@@ -386,7 +385,7 @@ const LoginContainer = () => {
       );
 
       const data = response.data.url;
-      console.log(data);
+      console.log("++"+ data);
       //console.log('you logined successfully');
 
       //closeLoading();
@@ -400,17 +399,14 @@ const LoginContainer = () => {
         //localStorage.setItem('refreshToken', refreshToken);
       } else if (response.status === 201) {
         const accessToken = response.data.access;
-        //const refreshToken = response.data.refresh;
         console.log(response);
         console.log("you signed in successfully");
-        //  { state: data }
         const data = {
           email: email,
           code: response.data.code,
           url: response.data.url,
         };
-        //setShowModal(!showModal);
-        //setShowModal(!showModal);
+        setShowModal(isChecked);
         const url =response.data.url;
           
         const base = "activation_confirm/";
@@ -723,7 +719,7 @@ const LoginContainer = () => {
                       </a>
                     </div>
                   </form>
-                  <DoctorInfoModal showModal={true} />
+                  <DoctorInfoModal showModal={showModal} />
                 </div>
               </div>
             </div>
