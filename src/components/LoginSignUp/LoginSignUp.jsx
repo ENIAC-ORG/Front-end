@@ -7,7 +7,7 @@ import { eyeOff } from "react-icons-kit/feather/eyeOff";
 import { eye } from "react-icons-kit/feather/eye";
 import { IsValidEmail } from "./IsValidEmail";
 import { useNavigate } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import lock_icon from "../../assets/password.png";
 import email_icon from "../../assets/email.png";
@@ -16,7 +16,9 @@ import withReactContent from "sweetalert2-react-content";
 import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 const LoginContainer = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
+  const initialState = location.state || {};
+  const showmodal=initialState.data;
   const [flag, setflag] = useState(false);
   const [data, setData] = useState({
     email: "",
@@ -201,6 +203,7 @@ const LoginContainer = () => {
       });
       const data = response.data;
       console.log("you logined successfully");
+      console.log(data);
 
       //closeLoading();
       if (response.status === 200) {
@@ -374,7 +377,8 @@ const LoginContainer = () => {
         }
       );
 
-      const data = response.data;
+      const data = response.data.url;
+      console.log(data)
       //console.log('you logined successfully');
 
       //closeLoading();
@@ -704,7 +708,7 @@ const LoginContainer = () => {
                       </a>
                     </div>
                   </form>
-                  <DoctorInfoModal showModal={showModal} />
+                  <DoctorInfoModal showModal={showmodal} />
                 </div>
               </div>
             </div>

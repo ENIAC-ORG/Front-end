@@ -7,6 +7,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "./verification.css";
+import DoctorInfoModal from "../DoctorInfoModal/DoctorInfoModal";
 
 const Verification = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const Verification = () => {
   const [url, setUrl] = useState(initialState.url || "");
   console.log(code);
   const [fp_code, setvcode] = useState(0);
-
+  const [showmodal,setShowModal]=useState(false);
   const [wrongAttempts, setWrongAttempts] = useState(0);
   const handleWrongCode = () => {
     setWrongAttempts(wrongAttempts + 1);
@@ -79,10 +80,7 @@ const Verification = () => {
         console.log(token);
         // const token="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzM0NDYyMzQzLCJpYXQiOjE3MzM1OTgzNDMsImp0aSI6IjNhZWVhYWNiNGQ0YTQxOWRhZWI0YzQ2YTk2YjQzYjUxIiwidXNlcl9pZCI6N30.nreitTrXPRwxQxIvhfekPSAmtzeTslPx-iiieHOo-3M/"
 
-        const response = await axios(
-          "http://46.249.100.141:8070/accounts/activation_confirm/" +
-            token +
-            "/",
+        const response = await axios(url,
           {
             method: "POST",
             headers: {
@@ -104,7 +102,9 @@ const Verification = () => {
             width: "35rem",
             confirmButtonText: "تایید",
           });
-          navigate("/Signup");
+          setShowModal(true);
+          const data = showmodal
+          navigate("/Signup", { state: data });
         }
       } catch (error) {
         if (error.response.status === 400) {

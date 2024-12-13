@@ -46,7 +46,7 @@ const UserManagement = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://eniacgroup.ir:8070//accounts/Login/", {
+      const response = await axios("https://eniacgroup.ir:8070/accounts/Login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -56,6 +56,7 @@ const UserManagement = () => {
           password: "eniac@1403",
         },
       });
+      console.log("--------------------"+response.data);
       setAdminAccessToken(response.data.access);
     } catch (error) {
       toast.error("خطا", {
@@ -73,7 +74,7 @@ const UserManagement = () => {
   const handleAcceptUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://eniacgroup.ir:8070//DoctorPanel/pending_doctor/accept/${userId}/`, 
+        `http://46.249.100.141:8070/DoctorPanel/pending_doctor/accept/${userId}/`, 
         {},
         {
           headers: {
