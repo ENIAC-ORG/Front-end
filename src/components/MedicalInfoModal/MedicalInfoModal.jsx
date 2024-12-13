@@ -193,7 +193,7 @@ function MedicalInfoModal({
 
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.post("http://127.0.0.1:8000/TherapyTests/record/", payload, {
+      const response = await axios.post("http://eniacgroup.ir:8070/TherapyTests/record/", payload, {
         headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
       });
 
@@ -240,7 +240,7 @@ function MedicalInfoModal({
       const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
-      const response = await axios("http://127.0.0.1:8000//reserve/create/", {
+      const response = await axios("http://eniacgroup.ir:8070//reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

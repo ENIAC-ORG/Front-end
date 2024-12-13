@@ -81,7 +81,7 @@ function ChangePassword({ p_pages }) {
     else {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000/accounts/change_password/",
+          "http://eniacgroup.ir:8070/accounts/change_password/",
           {
             method: "POST",
             headers: {

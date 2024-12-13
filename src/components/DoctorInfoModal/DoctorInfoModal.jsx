@@ -15,6 +15,7 @@ import four_icon from "../../assets/four.png";
 import five_icon from "../../assets/five.png";
 import circle_icon from "../../assets/circle.png";
 import age_icon from "../../assets/age.png";
+import { GrConsole } from "react-icons/gr";
 
 function DoctorInfoModal({
   showModal,
@@ -202,8 +203,14 @@ function DoctorInfoModal({
     return true;
   };
 
+
   const handleSendMedicalInfo = async () => {
    
+
+  // const handleSendMedicalInfo = async (event) => {
+  //   event.preventDefault();
+    
+
 
     // const payload = {
     //   age: parseInt(age),
@@ -220,11 +227,50 @@ function DoctorInfoModal({
     //   })),
     // };
 
-    
-      //const token = localStorage.getItem("accessToken");
-      //console.log(token);
+
+    try {
+      const token = localStorage.getItem("accessToken");
+      console.log(token);
       console.log("helooooooooo");
-      toast.success("اطلاعات پزشکی شما با موفقیت ثبت شد", {
+      const response = await axios.post(
+        "http://eniacgroup.ir:8070/accounts/doctorapplication/",
+
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          data: {
+            firstname: age,
+            lastname: childrenNum,
+            doctorate_code: ssid,
+          },
+        }
+      );
+
+      if (response.status === 200 || response.status === 201) {
+        toast.success("اطلاعات پزشکی شما با موفقیت ثبت شد", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        handleClose(event);
+        CreateReservation(event);
+        setAge(null);
+        setChildrenNum(null);
+        setMedicalHistory(null);
+        setSsid("");
+        setMedicalRecords([]);
+        toggleModal();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("خطا در ثبت اطلاعات پزشکی، لطفا دوباره تلاش کنید", {
+
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -259,7 +305,7 @@ function DoctorInfoModal({
       //   }
       // );
 
-
+    }
     
   };
 
@@ -274,7 +320,7 @@ function DoctorInfoModal({
       const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
-      const response = await axios("http://127.0.0.1:8000//reserve/create/", {
+      const response = await axios("http://eniacgroup.ir:8070//reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -405,6 +451,7 @@ function DoctorInfoModal({
                 />
               </div>
               <pre></pre>
+
               <div style={{ marginTop: "10%" }}>
                 <h4
                   style={{
@@ -418,61 +465,6 @@ function DoctorInfoModal({
                     textShadow: "0px 0px 6px rgba(0, 0, 0, 0.2)",
                   }}
                 >
-                  آیا در خانواده شما سابقۀ مشکلات و ناراحتی‌های روحی و روانی
-                  وجود دارد؟
-                </h4>
-              </div>
-              <div
-                style={{ justifyContent: "center", alignItems: "center" }}
-                className="medical-field_modal"
-              >
-                <label
-                  style={{
-                    direction: "rtl",
-                    marginRight: "30%",
-                    color: "gray",
-                    fontSize: "18px",
-                  }}
-                >
-                  <input
-                    type="radio"
-                    value="no"
-                    checked={medicalHistory === false}
-                    onChange={() => {
-                      setMedicalHistory(false);
-                      console.log("medical history: ", medicalHistory);
-                    }}
-                  />{" "}
-                  خیر
-                </label>
-                <label
-                  style={{ direction: "rtl", color: "gray", fontSize: "18px" }}
-                >
-                  <input
-                    type="radio"
-                    value="yes"
-                    checked={medicalHistory === true}
-                    onChange={() => {
-                      setMedicalHistory(true);
-                      console.log("medical history: ", medicalHistory);
-                    }}
-                  />{" "}
-                  بله
-                </label>
-              </div>
-              <div style={{ marginTop: "10%" }}>
-                <h4
-                  style={{
-                    color: "rgb(119, 120, 121)",
-                    fontSize: "20px",
-                    direction: "rtl",
-                    backgroundImage: `url(${four_icon})`,
-                    backgroundRepeat: "no-repeat",
-                    paddingRight: "40px",
-                    backgroundPosition: "right",
-                    textShadow: "0px 0px 6px rgba(0, 0, 0, 0.2)",
-                  }}
-                >
                   کد نظام روانشناسی یا نظام پزشکی خود را وارد کنید:
                 </h4>
               </div>
@@ -480,7 +472,7 @@ function DoctorInfoModal({
                 <input
                   className="input"
                   type="text"
-                  placeholder="کد ملّی"
+                  placeholder="شناسه "
                   value={ssid ? convertToPersianNumbers(ssid) : ""}
                   onChange={(event) => {
                     setSsid(convertToEnglishNumbers(event.target.value));
@@ -495,34 +487,7 @@ function DoctorInfoModal({
                 />
               </div>
               {/* Medical Records List */}
-              <div style={{ marginTop: "10%" }}></div>
-              <h4
-                style={{
-                  color: "rgb(119, 120, 121)",
-                  fontSize: "20px",
-                  direction: "rtl",
-                  backgroundImage: `url(${five_icon})`,
-                  backgroundRepeat: "no-repeat",
-                  paddingRight: "40px",
-                  backgroundPosition: "right",
-                  textShadow: "0px 0px 6px rgba(0, 0, 0, 0.2)",
-                }}
-              >
-                سوابق پزشکی: با استفاده از دکمۀ زیر سوابق پزشکی خود را ثبت
-                نمایید.
-              </h4>
-              <div
-                className="medical-field_modal medical-btn"
-                style={{ marginRight: "10px" }}
-              >
-                <div className="medical-btn_layer">
-                  <input
-                    type="button"
-                    value="افزودن سابقۀ پزشکی"
-                    onClick={(e) => openRecordModal(e)}
-                  />
-                </div>
-              </div>
+
               <div
                 className="medical-field_modal medical-btn"
                 style={{ marginRight: "10px" }}
@@ -539,8 +504,6 @@ function DoctorInfoModal({
           </div>
         </div>
       </Modal>
-
-
     </>
   );
 }

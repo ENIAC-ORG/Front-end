@@ -76,7 +76,7 @@ function toPersianDigits(str) {
     else {
       try {
         const response = await axios(
-          "http://127.0.0.1:8000/accounts/get_user/",
+          "http://eniacgroup.ir:8070/accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -123,6 +123,7 @@ function toPersianDigits(str) {
 
   return (
     <>
+    <body style={{ display:'grid' }}>
       <NavBar_SideBar />
       <div
         className="prof_body"
@@ -321,6 +322,7 @@ function toPersianDigits(str) {
         </div>
       </div>
       <Footer />
+      </body>
     </>
   );
 };

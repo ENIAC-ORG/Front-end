@@ -14,7 +14,7 @@
     top: 0;
     left: 0;
     z-index: -1;
-    width: 100%;
+    width: fit-content;
     height: 100%;
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.24);
 }
@@ -116,12 +116,9 @@
     background-color: #D8EFD3;
     color: #3a3a3a;
     padding: 20px 32px;
-    /* text-align: center;
-    text-decoration: none; */
     display: inline-block;
     font-family: Ios15Medium;
     font-size: 16px;
-    /* margin: 8px 4px; */
     -webkit-transition-duration: 0.4s;
     /* Safari */
     transition-duration: 0.4s;
@@ -157,26 +154,6 @@
     width: 150px;
 }
 
-/* .button4 {
-    background-color: #D8EFD3;
-    border: none;
-    color: #3a3a3a;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-family: Ios15Medium;
-    font-size: 16px;
-    margin: 8px 4px;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
-    border-radius: 8px;
-    padding: 20px 40px;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 8px;
-    user-select: none;
-    font-weight: normal;
-} */
-
 .imagegit {
     align-items: center;
     width: 8%;
@@ -205,7 +182,7 @@
 }
 
 .aboutusSection1 {
-    background-image: url("../../assets/AboutusBackground4.jpg");
+    background-image: url("./AboutusBackground.jpg");
     background-size: cover;
     height: 490px;
     width: 100%;
@@ -215,11 +192,11 @@
     background: #f9f9f9;
     display: flex;
     flex-direction: row-reverse;
-    border-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
     margin-left: 24px;
     margin-right: 24px;
     margin-top: -70px;
-    /* height: 350px; */
     padding-top: 56px;
     padding-bottom: 56px;
     justify-content: space-around;
@@ -241,7 +218,6 @@
     background: #f9f9f9;
     display: flex;
     flex-direction: row-reverse;
-    /* border-radius: 10px; */
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
     margin-left: 24px;
