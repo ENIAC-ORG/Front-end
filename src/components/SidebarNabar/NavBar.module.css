@@ -31,16 +31,19 @@
     margin-inline-end: 4px;
     cursor: pointer;
     color: rgb(255 255 255);
+    width: 26px;
+    height: 26px;
 }
 
 .sitetitle {
     color: #ffffff;
     /* This sets the text color to white */
-    font-weight: 600;
-    font-family: cursive;
+    /* font-weight: 600; */
+    font-size: 30px;
+    font-family: Ios15medium;
     cursor: default;
     /* text-align: end; */
-    /* padding-left: 510px; */
+    padding-left: 60px;
     /* white-space: 50px; */
     /* padding-right: 100%; */
     text-align: center;
@@ -63,28 +66,36 @@
 }
 
 .con :hover {
-    color: #8e8d8d;
-    height: 20px;
-    width: 20px;
+    color: #F1F8E8;
+    height: 26px;
+    width: 26px;
 }
 
 .FB {
-    width: 18px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
 }
 
 .profile_btn {
     color: #ffffff;
     background-color: #489182;
     border: none;
-    width: 18px;
-    height: 18px;
+    width: 26px;
+    height: 26px;
 }
 
-.profile_btn:hover {
-    height: 20px;
-    width: 20px;
-    color: #8e8d8d;
+.userProfile_icon {
+    color: #ffffff;
+    background-color: #489182;
+    border: none;
+    width: 26px;
+    height: 26px;
+}
+
+.userProfile_icon:hover {
+    height: 26px;
+    width: 26px;
+    color: #F1F8E8;
 }
 
 /* .profile_btn:not(:hover) .profile_menu { */
@@ -98,7 +109,7 @@
     text-align: center;
     vertical-align:middle;
     width: 9rem;
-    background-color: rgb(235, 235, 235);
+    background-color: #F1F8E8;
     border-radius: 15px;
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     z-index: 10;
@@ -116,15 +127,17 @@
     padding-top: 0.5rem;
     padding-left: 0px;
     padding-right: 0px;
-    font-size: 12px;
+    font-size: 16px;
     color: #807f7f;
-    font-family: Ios15Medium;
     cursor: pointer;
 }
 
 .prof_list li :hover {
     color: #489182;
-    font-size: 14px;
-    text-shadow: 1px 1px rgb(148, 148, 148);
+    font-size: 17px;
+    /* text-shadow: 1px 1px rgb(148, 148, 148); */
+}
 
+.prof_list label {
+    font-family: Ios15medium;
 }

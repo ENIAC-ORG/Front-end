@@ -23,8 +23,13 @@
 .btn {
     font-weight: 600;
     transition: .5s;
-    background-color: #ACBCFF;
+    background-color: #63ad97 !important; 
+    /* #49947d */
     font-family: Ios15Medium;
+}
+
+.btn:hover {
+    background-color: #707877;
 }
 
 .btn-square {
@@ -322,8 +327,8 @@
 
 /*** Services Start ***/
 
-.services .services-item {
-    box-shadow: 0 0 60px rgba(0, 0, 0, .2);
+.services .services-item-test {
+    box-shadow: 0 0 60px rgba(54, 56, 55, 0.2);
     width: 100%;
     height: 100%;
     border-radius: 10px;
@@ -334,7 +339,7 @@
 }
 
 
-.services-content::after {
+.services-content-test::after {
     position: absolute;
     content: "";
     width: 100%;
@@ -344,40 +349,45 @@
     border-radius: 10px 10px 0 0;
     transition: .5s;
     text-align: center;
-    background-color: #cbe8f8;
+    background-color: #f4ffe3;
 }
 
-.services-content::after {
+.services-content-test::after {
     top: 0;
     bottom: auto;
     border-radius: 10px 10px 10px 10px;
     text-align: center;
-    background-color:#AEE2FF;
+    background-color:#f4ffe3;
 }
 
-.services-item:hover .services-content::after {
+.services-item-test:hover .services-content-test::after {
     height: 100%;
     opacity: 1;
     transition: .5s;
     text-align: center;
-    background-color: #AEE2FF;
+    background-color: #f4ffe3;
 }
 
-.services-item:hover .services-content-icon {
+.services-item-test:hover .services-content-test-icon {
     position: relative;
     z-index: 2;
 }
 
-.services-item .services-content-icon i,
-.services-item .services-content-icon p {
+.services-item-test .services-content-test-icon i,
+.services-item-test .services-content-test-icon p,
+.services-item-test .services-content-test-icon HashLink {
     transition: .5s;
 }
 
-.services-item:hover .services-content-icon i {
+.services-item-test:hover .services-content-test-icon i {
     color: var(--bs-secondary) !important;
 }
 
-.services-item:hover .services-content-icon p {
+.services-item-test:hover .services-content-test-icon a {
+    background-color: var(--bs-secondary) !important;
+}
+
+.services-item-test:hover .services-content-test-icon p {
     color: var(--bs-white);
 }
 
@@ -493,7 +503,7 @@
 
 .team-item {
     border-top: 30px solid var(--bs-secondary) !important;
-    background: rgba(30, 30, 174, 0.8);
+    background: rgba(30, 174, 140, 0.8);
 }
 
 .team-content::before {
@@ -680,12 +690,20 @@
 
 .TestHeader {
     text-align: center;
-    font-size: 8rem;
+    padding-bottom: 10px;
     font-family: Ios15Medium;
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(67, 110, 68, 0.459);
+    color: #395350 !important;
 }
 
 .TestName {
     margin-bottom: 0.75rem;
-    font-size: 2.75rem;
+    font-size: 2.0rem;
     font-family: Ios15Medium;
+    color: #707877;
 }
+
+.bg-dark-custom {
+    background-color: #c8e1c4;
+  }

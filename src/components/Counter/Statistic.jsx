@@ -45,16 +45,18 @@ const Statistic = () => {
   }
 
   return (
-    <div id="statistics" className="statistics-container">
-      <div className="statistics-row">
-        <div style={{ fontSize: "44px" }} className="statistics-item">
-          <CounterUp EndNum={patientsCount} label="مراجعین" />
-        </div>
-        <div style={{ fontSize: "44px" }} className="statistics-item">
-          <CounterUp EndNum={doctorsCount} label="درمانگران" />
-        </div>
-        <div style={{ fontSize: "41px" }} className="statistics-item">
-          <CounterUp EndNum={reservationsCount} label="نوبت ثبت شده" />
+    <div className="bg-dark m-5 rounded">
+      <div id="statistics" className="statistics-container">
+        <div className="statistics-row">
+          <div style={{ fontSize: "44px" }} className="statistics-item">
+            <CounterUp EndNum={reservationsCount} label="نوبت‌ها" />
+          </div>
+          <div style={{ fontSize: "44px" }} className="statistics-item">
+            <CounterUp EndNum={patientsCount} label="مراجعین" />
+          </div>
+          <div style={{ fontSize: "44px" }} className="statistics-item">
+            <CounterUp EndNum={doctorsCount} label="درمانگران" />
+          </div>
         </div>
       </div>
     </div>

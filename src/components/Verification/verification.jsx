@@ -89,8 +89,8 @@ const Verification = () => {
           withReactContent(Swal).fire({
             icon: "success",
             title: "!ثبت نام با موفقیت انجام شد",
-            background: "#473a67",
-            color: "#b4b3b3",
+            background: "#55AD9B",
+            color: "#black",
             width: "35rem",
             confirmButtonText: "تایید",
           });

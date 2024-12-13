@@ -17,7 +17,7 @@
 
 
 /*** Button Start ***/
-.btn {
+/* .btn {
     font-weight: 600;
     transition: .5s;
 }
@@ -60,7 +60,7 @@
     right: 30px;
     bottom: 30px;
     z-index: 99;
-}
+} */
 
 /*** Button End ***/
 
@@ -389,7 +389,9 @@
 
 .doctor_h1{
     font-family: Ios15Medium;
-    color: gray;
+    color: rgb(114, 115, 114);
+    font-size: 50px;
+    text-shadow: 2px 2px 4px rgba(22, 24, 22, 0.459);
 }
 
 
@@ -401,7 +403,7 @@
     top: 0;
     left: 0;
     background: var(--bs-secondary);
-    background-color: #B799FF;
+    background-color: #5d9a7f;
     border-radius: 10px;
     opacity: 1;
     z-index: 1;
@@ -416,7 +418,7 @@
     right: 0;
     bottom: 100px;
     background: var(--bs-primary);
-    background-color: #ACBCFF;
+    background-color: #b08842;
     border-radius: 10px;
     opacity: 1;
     z-index: 1;
@@ -444,7 +446,7 @@
     color:#26d48c;
     padding: 20px 25px;
     background: var(--bs-primary);
-    background-color: #a48dda;
+    background-color: #9dc5b4;
     border-radius: 10px;
 }
 
@@ -689,7 +691,7 @@
 
 .button-64 {
     align-items: center;
-    background-image: linear-gradient(144deg,#AF40FF, #5B42F3 50%,#00DDEB);
+    background-image: linear-gradient(144deg,#40ff80, #5B42F3 50%,#00DDEB);
     border: 0;
     border-radius: 8px;
     box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
@@ -738,5 +740,19 @@
 
   .doctor_h2{
     font-family: Ios15Medium;
-    color: gray;
+    color: rgb(223, 240, 229);
 }
+
+.text-secondary {
+    --bs-text-opacity: 1;
+    color: rgb(179, 223, 202) !important;
+  }
+
+.bg-dark-custom2 {
+    background-color: #c8e1c4;
+  }
+
+.text-secondary {
+    --bs-text-opacity: 1;
+    color: rgb(174, 200, 223) !important;
+  }
