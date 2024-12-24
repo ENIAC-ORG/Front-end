@@ -16,23 +16,12 @@
  }
  .custom-form-input{
     font-family: 'Ios15medium';
-    /* padding: 1px; */
     width:100%;
-    border-color: #37401f;
-    color: #16641b;
-    /* border-radius: 20px; */
+    /* color: #16641b; */
+}
 
-    &:hover {
-        border-color: #916b48;
-    }
-
-    &::selection {
-        border-color: #489182;
-    }
-
-    input {
-        color: 'white'
-    }
+.custom-form-input :hover{
+    border-color: #819148;
 }
 
 .customize-chat-side{
@@ -42,4 +31,22 @@
 
 .chat-my-message{
     background-color:#249861;
+}
+
+
+
+.custom-micro{
+background-color: #249861;
+color: #249861;
+}
+
+.voice-visualizer__canvas-microphone-icon{
+    background-color: #249861 !important;
+    color: #249861 !important;
+}
+
+
+.voice-visualizer__canvas-microphone-icon{
+    display: none !important;
+
 }

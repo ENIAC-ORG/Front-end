@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { FaPaperPlane } from "react-icons/fa6";
 import React, { useState, useEffect, useRef } from "react";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import { useVoiceVisualizer, VoiceVisualizer } from "react-voice-visualizer";
 
 function GetTimeDiff(date) {
   let date1 = new Date(date);
@@ -30,18 +31,106 @@ function toPersianDigits(str) {
 }
 
 const Chat = () => {
+  const recorderControls = useVoiceVisualizer();
+  const {recordedBlob,
+    error,
+    audioSrc,
+    isPausedRecordedAudio,
+  } = recorderControls;
+
+  useEffect(() => {
+    if (!recordedBlob) return;
+
+    console.log(recordedBlob);
+    console.log(audioSrc);
+  }, [recordedBlob, error]);
+
+  useEffect(() => {
+    if (!isPausedRecordedAudio) return;
+
+    console.log("nfmnv");
+  }, [recordedBlob, error]);
+
+  // Get the error when it occurs
+  useEffect(() => {
+    if (!error) return;
+    console.error(error);
+  }, [error]);
   const scrollRef = useRef(null);
   const [conversationList, SetConversationsList] = new useState([]);
   const [OpenConversation, SetConversations] = new useState(null);
   const [Conv_id, SetId] = new useState(-1);
   const [new_message, setMessage] = new useState();
   const [Loading, setStaus] = new useState(true);
+  const [Recording, setRecordStatus] = new useState(true);
 
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, []);
+
+  
+
+  async function SendAudio() {
+    if(isPausedRecordedAudio)
+    {
+      setRecordStatus(false);
+      //    try {
+    //   const token = localStorage.getItem("accessToken");
+    //   const response = await axios(
+    //     `http://46.249.100.141:8070/depression-chat/chat/${id}/`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   if (response.status == 200 || response.status == 201) {
+    //     SetConversations(response.data.conversations);
+    //   }
+    // } catch (error) {
+    //   if (error.response.status == 400) {
+    //     if (
+    //       error.response.data.message ==
+    //       "There is not chats in this Conversation. make a new one"
+    //     )
+    //       SetConversations([]);
+    //   }
+    // }
+    }
+    const response1 = await fetch(audioSrc);
+    const blob = await response1.blob();
+
+      // Prepare FormData
+    const formData = new FormData();
+    formData.append("voice", blob, "recording.wav"); 
+    console.log(formData.getAll());
+    //    try {
+    //   const token = localStorage.getItem("accessToken");
+    //   const response = await axios(
+    //     `http://46.249.100.141:8070/depression-chat/chat/${id}/`,
+    //     {
+    //       method: "GET",
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     }
+    //   );
+    //   if (response.status == 200 || response.status == 201) {
+    //     SetConversations(response.data.conversations);
+    //   }
+    // } catch (error) {
+    //   if (error.response.status == 400) {
+    //     if (
+    //       error.response.data.message ==
+    //       "There is not chats in this Conversation. make a new one"
+    //     )
+    //       SetConversations([]);
+    //   }
+    // }
+  }
 
   async function CreateConversation() {
     try {
@@ -172,7 +261,8 @@ const Chat = () => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,        });
+          progress: undefined,
+        });
       if (
         error.response.data.message ==
         "you did not have any Tests more than 7 days before, first take the phq9 test."
@@ -202,7 +292,8 @@ const Chat = () => {
   return (
     <>
       <NavBar_SideBar />
-      <ToastContainer style={{ width: "450px" }}/>
+      <ToastContainer style={{ width: "450px" }} />
+      <div onClick={SendAudio}>fndklsm;,</div>
       <section>
         <div class="py-5" align="center">
           <div class="row">
@@ -409,76 +500,125 @@ const Chat = () => {
                                 </div>
                               </>
                             ))}
-                          </div>
-                          <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
-                            <TextField
-                              multiline
-                              autoComplete="off"
-                              variant="outlined"
-                              onChange={(event) => {
-                                if (event.target.value.includes("\n")) {
-                                  SendMessage();
-                                  setMessage(event.target.value.slice(0, -1));
-                                } else setMessage(event.target.value);
-                              }}
-                              dir="rtl"
-                              InputLabelProps={{
-                                dir: "rtl",
-                              }}
-                              value={new_message}
-                              class="custom-form-input"
-                              InputProps={{
-                                style: {
-                                  color: "red",
-                                  width: "100%",
-                                },
-                              }}
-                            />
-
-                            <a class="ms-3 fs-4 text-success text-decoration-none">
-                              {Loading && (
-                                <FaPaperPlane
-                                  onClick={() => {
-                                    setStaus(false);
-                                    SendMessage();
+                          </div>voice-visualizer__canvas-container
+                            {!Recording && (<VoiceVisualizer height={30} backgroundColor="grey" isDefaultUIShown	={false} isDownloadAudioButtonShown={true}
+                                    controls={recorderControls} mainBarColor="#16b942" canvasContainerClassName="custom-micro" onPausedRecording={()=>{console.log("fdg")}}
+                                  />)}
+                            {Recording && (
+                              <div class="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
+                                 <TextField
+                                  multiline
+                                  autoComplete="off"
+                                  variant="outlined"
+                                  onChange={(event) => {
+                                    if (event.target.value.includes("\n")) {
+                                      SendMessage();
+                                      setMessage(
+                                        event.target.value.slice(0, -1)
+                                      );
+                                    } else setMessage(event.target.value);
+                                  }}
+                                  dir="rtl"
+                                  InputLabelProps={{
+                                    dir: "rtl",
+                                  }}
+                                  value={new_message}
+                                  class="custom-form-input"
+                                  InputProps={{
+                                    style: {
+                                      color: "red",
+                                      width: "100%",
+                                    },
                                   }}
                                 />
-                              )}
-                              {!Loading && (
-                                <>
-                                  <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 300 150"
-                                  >
-                                    <path
-                                      fill="none"
-                                      stroke="#198754"
-                                      stroke-width="15"
-                                      stroke-linecap="round"
-                                      stroke-dasharray="300 385"
-                                      stroke-dashoffset="0"
-                                      d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
-                                    >
-                                      <animate
-                                        attributeName="stroke-dashoffset"
-                                        calcMode="spline"
-                                        dur="2.2"
-                                        values="685;-685"
-                                        keySplines="0 0 1 1"
-                                        repeatCount="indefinite"
-                                      ></animate>
-                                    </path>
-                                  </svg>
-                                  <div
-                                    className="text-white"
-                                    style={{ lineHeight: "5px" }}
-                                  >
-                                    ghhh
-                                  </div>
-                                </>
-                              )}
-                            </a>
-                          </div>
+                                 <a class="ms-3 fs-4 text-success text-decoration-none">
+                                   {Loading && (
+                                     <div
+                                       className="d-flex "
+                                       style={{ flex: "row" }}
+                                     >
+                                       <FaPaperPlane
+                                         className="mt-1 me-1"
+                                         onClick={() => {
+                                           setStaus(false);
+                                           SendMessage();
+                                         }}
+                                       />
+                                       <svg
+                                         fill="#198754"
+                                         height="35px"
+                                         width="40px"
+                                         version="1.1"
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="-30.72 -30.72 573.44 573.44"
+                                         xmlns:xlink="http://www.w3.org/1999/xlink"
+                                         enable-background="new 0 0 512 512"
+                                         stroke="#198754"
+                                         stroke-width="6.144"
+                                         transform="rotate(0)"
+                                         onClick={()=>setRecordStatus(false)}
+                                       >
+                                         <g
+                                           id="SVGRepo_bgCarrier"
+                                           stroke-width="0"
+                                         ></g>
+                                         <g
+                                           id="SVGRepo_tracerCarrier"
+                                           stroke-linecap="round"
+                                           stroke-linejoin="round"
+                                           stroke="#CCCCCC"
+                                           stroke-width="3.072"
+                                         ></g>
+                                         <g id="SVGRepo_iconCarrier">
+                                           {" "}
+                                           <g>
+                                             {" "}
+                                             <g>
+                                               {" "}
+                                               <path d="m439.5,236c0-11.3-9.1-20.4-20.4-20.4s-20.4,9.1-20.4,20.4c0,70-64,126.9-142.7,126.9-78.7,0-142.7-56.9-142.7-126.9 0-11.3-9.1-20.4-20.4-20.4s-20.4,9.1-20.4,20.4c0,86.2 71.5,157.4 163.1,166.7v57.5h-23.6c-11.3,0-20.4,9.1-20.4,20.4 0,11.3 9.1,20.4 20.4,20.4h88c11.3,0 20.4-9.1 20.4-20.4 0-11.3-9.1-20.4-20.4-20.4h-23.6v-57.5c91.6-9.3 163.1-80.5 163.1-166.7z"></path>{" "}
+                                               <path d="m256,323.5c51,0 92.3-41.3 92.3-92.3v-127.9c0-51-41.3-92.3-92.3-92.3s-92.3,41.3-92.3,92.3v127.9c0,51 41.3,92.3 92.3,92.3zm-52.3-220.2c0-28.8 23.5-52.3 52.3-52.3s52.3,23.5 52.3,52.3v127.9c0,28.8-23.5,52.3-52.3,52.3s-52.3-23.5-52.3-52.3v-127.9z"></path>{" "}
+                                             </g>{" "}
+                                           </g>{" "}
+                                         </g>
+                                       </svg>{" "}
+                                     </div>
+                                   )}
+                                   {!Loading && (
+                                     <>
+                                       <svg
+                                         xmlns="http://www.w3.org/2000/svg"
+                                         viewBox="0 0 300 150"
+                                       >
+                                         <path
+                                           fill="none"
+                                           stroke="#198754"
+                                           stroke-width="15"
+                                           stroke-linecap="round"
+                                           stroke-dasharray="300 385"
+                                           stroke-dashoffset="0"
+                                           d="M275 75c0 31-27 50-50 50-58 0-92-100-150-100-28 0-50 22-50 50s23 50 50 50c58 0 92-100 150-100 24 0 50 19 50 50Z"
+                                         >
+                                           <animate
+                                             attributeName="stroke-dashoffset"
+                                             calcMode="spline"
+                                             dur="2.2"
+                                             values="685;-685"
+                                             keySplines="0 0 1 1"
+                                             repeatCount="indefinite"
+                                           ></animate>
+                                         </path>
+                                       </svg>
+                                       <div
+                                         className="text-white"
+                                         style={{ lineHeight: "5px" }}
+                                       >
+                                         ghhh
+                                       </div>
+                                     </>
+                                   )}
+                                 </a>
+                              </div>
+                            )}
                         </>
                       )}
                     </div>
