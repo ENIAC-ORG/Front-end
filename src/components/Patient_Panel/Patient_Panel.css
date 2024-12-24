@@ -3,7 +3,6 @@
     direction: rtl;
     flex-wrap: wrap;
     height: fit-content;
-    background-image: linear-gradient(62deg, #B799FF 0%, #AEE2FF 100%);
     justify-content: space-around;
     padding-top: 2.5%;
     padding-bottom: 2.5%;
@@ -17,7 +16,7 @@
     height:100%;
     width: 200%;
     min-width: fit-content;
-    background-color: rgb(224, 223, 223);
+    background-color: rgb(201, 255, 160);
 
 }
 
@@ -49,18 +48,16 @@
 
 .patient_prof_pages
 {
-    width: 430px;
-    font-size: larger;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 50px;
+    width: 50%;
+    font-size: large;
     justify-content: space-evenly;
-    padding-left: 10px;
-    padding-right: 10px;
     border-color: #000000;
-    border-radius: 12px 12px 0px 0px;
+    border-radius: 12px 12px 0px 0px; 
     background-color: white;
-    box-shadow: 0 6px 0 #fff, 0 1px 6px rgba(0,0,0, .35);
+    box-shadow: 0 6px 0 #fff, 0 1px 6px rgba(0,0,0, .35); 
+    display: flex;
+    flex: row;
+    gap: 3rem;
 }
 
 .patient_prof_insidebox{

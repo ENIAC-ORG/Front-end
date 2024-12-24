@@ -158,8 +158,7 @@ const Patient_Panel = () => {
     <>
       <NavBar_SideBar />
       <div
-        className="prof_body"
-        // style={pages == 2 ? { paddingTop: "1.5%" } : {}}
+        className="patient_prof_body"
         onLoad={GetHealthInfo}
       >
         <div className="prof_Box" style={{ minWidth: "500px" }}>
@@ -182,7 +181,7 @@ const Patient_Panel = () => {
                         onClick={(e) => setPageNum(1)}
                         style={
                           pages == 1
-                            ? { color: "#B799FF", cursor: "pointer" }
+                            ? { color: "rgb(201, 255, 160)" }
                             : { cursor: "pointer" }
                         }
                       >

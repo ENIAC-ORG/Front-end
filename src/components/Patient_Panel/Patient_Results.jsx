@@ -59,7 +59,7 @@ const Patient_Result = ({ results, G }) => {
           <div className="patient_prof_res_card">
             <h3>Glasser</h3>
             <hr />
-            {results.glasserTest == null ? (
+            {results?.glasserTest == null ? (
               <h5>نتیجه ای برای مشاهده وجود ندارد</h5>
             ) : (
               <ul style={{ listStyleType: "none",lineHeight:'49px' }}>
@@ -89,7 +89,7 @@ const Patient_Result = ({ results, G }) => {
           <div className="patient_prof_res_card">
             <h3>MBTI</h3>
             <hr />
-            {results.MBTItest== null ? (
+            {results?.MBTItest== null ? (
               <h5>نتیجه ای برای مشاهده وجود ندارد</h5>
             ) : (
               <>
