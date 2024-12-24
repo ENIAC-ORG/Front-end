@@ -22,6 +22,7 @@ import Testresult from "./components/User_TestResult/TestResult.jsx";
 import RecommendationPage from "./components/RecommendationPage/RecommendationPage.jsx";
 import UserManagement from  "./components/UserManagement/user_management.jsx";
 import Chat from "./components/Chat/Chat.jsx";
+import GroupChat from "./components/GroupChat/GroupChat.jsx";
 
 function App() {
   return (
@@ -93,6 +94,9 @@ function App() {
           {" "}
         </Router.Route>
         <Router.Route path="/Chat" element={<Chat />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/GroupChat" element={<GroupChat />}>
           {" "}
         </Router.Route>
       </Router.Routes>
