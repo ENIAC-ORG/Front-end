@@ -2,7 +2,7 @@ import "./groupchat_styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import { GrNewWindow } from "react-icons/gr";
 import { FaPaperPlane } from "react-icons/fa6";
-import { TextField } from "@material-ui/core";
+import { TextField, Dialog, DialogActions, DialogContent, DialogTitle, Button } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
@@ -20,34 +20,34 @@ function GetTimeDiff(date) {
   return min == 0
     ? "اکنون"
     : min < 60
-    ? `${min} دقیقه`
-    : hour < 24
-    ? `${hour} ساعت`
-    : `${days} روز`;
+      ? `${min} دقیقه`
+      : hour < 24
+        ? `${hour} ساعت`
+        : `${days} روز`;
 }
 
 // Mock groups with Persian messages, different users, and authorId
 const mockGroups = [
   {
     id: 1,
-    name: "گروه اول",
+    name: "گروه زوج درمانی",
     archived: false,
     messages: [
       { id: 1, content: "سلام، چطورید؟", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
       { id: 2, content: "خوبم، مرسی! شما چطورید؟", authorId: 2, authorName: "زهرا دهقان", timestamp: new Date() },
-      { id: 3, content: "خوبم، متشکرم!", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
+      { id: 3, content: "!خوبم، متشکرم", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
     ],
   },
   {
     id: 2,
-    name: "گروه دوم",
+    name: "گروه کودکان",
     archived: false,
     messages: [
-      { id: 1, content: "سلام، وقت بخیر!", authorId: 3, authorName: "فاطمه شرح دهی", timestamp: new Date() },
-      { id: 2, content: "وقت شما هم بخیر!", authorId: 4, authorName: "زهرا علیزاده", timestamp: new Date() },
+      { id: 1, content: "!سلام، وقت بخیر", authorId: 3, authorName: "فاطمه شرح دهی", timestamp: new Date() },
+      { id: 2, content: "!وقت شما هم بخیر", authorId: 4, authorName: "زهرا علیزاده", timestamp: new Date() },
     ],
   },
-  { id: 3, name: "گروه سوم", archived: true, messages: [] },
+  { id: 3, name: "گروه فردی", archived: true, messages: [] },
 ];
 
 const GroupChat = () => {
@@ -61,6 +61,11 @@ const GroupChat = () => {
   const [userName, setUserName] = useState("هلیا شمس زاده"); // Default user ID
   const [userId, setUserId] = useState(1); // Default user ID for styling
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, target: null });
+  const [newGroupName, setNewGroupName] = useState("");
+  const contextMenuRef = useRef(null); // Ref for context menu container
+
+  // State to control the modal
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     if (selectedGroup) {
@@ -74,51 +79,53 @@ const GroupChat = () => {
     }
   }, [selectedGroup?.messages]);
 
+  useEffect(() => {
+    // Close the context menu when clicking outside of it
+    const handleClickOutside = (event) => {
+      if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
+        closeContextMenu();
+      }
+    };
+
+    if (contextMenu.visible) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [contextMenu.visible]);
+
   const createGroup = () => {
-    if (!groupName.trim()) {
+    if (!newGroupName.trim()) {
       toast.error("نام گروه نمی‌تواند خالی باشد");
       return;
     }
     const newGroup = {
       id: groupList.length + 1,
-      name: groupName,
+      name: newGroupName,
       archived: false,
       messages: [],
     };
     setGroupList([...groupList, newGroup]);
-    setGroupName("");
+    setNewGroupName(""); // Clear the input after creating the group
+    setOpenModal(false); // Close the modal
     toast.success("گروه جدید ایجاد شد");
   };
 
-  const editGroup = () => {
-    if (!editGroupName.trim()) {
-      toast.error("نام گروه نمی‌تواند خالی باشد");
-      return;
-    }
-    const updatedGroups = groupList.map((group) =>
-      group.id === selectedGroup.id ? { ...group, name: editGroupName } : group
-    );
-    setGroupList(updatedGroups);
-    setSelectedGroup({ ...selectedGroup, name: editGroupName });
-    toast.success("نام گروه تغییر کرد");
+  const handleOpenModal = () => {
+    setOpenModal(true);
   };
 
-  const archiveGroup = () => {
-    const updatedGroups = groupList.map((group) =>
-      group.id === selectedGroup.id ? { ...group, archived: true } : group
-    );
-    setGroupList(updatedGroups);
-    setSelectedGroup({ ...selectedGroup, archived: true });
-    toast.success("گروه به بایگانی منتقل شد");
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setGroupName(""); // Reset the group name when modal is closed
   };
 
-  const deleteGroup = () => {
-    if (window.confirm("آیا مطمئن هستید که می‌خواهید این گروه را حذف کنید؟")) {
-      const updatedGroups = groupList.filter((group) => group.id !== selectedGroup.id);
-      setGroupList(updatedGroups);
-      setSelectedGroup(null);
-      toast.success("گروه حذف شد");
-    }
+  const handleInputChange = (e) => {
+    setNewGroupName(e.target.value);
   };
 
   const sendMessage = () => {
@@ -161,9 +168,9 @@ const GroupChat = () => {
       const { itemType, item } = contextMenu.target;
       if (itemType === "group") {
         if (action === "archive") {
-          archiveGroup();
+          archiveGroup(item.id);
         } else if (action === "delete") {
-          deleteGroup();
+          deleteGroup(item.id);
         }
       } else if (itemType === "message") {
         if (action === "delete") {
@@ -172,6 +179,24 @@ const GroupChat = () => {
       }
     }
     closeContextMenu();
+  };
+
+  const archiveGroup = (groupId) => {
+    const updatedGroups = groupList.map((group) =>
+      group.id === groupId ? { ...group, archived: true } : group
+    );
+    setGroupList(updatedGroups);
+    setSelectedGroup({ ...selectedGroup, archived: true });
+    toast.success("گروه به بایگانی منتقل شد");
+  };
+
+  const deleteGroup = (groupId) => {
+    if (window.confirm("آیا مطمئن هستید که می‌خواهید این گروه را حذف کنید؟")) {
+      const updatedGroups = groupList.filter((group) => group.id !== groupId);
+      setGroupList(updatedGroups);
+      setSelectedGroup(null);
+      toast.success("گروه حذف شد");
+    }
   };
 
   // Helper function to convert digits to Persian
@@ -191,16 +216,15 @@ const GroupChat = () => {
             <div className="col-md-12">
               <div id="chat3" style={{ borderRadius: "15px", width: "100%" }}>
                 <div className="card-body">
-                  <div className="row justify-content-center px-sm-3 ">
+                  <div className="row justify-content-center px-sm-3">
                     <div className="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
                       <div className="py-4">
                         <div className="input-group rounded p-3" dir="rtl">
-                          <span onClick={createGroup} className="cursor-pointer">
+                          <span onClick={handleOpenModal} className="cursor-pointer">
                             <GrNewWindow className="fs-5" />
                           </span>
                         </div>
                         <hr className="mt-0" />
-  
                         <div
                           style={{
                             position: "relative",
@@ -219,7 +243,7 @@ const GroupChat = () => {
                                 color: "#198754",
                               }}
                             >
-                              !هنوز مکالمه ای شروع نکرده اید
+                              !هیچ گروهی برای نمایش وجود ندارد
                             </p>
                           )}
                           <ul className="list-unstyled mb-0">
@@ -235,7 +259,7 @@ const GroupChat = () => {
                                   className="d-flex justify-content-between"
                                 >
                                   <div className="d-flex flex-row">
-                                    <div className="pt-1">
+                                    <div className="pt-1" cursor="pointer">
                                       <p
                                         className="fw-bold mb-0 font-custom"
                                         style={{ color: "#198754" }}
@@ -256,8 +280,8 @@ const GroupChat = () => {
                         </div>
                       </div>
                     </div>
-  
-                    <div className="col-md-5 col-lg-6 col-xl-8 ">
+
+                    <div className="col-md-5 col-lg-6 col-xl-8">
                       {selectedGroup !== null && (
                         <>
                           <div
@@ -277,23 +301,21 @@ const GroupChat = () => {
                               >
                                 {/* Message from user */}
                                 <div
-                                  className={`d-flex flex-row justify-content-${
-                                    message.authorId === userId ? "end" : "start"
-                                  }`}
+                                  className={`d-flex flex-row justify-content-${message.authorId === userId ? "end" : "start"
+                                    }`}
                                 >
                                   {/* Message Box for Other Users (with their username inside) */}
                                   <div
-                                    className={`p-2 mb-1 rounded-3 font-custom ${
-                                      message.authorId === userId
+                                    className={`p-2 mb-1 rounded-3 font-custom ${message.authorId === userId
                                         ? "bg-success text-white"
                                         : "bg-light"
-                                    }`}
+                                      }`}
                                   >
                                     {message.authorId !== userId && (
                                       <p
                                         className="small mb-1 text-muted"
                                         style={{
-                                          textAlign: "right",
+                                          textAlign: "left",
                                           fontWeight: "bold",
                                         }}
                                       >
@@ -303,8 +325,7 @@ const GroupChat = () => {
                                     <p
                                       className="small mb-1"
                                       style={{
-                                        textAlign:
-                                          message.authorId === userId ? "right" : "left",
+                                        textAlign: message.authorId === userId ? "left" : "right",
                                       }}
                                     >
                                       {message.content}
@@ -312,9 +333,10 @@ const GroupChat = () => {
                                   </div>
                                 </div>
                               </div>
+
                             ))}
                           </div>
-  
+
                           <div className="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
                             <TextField
                               multiline
@@ -339,7 +361,7 @@ const GroupChat = () => {
                                 },
                               }}
                             />
-  
+
                             <a className="ms-3 fs-4 text-success text-decoration-none">
                               {loading && (
                                 <FaPaperPlane
@@ -369,6 +391,7 @@ const GroupChat = () => {
         {/* Context Menu for Groups and Messages */}
         {contextMenu.visible && (
           <div
+            ref={contextMenuRef}
             style={{
               position: "absolute",
               top: contextMenu.y,
@@ -384,13 +407,13 @@ const GroupChat = () => {
                 <>
                   <li
                     onClick={() => handleContextMenuAction("archive")}
-                    style={{ cursor: "pointer", padding: "5px 0" }}
+                    style={{ cursor: "pointer", padding: "5px 0", fontFamily: "Ios15Medium" }}
                   >
                     آرشیو کردن
                   </li>
                   <li
                     onClick={() => handleContextMenuAction("delete")}
-                    style={{ cursor: "pointer", padding: "5px 0" }}
+                    style={{ cursor: "pointer", padding: "5px 0", fontFamily: "Ios15Medium" }}
                   >
                     حذف گروه
                   </li>
@@ -399,7 +422,7 @@ const GroupChat = () => {
               {contextMenu.target.itemType === "message" && (
                 <li
                   onClick={() => handleContextMenuAction("delete")}
-                  style={{ cursor: "pointer", padding: "5px 0" }}
+                  style={{ cursor: "pointer", padding: "5px 0", fontFamily: "Ios15Medium" }}
                 >
                   حذف پیام
                 </li>
@@ -407,7 +430,37 @@ const GroupChat = () => {
             </ul>
           </div>
         )}
+
+        {/* Modal for creating a new group */}
+        <Dialog open={openModal} onClose={handleCloseModal}>
+          <DialogTitle style={{ fontFamily: "Ios15Medium", direction: "rtl" }}>ایجاد گروه جدید</DialogTitle>
+          <DialogContent>
+            <TextField
+              autoFocus
+              margin="dense"
+              type="text"
+              fullWidth
+              value={newGroupName}
+              onChange={handleInputChange}
+              InputProps={{
+                style: { fontFamily: "Ios15Medium", direction: "rtl" }, // Font family and RTL for input text
+              }}
+              InputLabelProps={{
+                style: { fontFamily: "Ios15Medium", textAlign: "right", direction: "rtl" }, // Font family and RTL for label
+              }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleCloseModal} color="primary">
+              لغو
+            </Button>
+            <Button onClick={createGroup} color="primary">
+              ایجاد
+            </Button>
+          </DialogActions>
+        </Dialog>
       </section>
+      <Footer />
     </>
   );
 };
