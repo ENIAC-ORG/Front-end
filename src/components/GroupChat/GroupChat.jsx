@@ -60,6 +60,7 @@ const GroupChat = () => {
   const [editGroupName, setEditGroupName] = useState("");
   const [userName, setUserName] = useState("هلیا شمس زاده"); // Default user ID
   const [userId, setUserId] = useState(1); // Default user ID for styling
+  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, target: null });
 
   useEffect(() => {
     if (selectedGroup) {
@@ -131,7 +132,7 @@ const GroupChat = () => {
     };
     const updatedGroup = { ...selectedGroup, messages: [...selectedGroup.messages, newMessageObj] };
     setSelectedGroup(updatedGroup);
-    setNewMessage("");
+    setNewMessage(""); // Clear the message box after sending
   };
 
   const deleteMessage = (messageId) => {
@@ -139,6 +140,38 @@ const GroupChat = () => {
     const updatedGroup = { ...selectedGroup, messages: updatedMessages };
     setSelectedGroup(updatedGroup);
     toast.success("پیام حذف شد");
+  };
+
+  const handleContextMenu = (e, itemType, item) => {
+    e.preventDefault();
+    setContextMenu({
+      visible: true,
+      x: e.clientX,
+      y: e.clientY,
+      target: { itemType, item },
+    });
+  };
+
+  const closeContextMenu = () => {
+    setContextMenu({ visible: false, x: 0, y: 0, target: null });
+  };
+
+  const handleContextMenuAction = (action) => {
+    if (contextMenu.target) {
+      const { itemType, item } = contextMenu.target;
+      if (itemType === "group") {
+        if (action === "archive") {
+          archiveGroup();
+        } else if (action === "delete") {
+          deleteGroup();
+        }
+      } else if (itemType === "message") {
+        if (action === "delete") {
+          deleteMessage(item.id);
+        }
+      }
+    }
+    closeContextMenu();
   };
 
   // Helper function to convert digits to Persian
@@ -195,6 +228,7 @@ const GroupChat = () => {
                                 className="p-2"
                                 style={{ borderBottom: "1px solid black" }}
                                 key={group.id}
+                                onContextMenu={(e) => handleContextMenu(e, "group", group)}
                               >
                                 <div
                                   onClick={() => setSelectedGroup(group)}
@@ -237,7 +271,10 @@ const GroupChat = () => {
                             }}
                           >
                             {selectedGroup.messages.map((message) => (
-                              <div key={message.id}>
+                              <div
+                                key={message.id}
+                                onContextMenu={(e) => handleContextMenu(e, "message", message)}
+                              >
                                 {/* Message from user */}
                                 <div
                                   className={`d-flex flex-row justify-content-${
@@ -328,6 +365,48 @@ const GroupChat = () => {
             </div>
           </div>
         </div>
+
+        {/* Context Menu for Groups and Messages */}
+        {contextMenu.visible && (
+          <div
+            style={{
+              position: "absolute",
+              top: contextMenu.y,
+              left: contextMenu.x,
+              backgroundColor: "white",
+              boxShadow: "0px 2px 10px rgba(0, 0, 0, 0.1)",
+              borderRadius: "5px",
+              zIndex: 10,
+            }}
+          >
+            <ul style={{ padding: "5px 10px", margin: 0 }}>
+              {contextMenu.target.itemType === "group" && (
+                <>
+                  <li
+                    onClick={() => handleContextMenuAction("archive")}
+                    style={{ cursor: "pointer", padding: "5px 0" }}
+                  >
+                    آرشیو کردن
+                  </li>
+                  <li
+                    onClick={() => handleContextMenuAction("delete")}
+                    style={{ cursor: "pointer", padding: "5px 0" }}
+                  >
+                    حذف گروه
+                  </li>
+                </>
+              )}
+              {contextMenu.target.itemType === "message" && (
+                <li
+                  onClick={() => handleContextMenuAction("delete")}
+                  style={{ cursor: "pointer", padding: "5px 0" }}
+                >
+                  حذف پیام
+                </li>
+              )}
+            </ul>
+          </div>
+        )}
       </section>
     </>
   );
