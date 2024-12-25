@@ -8,6 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 import { RiSendPlaneFill } from "react-icons/ri";
+import axios from "axios";
+
 
 // Helper function to calculate time difference
 function GetTimeDiff(date) {
@@ -57,8 +59,7 @@ const mockGroups = [
 const GroupChat = () => {
   const scrollRef = useRef(null);
   const contextMenuRef = useRef(null);
-  const [groupList, setGroupList] = useState(mockGroups);
-  const [archivedGroups, setArchivedGroups] = useState(mockGroups.filter(group => group.archived));
+  const [groupList, setGroupList] = useState([]);
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -69,9 +70,9 @@ const GroupChat = () => {
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDescriptions, setNewGroupDescriptions] = useState("");
   const [showArchived, setShowArchived] = useState(false); // State for toggling archived groups
-
-  // State to control the modal for group name
   const [openModal, setOpenModal] = useState(false);
+  const [messages, setMessages] = useState([]);
+  
 
   useEffect(() => {
     if (selectedGroup) {
@@ -104,22 +105,201 @@ const GroupChat = () => {
     };
   }, [contextMenu.visible]);
 
-  const createGroup = () => {
+  const token = "your-token-here"; // Replace with actual token
+
+  // Fetch all groups
+  const getAllGroups = async () => {
+    try {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get('http://46.249.100.141:8070/chat/rooms/', {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log(response);
+      if (response.status === 200 || response.status === 201) {
+        // const commentsArray = response.data.comments || [];
+        // if (Array.isArray(commentsArray) && commentsArray.length > 0) {
+        //   setComments((prevComments) => {
+        //     const updatedComments = commentsArray.map((comment) => {
+        //       return {
+        //         fullname: comment.patient_name,
+        //         date: comment.date,
+        //         rating: comment.rating,
+        //         comment: comment.comments
+        //       };
+        //     });
+
+        //     return updatedComments;
+        //   });
+        // }
+        // setAvgRating(response.data.average_score);
+        // console.log(comments);
+      }
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+      toast.error("خطا در بارگذاری گروه‌ها");
+    }
+  };
+
+  // Fetch messages for the selected group
+  const getMessages = async (roomId) => {
+    try {
+      const response = await axios.get(`/chat/rooms/${roomId}/messages/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setMessages(response.data); // Set messages for the selected group
+    } catch (error) {
+      console.error("Error fetching messages:", error);
+      toast.error("خطا در بارگذاری پیام‌ها");
+    }
+  };
+
+  useEffect(() => {
+    getAllGroups(); // Get all groups on component mount
+  }, []);
+
+  useEffect(() => {
+    if (selectedGroup) {
+      setGroupName(selectedGroup.name);
+      getMessages(selectedGroup.id); // Fetch messages when a group is selected
+    }
+  }, [selectedGroup]);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  // Create a new group
+  const createGroup = async () => {
     if (!newGroupName.trim()) {
       toast.error("نام گروه نمی‌تواند خالی باشد");
       return;
     }
-    const newGroup = {
-      id: groupList.length + 1,
-      name: newGroupName,
-      archived: false,
-      messages: [],
-    };
-    setGroupList([...groupList, newGroup]);
-    setNewGroupName(""); // Clear the input after creating the group
-    setNewGroupDescriptions("");
-    setOpenModal(false); // Close the modal
-    toast.success("گروه جدید ایجاد شد");
+    try {
+      const response = await axios.post('/chat/rooms/', {
+        name: newGroupName,
+        description: newGroupDescriptions
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setGroupList([...groupList, response.data]);
+      setNewGroupName(""); // Clear the input after creating the group
+      setNewGroupDescriptions("");
+      setOpenModal(false); // Close the modal
+      toast.success("گروه جدید ایجاد شد");
+    } catch (error) {
+      console.error("Error creating group:", error);
+      toast.error("خطا در ایجاد گروه");
+    }
+  };
+
+  // Delete a group
+  const deleteGroup = async (groupId) => {
+    if (window.confirm("آیا مطمئن هستید که می‌خواهید این گروه را حذف کنید؟")) {
+      try {
+        await axios.post(`/chat/rooms/${groupId}/`, {}, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        setGroupList(groupList.filter(group => group.id !== groupId));
+        setSelectedGroup(null);
+        toast.success("گروه حذف شد");
+      } catch (error) {
+        console.error("Error deleting group:", error);
+        toast.error("خطا در حذف گروه");
+      }
+    }
+  };
+
+  // Archive a group
+  const archiveGroup = async (groupId) => {
+    try {
+      await axios.post(`/chat/rooms/${groupId}/toggle-visibility/`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setGroupList(groupList.map(group =>
+        group.id === groupId ? { ...group, archived: !group.archived } : group
+      ));
+      toast.success("گروه به بایگانی منتقل شد");
+    } catch (error) {
+      console.error("Error archiving group:", error);
+      toast.error("خطا در بایگانی کردن گروه");
+    }
+  };
+
+  // Update a group
+  const updateGroup = async () => {
+    if (!newGroupName.trim()) {
+      toast.error("نام گروه نمی‌تواند خالی باشد");
+      return;
+    }
+    try {
+      const response = await axios.put(`/chat/rooms/${selectedGroup.id}/update/`, {
+        name: newGroupName,
+        description: newGroupDescriptions
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      const updatedGroups = groupList.map(group =>
+        group.id === selectedGroup.id ? response.data : group
+      );
+      setGroupList(updatedGroups);
+      setSelectedGroup(response.data);
+      setNewGroupName(""); // Clear the input after updating the group
+      setNewGroupDescriptions("");
+      setOpenModal(false);
+      toast.success("گروه ویرایش شد");
+    } catch (error) {
+      console.error("Error updating group:", error);
+      toast.error("خطا در ویرایش گروه");
+    }
+  };
+
+  // Send a new message
+  const sendMessage = async () => {
+    if (!newMessage.trim()) return;
+    try {
+      await axios.post(`/chat/rooms/${selectedGroup.id}/messages/`, {
+        message: newMessage
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setMessages([...messages, { content: newMessage, authorId: userId, authorName: userName, created_at: new Date() }]);
+      setNewMessage(""); // Clear the message input
+    } catch (error) {
+      console.error("Error sending message:", error);
+      toast.error("خطا در ارسال پیام");
+    }
+  };
+
+  // Delete a message
+  const deleteMessage = async (messageId) => {
+    try {
+      await axios.post(`/chat/messages/${messageId}/`, {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      setMessages(messages.filter(message => message.id !== messageId));
+      toast.success("پیام حذف شد");
+    } catch (error) {
+      console.error("Error deleting message:", error);
+      toast.error("خطا در حذف پیام");
+    }
   };
 
   const handleOpenModal = () => {
@@ -135,30 +315,6 @@ const GroupChat = () => {
     setNewGroupName(e.target.value); // Handle input change for group name
   };
 
-  const sendMessage = () => {
-    if (!newMessage.trim()) return;
-    if (selectedGroup && selectedGroup.messages) {
-      const newMessageObj = {
-        id: selectedGroup.messages.length + 1,
-        content: newMessage,
-        authorId: userId, // Use the current user ID for message styling
-        authorName: userName, // Display the author's name
-        timestamp: new Date(),
-      };
-      const updatedGroup = { ...selectedGroup, messages: [...selectedGroup.messages, newMessageObj] };
-      setSelectedGroup(updatedGroup);
-      setNewMessage(""); // Clear the message box after sending
-    }
-  };
-
-  const deleteMessage = (messageId) => {
-    if (selectedGroup && selectedGroup.messages) {
-      const updatedMessages = selectedGroup.messages.filter((msg) => msg.id !== messageId);
-      const updatedGroup = { ...selectedGroup, messages: updatedMessages };
-      setSelectedGroup(updatedGroup);
-      toast.success("پیام حذف شد");
-    }
-  };
 
   const handleContextMenu = (e, itemType, item) => {
     e.preventDefault();
@@ -192,27 +348,6 @@ const GroupChat = () => {
     closeContextMenu();
   };
 
-  const archiveGroup = (groupId) => {
-    const updatedGroups = groupList.map((group) =>
-      group.id === groupId ? { ...group, archived: true } : group
-    );
-    const updatedArchivedGroups = groupList.filter(group => group.archived); // Fetch archived groups
-    setGroupList(updatedGroups);
-    setArchivedGroups(updatedArchivedGroups);
-    setSelectedGroup({ ...selectedGroup, archived: true });
-    toast.success("گروه به بایگانی منتقل شد");
-  };
-
-  const deleteGroup = (groupId) => {
-    if (window.confirm("آیا مطمئن هستید که می‌خواهید این گروه را حذف کنید؟")) {
-      const updatedGroups = groupList.filter((group) => group.id !== groupId);
-      const updatedArchivedGroups = archivedGroups.filter((group) => group.id !== groupId); // Remove from archived list
-      setGroupList(updatedGroups);
-      setArchivedGroups(updatedArchivedGroups);
-      setSelectedGroup(null);
-      toast.success("گروه حذف شد");
-    }
-  };
 
   const toggleArchived = () => {
     setShowArchived(!showArchived); // Toggle between showing active and archived groups
