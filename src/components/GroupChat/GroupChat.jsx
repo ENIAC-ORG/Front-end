@@ -2,59 +2,30 @@ import "./groupchat_styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import { GrNewWindow } from "react-icons/gr";
 import { FaPaperPlane } from "react-icons/fa6";
-import { TextField, Dialog, DialogActions, DialogContent, DialogTitle, Button } from "@mui/material";
+import { RiSendPlaneFill } from "react-icons/ri";
+import { RiDeleteBin6Line } from "react-icons/ri"; // Import the delete icon
+import { TextField } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
-import { RiSendPlaneFill } from "react-icons/ri";
 import axios from "axios";
 
+// Helper function to format the time (hour and minute) from created_at to Tehran time
+function formatTime(date) {
+  const d = new Date(date);
 
-// Helper function to calculate time difference
-function GetTimeDiff(date) {
-  let date1 = new Date(date);
-  let date2 = new Date();
-  let Difference_In_ms = date2.getTime() - date1.getTime();
-  let days = Math.round(Difference_In_ms / (1000 * 3600 * 24));
-  let hour = Math.round(Difference_In_ms / (1000 * 3600));
-  let min = Math.round(Difference_In_ms / (1000 * 60));
-  return min == 0
-    ? "اکنون"
-    : min < 60
-      ? `${min} دقیقه`
-      : hour < 24
-        ? `${hour} ساعت`
-        : `${days} روز`;
+  // Tehran Time Zone offset is UTC +3:30, so we manually adjust for it
+  const tehranOffset = 3.5 * 60; // Tehran is 3 hours and 30 minutes ahead of UTC
+  const localOffset = d.getTimezoneOffset(); // Local time zone offset in minutes
+
+  // Adjust the date object to Tehran time by applying the offset difference
+  d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
+
+  const hours = d.getHours().toString().padStart(2, "0");  // Ensure 2-digit hour
+  const minutes = d.getMinutes().toString().padStart(2, "0");  // Ensure 2-digit minute
+  return `${hours}:${minutes}`;
 }
-
-// Mock groups with Persian messages, different users, and authorId
-const mockGroups = [
-  {
-    id: 1,
-    name: "گروه زوج درمانی",
-    archived: false,
-    messages: [
-      { id: 1, content: "سلام، چطورید؟", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
-      { id: 2, content: "خوبم، مرسی! شما چطورید؟", authorId: 2, authorName: "زهرا دهقان", timestamp: new Date() },
-      { id: 3, content: "!خوبم، متشکرم", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
-    ],
-  },
-  {
-    id: 2,
-    name: "گروه کودکان",
-    archived: false,
-    messages: [
-      { id: 1, content: "!سلام، وقت بخیر", authorId: 3, authorName: "فاطمه شرح دهی", timestamp: new Date() },
-      { id: 2, content: "!وقت شما هم بخیر", authorId: 4, authorName: "زهرا علیزاده", timestamp: new Date() },
-    ],
-  },
-  { id: 3, name: "گروه فردی", archived: true,  messages: [
-    { id: 1, content: "سلام، به نظرتون برای اضطراب زیاد بهتره دارو تجویز بشه؟", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
-    { id: 2, content: "عوارض دارو از فوایدش خیلی بیشتره! بهتره تا حد امکان سعی کنیم تجویز نشه", authorId: 2, authorName: "زهرا دهقان", timestamp: new Date() },
-    { id: 3, content: "!درسته، موافقم", authorId: 1, authorName: "هلیا شمس زاده", timestamp: new Date() },
-  ], },
-];
 
 const GroupChat = () => {
   const scrollRef = useRef(null);
@@ -64,7 +35,7 @@ const GroupChat = () => {
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [groupName, setGroupName] = useState(""); // State to handle the group name input
-  const [userName, setUserName] = useState("هلیا شمس زاده");
+  const [userName, setUserName] = useState("");
   const [userId, setUserId] = useState(1);
   const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, target: null });
   const [newGroupName, setNewGroupName] = useState("");
@@ -72,11 +43,11 @@ const GroupChat = () => {
   const [showArchived, setShowArchived] = useState(false); // State for toggling archived groups
   const [openModal, setOpenModal] = useState(false);
   const [messages, setMessages] = useState([]);
-  
 
   useEffect(() => {
     if (selectedGroup) {
-      setGroupName(selectedGroup.name);
+      setGroupName(selectedGroup.title);
+      getMessages(selectedGroup.id); // Fetch messages when a group is selected
     }
   }, [selectedGroup]);
 
@@ -84,26 +55,7 @@ const GroupChat = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, [selectedGroup?.messages]);
-
-  useEffect(() => {
-    // Close the context menu when clicking outside of it
-    const handleClickOutside = (event) => {
-      if (contextMenuRef.current && !contextMenuRef.current.contains(event.target)) {
-        closeContextMenu();
-      }
-    };
-
-    if (contextMenu.visible) {
-      document.addEventListener("mousedown", handleClickOutside);
-    } else {
-      document.removeEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [contextMenu.visible]);
+  }, [messages]);
 
   const token = "your-token-here"; // Replace with actual token
 
@@ -116,25 +68,16 @@ const GroupChat = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      console.log(response);
       if (response.status === 200 || response.status === 201) {
-        // const commentsArray = response.data.comments || [];
-        // if (Array.isArray(commentsArray) && commentsArray.length > 0) {
-        //   setComments((prevComments) => {
-        //     const updatedComments = commentsArray.map((comment) => {
-        //       return {
-        //         fullname: comment.patient_name,
-        //         date: comment.date,
-        //         rating: comment.rating,
-        //         comment: comment.comments
-        //       };
-        //     });
-
-        //     return updatedComments;
-        //   });
-        // }
-        // setAvgRating(response.data.average_score);
-        // console.log(comments);
+        const groupsArray = response.data || [];
+        if (Array.isArray(groupsArray) && groupsArray.length > 0) {
+          setGroupList(groupsArray.map((group) => ({
+            id: group.id,
+            descriptions: group.description,
+            createdBy: group.created_by,
+            title: group.title
+          })));
+        }
       }
     } catch (error) {
       console.error("Error fetching groups:", error);
@@ -145,12 +88,25 @@ const GroupChat = () => {
   // Fetch messages for the selected group
   const getMessages = async (roomId) => {
     try {
-      const response = await axios.get(`/chat/rooms/${roomId}/messages/`, {
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      setMessages(response.data); // Set messages for the selected group
+      console.log(token);
+      if (response.status === 200 || response.status === 201) {
+        setMessages(response.data.map((message) => ({
+          id: message.id,
+          user: message.user,
+          content: message.content,
+          isSelf: message.is_self,
+          firstname: message.firstname,
+          lastname: message.lastname,
+          createdAt: message.created_at,
+          group: message.room
+        })));
+      }
     } catch (error) {
       console.error("Error fetching messages:", error);
       toast.error("خطا در بارگذاری پیام‌ها");
@@ -163,16 +119,9 @@ const GroupChat = () => {
 
   useEffect(() => {
     if (selectedGroup) {
-      setGroupName(selectedGroup.name);
       getMessages(selectedGroup.id); // Fetch messages when a group is selected
     }
   }, [selectedGroup]);
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
 
   // Create a new group
   const createGroup = async () => {
@@ -182,7 +131,7 @@ const GroupChat = () => {
     }
     try {
       const response = await axios.post('/chat/rooms/', {
-        name: newGroupName,
+        title: newGroupName,
         description: newGroupDescriptions
       }, {
         headers: {
@@ -252,10 +201,9 @@ const GroupChat = () => {
           'Authorization': `Bearer ${token}`
         }
       });
-      const updatedGroups = groupList.map(group =>
+      setGroupList(groupList.map(group =>
         group.id === selectedGroup.id ? response.data : group
-      );
-      setGroupList(updatedGroups);
+      ));
       setSelectedGroup(response.data);
       setNewGroupName(""); // Clear the input after updating the group
       setNewGroupDescriptions("");
@@ -271,14 +219,17 @@ const GroupChat = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
-      await axios.post(`/chat/rooms/${selectedGroup.id}/messages/`, {
-        message: newMessage
+      const token = localStorage.getItem("accessToken");
+      const response = await axios.post(`http://46.249.100.141:8070/chat/rooms/${selectedGroup.id}/messages/`, {
+        content: newMessage
       }, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       });
-      setMessages([...messages, { content: newMessage, authorId: userId, authorName: userName, created_at: new Date() }]);
+      // setMessages([...messages, { content: newMessage, authorId: userId, authorName: userName, created_at: new Date() }]);
+      // console.log(selectedGroup.id);
+      getMessages(selectedGroup.id);
       setNewMessage(""); // Clear the message input
     } catch (error) {
       console.error("Error sending message:", error);
@@ -289,7 +240,7 @@ const GroupChat = () => {
   // Delete a message
   const deleteMessage = async (messageId) => {
     try {
-      await axios.post(`/chat/messages/${messageId}/`, {}, {
+      await axios.post(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -302,62 +253,11 @@ const GroupChat = () => {
     }
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true); // Open the modal for the group name
-  };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setGroupName(""); // Reset the group name when modal is closed
-  };
-
-  const handleInputChange = (e) => {
-    setNewGroupName(e.target.value); // Handle input change for group name
-  };
-
-
-  const handleContextMenu = (e, itemType, item) => {
-    e.preventDefault();
-    setContextMenu({
-      visible: true,
-      x: e.clientX,
-      y: e.clientY,
-      target: { itemType, item },
-    });
-  };
-
-  const closeContextMenu = () => {
-    setContextMenu({ visible: false, x: 0, y: 0, target: null });
-  };
-
-  const handleContextMenuAction = (action) => {
-    if (contextMenu.target) {
-      const { itemType, item } = contextMenu.target;
-      if (itemType === "group") {
-        if (action === "archive") {
-          archiveGroup(item.id);
-        } else if (action === "delete") {
-          deleteGroup(item.id);
-        }
-      } else if (itemType === "message") {
-        if (action === "delete") {
-          deleteMessage(item.id);
-        }
-      }
-    }
-    closeContextMenu();
-  };
-
-
-  const toggleArchived = () => {
-    setShowArchived(!showArchived); // Toggle between showing active and archived groups
-  };
-
   return (
     <>
       <NavBar_SideBar />
       <ToastContainer style={{ width: "450px" }} />
-      <section>
+      <section style={{ direction: "rtl" }}>
         <div className="py-5" align="center" style={{ backgroundColor: "#f0f9f1" }}>
           <div className="row">
             <div className="col-md-12">
@@ -367,7 +267,7 @@ const GroupChat = () => {
                     <div className="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
                       <div className="py-4">
                         <div className="input-group rounded p-3" dir="rtl">
-                          <span title={"ایجاد گروه جدید"} onClick={handleOpenModal} className="cursor-pointer">
+                          <span title={"ایجاد گروه جدید"} onClick={() => setOpenModal(true)} className="cursor-pointer">
                             <GrNewWindow className="fs-5" />
                           </span>
                         </div>
@@ -380,83 +280,39 @@ const GroupChat = () => {
                             overflowY: "auto",
                           }}
                         >
-                          {showArchived ? (
-                            <ul className="list-unstyled mb-0">
-                              {archivedGroups.map((group) => (
-                                <li
-                                  className="p-2"
-                                  style={{ borderBottom: "1px solid black" }}
-                                  key={group.id}
-                                  onContextMenu={(e) => handleContextMenu(e, "group", group)}
+                          <ul className="list-unstyled mb-0">
+                            {groupList.map((group) => (
+                              <li
+                                className="p-2"
+                                style={{ borderBottom: "1px solid black" }}
+                                key={group.id}
+                                onContextMenu={(e) => handleContextMenu(e, "group", group)}
+                              >
+                                <div
+                                  onClick={() => setSelectedGroup(group)}
+                                  className="d-flex justify-content-between"
                                 >
-                                  <div
-                                    onClick={() => setSelectedGroup(group)}
-                                    className="d-flex justify-content-between"
-                                  >
-                                    <div className="d-flex flex-row">
-                                      <div className="pt-1">
-                                        <p
-                                          className="fw-bold mb-0 font-custom"
-                                          style={{ color: "#198754" }}
-                                        >
-                                          {group.name || "گروه جدید"}
-                                        </p>
-                                      </div>
+                                  <div className="d-flex flex-row">
+                                    <div className="pt-1" style={{ textAlign: "right" }}>
+                                      <p
+                                        className="fw-bold mb-0 font-custom"
+                                        style={{ color: "#198754" }}
+                                      >
+                                        {group.title || "گروه جدید"}:{" "}
+                                        <span style={{ color: "gray" }}>{group.descriptions || ""}</span>
+                                      </p>
                                     </div>
                                   </div>
-                                </li>
-                              ))}
-                            </ul>
-                          ) : (
-                            <ul className="list-unstyled mb-0">
-                              {groupList.filter(group => !group.archived).map((group) => (
-                                <li
-                                  className="p-2"
-                                  style={{ borderBottom: "1px solid black" }}
-                                  key={group.id}
-                                  onContextMenu={(e) => handleContextMenu(e, "group", group)}
-                                >
-                                  <div
-                                    onClick={() => setSelectedGroup(group)}
-                                    className="d-flex justify-content-between"
-                                  >
-                                    <div className="d-flex flex-row">
-                                      <div className="pt-1">
-                                        <p
-                                          className="fw-bold mb-0 font-custom"
-                                          style={{ color: "#198754" }}
-                                        >
-                                          {group.name || "گروه جدید"}
-                                        </p>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </li>
-                              ))}
-                            </ul>
-                          )}
+                                </div>
+                              </li>
+                            ))}
+                          </ul>
                         </div>
-                        {/* Toggle Button */}
-                        <div
-                          onClick={toggleArchived}
-                          className="rating-field_modal rating-btn"
-                          style={{ width: "96%", marginLeft: "2%" }}
-                        >
-                          <div className="rating-btn_layer">
-                            <input
-                              style={{ fontFamily: "Ios15Medium" }}
-                              type="submit"
-                              value={showArchived ? "نمایش گروه‌های اصلی" : "نمایش گروه‌های آرشیو شده"}
-                            />
-                          </div>
-                        </div>
-                        {/* End Toggle Button */}
                       </div>
                     </div>
 
-
-                    <div className="col-md-5 col-lg-6 col-xl-8">
-                      {selectedGroup !== null && selectedGroup.messages && (
+                    <div className="col-md-5 col-lg-6 col-xl-8" style={{ direction: "ltr" }}>
+                      {messages !== null && (
                         <>
                           <div
                             className="pt-3 pe-3"
@@ -468,46 +324,63 @@ const GroupChat = () => {
                               overflowY: "auto",
                             }}
                           >
-                            {selectedGroup.messages.map((message) => (
+                            {messages.map((message) => (
                               <div
-                                key={message.id}
-                                onContextMenu={(e) => handleContextMenu(e, "message", message)}
-                              >
-                                {/* Message from user */}
-                                <div
-                                  className={`d-flex flex-row justify-content-${message.authorId === userId ? "end" : "start"
-                                    }`}
-                                >
-                                  {/* Message Box for Other Users (with their username inside) */}
-                                  <div
-                                    className={`p-2 mb-1 rounded-3 font-custom ${message.authorId === userId
-                                      ? "groupchat-bg-success text-white"
-                                      : "groupchat-bg-light"
-                                      }`} style={{ backgroundColor: "rgb(185, 219, 197) !important" }}
-                                  >
-                                    {message.authorId !== userId && (
-                                      <p
-                                        className="small mb-1 groupchat-text-muted"
-                                        style={{
-                                          textAlign: "left",
-                                          fontWeight: "bold",
-                                          color: "#7c7e7c !important"
-                                        }}
-                                      >
-                                        {message.authorName}
-                                      </p>
-                                    )}
-                                    <p
-                                      className="small mb-1"
-                                      style={{
-                                        textAlign: message.authorId === userId ? "left" : "right",
-                                      }}
-                                    >
-                                      {message.content}
-                                    </p>
-                                  </div>
-                                </div>
-                              </div>
+  key={message.id}
+  onContextMenu={(e) => handleContextMenu(e, "message", message)}
+  className="message-container"
+>
+  <div
+    className={`d-flex flex-row justify-content-${message.isSelf ? "end" : "start"}`}
+  >
+    <div
+      className={`p-2 mb-1 rounded-3 font-custom ${message.isSelf
+        ? "groupchat-bg-success text-white"
+        : "groupchat-bg-light"
+      }`}
+      style={{
+        backgroundColor: "rgb(185, 219, 197)",
+        position: "relative", // Position the message box to allow the delete icon to float beside it
+      }}
+    >
+      {!message.isSelf && (
+        <p
+          className="small mb-1 groupchat-text-muted"
+          style={{
+            textAlign: "left",
+            fontWeight: "bold",
+            color: "#7c7e7c !important"
+          }}
+        >
+          {message.firstname} {message.lastname}
+        </p>
+      )}
+      <p
+        className="small mb-1"
+        style={{
+          textAlign: message.isSelf ? "left" : "right",
+        }}
+      >
+        {message.content}
+      </p>
+      <p
+        style={{
+          fontSize: "10px",
+          color: message.isSelf ? "white" : "gray",
+          textAlign: message.isSelf ? "left" : "right"
+        }}
+      >
+        {formatTime(message.createdAt)}
+      </p>
+
+      {/* Delete Icon */}
+      <RiDeleteBin6Line
+        className="delete-icon"
+        onClick={() => deleteMessage(message.id)}
+      />
+    </div>
+  </div>
+</div>
 
                             ))}
                           </div>
@@ -590,7 +463,7 @@ const GroupChat = () => {
               }}
             >
               <h3 style={{ fontFamily: "Ios15Medium", color: "rgb(17, 92, 36)", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>
-                ایحاد گروه جدید
+                ایجاد گروه جدید
               </h3>
               <textarea
                 value={newGroupName}

@@ -163,3 +163,27 @@
     background-color: #605f5f;
     color: #fff;
   }
+
+/* Make the delete icon visible only when hovering over the message box */
+.message-container:hover .delete-icon {
+  display: block;
+}
+
+/* Ensure that the delete icon is hidden by default */
+.delete-icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 110%; /* Adjust this value based on how far you want the icon from the box */
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  color: #5da670;
+}
+
+/* Adjust message box to allow space for the delete icon */
+.groupchat-bg-light,
+.groupchat-bg-success {
+  position: relative; /* Required for absolute positioning of the delete icon */
+  padding-right: 40px; /* Add space on the right side of the message box to fit the delete icon */
+}
