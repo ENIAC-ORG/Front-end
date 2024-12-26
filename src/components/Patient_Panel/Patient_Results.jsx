@@ -6,11 +6,6 @@ import { IoHeart } from "react-icons/io5";
 import { GiPlantRoots , GiStrong , GiLaserSparks  } from "react-icons/gi";
 import { GiFreedomDove } from "react-icons/gi";
 
-
-import axios from "axios";
-import Swal from "sweetalert2";
-import withReactContent from "sweetalert2-react-content";
-
 import ISTP_M from "./Icons/ISTP_M.jpg"
 import ISTP_F from "./Icons/ISTP_F.jpg"
 import ISTJ_M from "./Icons/ISTJ_M.jpg"
@@ -46,51 +41,56 @@ import ENFJ_F from "./Icons/ENFJ_F.jpg"
 
 import "./Patient_Panel.css";
 
+function toPersianDigits(str) {
+  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return str.replace(/\d/g, (digit) => persianDigits[digit]);
+}
+
 const Patient_Result = ({ results, G }) => {
   const navigate = useNavigate();
   return (
     <>
-      <div className="patient_prof_insidebox" style={{ display: "grid" }}>
-        <div className="patient_prof_box_header">
-          <PiNotepadLight className="patient_prof_box_header_ic" />
-          <h1>نتایج تست ها</h1>
+      <div className="d-flex flex-column">
+        <div className="d-flex flex-row patient-panel-title">
+          <PiNotepadLight className="fs-2 mt-2 ms-1" />
+          <h1 className="font-custom">نتایج تست ها</h1>
         </div>
-        <div className="patient_prof_res">
-          <div className="patient_prof_res_card">
-            <h3>Glasser</h3>
-            <hr />
-            {results.glasserTest == null ? (
-              <h5>نتیجه ای برای مشاهده وجود ندارد</h5>
+        <div className="patient-panel-res">
+          <div className="col col-md-5 col-s-12 patient-panel-res_card">
+            <h3 className="font-custom mt-3">Glasser</h3>
+            <hr className="mx-3"/>
+            {results?.glasserTest == null ? (
+              <h5 className="my-5">نتیجه ای برای مشاهده وجود ندارد</h5>
             ) : (
               <ul style={{ listStyleType: "none",lineHeight:'49px' }}>
                 <li>
                   <IoHeart style={{color:'red',marginRight:'0px'}}/>
-                  <span>عشق</span>:{results.glasserTest.love}
+                  <span>عشق</span>:{toPersianDigits(`${results.glasserTest.love}`)}
                 </li>
                 <li>
                   <GiPlantRoots style={{color:'green'}}/>
-                  <span>بقا</span>:{results.glasserTest.survive}
+                  <span>بقا</span>:{toPersianDigits(`${results.glasserTest.survive}`)}
                 </li>
                 <li>
                   <GiFreedomDove style={{color:'blue'}}/>
-                  <span>آزادی</span>:{results.glasserTest.freedom}
+                  <span>آزادی</span>:{toPersianDigits(`${results.glasserTest.freedom}`)}
                 </li>
                 <li>
-                  <GiStrong style={{color:'#EFE4B0'}}/>
-                  <span>قدرت</span>:{results.glasserTest.power}
+                  <GiStrong style={{color:'brown'}}/>
+                  <span>قدرت</span>:{toPersianDigits(`${results.glasserTest.power}`)}
                 </li>
                 <li>
                   <GiLaserSparks style={{color:'#B341EB'}}/>
-                  <span>سرگرمی</span>:{results.glasserTest.fun}
+                  <span>سرگرمی</span>:{toPersianDigits(`${results.glasserTest.fun}`)}
                 </li>
               </ul>
             )}
           </div>
-          <div className="patient_prof_res_card">
-            <h3>MBTI</h3>
-            <hr />
-            {results.MBTItest== null ? (
-              <h5>نتیجه ای برای مشاهده وجود ندارد</h5>
+          <div className="col col-md-5 col-s-12 patient-panel-res_card">
+            <h3 className="font-custom mt-3">MBTI</h3>
+            <hr className="mx-3"/>
+            {results?.MBTItest== null ? (
+              <h5 className="my-5">نتیجه ای برای مشاهده وجود ندارد</h5>
             ) : (
               <>
               <img style={{width:'200px',height:'200px'}}
