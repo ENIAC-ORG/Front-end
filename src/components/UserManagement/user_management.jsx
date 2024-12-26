@@ -123,7 +123,7 @@ const UserManagement = () => {
   const handleDenyUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://eniacgroup.ir:8070//DoctorPanel/pending_doctor/deny/${userId}/`, 
+        `http://eniacgroup.ir:8070/DoctorPanel/pending_doctor/deny/${userId}/`, 
         { message: denialReason },
         {
           headers: {
@@ -235,7 +235,7 @@ const UserManagement = () => {
   const fetchDoctors = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://eniacgroup.ir:8070//DoctorPanel/pending_doctor", {
+      const response = await axios.get("http://eniacgroup.ir:8070/DoctorPanel/pending_doctor", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

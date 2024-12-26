@@ -26,7 +26,7 @@ const PatientsList = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios(
-          "http://eniacgroup.ir:8070//TherapyTests/record/query/",
+          "http://eniacgroup.ir:8070/TherapyTests/record/query/",
           {
             method: "POST",
             headers: {

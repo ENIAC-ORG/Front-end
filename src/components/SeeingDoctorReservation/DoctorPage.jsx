@@ -17,7 +17,7 @@ const DoctorPage = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/get_user/",
+        "http://eniacgroup.ir:8070/accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -38,7 +38,7 @@ const DoctorPage = () => {
       GetUserInfo();
       try {
         const response1 = await axios.get(
-          `http://eniacgroup.ir:8070//profile/doctors/`
+          `http://eniacgroup.ir:8070/profile/doctors/`
         );
         if (response1.status == 200 || response1.status == 201) {
           for (let i = 0; i < response1.data.length; i++) {
@@ -60,7 +60,7 @@ const DoctorPage = () => {
       const token = localStorage.getItem("accessToken");
       try {
         const response1 = await axios(
-          "http://eniacgroup.ir:8070//DoctorPanel/NextWeekReservations/",
+          "http://eniacgroup.ir:8070/DoctorPanel/NextWeekReservations/",
           {
             method: "GET",
             headers: {

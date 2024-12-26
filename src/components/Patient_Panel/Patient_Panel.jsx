@@ -45,7 +45,7 @@ const Patient_Panel = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        `http://eniacgroup.ir:8070//TherapyTests/record/${PatientId}/`,
+        `http://eniacgroup.ir:8070/TherapyTests/record/${PatientId}/`,
         {
           method: "GET",
           headers: {

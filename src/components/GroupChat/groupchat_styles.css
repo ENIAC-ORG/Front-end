@@ -67,7 +67,7 @@
   }
  /* Styling for the side chat */
  .customize-chat-side {
-    background-color: rgb(25, 135, 84, 0.1);
+    background-color: rgba(186, 202, 109, 0.25);
     border-right: 2px solid #198754;
  }
  
@@ -186,4 +186,10 @@
 .groupchat-bg-success {
   position: relative; /* Required for absolute positioning of the delete icon */
   padding-right: 40px; /* Add space on the right side of the message box to fit the delete icon */
+}
+
+.customizedp {
+  display: "flex";
+  font-family: "Ios15Medium";
+  font-size: "20px"
 }
