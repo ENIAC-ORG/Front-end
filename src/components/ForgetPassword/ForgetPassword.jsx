@@ -18,7 +18,8 @@ import key_icon from "../../assets/key.png";
 import axios from "axios";
 import validator from "validator";
 
-import styles from "./ForgetPassword.module.css";
+import "./ForgetPassword.css";
+import { ToastContainer, toast } from "react-toastify";
 
 const ForgetPassword = () => {
   const navigate = useNavigate();
@@ -53,7 +54,7 @@ const ForgetPassword = () => {
   const CheckVerificationCode = () => {
     seticon(
       fp_code == fp_response.verificationcode
-        ? { checkcolor: "#61d769", checkicon: checkmarkCircled }
+        ? { checkcolor: "green", checkicon: checkmarkCircled }
         : { checkcolor: "red", checkicon: closeCircled }
     );
     setdisplay(fp_code == fp_response.verificationcode ? "grid" : "none");
@@ -64,7 +65,7 @@ const ForgetPassword = () => {
     if (validator.isEmail(fp_Email)) {
       try {
         const response = await axios(
-          "http://eniacgroup.ir:8070//accounts/forgot_password/",
+          "http://eniacgroup.ir:8070/accounts/forgot_password/",
           {
             method: "POST",
             headers: {
@@ -86,51 +87,51 @@ const ForgetPassword = () => {
             verificationcode: data.code,
           });
           console.log(data.code);
-          withReactContent(Swal).fire({
-            icon: "success",
-            title: "!کد تایید صحت با موفقیت ارسال شد",
-            background: "#075662",
-            color: "#FFFF",
-            width: "35rem",
-            confirmButtonText: "باشه",
-            confirmButtonColor: "#0a8ca0"
+          toast.success("!کد تایید صحت با موفقیت ارسال شد", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
         }
       } catch (error) {
         if (error.response.status === 400) {
-          withReactContent(Swal).fire({
-            icon: "error",
-            title: "!ایمیل وارد شده در سیستم ثبت نشده",
-            background: "#075662",
-            color: "#FFFF",
-            width: "35rem",
-            confirmButtonText: "باشه",
-            confirmButtonColor: "#0a8ca0"
+          toast.error("!ایمیل وارد شده در سیستم ثبت نشده", {
+            position: "bottom-left",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
           });
         }
       }
     } else {
       if (fp_Email.length == 0) {
-        withReactContent(Swal).fire({
-          icon: "error",
-          title: "!وارد کردن ایمیل الزامی است",
-          background: "#075662",
-          color: "#FFFF",
-          width: "26rem",
-          height: "18rem",
-          confirmButtonText: "باشه",
-          confirmButtonColor: "#0a8ca0"
+        toast.error("!ایمیل خود را وارد کنید", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
       } else {
-        withReactContent(Swal).fire({
-          icon: "error",
-          title: "!قالب ایمیل وارد شده صحیح نمی باشد",
-          background: "#075662",
-          color: "#FFFF",
-          width: "32rem",
-          confirmButtonText: "باشه",
-          confirmButtonColor: "#0a8ca0"
+        toast.error("!قالب ایمیل صحیح نمی باشد", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
         });
+        
       }
     }
   }
@@ -144,17 +145,19 @@ const ForgetPassword = () => {
       (password.length < 8) |
       (password != passwordConfirm)
     ) {
-      withReactContent(Swal).fire({
-        icon: "error",
-        title: "!درستی و تطابق رمز عبور را چک کنید",
-        background: "#075662",
-        color: "#FFFF",
-        width: "32rem",
-        confirmButtonText: "باشه",
-        confirmButtonColor: "#0a8ca0"
+      toast.error("!درستی و تطابق رمز عبور را چک کنید", {
+        position: "bottom-left",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
       });
+      
     } else {
-      const response = await axios(fp_response.token, {
+      const response = await axios(fp_response.token,
+        {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -182,15 +185,16 @@ const ForgetPassword = () => {
   }
   return (
     <>
-      <body className={styles.fp_bd}>
-        <div className={styles.fp_hello}>
-          <div className={styles.fp_wrapper}>
-            <div className={styles.fp_header}>
-              <div className={styles.fp_title}>فراموشی رمز عبور</div>
+    <ToastContainer/>
+      <body className="forget-password-bd">
+        <div>
+          <div className="forget-password-wrapper p-5">
+            <div className="forget-password-header">
+              <div className="forget-password-title">فراموشی رمز عبور</div>
             </div>
-            <div className={styles.fp_form_details}>
-              <form action="#" className={styles.login}>
-                <div className={styles.fp_field}>
+            <div className="forget-password-form_details">
+              <form action="#" className="login">
+                <div className="forget-password-field mt-4 mb-2">
                   <input
                     onChange={(event) => setfp_Email(event.target.value)}
                     type="text"
@@ -203,14 +207,14 @@ const ForgetPassword = () => {
                     }}
                   />
                 </div>
-                <div className={styles.fp_pass_link}>
+                <div className="forget-password-pass_link">
                   <a onClick={SendVerificationCode}>دریافت کد تایید هویت</a>
                 </div>
-                <div className={styles.fp_field}>
+                <div className={"forget-password-field mt-4 mb-2 " + (pass_display=="none" ? "": "d-none")}>
                   <input
                     onChange={(event) => setvcode(event.target.value)}
                     type={"text"}
-                    placeholder="کد صحت "
+                    placeholder="کد صحت"
                     style={{
                       backgroundImage: `url(${key_icon})`,
                       backgroundRepeat: "no-repeat",
@@ -219,7 +223,7 @@ const ForgetPassword = () => {
                     }}
                   />
                   <span
-                    className={styles.fp_checkmark}
+                    className="forget-password-checkmark"
                     onClick={CheckVerificationCode}
                     style={{ color: check_icon.checkcolor }}
                   >
@@ -227,13 +231,13 @@ const ForgetPassword = () => {
                   </span>
                 </div>
                 <div
-                  className={styles.hidden}
+                  className="hidden"
                   style={{ display: pass_display }}
                 >
-                  <div className={styles.fp_field}>
+                  <div className="forget-password-field mt-4 mb-2">
                     <input
                       id="pass"
-                      className={styles.fp_pass}
+                      className="forget-password-pass"
                       type={passwordType}
                       placeholder="رمز عبور جدید"
                       style={{
@@ -244,16 +248,16 @@ const ForgetPassword = () => {
                       }}
                     />
                     <span
-                      className={styles.fp_eye}
+                      className="forget-password-eye"
                       onClick={handlePasswordToggle}
                     >
                       <Icon icon={passwordIcon} size={23} />
                     </span>
                   </div>
-                  <div className={styles.fp_field}>
+                  <div className="forget-password-field mt-4 mb-2">
                     <input
                       id="rpass"
-                      className={styles.fp_repeatpass}
+                      className="forget-password-repeatpass"
                       type={repeatPasswordType}
                       placeholder="تکرار رمز عبور جدید"
                       style={{
@@ -264,15 +268,15 @@ const ForgetPassword = () => {
                       }}
                     />
                     <span
-                      className={styles.fp_eye}
+                      className="forget-password-eye"
                       onClick={handleRepeatPasswordToggle}
                     >
                       <Icon icon={repeatPasswordIcon} size={23} />
                     </span>
                   </div>
-                  <div className={styles.fp_field}>
-                    <div className={styles.fp_btn}>
-                      <div className={styles.fp_btn_layer}></div>
+                  <div className="forget-password-field">
+                    <div className="forget-password-btn mt-4">
+                      <div className="forget-password-btn_layer"></div>
                       <input
                         type="submit"
                         value="ثبت"
