@@ -2,116 +2,120 @@ import React, { useState } from "react";
 import DateObject from "react-date-object";
 import persian from "react-date-object/calendars/persian";
 
-import { TbGenderBigender } from "react-icons/tb";
 import { MdOutlineHistoryToggleOff } from "react-icons/md";
-import { MdDriveFileRenameOutline, MdAlternateEmail } from "react-icons/md";
 
 import "./Patient_Panel.css";
 
-const Patient_History = ({ TreatmentNum1, TreatmentNum2, TreatmentNum3 }) => {
-  var Date1 = new DateObject(TreatmentNum1 != null ? TreatmentNum1.end_date : "00-00-00");
-  Date1.convert(persian);
-  var Date2 = new DateObject(TreatmentNum2 != null ? TreatmentNum2.end_date : "00-00-00");
-  Date2.convert(persian);
-  var Date3 = new DateObject(TreatmentNum3 != null ? TreatmentNum3.end_date : "00-00-00");
-  Date3.convert(persian);
+function toPersianDigits(str) {
+  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+  return str.replace(/\d/g, (digit) => persianDigits[digit]);
+}
+
+const Patient_History = ({ History }) => {
+  const Dates = [];
+  for (let h = 0; h < History.length; h++) {
+    const dateObj = new DateObject(History[h].end_date);
+    dateObj.convert(persian);
+    Dates.push(toPersianDigits(dateObj.format()));
+  }
+
   return (
     <>
-      <div className="patient_prof_insidebox" style={{ display: "grid" }}>
-        <div className="patient_prof_box_header">
-          <MdOutlineHistoryToggleOff className="patient_prof_box_header_ic" />
-          <h1>تاریخچه درمان های گذشته</h1>
+      <div className="d-flex flex-column">
+        <div className="d-flex flex-row patient-panel-title">
+          <MdOutlineHistoryToggleOff className="fs-2 mt-2 ms-1" />
+          <h1 className="font-custom"> درمان های گذشته</h1>
         </div>
-        {(TreatmentNum1==null && TreatmentNum2==null && TreatmentNum3==null) ? <h5>"نتیجه ای برای نشان دادن وجود ندارد"</h5> : 
-        <div className="patient_prof_res">
-          {TreatmentNum1 != null ? (
-            <div className="patient_prof_history_card">
-              <h3>سری اول درمان</h3>
-              <hr />
-              <ul style={{ listStyleType: "none", lineHeight: "49px" }}>
-                <li>
-                  <span>اتمام درمان</span>:
-                  {TreatmentNum1.is_finished ? "متوقف" : "در حال "}
-                </li>
-                <li>
-                  <span>مدت زمان درمان</span>:{TreatmentNum1.length}
-                </li>
-                <li>
-                  <span>تاریخ اتمام</span>:{Date1.format()}
-                </li>
-                <li>
-                  <span>دلیل ترک</span>:{TreatmentNum1.reason_to_leave}
-                </li>
-                <li>
-                  <span>روند درمان</span>:{TreatmentNum1.approach}
-                </li>
-                <li>
-                  <span>دارو های تجویز شده</span>:{TreatmentNum1.special_drugs}
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <></>
-          )}
-          {TreatmentNum2 != null ? (
-            <div className="patient_prof_history_card">
-              <h3>سری دوم درمان</h3>
-              <hr />
-              <ul style={{ listStyleType: "none", lineHeight: "49px" }}>
-                <li>
-                  <span>اتمام درمان</span>:
-                  {TreatmentNum2.is_finished ? "متوقف" : "در حال "}
-                </li>
-                <li>
-                  <span>مدت زمان درمان</span>:{TreatmentNum2.length}
-                </li>
-                <li>
-                  <span>تاریخ اتمام</span>:{Date2.format()}
-                </li>
-                <li>
-                  <span>دلیل ترک</span>:{TreatmentNum2.reason_to_leave}
-                </li>
-                <li>
-                  <span>روند درمان</span>:{TreatmentNum2.approach}
-                </li>
-                <li>
-                  <span>دارو های تجویز شده</span>:{TreatmentNum2.special_drugs}
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <></>
-          )}
-          {TreatmentNum3 != null ? (
-            <div className="patient_prof_history_card">
-              <h3>سری سوم درمان</h3>
-              <hr />
-              <ul style={{ listStyleType: "none", lineHeight: "49px" }}>
-                <li>
-                  <span>اتمام درمان</span>:
-                  {TreatmentNum3.is_finished ? "متوقف" : "در حال "}
-                </li>
-                <li>
-                  <span>مدت زمان درمان</span>:{TreatmentNum3.length}
-                </li>
-                <li>
-                  <span>تاریخ اتمام</span>:{Date3.format()}
-                </li>
-                <li>
-                  <span>دلیل ترک</span>:{TreatmentNum3.reason_to_leave}
-                </li>
-                <li>
-                  <span>روند درمان</span>:{TreatmentNum3.approach}
-                </li>
-                <li>
-                  <span>دارو های تجویز شده</span>:{TreatmentNum3.special_drugs}
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <></>
-          )}
-        </div>}
+        {History.length == 0 ? (
+          <h5
+            className="font-custom text-center my-5"
+          >
+            نتیجه ای برای نشان دادن وجود ندارد
+          </h5>
+        ) : (
+          <div className="row g-5">
+            {History.map((treatment, index) => (
+              <div className="col-6 mx-3 patient-panel-history_card">
+                <h3>سری {toPersianDigits(`${index + 1}`)}</h3>
+                <hr />
+                <ul style={{ listStyleType: "none", lineHeight: "49px" }}>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">وضعیت درمان</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :{treatment.is_finished ? "متوقف" : "در استمرار "}
+                      </div>
+                    </p>
+                  </li>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">مدت زمان درمان</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :{toPersianDigits(`${treatment.length}`)}
+                      </div>
+                    </p>
+                  </li>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">تاریخ اتمام</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :{Dates[index]}
+                      </div>
+                    </p>
+                  </li>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">دلیل ترک</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :
+                        {treatment.reason_to_leave == ""
+                          ? "   ------------------ "
+                          : treatment.reason_to_leave}
+                      </div>
+                    </p>
+                  </li>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">روند درمان</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :
+                        {treatment.approach == ""
+                          ? "   ------------------ "
+                          : treatment.approach}
+                      </div>
+                    </p>
+                  </li>
+                  <li>
+                    <p className="row">
+                      <span className="col-3">دارو های مصرفی</span>
+                      <div
+                        className="col"
+                        style={{ maxHeight: "50px", overflow: "auto" }}
+                      >
+                        :{treatment.special_drugs}
+                      </div>
+                    </p>
+                  </li>
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </>
   );
