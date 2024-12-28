@@ -13,13 +13,13 @@ const Chat_Intro = () => {
         className="my-4 p-5 row d-flex align-items-center justify-content-center bg-chat-custom ww"
         dir="rtl"
       >
-        <div className="col  kkk">
+        <div className="col  chat-intro">
           <p className="col-12 mb-4 font-custom chat-title">
             گفت‌وگو کنید،
             <br />
             احساس بهتری داشته باشید
           </p>
-          <p className="col-12 font-custom text-align-right kkk">
+          <p className="col-12 font-custom text-align-right chat-intro">
             ما می‌دانیم که صحبت کردن درباره احساسات و افکار، به‌ویژه در شرایط
             سخت، می‌تواند دشوار باشد. به همین دلیل، فضایی امن و بدون قضاوت برای
             شما ایجاد کرده‌ایم تا بتوانید راحت‌تر احساسات خود را بیان کنید.

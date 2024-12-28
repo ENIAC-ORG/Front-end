@@ -106,7 +106,7 @@
     .chat-img{
         height: 250px;
     }
-    .kkk{
+    .chat-intro{
         font-size: 90%;
     }
     .chat-title{
@@ -127,7 +127,7 @@
     .chat-img{
         height: 250px;
     }
-    .kkk{
+    .chat-intro{
         font-size: 100%;
     }
     .chat-title{
@@ -153,7 +153,7 @@
     .chat-img{
         height: 250px;
     }
-    .kkk{
+    .chat-intro{
         font-size: 80%;
     }
     .chat-title{
@@ -176,7 +176,7 @@
     .chat-img{
         height: 350px;
     }
-    .kkk{
+    .chat-intro{
         font-size: 90%;
     }
     .chat-title{
@@ -197,8 +197,8 @@
     .chat-img{
         height: 450px;
     }
-    .kkk{
-        font-size: 90%;
+    .chat-intro{
+        font-size: 105%;
     }
     .chat-title{
         font-size: x-large;
