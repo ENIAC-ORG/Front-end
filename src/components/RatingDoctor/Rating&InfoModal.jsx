@@ -36,7 +36,6 @@ const RatingInfoModal = ({ doctorId,
 
   const [loading, setLoading] = useState(false); // Loading state
 
-
   // Mock comments list
   const [comments, setComments] = useState([]);
 
@@ -256,9 +255,9 @@ const RatingInfoModal = ({ doctorId,
               </p>
               <p
                 className="m-0"
-                style={{ fontFamily: "Ios15Medium", color: "gray" }}
+                style={{ fontFamily: "Ios15Medium", color: "gray", fontSize:"12px" }}
               >
-                {Description}
+                {Array.isArray(Description) ? Description.join(" - ") : Description}
               </p>
             </div>
           </div>
