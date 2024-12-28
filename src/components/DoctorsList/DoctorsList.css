@@ -37,8 +37,9 @@
 }
 
 .DoctorList-background {
-    background-image: linear-gradient(-140deg,  #d1e9f5 0%, #b1d2c2  100%);
+    background-image: linear-gradient(-140deg, #d1e9f5 0%, #b1d2c2 100%);
 }
+
 .doctorBox {
     direction: rtl;
     justify-self: center;
@@ -67,7 +68,7 @@
     flex-wrap: wrap;
 }
 
-.tabs-style Tab{
+.tabs-style Tab {
     position: relative;
     cursor: pointer;
 }
@@ -771,21 +772,24 @@
 
 @media (max-width: 900px) {
     .distanceBetweenDoctor {
-      grid-template-columns: repeat(3, 1fr); /* tablet */
+        grid-template-columns: repeat(3, 1fr);
+        /* tablet */
     }
-  }
+}
 
 @media (max-width: 710px) {
     .distanceBetweenDoctor {
-      grid-template-columns: repeat(2, 1fr); /* tablet */
+        grid-template-columns: repeat(2, 1fr);
+        /* tablet */
     }
-  }
-  
-  @media (max-width: 480px) {
+}
+
+@media (max-width: 480px) {
     .distanceBetweenDoctor {
-      grid-template-columns: repeat(2, 1fr); /* mobile */
+        grid-template-columns: repeat(2, 1fr);
+        /* mobile */
     }
-  }
+}
 
 .buttonReserve {
     display: flex;

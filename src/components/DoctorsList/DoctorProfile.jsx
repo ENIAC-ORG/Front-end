@@ -32,6 +32,31 @@ const DoctorProfile = ({
       console.log(Id);
     };
 
+    console.log(!Image);
+    const [image, setImage] = useState(Image);
+
+    useEffect(() => {
+      if (!Image) {
+        const fetchImage = async () => {
+          try {
+            const response = await axios.get(
+              `http://46.249.100.141:8070/profile/doctors/${Id}/`
+            );
+            if (response.status === 200) {
+              setImage(response.data.image);
+            }
+          } catch (error) {
+            console.error("Error fetching doctor image:", error);
+          }
+        };
+        fetchImage();
+      }
+    }, [Image, Id]);
+
+    if (!name && !ProfileType) {
+      return null;
+    }
+
     async function GetUserInfo(event) {
       const [info, setinfo] = useState({
         FirstName: "",
@@ -46,7 +71,7 @@ const DoctorProfile = ({
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://46.249.100.141:8070//accounts/get_user/",
+          "http://46.249.100.141:8070/accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -75,8 +100,8 @@ const DoctorProfile = ({
 
             html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
 
-            background: "#489182",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#fff",
             width: "35rem",
             backdrop: `
               rgba(84, 75, 87.0.9)
@@ -99,8 +124,8 @@ const DoctorProfile = ({
           .fire({
             icon: "warning",
             html: "<div dir='rtl'>!برای نمایش اطلاعات ورود به اکانت خود الزامی است!</div>",
-            background: "#489182",
-            color: "#b4b3b3",
+            background: "#075662",
+            color: "#fff",
             width: "35rem",
             backdrop: `
           rgba(84, 75, 87.0.9)
@@ -127,7 +152,7 @@ const DoctorProfile = ({
       else {
         try {
           const response = await axios(
-            "http://46.249.100.141:8070//accounts/get_user/",
+            "http://46.249.100.141:8070/accounts/get_user/",
             {
               method: "GET",
               headers: {
@@ -157,9 +182,11 @@ const DoctorProfile = ({
               Swal.fire({
                 icon: "warning",
                 html: "<div dir='rtl'>اطلاعات حساب شما ناقص است!</div>",
-                background: "#489182",
-                color: "#b4b3b3",
+                background: "#075662",
+                color: "#fff",
                 confirmButtonText: "ویرایش اطلاعات",
+                confirmButtonColor: "#0a8ca0",
+
               });
             }
           }
@@ -169,8 +196,8 @@ const DoctorProfile = ({
               .fire({
                 icon: "warning",
                 html: "<div dir='rtl'>!برای رزرو وقت ورود به  اکانت خود الزامی است!</div>",
-                background: "#489182",
-                color: "#b4b3b3",
+                background: "#075662",
+                color: "#fff",
                 width: "35rem",
                 backdrop: `
                 rgba(84, 75, 87.0.9)
@@ -180,7 +207,7 @@ const DoctorProfile = ({
                 confirmButtonText: "ورود به سایت",
                 denyButtonText: "صفحه اصلی",
                 denyButtonColor: "#89817e",
-                confirmButtonColor: "#bfd4c2", //rgb(183, 153, 255)",
+                confirmButtonColor: "#0a8ca0",
                 customClass: {
                   actions: "my-actions",
                   confirmButton: "order-2",
@@ -224,11 +251,12 @@ const DoctorProfile = ({
         // Swal.fire({
         //   icon: "warning",
         //   title: "!شما قبلا اطلاعات خود را ثبت کرده اید",
-        //   background: "#489182",
-        //   color: "#b4b3b3",
+        //   background: "#075662",
+        //   color: "#fff",
         //   width: "26rem",
         //   height: "18rem",
         //   confirmButtonText: "تایید",
+        //   confirmButtonColor: "#0a8ca0",
         //   customClass: {
         //     container: 'custom-swal-container'
         //   }
@@ -241,8 +269,8 @@ const DoctorProfile = ({
       //     .fire({
       //         icon: "warning",
       //         title: "!مشاوری یافت نشد",
-      //         background: "#489182",
-      //         color: "#b4b3b3",
+      //         background: "#075662",
+      //         color: "#fff",
       //         width: "35rem",
       //         backdrop: `
       //             rgba(84, 75, 87.0.9)
@@ -251,21 +279,21 @@ const DoctorProfile = ({
     } else {
       return (
         <>
-        <div
-          onLoad={GetUserInfo}
-          onClick={GetUserInfo2}
-        >
-        <RatingInfoModal 
-          doctorId={Id}
-          name={name}
-          Description={Description}
-          Image={Image}
-          ProfileType={ProfileType}
-          IsPrivate={IsPrivate}
-          Psychiatrist={Psychiatrist}
-        />
+          <div
+            onLoad={GetUserInfo}
+            onClick={GetUserInfo2}
+          >
+            <RatingInfoModal
+              doctorId={Id}
+              name={name}
+              Description={Description}
+              Image={image}
+              ProfileType={ProfileType}
+              IsPrivate={IsPrivate}
+              Psychiatrist={Psychiatrist}
+            />
 
-        {/* <div
+            {/* <div
           className="rounded team-item-new"
           style={{ fontFamily: "Ios15Medium", cursor:"pointer" }}
           onLoad={load}
@@ -308,7 +336,7 @@ const DoctorProfile = ({
             </div>
           </div>
         </div> */}
-        </div>
+          </div>
         </>
       );
     }
