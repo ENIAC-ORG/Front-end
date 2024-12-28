@@ -1,34 +1,17 @@
 import "./groupchat_styles.css";
 import { ToastContainer, toast } from "react-toastify";
-import { GrNewWindow } from "react-icons/gr";
-import { FaPaperPlane } from "react-icons/fa6";
-import { RiSendPlaneFill } from "react-icons/ri";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { TextField } from "@mui/material";
 import { useState, useEffect, useRef } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import io from "socket.io-client"; // Import socket.io-client
-import { message } from "antd";
+import GroupList from "./GroupList";
+import MessageList from "./MessageList";
+import InputField from "./InputField";
+import { GrNewWindow } from "react-icons/gr";
 
-// Helper function to format the time (hour and minute) from created_at to Tehran time
-// Helper function to format the time (hour and minute) from created_at to Tehran time
-function formatTime(date) {
-  const d = new Date(date);
-  const tehranOffset = 7 * 60; // Tehran is UTC+3:30 (in minutes)
-  const localOffset = d.getTimezoneOffset(); // Local timezone offset in minutes (in browser's timezone)
-  d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
-  const hours = d.getHours().toString().padStart(2, '0');  // Ensure two digits for hours
-  const minutes = d.getMinutes().toString().padStart(2, '0');  // Ensure two digits for minutes
-  return `${hours}:${minutes}`;
-}
 
-function toPersianDigits(str) {
-  const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-  return str.replace(/\d/g, (digit) => persianDigits[digit]);
-}
 
 // Helper function to format the date (month, day, year)
 function formatDate(date) {
@@ -37,6 +20,8 @@ function formatDate(date) {
   return d.toLocaleDateString('fa-IR', options); // Adjust for Persian date format
 }
 
+
+
 const GroupChat = () => {
   const scrollRef = useRef(null);
   const socket = useRef(null); // To hold the socket connection
@@ -44,10 +29,6 @@ const GroupChat = () => {
   const [selectedGroup, setSelectedGroup] = useState(null);
   const [newMessage, setNewMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [groupName, setGroupName] = useState(""); // State to handle the group name input
-  const [userName, setUserName] = useState("");
-  const [userId, setUserId] = useState(1);
-  const [contextMenu, setContextMenu] = useState({ visible: false, x: 0, y: 0, target: null });
   const [newGroupName, setNewGroupName] = useState("");
   const [newGroupDescriptions, setNewGroupDescriptions] = useState("");
   const [showArchived, setShowArchived] = useState(false); // State for toggling archived groups
@@ -55,7 +36,10 @@ const GroupChat = () => {
   const [messages, setMessages] = useState({});
   const [openGroupInfoModal, setOpenGroupInfoModal] = useState(false); // State to control modal visibility
   const [email, setEmail] = useState("");
-  const token = localStorage.getItem("accessToken"); 
+  const [loadingGroups, setLoadingGroups] = useState(false); // For group loading
+  const [loadingMessages, setLoadingMessages] = useState(false); // For message loading
+
+  const token = localStorage.getItem("accessToken");
 
   useEffect(() => {
     getAllGroups();
@@ -69,15 +53,15 @@ const GroupChat = () => {
       const groupId = encodeURIComponent(selectedGroup.id);
       // Open WebSocket connection
       socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${groupId}/?email=${encodeURIComponent(email)}`);
-  
+
       socket.current.onopen = () => {
         console.log("WebSocket is connected.");
       };
-  
+
       socket.current.onmessage = (event) => {
         const data = JSON.parse(event.data);
         console.log("Received message:", data);
-      
+
         if (data.error) {
           console.error("Error:", data.error);
         } else {
@@ -101,18 +85,18 @@ const GroupChat = () => {
           });
         }
       };
-  
+
       socket.current.onclose = (event) => {
         console.log("WebSocket connection closed:", event);
         if (event.code !== 1000) {
           console.error(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
         }
       };
-  
+
       socket.current.onerror = (error) => {
         console.error("WebSocket error:", error);
       };
-  
+
       return () => {
         if (socket.current) {
           socket.current.close();
@@ -120,12 +104,12 @@ const GroupChat = () => {
       };
     }
   }, [selectedGroup]);
-    
-    
+
+
   useEffect(() => {
     if (selectedGroup) {
-      setGroupName(selectedGroup.title);
-      getMessages(selectedGroup.id); 
+      // setGroupName(selectedGroup.title);
+      getMessages(selectedGroup.id);
     }
   }, [selectedGroup]);
 
@@ -159,6 +143,7 @@ const GroupChat = () => {
   // Fetch all groups
   const getAllGroups = async () => {
     try {
+      setLoadingGroups(true); // Start loading
       const token = localStorage.getItem("accessToken");
       const response = await axios.get("http://46.249.100.141:8070/chat/rooms/", {
         headers: {
@@ -182,12 +167,15 @@ const GroupChat = () => {
         position: "bottom-right",
         autoClose: 3000,
       });
+    } finally {
+      setLoadingGroups(false); // Stop loading
     }
   };
 
   // Get the messages of the group which the user has clicked on
   const getMessages = async (roomId) => {
     try {
+      setLoadingMessages(true); // Start loading
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
         headers: {
@@ -222,6 +210,8 @@ const GroupChat = () => {
         position: "bottom-right",
         autoClose: 3000,
       });
+    } finally {
+      setLoadingMessages(false); // Stop loading
     }
   };
 
@@ -257,7 +247,7 @@ const GroupChat = () => {
       //     }             
       //   })
       // );
-      
+
       setNewMessage("");
 
     } catch (error) {
@@ -287,7 +277,7 @@ const GroupChat = () => {
         },
       });
 
-      if (response.status == 200 || response.status == 201 || response.status == 204 ) {
+      if (response.status == 200 || response.status == 201 || response.status == 204) {
         setMessages((prevMessages) => {
           const newMessages = { ...prevMessages };
           Object.keys(newMessages).forEach((date) => {
@@ -326,7 +316,7 @@ const GroupChat = () => {
     setGroupList([...groupList, newGroup]);
     setNewGroupName("");
     setNewGroupDescriptions("");
-    setOpenModal(false); 
+    setOpenModal(false);
     toast.success("گروه جدید ایجاد شد");
   };
 
@@ -350,95 +340,31 @@ const GroupChat = () => {
                     <div className="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
                       <div className="py-4">
                         <div className="input-group rounded p-3" dir="rtl">
-                          <span title={"ایجاد گروه جدید"} onClick={() => setOpenModal(true)} className="cursor-pointer" style={{cursor: "pointer"}}>
+                        {/* <span title={"ایجاد گروه جدید"} onClick={() => setOpenModal(true)} className="cursor-pointer" style={{cursor: "pointer"}}>
                             <GrNewWindow className="fs-5" />
-                          </span>
-                          <p style={{fontFamily: "Ios15Medium", textAlign: "center", marginRight: "28%", fontWeight: "bold", fontSize: "18px", color: "#485c2f" }}>لیست گروه‌ها</p>
-                        </div>
-                        <hr className="mt-0" />
-                        <div
-                          style={{
-                            position: "relative",
-                            height: "350px",
-                            width: "90%",
-                            overflowY: "auto",
-                          }}
-                        >
-                          {groupList.length == 0 && (
-                            <p
-                              className=" fs-5 font-custom"
-                              style={{
-                                position: "absolute",
-                                top: "45%",
-                                width: "100%",
-                                color: "#198754",
-                              }}
-                            >
-                            گروهی جهت نمایش وجود ندارد!
-                            </p>
-                          )}
-                          <ul className="list-unstyled mb-0">
-                            {groupList.map((group) => (
-                              <li
-                                className="p-2"
-                                style={{ borderBottom: "1px solid black" }}
-                                key={group.id}
-                              >
-                                <div
-                                  onClick={() => setSelectedGroup(group)}
-                                  className="d-flex justify-content-between"
-                                  style={{ cursor: 'pointer' }} 
-                                >
-                                  <div className="d-flex flex-row">
-                                    <div className="pt-1" style={{ textAlign: "right" }}>
-                                      <p
-                                        className="fw-bold mb-0 font-custom"
-                                        style={{ color: "rgba(47, 47, 47, 0.77)" }}
-                                      >
-                                        {group.title || "گروه جدید"}
-                                      
-                                      </p>
-                                    </div>
-                                  </div>
-                                </div>
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="col-md-5 col-lg-6 col-xl-8" style={{ direction: "ltr" }}>
-                      {selectedGroup !== null && (
-                        <div
-                          style={{
-                            height: "50px",
-                            display: "flex",
-                            justifyContent: "center",
-                            alignItems: "center",
-                            border: "2px solid green", 
-                            borderRadius: "10px", 
-                            backgroundColor: "rgba(227, 248, 229, 0.9)",
-                            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
-                            cursor: "pointer"
-                          }}
-                          onClick={() => setOpenGroupInfoModal(true)} 
-                        >
+                          </span> */}
                           <p
-                            className="customizedp"
                             style={{
                               fontFamily: "Ios15Medium",
-                              fontSize: "22px",
-                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", 
-                              color: "#464c49"
+                              textAlign: "center",
+                              marginRight: "35%",
+                              fontWeight: "bold",
+                              fontSize: "18px",
+                              color: "#485c2f",
                             }}
                           >
-                            {selectedGroup.title}
+                            لیست گروه‌ها
                           </p>
                         </div>
-                      )}
-
-                      {openGroupInfoModal && (
+                        <hr className="mt-0" />
+                        <GroupList
+                          groupList={groupList}
+                          loadingGroups={loadingGroups}
+                          setSelectedGroup={setSelectedGroup}
+                        />
+                      </div>
+                    </div>
+                    {openGroupInfoModal && (
                         <div
                           style={{
                             position: "fixed",
@@ -486,223 +412,52 @@ const GroupChat = () => {
                           </div>
                         </div>
                       )}
-                      {selectedGroup !== null && Object.keys(messages).length === 0 && (
+
+                    <div className="col-md-5 col-lg-6 col-xl-8" style={{ direction: "ltr" }}>
+                      {selectedGroup && (
                         <div
-                          className="pt-3 pe-3"
-                          id="scrollable-section"
-                          ref={scrollRef}
                           style={{
-                            position: "relative",
-                            height: "400px",
-                            overflowY: "auto",
+                            height: "50px",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center",
+                            border: "2px solid green",
+                            borderRadius: "10px",
+                            backgroundColor: "rgba(227, 248, 229, 0.9)",
+                            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+                            cursor: "pointer",
                           }}
+                          onClick={() => setOpenGroupInfoModal(true)}
                         >
                           <p
-                            className=" fs-5 font-custom"
+                            className="customizedp"
                             style={{
-                              position: "absolute",
-                              top: "45%",
-                              width: "100%",
-                              color: "#198754",
+                              fontFamily: "Ios15Medium",
+                              fontSize: "22px",
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
+                              color: "#464c49",
                             }}
                           >
-                            !پیامی جهت نمایش وجود ندارد
+                            {selectedGroup.title}
                           </p>
                         </div>
                       )}
 
-                      {selectedGroup === null && groupList.length != 0 && (
-                        <div
-                          className="pt-3 pe-3"
-                          id="scrollable-section"
-                          ref={scrollRef}
-                          style={{
-                            position: "relative",
-                            height: "400px",
-                            overflowY: "auto",
-                          }}
-                        >
-                          <p
-                            className=" fs-5 font-custom"
-                            style={{
-                              position: "absolute",
-                              top: "45%",
-                              width: "100%",
-                              color: "#198754",
-                            }}
-                          >
-                            ...برای شروع پیام‌رسانی یک گروه را انتخاب کنید
-                          </p>
-                        </div>
-                      )}
+                      <MessageList
+                        messages={messages}
+                        loadingMessages={loadingMessages}
+                        deleteMessage={deleteMessage}
+                        selectedGroup={selectedGroup}
+                        groupList={groupList}
+                        scrollRef={scrollRef}
+                      />
 
-                      {selectedGroup !== null && Object.keys(messages).length > 0 && (
-                        <>
-                          <div
-                            className="pt-3 pe-3"
-                            id="scrollable-section"
-                            ref={scrollRef}
-                            style={{
-                              position: "relative",
-                              height: "400px",
-                              overflowY: "auto",
-                            }}
-                          >
-                            {Object.keys(messages).map((date) => (
-                              <div key={date}>
-                                {/* Display Date */}
-                                <div
-                                  style={{
-                                    fontSize: "11px",
-                                    fontFamily: "Ios15Medium",
-                                    textAlign: "center",
-                                    color: "rgb(98, 99, 98)",
-                                    fontWeight: "bold",
-                                    margin: "20px 0",
-                                    direction: "rtl",
-                                    backgroundColor: "rgba(211, 211, 213, 0.39)", 
-                                    width: "10%", 
-                                    borderRadius: "15px", 
-                                    padding: "5px 10px", 
-                                  }}
-                                >
-                                  {toPersianDigits(date)}
-                                </div>
-
-                                {/* Render Messages for the Date */}
-                                {messages[date].map((message) => (
-                                  <div
-                                    key={message.id}
-                                    className="message-container"
-                                    style={{ fontFamily: "Ios15Medium" }}
-                                  >
-                                    <div
-                                      className={`d-flex flex-row justify-content-${message.isSelf ? "end" : "start"}`}
-                                    >
-                                      <div
-                                        className={`p-2 mb-1 rounded-4 font-custom ${message.isSelf
-                                          ? "groupchat-bg-success text-white"
-                                          : "groupchat-bg-light"
-                                          }`}
-                                        style={{
-                                          backgroundColor: "rgb(185, 219, 197)",
-                                          position: "relative", // Position the message box to allow the delete icon to float beside it
-                                          fontFamily: "Ios15Medium",
-                                          maxWidth: "80%"
-                                        }}
-                                      >
-                                        {!message.isSelf && (
-                                          <p
-                                            className="small mb-1 groupchat-text-muted"
-                                            style={{
-                                              textAlign: "left",
-                                              fontWeight: "bold",
-                                              color: "#7c7e7c !important",
-                                              fontFamily: "Ios15Medium",
-                                              fontSize: "16px"
-                                            }}
-                                          >
-                                            {message.firstname} {message.lastname}
-                                          </p>
-                                        )}
-                                        <p
-                                          className="small mb-1"
-                                          style={{
-                                            direction: "rtl",
-                                            textAlign: "right",
-                                            marginLeft: message.isSelf ? "25px" : "0",
-                                            marginRight: message.isSelf ? "0px" : "25px",
-                                            fontFamily: "Ios15Medium",
-                                            fontSize: "16px"
-                                          }}
-                                        >
-                                          {toPersianDigits(message.content)}
-                                        </p>
-                                        <p
-                                          style={{
-                                            fontSize: "12px",
-                                            color: message.isSelf ? "#ffffffa8" : "gray",
-                                            textAlign: message.isSelf ? "left" : "right",
-                                            marginBottom: "0",
-                                            fontFamily: "Ios15Medium"
-                                          }}
-                                        >
-                                          {toPersianDigits(formatTime(message.createdAt))}
-                                        </p>
-
-                                        {/* Delete Icon */}
-                                        <RiDeleteBin6Line
-                                          className="delete-icon"
-                                          onClick={() => deleteMessage(message.id)}
-                                        />
-                                      </div>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            ))}
-                          </div>
-
-                          <div className="text-muted d-flex justify-content-start align-items-center pe-3 pt-3 mt-2">
-                            <TextField
-                              multiline
-                              placeholder="پیام"
-                              autoComplete="off"
-                              variant="outlined"
-                              onChange={(event) => {
-                                if (event.target.value.includes("\n")) {
-                                  sendMessage();
-                                  setNewMessage(event.target.value.slice(0, -1));
-                                } else setNewMessage(event.target.value);
-                              }}
-                              dir="rtl"
-                              InputLabelProps={{
-                                dir: "rtl",
-                              }}
-                              value={newMessage}
-                              className="custom-form-input"
-                              InputProps={{
-                                style: {
-                                  color: "red",
-                                  width: "100%",
-                                },
-                              }}
-                              sx={{
-                                "& .MuiOutlinedInput-root": {
-                                  "& fieldset": {
-                                    borderColor: "gray", // Outline color
-                                  },
-                                  "&:hover fieldset": {
-                                    borderColor: "darkgreen", // Outline color on hover
-                                  },
-                                  "&.Mui-focused fieldset": {
-                                    borderColor: "rgb(75, 147, 113)", // Outline color when focused
-                                  },
-                                },
-                                "& .MuiInputBase-input": {
-                                  color: "gray", // Text color
-                                },
-                              }}
-                            />
-
-                            <a className="ms-3 fs-4 text-success text-decoration-none">
-                              {loading && (
-                                <FaPaperPlane
-                                  onClick={() => {
-                                    setLoading(false);
-                                    sendMessage();
-                                  }}
-                                />
-                              )}
-                              {!loading && (
-                                <div onClick={() => sendMessage()} title="ارسال پیام">
-                                  <RiSendPlaneFill />
-                                </div>
-                              )}
-                            </a>
-                          </div>
-                        </>
-                      )}
+                      {selectedGroup !== null && <InputField
+                        newMessage={newMessage}
+                        setNewMessage={setNewMessage}
+                        sendMessage={sendMessage}
+                        loading={loading}
+                      />}
                     </div>
                   </div>
                 </div>
@@ -710,74 +465,6 @@ const GroupChat = () => {
             </div>
           </div>
         </div>
-
-        {/* Modal for creating a new group */}
-        {openModal && (
-          <div
-            style={{
-              position: "fixed",
-              top: 0,
-              left: 0,
-              width: "100vw",
-              height: "100vh",
-              backgroundColor: "rgba(0, 0, 0, 0.5)",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                width: "400px",
-                backgroundColor: "rgb(232, 250, 234)",
-                padding: "20px",
-                borderRadius: "8px",
-                boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-                textAlign: "center",
-                direction: "rtl",
-                fontFamily: "Ios15Medium"
-              }}
-            >
-              <h3 style={{ fontFamily: "Ios15Medium", color: "rgb(17, 92, 36)", textShadow: "0 2px 10px rgba(0,0,0,0.2)" }}>
-                ایجاد گروه جدید
-              </h3>
-              <textarea
-                value={newGroupName}
-                onChange={handleInputChange}
-                placeholder="نام گروه را وارد کنید."
-                style={{
-                  width: "90%",
-                  height: "50px",
-                  padding: "8px",
-                  margin: "10px 0",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-              />
-              <textarea
-                value={newGroupDescriptions}
-                onChange={(e) => setNewGroupDescriptions(e.target.value)}
-                placeholder="توضیحات گروه را وارد کنید."
-                style={{
-                  width: "90%",
-                  height: "100px",
-                  padding: "8px",
-                  margin: "10px 0",
-                  borderRadius: "5px",
-                  border: "1px solid #ccc",
-                }}
-              />
-              <div style={{ marginTop: "20px", fontFamily: "Ios15Medium" }}>
-                <button onClick={createGroup} className="groupchat-modal-button confirm">
-                  ثبت
-                </button>
-                <button onClick={() => setOpenModal(false)} className="groupchat-modal-button cancel">
-                  انصراف
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
       </section>
       <Footer />
     </>
