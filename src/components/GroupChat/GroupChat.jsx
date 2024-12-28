@@ -394,6 +394,7 @@ const GroupChat = () => {
                               fontFamily: "Ios15Medium",
                               fontSize: "22px",
                               textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", // Text shadow
+                              color: "#464c49"
                             }}
                           >
                             {selectedGroup.title}
@@ -422,7 +423,7 @@ const GroupChat = () => {
                               backgroundColor: "rgb(232, 250, 234)",
                               padding: "20px",
                               borderRadius: "8px",
-                              boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+                              boxShadow: "0 1px 1px rgba(0,0,0,0.1)",
                               textAlign: "center",
                               direction: "rtl",
                             }}
