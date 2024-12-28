@@ -15,6 +15,12 @@
     color: gray;
   }
 
+.form-control {
+    &::selection {
+        border-color: #369A7E;
+    }
+}
+
  .patientsList_notfound {
     width: 100%;
     height: 2%;
@@ -736,18 +742,39 @@
 }
 
 .distanceBetween {
-    display: flex;
+    /* display: flex;
     flex-direction: row;
     gap: 2rem;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: nowrap; */
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
     .distanceBetween {
         flex-direction: column;
     }
-}
+} */
+
+@media (max-width: 900px) {
+    .distanceBetween {
+      grid-template-columns: repeat(3, 1fr); /* tablet */
+    }
+  }
+
+@media (max-width: 710px) {
+    .distanceBetween {
+      grid-template-columns: repeat(2, 1fr); /* tablet */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .distanceBetween {
+      grid-template-columns: repeat(2, 1fr); /* mobile */
+    }
+  }
 
 /* .buttonReserve {
     display: flex;

@@ -20,7 +20,7 @@ const Patient_Profile = ({ PatiantId, name, nationalID, gender }) => {
     return (
       <div
         className="rounded team-item"
-        style={{ fontFamily: "Ios15Medium", width: "298.668px" }}
+        style={{ fontFamily: "Ios15Medium" }}
       >
         <link
           rel="stylesheet"
