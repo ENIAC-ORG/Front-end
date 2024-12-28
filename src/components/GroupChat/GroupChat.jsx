@@ -13,33 +13,21 @@ import axios from "axios";
 import io from "socket.io-client"; // Import socket.io-client
 
 // Helper function to format the time (hour and minute) from created_at to Tehran time
+// Helper function to format the time (hour and minute) from created_at to Tehran time
 function formatTime(date) {
-  // Convert input date to a JavaScript Date object
   const d = new Date(date);
-
-  // Manually adjust for the Tehran timezone (UTC +3:30)
   const tehranOffset = 7 * 60; // Tehran is UTC+3:30 (in minutes)
   const localOffset = d.getTimezoneOffset(); // Local timezone offset in minutes (in browser's timezone)
-
-  // Adjust the date based on the difference between local offset and Tehran offset
   d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
-
-  // Get the hours and minutes
   const hours = d.getHours().toString().padStart(2, '0');  // Ensure two digits for hours
   const minutes = d.getMinutes().toString().padStart(2, '0');  // Ensure two digits for minutes
-
-  // Return the formatted time in HH:mm format
   return `${hours}:${minutes}`;
 }
-
-
 
 function toPersianDigits(str) {
   const persianDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
   return str.replace(/\d/g, (digit) => persianDigits[digit]);
 }
-
-
 
 const GroupChat = () => {
   const scrollRef = useRef(null);
@@ -58,41 +46,68 @@ const GroupChat = () => {
   const [openModal, setOpenModal] = useState(false);
   const [messages, setMessages] = useState([]);
   const [openGroupInfoModal, setOpenGroupInfoModal] = useState(false); // State to control modal visibility
-
+  
+  const token = localStorage.getItem("accessToken"); 
 
   useEffect(() => {
-    // Establish WebSocket connection
     getAllGroups();
+  }, []);
+
+  useEffect(() => {
     if (selectedGroup) {
-      const token = localStorage.getItem("accessToken"); // Replace with actual token
-      socket.current = io("ws://46.249.100.141:8070", {
-        path: `ws://46.249.100.141:8070/ws/chat/rooms/${selectedGroup.title}/`,
-        extraHeaders: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      console.log(socket.current)
-
-      socket.current.on("connect", () => {
-        console.log("Connected to WebSocket server!");
-      });
-
-      socket.current.on("new_message", (message) => {
-        console.log("New message received:", message);
-      });
-
-      socket.current.on("disconnect", () => {
-        console.log("Disconnected from WebSocket server");
-      });
-
+      const token = localStorage.getItem("accessToken");
+      // Open WebSocket connection
+      socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${selectedGroup.id}/`);
+  
+      socket.current.onopen = () => {
+        console.log("WebSocket is connected.");
+      };
+  
+      socket.current.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+        console.log("Received message:", data);
+      
+        if (data.error) {
+          console.error("Error:", data.error);
+        } else {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            {
+              id: data.message.id,
+              user: data.message.user,
+              content: data.message.content,
+              isSelf: data.message.isSelf,
+              firstname: data.message.firstname,
+              lastname: data.message.lastname,
+              createdAt: data.message.createdAt,
+              group: data.message.group,
+            },
+          ]);
+        }
+      };
+      
+  
+      socket.current.onclose = (event) => {
+        console.log("WebSocket connection closed:", event);
+        if (event.code !== 1000) {
+          console.error(`WebSocket closed with code: ${event.code}, reason: ${event.reason}`);
+        }
+      };
+  
+      socket.current.onerror = (error) => {
+        console.error("WebSocket error:", error);
+      };
+  
+      // Cleanup on component unmount or group change
       return () => {
-        socket.current.disconnect();
+        if (socket.current) {
+          socket.current.close();
+        }
       };
     }
   }, [selectedGroup]);
-
-
+    
+    
   useEffect(() => {
     if (selectedGroup) {
       setGroupName(selectedGroup.title);
@@ -100,22 +115,21 @@ const GroupChat = () => {
     }
   }, [selectedGroup]);
 
+
   useEffect(() => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
   }, [messages]);
 
-  const token = localStorage.getItem("accessToken"); // Replace with actual token
 
-  // Fetch all groups
   const getAllGroups = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get('http://46.249.100.141:8070/chat/rooms/', {
+      const response = await axios.get("http://46.249.100.141:8070/chat/rooms/", {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (response.status === 200 || response.status === 201) {
         const groupsArray = response.data || [];
@@ -124,29 +138,28 @@ const GroupChat = () => {
             id: group.id,
             descriptions: group.description,
             createdBy: group.created_by,
-            title: group.title
+            title: group.title,
           })));
         }
       }
     } catch (error) {
       console.error("Error fetching groups:", error);
       toast.error("خطا در بارگذاری گروه‌ها", {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 3000,
       });
     }
   };
 
-  // Fetch messages for the selected group
   const getMessages = async (roomId) => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
-      console.log(response.data);
+
       if (response.status === 200 || response.status === 201) {
         setMessages(response.data.map((message) => ({
           id: message.id,
@@ -156,64 +169,100 @@ const GroupChat = () => {
           firstname: message.firstname,
           lastname: message.lastname,
           createdAt: message.created_at,
-          group: message.room
+          group: message.room,
         })));
       }
     } catch (error) {
       console.error("Error fetching messages:", error);
       toast.error("خطا در بارگذاری پیام‌ها", {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 3000,
       });
     }
   };
 
-  // Send a new message
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.post(`http://46.249.100.141:8070/chat/rooms/${selectedGroup.id}/messages/`, {
-        content: newMessage
-      }, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+      const response = await axios.post(
+        `http://46.249.100.141:8070/chat/rooms/${selectedGroup.id}/messages/`,
+        { content: newMessage },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      });
+      );
 
-      // Emit the new message event to the server
-      socket.current.emit("new_message", newMessage);
-      // console.log("emitted");
-      setNewMessage(""); // Clear the message input
+      console.log(response.data);
+      // Emit the new message event to the WebSocket server to notify all other clients
+      socket.current.send(
+        JSON.stringify({
+          token: token,
+          message: {
+            id: response.data.id,
+            user: response.data.user,
+            content: response.data.content,
+            isSelf: response.data.is_self,
+            firstname: response.data.firstname,
+            lastname: response.data.lastname,
+            createdAt: response.data.created_at,
+            group: response.data.room,
+          }               // Include the token for authentication
+        })
+      );
+      
+
+      // Clear the input after sending the message
+      setNewMessage("");
     } catch (error) {
-      console.error("Error sending message:", error);
-      toast.error("خطا در ارسال پیام", {
-        position: "bottom-left",
-        autoClose: 3000,
-      });
+      if (error.response.data.error == "User not a member of this room.") {
+        console.error("Error sending message:", error);
+        toast.error("!شما عضو این گروه نیستید", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      } else {
+        console.error("Error sending message:", error);
+        toast.error("خطا در ارسال پیام", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      }
     }
   };
 
-  // Delete a message
   const deleteMessage = async (messageId) => {
     try {
-      await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
+      const response = await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
         headers: {
-          'Authorization': `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
-      // Emit the delete message event to the server
-      socket.current.emit("delete_message", messageId);
-      setMessages(messages.filter(message => message.id !== messageId));
-      toast.success("پیام حذف شد", {
-        position: "bottom-left",
-        autoClose: 3000,
-      });
+      // // Emit the delete message event to the server
+      // socket.current.send(
+      //   JSON.stringify({ deleteMessageId: messageId, token: token })
+      // );
+
+      // Remove the deleted message from the UI
+      if (response.status == 200 || response.status == 201) {
+        setMessages(messages.filter((message) => message.id !== messageId));
+        toast.success("پیام حذف شد", {
+          position: "bottom-right",
+          autoClose: 3000,
+        });
+      // // Emit the delete message event to the server
+      // socket.current.send(
+      //   JSON.stringify({ deleteMessageId: messageId, token: token })
+      // );
+      } 
+      
     } catch (error) {
       console.error("Error deleting message:", error);
       toast.error("خطا در حذف پیام", {
-        position: "bottom-left",
+        position: "bottom-right",
         autoClose: 3000,
       });
     }
@@ -288,7 +337,7 @@ const GroupChat = () => {
                                 color: "#198754",
                               }}
                             >
-                              !گروهی جهت نمایش وجود ندارد
+                            گروهی جهت نمایش وجود ندارد!
                             </p>
                           )}
                           <ul className="list-unstyled mb-0">
@@ -297,7 +346,7 @@ const GroupChat = () => {
                                 className="p-2"
                                 style={{ borderBottom: "1px solid black" }}
                                 key={group.id}
-                                onContextMenu={(e) => handleContextMenu(e, "group", group)}
+                                // onContextMenu={(e) => handleContextMenu(e, "group", group)}
                               >
                                 <div
                                   onClick={() => setSelectedGroup(group)}
@@ -423,6 +472,8 @@ const GroupChat = () => {
                             !پیامی جهت نمایش وجود ندارد
                           </p>
                         </div>
+                        
+                        
                       )}
                       {selectedGroup === null && groupList.length != 0 && (
                         <div
@@ -464,7 +515,7 @@ const GroupChat = () => {
                             {messages.map((message) => (
                               <div
                                 key={message.id}
-                                onContextMenu={(e) => handleContextMenu(e, "message", message)}
+                                // onContextMenu={(e) => handleContextMenu(e, "message", message)}
                                 className="message-container"
                                 style={{ fontFamily: "Ios15Medium" }}
                               >
@@ -479,7 +530,8 @@ const GroupChat = () => {
                                     style={{
                                       backgroundColor: "rgb(185, 219, 197)",
                                       position: "relative", // Position the message box to allow the delete icon to float beside it
-                                      fontFamily: "Ios15Medium"
+                                      fontFamily: "Ios15Medium",
+                                      maxWidth: "80%"
                                     }}
                                   >
                                     {!message.isSelf && (
@@ -556,6 +608,22 @@ const GroupChat = () => {
                                 style: {
                                   color: "red",
                                   width: "100%",
+                                },
+                              }}
+                              sx={{
+                                "& .MuiOutlinedInput-root": {
+                                  "& fieldset": {
+                                    borderColor: "gray", // Outline color
+                                  },
+                                  "&:hover fieldset": {
+                                    borderColor: "darkgreen", // Outline color on hover
+                                  },
+                                  "&.Mui-focused fieldset": {
+                                    borderColor: "rgb(75, 147, 113)", // Outline color when focused
+                                  },
+                                },
+                                "& .MuiInputBase-input": {
+                                  color: "gray", // Text color
                                 },
                               }}
                             />
@@ -658,6 +726,9 @@ const GroupChat = () => {
       <Footer />
     </>
   );
+
 };
+
+
 
 export default GroupChat;

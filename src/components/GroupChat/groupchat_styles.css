@@ -174,7 +174,7 @@
   display: none;
   position: absolute;
   top: 50%;
-  right: 110%; /* Adjust this value based on how far you want the icon from the box */
+  right: 105%; /* Adjust this value based on how far you want the icon from the box */
   transform: translateY(-50%);
   cursor: pointer;
   z-index: 10;
