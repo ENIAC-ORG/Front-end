@@ -28,7 +28,7 @@ const ReservationTable = ({ PatiantId, PatiantName, Day, Date, time, type, Meeti
                 </div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="نوع مراجعه">{type}</div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="ساعت">{time}</div>
-                <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="تاریخ">{Date},{Day}</div>
+                <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="تاریخ">{Date}<br />{Day}</div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="نام بیمار">{PatiantName}</div>
             </li>
         </div>
