@@ -1,5 +1,5 @@
 .side_body {
-    background-color: #489182;
+    background-color: #b08842;
     width: 16rem;
     /* w-64 */
     position: fixed;
@@ -19,6 +19,8 @@
     padding-bottom: 0.5rem;
     z-index: 1000;
     /* py-2 */
+    border-top-left-radius: 50px;
+    border-bottom-left-radius: 50px;
 }
 
 .side_p1 {
@@ -52,18 +54,19 @@
     padding-top: 0.75rem;
     padding-bottom: 0.75rem;
     padding-right: 1rem;
+    cursor: pointer;
 }
 .side_list_element_text
 {
     color: white;
     font-family: Ios15Medium;
+    cursor: pointer;
 }
 .side_list_element:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
     background-color: #f9fafb;
     cursor: pointer;
-
 }
 .side_list_element:hover .side_list_element_text
 {
@@ -77,4 +80,5 @@
     width: 1.25rem;
     height: 1.5rem;
     margin-top: -0.5rem;
+    cursor: pointer;
 }

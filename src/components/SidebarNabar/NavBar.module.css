@@ -41,7 +41,7 @@
     /* font-weight: 600; */
     font-size: 30px;
     font-family: Ios15medium;
-    cursor: default;
+    cursor: pointer;
     /* text-align: end; */
     padding-left: 60px;
     /* white-space: 50px; */
@@ -63,6 +63,7 @@
 
 .con {
     color: #ffffff;
+    cursor: pointer;
 }
 
 .con :hover {
@@ -140,4 +141,10 @@
 
 .prof_list label {
     font-family: Ios15medium;
+}
+
+.UnderNavbar {
+    background-color: #489182;
+    height: 50px;
+    margin-top: -50px;
 }
