@@ -21,12 +21,11 @@ const PatientsList = () => {
   const [inputName, setInputName] = useState("");
 
   useEffect(() => {
-    //  تابع برای دریافت اطلاعات پروفایل دکترها از بک‌اند
     const fetchPatientsProfile = async () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios(
-          "http://eniacgroup.ir:8070//TherapyTests/record/query/",
+          "http://eniacgroup.ir:8070/TherapyTests/record/query/",
           {
             method: "POST",
             headers: {
@@ -93,11 +92,12 @@ const PatientsList = () => {
             </div>
             <div className="rtl-form">
               <form>
-                <div class="form-row">
-                  <div class="col">
+                <div className="form-row">
+                  <div className="col">
                     <input
+                      style={{fontFamily:"Ios15medium"}}
                       type="text"
-                      class="form-control"
+                      className="form-control"
                       placeholder="نام مراجع"
                       onChange={(e) => setInputName(e.target.value)}
                     />
