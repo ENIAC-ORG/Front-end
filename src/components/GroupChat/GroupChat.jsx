@@ -11,6 +11,7 @@ import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 import axios from "axios";
 import io from "socket.io-client"; // Import socket.io-client
+import { message } from "antd";
 
 // Helper function to format the time (hour and minute) from created_at to Tehran time
 // Helper function to format the time (hour and minute) from created_at to Tehran time
@@ -29,6 +30,13 @@ function toPersianDigits(str) {
   return str.replace(/\d/g, (digit) => persianDigits[digit]);
 }
 
+// Helper function to format the date (month, day, year)
+function formatDate(date) {
+  const d = new Date(date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return d.toLocaleDateString('fa-IR', options); // Adjust for Persian date format
+}
+
 const GroupChat = () => {
   const scrollRef = useRef(null);
   const socket = useRef(null); // To hold the socket connection
@@ -44,20 +52,23 @@ const GroupChat = () => {
   const [newGroupDescriptions, setNewGroupDescriptions] = useState("");
   const [showArchived, setShowArchived] = useState(false); // State for toggling archived groups
   const [openModal, setOpenModal] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState({});
   const [openGroupInfoModal, setOpenGroupInfoModal] = useState(false); // State to control modal visibility
-  
+  const [email, setEmail] = useState("");
   const token = localStorage.getItem("accessToken"); 
 
   useEffect(() => {
     getAllGroups();
+    getUserEmail();
   }, []);
 
   useEffect(() => {
     if (selectedGroup) {
-      const token = localStorage.getItem("accessToken");
+      // console.log(email);
+      console.log(token);
+      const groupId = encodeURIComponent(selectedGroup.id);
       // Open WebSocket connection
-      socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${selectedGroup.id}/`);
+      socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${groupId}/?email=${encodeURIComponent(email)}`);
   
       socket.current.onopen = () => {
         console.log("WebSocket is connected.");
@@ -70,9 +81,13 @@ const GroupChat = () => {
         if (data.error) {
           console.error("Error:", data.error);
         } else {
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            {
+          setMessages((prevMessages) => {
+            const messageDate = formatDate(data.message.createdAt);
+            const newMessages = { ...prevMessages };
+            if (!newMessages[messageDate]) {
+              newMessages[messageDate] = [];
+            }
+            newMessages[messageDate].push({
               id: data.message.id,
               user: data.message.user,
               content: data.message.content,
@@ -81,11 +96,11 @@ const GroupChat = () => {
               lastname: data.message.lastname,
               createdAt: data.message.createdAt,
               group: data.message.group,
-            },
-          ]);
+            });
+            return newMessages;
+          });
         }
       };
-      
   
       socket.current.onclose = (event) => {
         console.log("WebSocket connection closed:", event);
@@ -98,7 +113,6 @@ const GroupChat = () => {
         console.error("WebSocket error:", error);
       };
   
-      // Cleanup on component unmount or group change
       return () => {
         if (socket.current) {
           socket.current.close();
@@ -111,7 +125,7 @@ const GroupChat = () => {
   useEffect(() => {
     if (selectedGroup) {
       setGroupName(selectedGroup.title);
-      getMessages(selectedGroup.id); // Fetch messages when a group is selected
+      getMessages(selectedGroup.id); 
     }
   }, [selectedGroup]);
 
@@ -122,7 +136,27 @@ const GroupChat = () => {
     }
   }, [messages]);
 
+  const getUserEmail = async () => {
+    try {
+      const response = await axios.get("http://46.249.100.141:8070/chat/get-user-email/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      // console.log(response.data);
+      if (response.status === 200 || response.status === 201) {
+        setEmail(response.data.email);
+      }
+    } catch (error) {
+      console.error("Error fetching groups:", error);
+      toast.error("خطا در بارگذاری گروه‌ها", {
+        position: "bottom-right",
+        autoClose: 3000,
+      });
+    }
+  };
 
+  // Fetch all groups
   const getAllGroups = async () => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -151,6 +185,7 @@ const GroupChat = () => {
     }
   };
 
+  // Get the messages of the group which the user has clicked on
   const getMessages = async (roomId) => {
     try {
       const token = localStorage.getItem("accessToken");
@@ -161,16 +196,25 @@ const GroupChat = () => {
       });
 
       if (response.status === 200 || response.status === 201) {
-        setMessages(response.data.map((message) => ({
-          id: message.id,
-          user: message.user,
-          content: message.content,
-          isSelf: message.is_self,
-          firstname: message.firstname,
-          lastname: message.lastname,
-          createdAt: message.created_at,
-          group: message.room,
-        })));
+        const groupedMessages = response.data.reduce((acc, message) => {
+          const messageDate = formatDate(message.created_at);
+          if (!acc[messageDate]) {
+            acc[messageDate] = [];
+          }
+          acc[messageDate].push({
+            id: message.id,
+            user: message.user,
+            content: message.content,
+            isSelf: message.is_self,
+            firstname: message.firstname,
+            lastname: message.lastname,
+            createdAt: message.created_at,
+            group: message.room,
+          });
+          return acc;
+        }, {});
+
+        setMessages(groupedMessages);
       }
     } catch (error) {
       console.error("Error fetching messages:", error);
@@ -181,6 +225,7 @@ const GroupChat = () => {
     }
   };
 
+  // Send message to the group
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
     try {
@@ -197,25 +242,24 @@ const GroupChat = () => {
 
       console.log(response.data);
       // Emit the new message event to the WebSocket server to notify all other clients
-      socket.current.send(
-        JSON.stringify({
-          token: token,
-          message: {
-            id: response.data.id,
-            user: response.data.user,
-            content: response.data.content,
-            isSelf: response.data.is_self,
-            firstname: response.data.firstname,
-            lastname: response.data.lastname,
-            createdAt: response.data.created_at,
-            group: response.data.room,
-          }               // Include the token for authentication
-        })
-      );
+      // socket.current.send(
+      //   JSON.stringify({
+      //     email: email,
+      //     message: {
+      //       id: response.data.id,
+      //       user: response.data.user,
+      //       content: response.data.content,
+      //       isSelf: response.data.is_self,
+      //       firstname: response.data.firstname,
+      //       lastname: response.data.lastname,
+      //       createdAt: response.data.created_at,
+      //       group: response.data.room,
+      //     }             
+      //   })
+      // );
       
-
-      // Clear the input after sending the message
       setNewMessage("");
+
     } catch (error) {
       if (error.response.data.error == "User not a member of this room.") {
         console.error("Error sending message:", error);
@@ -233,32 +277,31 @@ const GroupChat = () => {
     }
   };
 
+  // Delete a message which was written by the user
   const deleteMessage = async (messageId) => {
     try {
+      console.log(messageId);
       const response = await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
 
-      // // Emit the delete message event to the server
-      // socket.current.send(
-      //   JSON.stringify({ deleteMessageId: messageId, token: token })
-      // );
-
-      // Remove the deleted message from the UI
-      if (response.status == 200 || response.status == 201) {
-        setMessages(messages.filter((message) => message.id !== messageId));
+      if (response.status == 200 || response.status == 201 || response.status == 204 ) {
+        setMessages((prevMessages) => {
+          const newMessages = { ...prevMessages };
+          Object.keys(newMessages).forEach((date) => {
+            newMessages[date] = newMessages[date].filter((message) => message.id !== messageId);
+          });
+          return newMessages;
+        });
         toast.success("پیام حذف شد", {
           position: "bottom-right",
           autoClose: 3000,
         });
-      // // Emit the delete message event to the server
-      // socket.current.send(
-      //   JSON.stringify({ deleteMessageId: messageId, token: token })
-      // );
-      } 
-      
+        getMessages(selectedGroup.id);
+
+      }
     } catch (error) {
       console.error("Error deleting message:", error);
       toast.error("خطا در حذف پیام", {
@@ -268,6 +311,7 @@ const GroupChat = () => {
     }
   };
 
+  // Create group by admin
   const createGroup = () => {
     if (!newGroupName.trim()) {
       toast.error("نام گروه نمی‌تواند خالی باشد");
@@ -280,23 +324,16 @@ const GroupChat = () => {
       messages: [],
     };
     setGroupList([...groupList, newGroup]);
-    setNewGroupName(""); // Clear the input after creating the group
+    setNewGroupName("");
     setNewGroupDescriptions("");
-    setOpenModal(false); // Close the modal
+    setOpenModal(false); 
     toast.success("گروه جدید ایجاد شد");
   };
 
-  const handleOpenModal = () => {
-    setOpenModal(true); // Open the modal for the group name
-  };
 
-  const handleCloseModal = () => {
-    setOpenModal(false);
-    setGroupName(""); // Reset the group name when modal is closed
-  };
-
+  // Handle input change
   const handleInputChange = (e) => {
-    setNewGroupName(e.target.value); // Handle input change for group name
+    setNewGroupName(e.target.value);
   };
 
   return (
@@ -346,7 +383,6 @@ const GroupChat = () => {
                                 className="p-2"
                                 style={{ borderBottom: "1px solid black" }}
                                 key={group.id}
-                                // onContextMenu={(e) => handleContextMenu(e, "group", group)}
                               >
                                 <div
                                   onClick={() => setSelectedGroup(group)}
@@ -380,20 +416,20 @@ const GroupChat = () => {
                             display: "flex",
                             justifyContent: "center",
                             alignItems: "center",
-                            border: "2px solid green", // Green border
-                            borderRadius: "10px", // Border radius
-                            backgroundColor: "rgba(227, 248, 229, 0.9)", // Background color with slight transparency
-                            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)", // Box shadow for the div
+                            border: "2px solid green", 
+                            borderRadius: "10px", 
+                            backgroundColor: "rgba(227, 248, 229, 0.9)",
+                            boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
                             cursor: "pointer"
                           }}
-                          onClick={() => setOpenGroupInfoModal(true)} // Open modal on clicking the group name
+                          onClick={() => setOpenGroupInfoModal(true)} 
                         >
                           <p
                             className="customizedp"
                             style={{
                               fontFamily: "Ios15Medium",
                               fontSize: "22px",
-                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", // Text shadow
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)", 
                               color: "#464c49"
                             }}
                           >
@@ -441,7 +477,7 @@ const GroupChat = () => {
                             <p style={{fontFamily: "Ios15Medium", textAlign: "right", marginRight: "9%"}}>{selectedGroup.descriptions}</p>
                             <div style={{ marginTop: "10%",fontFamily: "Ios15Medium" }}>
                               <button
-                                onClick={() => setOpenGroupInfoModal(false)} // Close the modal
+                                onClick={() => setOpenGroupInfoModal(false)}
                                 className="groupchat-modal-button confirm"
                               >
                                 بستن
@@ -450,7 +486,7 @@ const GroupChat = () => {
                           </div>
                         </div>
                       )}
-                      {selectedGroup !== null && messages.length === 0 && (
+                      {selectedGroup !== null && Object.keys(messages).length === 0 && (
                         <div
                           className="pt-3 pe-3"
                           id="scrollable-section"
@@ -473,9 +509,8 @@ const GroupChat = () => {
                             !پیامی جهت نمایش وجود ندارد
                           </p>
                         </div>
-                        
-                        
                       )}
+
                       {selectedGroup === null && groupList.length != 0 && (
                         <div
                           className="pt-3 pe-3"
@@ -501,7 +536,7 @@ const GroupChat = () => {
                         </div>
                       )}
 
-                      {selectedGroup !== null && messages !== null && (
+                      {selectedGroup !== null && Object.keys(messages).length > 0 && (
                         <>
                           <div
                             className="pt-3 pe-3"
@@ -513,77 +548,98 @@ const GroupChat = () => {
                               overflowY: "auto",
                             }}
                           >
-                            {messages.map((message) => (
-                              <div
-                                key={message.id}
-                                // onContextMenu={(e) => handleContextMenu(e, "message", message)}
-                                className="message-container"
-                                style={{ fontFamily: "Ios15Medium" }}
-                              >
+                            {Object.keys(messages).map((date) => (
+                              <div key={date}>
+                                {/* Display Date */}
                                 <div
-                                  className={`d-flex flex-row justify-content-${message.isSelf ? "end" : "start"}`}
+                                  style={{
+                                    fontSize: "11px",
+                                    fontFamily: "Ios15Medium",
+                                    textAlign: "center",
+                                    color: "rgb(98, 99, 98)",
+                                    fontWeight: "bold",
+                                    margin: "20px 0",
+                                    direction: "rtl",
+                                    backgroundColor: "rgba(211, 211, 213, 0.39)", 
+                                    width: "10%", 
+                                    borderRadius: "15px", 
+                                    padding: "5px 10px", 
+                                  }}
                                 >
-                                  <div
-                                    className={`p-2 mb-1 rounded-4 font-custom ${message.isSelf
-                                      ? "groupchat-bg-success text-white"
-                                      : "groupchat-bg-light"
-                                      }`}
-                                    style={{
-                                      backgroundColor: "rgb(185, 219, 197)",
-                                      position: "relative", // Position the message box to allow the delete icon to float beside it
-                                      fontFamily: "Ios15Medium",
-                                      maxWidth: "80%"
-                                    }}
-                                  >
-                                    {!message.isSelf && (
-                                      <p
-                                        className="small mb-1 groupchat-text-muted"
-                                        style={{
-                                          textAlign: "left",
-                                          fontWeight: "bold",
-                                          color: "#7c7e7c !important",
-                                          fontFamily: "Ios15Medium",
-                                          fontSize: "16px"
+                                  {toPersianDigits(date)}
+                                </div>
 
+                                {/* Render Messages for the Date */}
+                                {messages[date].map((message) => (
+                                  <div
+                                    key={message.id}
+                                    className="message-container"
+                                    style={{ fontFamily: "Ios15Medium" }}
+                                  >
+                                    <div
+                                      className={`d-flex flex-row justify-content-${message.isSelf ? "end" : "start"}`}
+                                    >
+                                      <div
+                                        className={`p-2 mb-1 rounded-4 font-custom ${message.isSelf
+                                          ? "groupchat-bg-success text-white"
+                                          : "groupchat-bg-light"
+                                          }`}
+                                        style={{
+                                          backgroundColor: "rgb(185, 219, 197)",
+                                          position: "relative", // Position the message box to allow the delete icon to float beside it
+                                          fontFamily: "Ios15Medium",
+                                          maxWidth: "80%"
                                         }}
                                       >
-                                        {message.firstname} {message.lastname}
-                                      </p>
-                                    )}
-                                    <p
-                                      className="small mb-1"
-                                      style={{
-                                        direction: "rtl",
-                                        textAlign: "right",
-                                        marginLeft: message.isSelf ? "25px" : "0",
-                                        marginRight: message.isSelf ? "0px" : "25px",
-                                        fontFamily: "Ios15Medium",
-                                        fontSize: "16px"
-                                      }}
-                                    >
-                                      {toPersianDigits(message.content)}
-                                    </p>
-                                    <p
-                                      style={{
-                                        fontSize: "12px",
-                                        color: message.isSelf ? "#ffffffa8" : "gray",
-                                        textAlign: message.isSelf ? "left" : "right",
-                                        marginBottom: "0",
-                                        fontFamily: "Ios15Medium"
-                                      }}
-                                    >
-                                      {toPersianDigits(formatTime(message.createdAt))}
-                                    </p>
+                                        {!message.isSelf && (
+                                          <p
+                                            className="small mb-1 groupchat-text-muted"
+                                            style={{
+                                              textAlign: "left",
+                                              fontWeight: "bold",
+                                              color: "#7c7e7c !important",
+                                              fontFamily: "Ios15Medium",
+                                              fontSize: "16px"
+                                            }}
+                                          >
+                                            {message.firstname} {message.lastname}
+                                          </p>
+                                        )}
+                                        <p
+                                          className="small mb-1"
+                                          style={{
+                                            direction: "rtl",
+                                            textAlign: "right",
+                                            marginLeft: message.isSelf ? "25px" : "0",
+                                            marginRight: message.isSelf ? "0px" : "25px",
+                                            fontFamily: "Ios15Medium",
+                                            fontSize: "16px"
+                                          }}
+                                        >
+                                          {toPersianDigits(message.content)}
+                                        </p>
+                                        <p
+                                          style={{
+                                            fontSize: "12px",
+                                            color: message.isSelf ? "#ffffffa8" : "gray",
+                                            textAlign: message.isSelf ? "left" : "right",
+                                            marginBottom: "0",
+                                            fontFamily: "Ios15Medium"
+                                          }}
+                                        >
+                                          {toPersianDigits(formatTime(message.createdAt))}
+                                        </p>
 
-                                    {/* Delete Icon */}
-                                    <RiDeleteBin6Line
-                                      className="delete-icon"
-                                      onClick={() => deleteMessage(message.id)}
-                                    />
+                                        {/* Delete Icon */}
+                                        <RiDeleteBin6Line
+                                          className="delete-icon"
+                                          onClick={() => deleteMessage(message.id)}
+                                        />
+                                      </div>
+                                    </div>
                                   </div>
-                                </div>
+                                ))}
                               </div>
-
                             ))}
                           </div>
 
@@ -668,7 +724,6 @@ const GroupChat = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              
             }}
           >
             <div
@@ -727,9 +782,6 @@ const GroupChat = () => {
       <Footer />
     </>
   );
-
 };
-
-
 
 export default GroupChat;
