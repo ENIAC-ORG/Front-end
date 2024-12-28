@@ -7,15 +7,16 @@ import Doctors_Home from "../Doctor/doctor.jsx";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar.jsx";
 import AboutSection from "../Recommendation/Recommendation.jsx";
 import HomeCarousel from "../Crasoul/Crasoul.jsx";
+import Chat_Intro from "../Chat/ChatIntroduction/Chat_intro.jsx";
 function Home() {
   return (
-    <div style={{ backgroundColor: "#FFFFFF" }}>
+    <div style={{ backgroundColor: "#FFFFFF",overflowX:'hidden' }}>
       <NavBar_SideBar />
-      {/* <Slider /> */}
       <HomeCarousel />
       <AboutSection />
       <Tests />
       <Doctors_Home />
+      <Chat_Intro/>
       <Statistic />
       <Footer />
     </div>
