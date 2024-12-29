@@ -258,7 +258,7 @@ const RatingInfoModal = ({ doctorId,
               </p>
               <p
                 className="m-0"
-                style={{ fontFamily: "Ios15Medium", color: "gray", fontSize:"12px" }}
+                style={{ fontFamily: "Ios15Medium", color: "gray", fontSize:"10px" }}
               >
                 {Array.isArray(Description) ? Description.join(" - ") : Description}
               </p>
