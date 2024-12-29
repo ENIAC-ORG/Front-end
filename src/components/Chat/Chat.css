@@ -24,12 +24,12 @@
     border-color: #819148;
 }
 
-.customize-chat-side{
+.customize-singlechat-side{
     background-color: rgb(25, 135, 84,0.1);
     border-right: 2px solid #198754;
 }
 
-.chat-my-message{
+.singlechat-my-message{
     background-color:#249861;
 }
 
@@ -51,18 +51,18 @@ color: #249861;
 
 }
 
-.chat-text{
+.singlechat-text{
     border-color: black;
 
 }
 
-.chat-text:hover{
+.singlechat-text:hover{
     border-color: rgb(25, 134, 83);
     box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, rgba(25, 135, 84, 0.502) 0 0 0 .1rem;
 
 }
 
-.chat-text:focus{
+.singlechat-text:focus{
     border-color: #198754;
     box-shadow: rgba(46, 54, 80, 0.125) 0 3px 5px inset, #19875480 0 0 0 .1rem;
 
