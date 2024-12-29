@@ -50,7 +50,7 @@ const DoctorsList = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://46.249.100.141:8070//accounts/get_user/",
+        "http://46.249.100.141:8070/accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -78,14 +78,15 @@ const DoctorsList = () => {
 
           html: "<div dir='rtl'>برای مشاهده اطلاعات شخصی ورود به اکانت خود الزامی است!</div>",
 
-          background: "#473a67",
-          color: "#b4b3b3",
+          background: "#075662",
+          color: "#fff",
           width: "35rem",
           backdrop: `
               rgba(84, 75, 87.0.9)
               left top
               no-repeat`,
           confirmButtonText: "تایید",
+          confirmButtonColor: "#0a8ca0",
           preConfirm: () => {
             navigate("/Signup");
           },
@@ -100,7 +101,7 @@ const DoctorsList = () => {
     const fetchDoctorProfile = async () => {
       try {
         const response = await axios.get(
-          "http://46.249.100.141:8070//profile/doctors/"
+          "http://46.249.100.141:8070/profile/doctors/"
         );
         setDoctorProfile(response.data);
       } catch (error) {
@@ -111,12 +112,24 @@ const DoctorsList = () => {
     fetchDoctorProfile();
   }, []);
 
+
+
+  // const [Id, setId] = useState(0);
+  // const [name, setName] = useState("");
+  // const [Description, setDescription] = useState("");
+  // const [Image, setImage] = useState = useState("");
+  // const [ProfileType, setProfileType] = useState("");
+  // const [IsPrivate, setIsPrivate] = useState("");
+  // const [Psychiatrist, setPsychiatrist] = useState(0);
+
+
+
   const [doctorProfileFardi, setDoctorProfileFardi] = useState([]);
   useEffect(() => {
     const fetchDoctorProfileFardi = async () => {
       try {
         const response1 = await axios.get(
-          "http://46.249.100.141:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070/profile/doctors/typed/",
           {
             params: {
               profile_type: "فردی",
@@ -138,7 +151,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileBaby = async () => {
       try {
         const response1 = await axios.get(
-          "http://46.249.100.141:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070/profile/doctors/typed/",
           {
             params: {
               profile_type: "کودک",
@@ -160,7 +173,7 @@ const DoctorsList = () => {
     const fetchDoctorProfileFamily = async () => {
       try {
         const response1 = await axios.get(
-          "http://46.249.100.141:8070//profile/doctors/typed/",
+          "http://46.249.100.141:8070/profile/doctors/typed/",
           {
             params: {
               profile_type: "زوج",
@@ -181,21 +194,30 @@ const DoctorsList = () => {
     const fetchDoctorProfileEdu = async () => {
       try {
         const response1 = await axios.get(
-          "http://46.249.100.141:8070//profile/doctors/typed/",
+          `http://eniacgroup.ir:8070/profile/doctors/typed`,
+          // "http://46.249.100.141:8070/profile/doctors/typed/",
           {
             params: {
               profile_type: "نوجوان",
             },
           }
         );
+        // const response1 = await axios(
+        //   "http://46.249.100.141:8070/profile/doctors/typed/",
+        //   {
+        //     method: "GET",
+        //     params: {
+        //       profile_type: "نوجوان",
+        //     },
+        //    }
+        // );
         setDoctorProfileEdu(response1.data);
       } catch (error) {
         console.error("Error fetching doctor profile:", error);
       }
     };
-
     fetchDoctorProfileEdu();
-  }, []);
+  });
 
   const settings = {
     className: "center",
@@ -217,8 +239,8 @@ const DoctorsList = () => {
 
   return (
     <>
+      <NavBar_SideBar />
       <body className="Doctor_List_body">
-        <NavBar_SideBar />
         <div className="DoctorList-background">
           <html>
             <head>

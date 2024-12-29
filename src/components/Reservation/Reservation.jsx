@@ -272,6 +272,8 @@ const ReservationPage = () => {
           draggable: true,
           progress: undefined,
         });
+        getFreeTime();
+        getReservation();
         Setdatetime(selectedDay);
         CheckMedicalInfo();
       }

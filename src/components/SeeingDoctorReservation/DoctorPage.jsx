@@ -5,7 +5,7 @@ import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
 import DoctorProfile from "../DoctorsList/DoctorProfile";
 import { useLocation } from "react-router-dom";
-import ReservationTable from "./ReservationTable";
+import ReservationTable from "./ReservationTable.jsx";
 
 const DoctorPage = () => {
   const location = useLocation();
@@ -17,7 +17,7 @@ const DoctorPage = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/get_user/",
+        "http://46.249.100.141:8070/accounts/get_user/",
         {
           method: "GET",
           headers: {
@@ -30,7 +30,7 @@ const DoctorPage = () => {
         const data = response.data.user;
         setName(data.firstname + " " + data.lastname);
       }
-    } catch (error) {}
+    } catch (error) { }
   }
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const DoctorPage = () => {
       GetUserInfo();
       try {
         const response1 = await axios.get(
-          `http://eniacgroup.ir:8070//profile/doctors/`
+          `http://eniacgroup.ir:8070/profile/doctors/`
         );
         if (response1.status == 200 || response1.status == 201) {
           for (let i = 0; i < response1.data.length; i++) {
@@ -60,7 +60,7 @@ const DoctorPage = () => {
       const token = localStorage.getItem("accessToken");
       try {
         const response1 = await axios(
-          "http://eniacgroup.ir:8070//DoctorPanel/NextWeekReservations/",
+          "http://eniacgroup.ir:8070/DoctorPanel/NextWeekReservations/",
           {
             method: "GET",
             headers: {
@@ -80,112 +80,109 @@ const DoctorPage = () => {
   }, [doctorId]);
 
   return (
-    <div>
+    <>
       <NavBar_SideBar />
       <br />
-      <h1
-        className="text-center mx-auto pb-2 wow fadeIn Doctor_List_title"
-        data-wow-delay=".3s"
-        style={{ maxWidth: "600px", fontFamily: "Ios15Medium" }}
-      >
-        پروفایل دکتر
-      </h1>
+      <div className="all">
 
-      <div className="container">
-        <div
-          className="rounded team-item"
-          style={{
-            fontFamily: "Ios15Medium",
-            width: "298.668px",
-            float: "right",
-          }}
-        >
-          <link
-            rel="stylesheet"
-            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
-          />
-          <div className="team-content">
-            <div className="team-img-icon">
-              <div className="team-img rounded-circle">
-                <img
-                  src={doctorProfile?.image}
-                  className="img-fluid w-100 rounded-circle"
-                  alt={`${doctorProfile?.name}'s Image`}
-                />
-              </div>
-              <div className="team-name text-center py-3">
-                <h4
-                  className=""
-                  style={{ color: "gray", fontFamily: "Ios15Medium" }}
-                >
-                  {doctorProfile?.name}
-                </h4>
-                <p
-                  className="m-0"
-                  style={{ fontFamily: "Ios15Medium", color: "gray" }}
-                >
-                  {doctorProfile?.profile_type}
-                </p>
-                <p
-                  className="m-0"
-                  style={{ fontFamily: "Ios15Medium", color: "gray" }}
-                >
-                  {doctorProfile?.description}
-                </p>
+        <div className="">
+          <div
+            className="rounded team-item"
+            style={{
+              fontFamily: "Ios15Medium",
+              width: "298.668px",
+              float: "right",
+            }}
+          >
+            <link
+              rel="stylesheet"
+              href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+            />
+            <div className="team-content">
+              <div className="team-img-icon">
+                <div className="team-img rounded-circle">
+                  <img
+                    src={doctorProfile?.image}
+                    className="img-fluid w-100 rounded-circle"
+                    alt={`${doctorProfile?.name}'s Image`}
+                  />
+                </div>
+                <div className="team-name text-center py-3">
+                  <h4
+                    className=""
+                    style={{ color: "gray", fontFamily: "Ios15Medium" }}
+                  >
+                    {doctorProfile?.name}
+                  </h4>
+                  <p
+                    className="m-0"
+                    style={{ fontFamily: "Ios15Medium", color: "gray" }}
+                  >
+                    {doctorProfile?.profile_type}
+                  </p>
+                  <p
+                    className="m-0"
+                    style={{ fontFamily: "Ios15Medium", color: "gray" }}
+                  >
+                    {doctorProfile?.description}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <div className="containerTable">
-        <h1
-          style={{
-            fontFamily: "Ios15Medium",
-            textAlign: "center",
-            color: "gray",
-          }}
-        >
-          نوبت های رزرو شده
-        </h1>
-        <ul className="responsive-table">
-          <li className="table-header">
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              پرونده پزشکی بیمار
-            </div>
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              لینک جلسه مجازی
-            </div>
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              نوع مراجعه
-            </div>
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              ساعت
-            </div>
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              تاریخ
-            </div>
-            <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-              نام بیمار
-            </div>
-          </li>
+        <div className="containerTable">
+          <h1
+            style={{
+              fontFamily: "Ios15Medium",
+              textAlign: "right",
+              color: "gray",
+              fontSize: "30px",
+            }}
+          >
+            نوبت های رزرو شده
+          </h1>
+          <ul className="responsive-table">
+            <li className="table-header">
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                پرونده پزشکی بیمار
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                لینک جلسه مجازی
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                نوع مراجعه
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                ساعت
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                تاریخ
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                نام بیمار
+              </div>
+            </li>
 
-          {Reservations.map((index) => (
-            <ReservationTable
-              PatiantId={index?.pationt}
-              PatiantName={index?.patient_full_name}
-              Day={index?.day}
-              Date={index?.date}
-              time={index?.time}
-              type={index?.type}
-              MeetingLink={index?.MeetingLink}
-            />
-          ))}
-        </ul>
+            {Reservations.map((index) => (
+              <ReservationTable
+                PatiantId={index?.pationt}
+                PatiantName={index?.patient_full_name}
+                Day={index?.day}
+                Date={index?.date}
+                time={index?.time}
+                type={index?.type}
+                MeetingLink={index?.MeetingLink}
+              />
+            ))}
+          </ul>
+        </div>
+
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 };
 
