@@ -56,14 +56,18 @@ const MBTITest = () => {
           icon: "error",
           title: "!خطا در ارسال پاسخ‌ها",
           html: "متاسفانه مشکلی رخ داد",
-          background: "#473a67",
-          color: "#b4b3b3",
-          width: "26rem",
-          height: "18rem",
+          background: "#075662",
+          color: "#fff",
+          width: "35rem",
+          backdrop: `
+              rgba(84, 75, 87.0.9)
+              left top
+              no-repeat`,
+          confirmButtonColor: "#0a8ca0",
           confirmButtonText: "تایید",
-          customClass: {
-            container: "custom-swal-container",
-          },
+          // customClass: {
+          //   container: "custom-swal-container",
+          // },
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/");
@@ -75,14 +79,15 @@ const MBTITest = () => {
         icon: "error",
         title: "!خطا در ارسال درخواست",
         html: "متاسفانه مشکلی رخ داد",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "26rem",
-        height: "18rem",
+        background: "#075662",
+        color: "#fff",
+        width: "35rem",
+        backdrop: `
+            rgba(84, 75, 87.0.9)
+            left top
+            no-repeat`,
         confirmButtonText: "تایید",
-        customClass: {
-          container: "custom-swal-container",
-        },
+        confirmButtonColor: "#0a8ca0",
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/");
@@ -96,10 +101,15 @@ const MBTITest = () => {
       icon: "warning",
       title: "!برای انجام تست، ورود به حساب کاربری الزامی است",
       html: "آیا می‌خواهید وارد شوید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
       confirmButtonText: "ورود",
       cancelButtonText: "صفحۀ اصلی",
@@ -160,16 +170,22 @@ const MBTITest = () => {
       icon: "warning",
       title: "آیا از ادامۀ آزمون منصرف شده اید؟",
       html: "در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "29rem",
-      height: "15rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonText: "تایید",
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
+      // customClass: {
+      //   container: "custom-swal-container",
+      // },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
@@ -183,16 +199,17 @@ const MBTITest = () => {
     Swal.fire({
       icon: "warning",
       title: "از انجام آزمون منصرف شده اید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
-      showCancelButton: true,
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       cancelButtonText: "ادامه می‌دهم",
       confirmButtonText: "بله",
-      customClass: {
-        container: "custom-swal-container",
-      },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
@@ -208,16 +225,17 @@ const MBTITest = () => {
       icon: "info",
       title: "نتیجۀ تست شخصیت‌شناسی شما",
       html: mbtiResult,
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
       // showCancelButton: true,
       confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
       // cancelButtonText: "صفحۀ اصلی",
-      customClass: {
-        container: "custom-swal-container",
-      },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/");
