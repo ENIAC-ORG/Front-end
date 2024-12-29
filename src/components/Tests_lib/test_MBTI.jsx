@@ -177,7 +177,6 @@ const MBTITest = () => {
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
-      confirmButtonText: "تایید",
       confirmButtonColor: "#0a8ca0",
       cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
