@@ -334,6 +334,7 @@ const GlasserTest = () => {
                 {activeQuestion === 0 ? (
                   <>
                     <button
+                    data-cy="start-glasser"
                       style={{ width: "40px", fontSize: "14px" }}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {

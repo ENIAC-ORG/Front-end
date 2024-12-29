@@ -195,7 +195,7 @@ const LoginContainer = () => {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/Login/",
+        "http://eniacgroup.ir:8070/accounts/Login/",
         {
           method: "POST",
           headers: {
@@ -298,7 +298,7 @@ const LoginContainer = () => {
       } else {
         // Other error occurred
         console.log(error);
-        setBanner(error.response.data.msg);
+        //setBanner(error.response.data.msg);
         toast.error(error.response.data.msg);
       }
     }
@@ -369,7 +369,7 @@ const LoginContainer = () => {
       axios.defaults.xsrfCookieName = "csrftoken";
 
       const response = await axios(
-        "http://46.249.100.141:8070//accounts/signup/",
+        "http://46.249.100.141:8070/accounts/signup/",
         {
           method: "POST",
           headers: {
@@ -406,7 +406,7 @@ const LoginContainer = () => {
           code: response.data.code,
           url: response.data.url,
         };
-        setShowModal(isChecked);
+        setShowModal(accessToken);
         const url =response.data.url;
           
         const base = "activation_confirm/";
@@ -518,6 +518,7 @@ const LoginContainer = () => {
                   />
 
                   <label
+                  data-cy="login"
                     htmlFor="login"
                     className="slide login"
                     onClick={handleSliderLoginClick}
@@ -590,6 +591,7 @@ const LoginContainer = () => {
                     <div className="field btn">
                       <div className="btn_layer"></div>
                       <input
+                        data-cy="enter"
                         type="submit"
                         value="ورود"
                         onClick={handleLoginEnter}
