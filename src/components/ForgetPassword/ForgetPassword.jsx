@@ -139,6 +139,7 @@ const ForgetPassword = () => {
     event.preventDefault();
     const password = document.getElementById("pass").value;
     const passwordConfirm = document.getElementById("rpass").value;
+    const url = fp_response.token.replace("http://localhost:8000/","http://eniacgroup.ir:8070/")
     if (
       (password.length === 0) |
       (passwordConfirm.length === 0) |
@@ -156,7 +157,7 @@ const ForgetPassword = () => {
       });
       
     } else {
-      const response = await axios(fp_response.token,
+      const response = await axios(url,
         {
         method: "POST",
         headers: {
