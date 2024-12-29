@@ -50,6 +50,7 @@ const RatingInfoModal = ({ doctorId,
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response.data);
 
       if (response.data) {
         setImg(Image);
@@ -221,7 +222,9 @@ const RatingInfoModal = ({ doctorId,
     const persianNumbersMap = {
       '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹',
     };
-    return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    if (value) {
+      return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    }
   };
 
   return (
@@ -394,16 +397,16 @@ const RatingInfoModal = ({ doctorId,
                       حوزۀ فعالیت: <span className="value-color">{field}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      آدرس کلینیک: <span className="value-color">{convertToPersianNumbers(clinicAddr)}</span>
+                      آدرس کلینیک: <span className="value-color">{clinicAddr ? convertToPersianNumbers(clinicAddr) : "-"}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      شماره تماس کلینیک: <span className="value-color">{convertToPersianNumbers(telephoneNum)}</span>
+                      شماره تماس کلینیک: <span className="value-color">{telephoneNum ? convertToPersianNumbers(telephoneNum) : "-"}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
                       شماره نظام: <span className="value-color">{convertToPersianNumbers(doctorCode)}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      توضیحات: <span className="value-color">{convertToPersianNumbers(description)}</span>
+                      توضیحات: <span className="value-color">{description ? convertToPersianNumbers(description) : "-"}</span>
                     </h5>
                   </div>
                   <CompleteInfoModal doctorId={doctorId} />
