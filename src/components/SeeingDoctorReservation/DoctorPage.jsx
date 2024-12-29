@@ -146,6 +146,9 @@ const DoctorPage = () => {
           <ul className="responsive-table">
             <li className="table-header">
               <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
+                خلاصه جلسه
+              </div>
+              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
                 پرونده پزشکی بیمار
               </div>
               <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
@@ -155,10 +158,7 @@ const DoctorPage = () => {
                 نوع مراجعه
               </div>
               <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-                ساعت
-              </div>
-              <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
-                تاریخ
+                تاریخ و ساعت
               </div>
               <div className="col col-1" style={{ fontFamily: "Ios15Medium" }}>
                 نام بیمار
@@ -170,7 +170,7 @@ const DoctorPage = () => {
                 PatiantId={index?.pationt}
                 PatiantName={index?.patient_full_name}
                 Day={index?.day}
-                Date={index?.date}
+                MyDate={index?.date}
                 time={index?.time}
                 type={index?.type}
                 MeetingLink={index?.MeetingLink}

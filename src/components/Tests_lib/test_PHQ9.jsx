@@ -6,6 +6,7 @@ import "./phq9_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
 
 const PHQ9Test = () => {
   const navigate = useNavigate();
@@ -245,7 +246,7 @@ const PHQ9Test = () => {
                 <h2
                   style={{
                     fontSize: "30px",
-                    color: "#9a94fb",
+                    color: "#55ad9b",
                     marginBottom: "10px",
                     textAlign: "center",
                     fontFamily: "Ios15medium"
@@ -399,6 +400,7 @@ const PHQ9Test = () => {
           )}
         </div>
       </body>
+      <Footer />
     </>
   );
 };

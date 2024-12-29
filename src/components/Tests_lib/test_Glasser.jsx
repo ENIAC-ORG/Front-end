@@ -288,7 +288,7 @@ const GlasserTest = () => {
                 <h2
                   style={{
                     fontSize: "30px",
-                    color: "#9a94fb",
+                    color: "#55ad9b",
                     marginBottom: "10px",
                     textAlign: "center",
                   }}
