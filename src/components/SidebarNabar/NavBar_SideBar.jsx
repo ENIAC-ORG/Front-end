@@ -8,7 +8,8 @@ import { FaBars, FaBell, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMoreTime } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
-import { IoIosAlarm, IoIosAlbums, IoIosStar } from "react-icons/io";
+import { IoIosAlarm, IoIosAlbums, IoIosStar , IoMdChatbubbles } from "react-icons/io";
+import { IoLogoWechat } from "react-icons/io5";
 import styles from "./NavBar.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -307,6 +308,28 @@ const NavBar_SideBar = () => {
                   <label href="" className={styles1.side_list_element_text}>
                     <PiNotepadLight className={styles1.side_icons} />
                     نتایج تست ها{" "}
+                  </label>
+                </li>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/chat");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <IoMdChatbubbles  className={styles1.side_icons} style={{marginLeft:"1rem"}}/>
+                    مکالمه با روانشناس هوشمند{" "}
+                  </label>
+                </li>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/GroupChat");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <IoLogoWechat  className={styles1.side_icons} style={{marginLeft:"1rem"}}/>
+                    گفت‌و‌گو همگانی{" "}
                   </label>
                 </li>
               </>
