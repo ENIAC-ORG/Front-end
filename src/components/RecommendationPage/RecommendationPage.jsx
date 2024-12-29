@@ -617,10 +617,10 @@ const RecommendationPage = () => {
             >
               :نتایج
             </h1>
-            <div style={{ justifyItems: "center" }}>
-              {doctorProfile?.length > 0 ? (
-                doctorProfile.map((index) => (
-                  <div className="distanceBetweenDoctor">
+            <div className="result-doctors">
+              <div className="distanceBetweenDoctor">
+                {doctorProfile?.length > 0 ? (
+                  doctorProfile.map((index) => (
 
                     <DoctorProfile
                       Id={index?.psychologist_id}
@@ -631,13 +631,14 @@ const RecommendationPage = () => {
                       IsPrivate={index?.is_private}
                       Psychiatrist={index?.psychologist_id}
                     />
-                  </div>
-                ))
-              ) : (
-                <h3 className="pb-4 font-custom" style={{ color: '#55654f' }}>
-                  !دکتری یافت نشد
-                </h3>
-              )}
+                  ))
+                ) : (
+                  <h3 className="pb-4 font-custom" style={{ color: '#55654f' }}>
+                    !دکتری یافت نشد
+                  </h3>
+                )}
+              </div>
+
               {/* {Array.isArray(doctorProfile) && doctorProfile.map((index) => (
                   <DoctorProfile
                     Id={index?.id}

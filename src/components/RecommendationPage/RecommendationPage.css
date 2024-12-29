@@ -241,3 +241,9 @@
         padding: 15px;
     }
 }
+
+.result-doctors {
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+}
