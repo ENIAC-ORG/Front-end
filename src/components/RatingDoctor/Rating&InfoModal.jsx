@@ -43,7 +43,7 @@ const RatingInfoModal = ({ doctorId,
     setLoading(true); // Start loading
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios(`http://eniacgroup.ir:8070//DoctorPanel/getdoctorinfo/${doctorId}/`, {
+      const response = await axios(`http://eniacgroup.ir:8070/DoctorPanel/getdoctorinfo/${doctorId}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const RatingInfoModal = ({ doctorId,
   async function getRatings(doctorId) {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios(`http://eniacgroup.ir:8070//Rating/get/${doctorId}/`, {
+      const response = await axios(`http://eniacgroup.ir:8070/Rating/get/${doctorId}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +116,7 @@ const RatingInfoModal = ({ doctorId,
   async function sendRating() {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://eniacgroup.ir:8070//Rating/Rate/", {
+      const response = await axios("http://eniacgroup.ir:8070/Rating/Rate/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

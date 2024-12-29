@@ -58,7 +58,7 @@ const Testresult = () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        `http://eniacgroup.ir:8070//TherapyTests/tests/`,
+        `http://eniacgroup.ir:8070/TherapyTests/tests/`,
         {
           method: "GET",
           headers: {
@@ -75,7 +75,7 @@ const Testresult = () => {
         });
         try {
           const response1 = await axios(
-            "http://eniacgroup.ir:8070//accounts/get_user/",
+            "http://eniacgroup.ir:8070/accounts/get_user/",
             {
               method: "GET",
               headers: {
