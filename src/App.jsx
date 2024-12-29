@@ -23,6 +23,7 @@ import RecommendationPage from "./components/RecommendationPage/RecommendationPa
 import UserManagement from  "./components/UserManagement/user_management.jsx";
 import Chat from "./components/Chat/Chat.jsx";
 import GroupChat from "./components/GroupChat/GroupChat.jsx";
+import PHQ9Test from "./components/Tests_lib/test_PHQ9.jsx";
 
 function App() {
   return (
@@ -97,6 +98,9 @@ function App() {
           {" "}
         </Router.Route>
         <Router.Route path="/GroupChat" element={<GroupChat />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/phq9" element={<PHQ9Test />}>
           {" "}
         </Router.Route>
       </Router.Routes>
