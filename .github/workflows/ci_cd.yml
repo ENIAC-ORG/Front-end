@@ -1,0 +1,35 @@
+name: CI/CD  
+
+on:  
+  push:  
+    branches:  
+      - dev # Replace 'main' with your primary branch name  
+  pull_request:  
+    branches:  
+      - dev  # Replace 'main' with your primary branch name  
+
+jobs:  
+  build-and-test:  
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install
+      
+    - name: Build
+      run: npm run dev
+      
+    - name: Run the tests
+      run: npx cypress run
