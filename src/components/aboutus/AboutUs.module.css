@@ -102,14 +102,14 @@
     align-content: center;
     justify-content: center;
     flex-wrap: wrap;
+}
 
-    th,
-    td {
-        padding: 10px;
-        text-align: center;
-        font-family: Ios15Medium;
-        margin-right: auto;
-    }
+.tableaboutus th {
+    background-color: #95d2b30d;
+    padding: 10px;
+    text-align: center;
+    font-family: Ios15Medium;
+    margin-right: auto;
 }
 
 .button1 {
