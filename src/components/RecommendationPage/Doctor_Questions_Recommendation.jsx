@@ -1,10 +1,12 @@
 const Doctor_Recommendation_Question = {
-    totalQuestions: 13,
+    totalQuestions: 16,
     questions: [
         {
             id: 1,
             question: "تخصص‌های شما چیست؟",
             field: "specialties",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "اضطراب", answer: true, id: 0 },
                 { text: "افسردگی", answer: true, id: 1 },
@@ -22,6 +24,8 @@ const Doctor_Recommendation_Question = {
             id: 2,
             question: "چه روش‌های درمانی را استفاده می‌کنید؟",
             field: "therapy_methods",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "CBT", answer: true, id: 0 },
                 { text: "Mindfulness", answer: true, id: 1 },
@@ -35,6 +39,8 @@ const Doctor_Recommendation_Question = {
             id: 3,
             question: "با کدام گروه‌های سنی کار می‌کنید؟",
             field: "age_groups",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "کودکان", answer: true, id: 0 },
                 { text: "نوجوانان", answer: true, id: 1 },
@@ -46,6 +52,8 @@ const Doctor_Recommendation_Question = {
             id: 4,
             question: "چه نوع جلساتی را ارائه می‌دهید؟",
             field: "session_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "حضوری", answer: true, id: 0 },
                 { text: "مجازی", answer: true, id: 1 },
@@ -56,6 +64,8 @@ const Doctor_Recommendation_Question = {
             id: 5,
             question: "آیا شما خود را مذهبی می‌دانید؟",
             field: "religion",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "مذهبی", answer: true, id: 0 },
                 { text: "غیرمذهبی", answer: true, id: 1 },
@@ -66,6 +76,8 @@ const Doctor_Recommendation_Question = {
             id: 6,
             question: "جنسیت شما چیست؟",
             field: "gender",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "زن", answer: true, id: 0 },
                 { text: "مرد", answer: true, id: 1 },
@@ -76,6 +88,8 @@ const Doctor_Recommendation_Question = {
             id: 7,
             question: "چند سال سابقه کاری دارید؟",
             field: "experience_years",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "زن", answer: true, id: 0 },
                 // { text: "مرد", answer: true, id: 1 },
@@ -86,6 +100,8 @@ const Doctor_Recommendation_Question = {
             id: 8,
             question: "حداکثر تعداد جلسات در هفته که می‌توانید ارائه دهید؟",
             field: "max_sessions_per_week",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "زن", answer: true, id: 0 },
                 // { text: "مرد", answer: true, id: 1 },
@@ -96,6 +112,8 @@ const Doctor_Recommendation_Question = {
             id: 9,
             question: "حداکثر مدت زمان درمان که می‌توانید ارائه دهید چیست؟",
             field: "treatment_duration",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "کوتاه‌مدت", answer: true, id: 0 },
                 // { text: "میانه‌مدت", answer: true, id: 1 },
@@ -106,6 +124,8 @@ const Doctor_Recommendation_Question = {
             id: 10,
             question: "آیا تجربه کار با بیمارانی که مشکلات جسمی دارند را دارید؟",
             field: "physical_conditions_experience",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -115,6 +135,8 @@ const Doctor_Recommendation_Question = {
             id: 11,
             question: "آیا در مدیریت بحران (مانند بیماران با خطر خودکشی) تجربه دارید؟",
             field: "crisis_management",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -124,6 +146,8 @@ const Doctor_Recommendation_Question = {
             id: 12,
             question: "آیا تجربه کار با بیمارانی که داروهای خاص مصرف می‌کنند را دارید؟",
             field: "medications_experience",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -133,6 +157,8 @@ const Doctor_Recommendation_Question = {
             id: 13,
             question: "آیا تمایل دارید با بیماران مذهبی یا غیرمذهبی کار کنید؟",
             field: "prefers_religious_patients",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "مذهبی", answer: true, id: 0 },
                 { text: "غیرمذهبی", answer: true, id: 1 },
@@ -143,6 +169,8 @@ const Doctor_Recommendation_Question = {
             id: 14,
             question: "آیا ترجیح خاصی برای جنسیت بیمار دارید؟",
             field: "prefers_gender",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "زن", answer: true, id: 0 },
                 { text: "مرد", answer: true, id: 1 },
@@ -153,6 +181,8 @@ const Doctor_Recommendation_Question = {
             id: 15,
             question: "ترجیح شما برای ارتباط با بیماران چیست؟",
             field: "communication_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "تماس تلفنی", answer: true, id: 0 },
                 { text: "ایمیل", answer: true, id: 1 },
@@ -163,6 +193,8 @@ const Doctor_Recommendation_Question = {
             id: 16,
             question: "هر توضیح دیگری که می‌خواهید اضافه کنید.",
             field: "additional_notes",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "کودک", answer: true, id: 0 },
                 // { text: "نوجوان", answer: true, id: 1 },

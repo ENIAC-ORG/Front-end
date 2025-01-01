@@ -28,7 +28,9 @@ const RecommendationPage = () => {
   );
   const [result, setResult] = useState({ doneAnswers: 0, emptyAnswers: 0 });
   const [showResult, setShowResult] = useState(false);
-  const [inputValue, setInputValue] = useState(["", ""]);
+  const [inputValue, setInputValue] = useState(
+    Array(totalQuestions).fill("")
+  );
 
   const handleInputChange = (event) => {
     const updatedInputValues = [...inputValue];
@@ -195,90 +197,62 @@ const RecommendationPage = () => {
   };
 
   const onClickNext = () => {
-    if (selectedAnswers[activeQuestion] == null && (!IsDoctor) &&
-      !(
-        (activeQuestion === 0 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 2 && selectedAnswers[activeQuestion] == 0 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 5 && selectedAnswers[activeQuestion] == 0 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 8 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 18 && inputValue[activeQuestion]?.trim() !== "")
-      )) {
-      toast.warn("!هنوز گزینه‌ای انتخاب نکرده‌اید یا متن را پر نکرده‌اید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
-    if (selectedAnswers[activeQuestion] == null && (IsDoctor) &&
-      !(
-        (activeQuestion === 6 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 7 && inputValue[activeQuestion]?.trim() !== "") ||
-        (activeQuestion === 15 && inputValue[activeQuestion]?.trim() !== "")
-      )) {
-      toast.warn("!هنوز گزینه‌ای انتخاب نکرده‌اید یا متن را پر نکرده‌اید", {
-        position: "bottom-left",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    } else {
       if (activeQuestion !== questions.length - 1) {
         setActiveQuestion((prev) => prev + 1);
       } else {
-        const updatedAnswersForBack = {};
-        for (let i = 0; i < questions.length; i++) {
-          if (Array.isArray(selectedAnswers[i])) {
-            let element = selectedAnswers[i].join(",");
-            console.log(element);
+        (questions[questions.length - 1]?.hasOnlyTextField && inputValue[questions.length - 1]?.trim() === "") ||
+          (
+            questions[questions.length - 1]?.requiresTextFieldForOption &&
+            selectedAnswers[questions.length - 1] === 0 &&
+            inputValue[questions.length - 1]?.trim() === ""
+          ) ||
+          (!questions[questions.length - 1]?.hasOnlyTextField && selectedAnswers[questions.length - 1] === null)
+      // const updatedAnswersForBack = {};
+      // for (let i = 0; i < questions.length; i++) {
+      //   if (Array.isArray(selectedAnswers[i])) {
+        //     let element = selectedAnswers[i].join(",");
+        //     console.log(element);
 
-            if (!IsDoctor && i == 0) {
-              element = inputValue[i];
-            }
-            if (!IsDoctor && i == 2 && selectedAnswers[i] == 0) {
-              element += "," + inputValue[i];
-            }
-            if (!IsDoctor && i == 5 && selectedAnswers[i] == 0) {
-              element += "," + inputValue[i];
-            }
-            if (!IsDoctor && i == 8) {
-              element = inputValue[i];
-            }
-            if (!IsDoctor && i == 16) {
-              element = inputValue[i];
-            }
-            if (!IsDoctor && i == 18) {
-              element = inputValue[i];
-            }
+        //     if (!IsDoctor && i == 0) {
+        //       element = inputValue[i];
+        //     }
+        //     if (!IsDoctor && i == 2 && selectedAnswers[i] == 0) {
+        //       element += "," + inputValue[i];
+        //     }
+        //     if (!IsDoctor && i == 5 && selectedAnswers[i] == 0) {
+        //       element += "," + inputValue[i];
+        //     }
+        //     if (!IsDoctor && i == 8) {
+        //       element = inputValue[i];
+        //     }
+        //     if (!IsDoctor && i == 16) {
+        //       element = inputValue[i];
+        //     }
+        //     if (!IsDoctor && i == 18) {
+        //       element = inputValue[i];
+        //     }
 
-            if (IsDoctor && i == 6) {
-              element = inputValue[i];
-            }
-            if (IsDoctor && i == 7) {
-              element = inputValue[i];
-            }
-            if (IsDoctor && i == 15) {
-              element = inputValue[i];
-            }
-            console.log(element);
-            updatedAnswersForBack[i] = element;
-          } else {
-            updatedAnswersForBack[i] = selectedAnswers[i];
-          }
-        }
-        console.log(updatedAnswersForBack);
-        sendAnswersToBack(updatedAnswersForBack);
+        //     if (IsDoctor && i == 6) {
+        //       element = inputValue[i];
+        //     }
+        //     if (IsDoctor && i == 7) {
+        //       element = inputValue[i];
+        //     }
+        //     if (IsDoctor && i == 15) {
+        //       element = inputValue[i];
+        //     }
+        //     console.log(element);
+        //     updatedAnswersForBack[i] = element;
+        //   } else {
+        //     updatedAnswersForBack[i] = selectedAnswers[i];
+        //   }
+        
+        // console.log(updatedAnswersForBack);
+        sendAnswersToBack(IsDoctor ? requestDoctor : requestPatiant);
         if (activeQuestion === totalQuestions - 1) {
           setShowResult(true);
         }
       }
-    }
   };
 
   const onAnswerSelected = (index) => {
@@ -291,7 +265,6 @@ const RecommendationPage = () => {
     if (isMultipleChoice) {
       const currentAnswers = updatedAnswers[activeQuestion] || [];
       const answerIndex = currentAnswers.indexOf(index);
-      console.log(answerIndex);
       if (answerIndex == -1) {
         updatedAnswers[activeQuestion] = [...currentAnswers, index];
       } else {
@@ -304,7 +277,8 @@ const RecommendationPage = () => {
     }
 
     setSelectedAnswers(updatedAnswers);
-    console.log(selectedAnswers);
+    console.log("select: " + selectedAnswers);
+    console.log("update: " + updatedAnswers);
 
     const fieldName = questions[activeQuestion].field;
     const setRequest = IsDoctor ? setRequestDoctor((prevRequest) => ({
@@ -368,6 +342,13 @@ const RecommendationPage = () => {
     });
   };
 
+  const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
+
+  const persianNumbers = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
+
+  const convertToPersianNumbers = (number) => {
+    return String(number).replace(/\d/g, (digit) => persianNumbers[digit]);
+  };
 
   return (
     <>
@@ -411,7 +392,7 @@ const RecommendationPage = () => {
                   }}
                   placeholder="فقط عدد را وارد کنید."
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   style={{ marginBottom: "10px" }}
                 />
@@ -433,7 +414,7 @@ const RecommendationPage = () => {
                   }}
                   placeholder="نام دارو"
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   color="red"
                   style={{ marginBottom: "10px" }}
@@ -454,9 +435,9 @@ const RecommendationPage = () => {
                   InputLabelProps={{
                     dir: "rtl",
                   }}
-                  placeholder=""
+                  placeholder="توضیحات مرتبط با درمان"
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   color="red"
                   style={{ marginBottom: "10px" }}
@@ -478,7 +459,7 @@ const RecommendationPage = () => {
                   }}
                   placeholder="فقط عدد را وارد کنید."
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   color="red"
                   style={{ marginBottom: "10px" }}
@@ -499,9 +480,9 @@ const RecommendationPage = () => {
                   InputLabelProps={{
                     dir: "rtl",
                   }}
-                  placeholder=""
+                  placeholder="توضیح دیگر"
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   color="red"
                   style={{ marginBottom: "10px" }}
@@ -523,7 +504,7 @@ const RecommendationPage = () => {
                   }}
                   placeholder="فقط عدد را وارد کنید."
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   style={{ marginBottom: "10px" }}
                 />
@@ -544,7 +525,7 @@ const RecommendationPage = () => {
                   }}
                   placeholder="فقط عدد را وارد کنید."
                   value={inputValue[activeQuestion] || ""}
-                  defaultValue={activeQuestion == 4 ? inputValue[1] : inputValue[0]}
+                  defaultValue=""
                   className="textbox-other"
                   style={{ marginBottom: "10px" }}
                 />
@@ -563,7 +544,7 @@ const RecommendationPage = () => {
                   InputLabelProps={{
                     dir: "rtl",
                   }}
-                  placeholder=""
+                  placeholder="توضیح دیگر"
                   value={inputValue[activeQuestion] || ""}
                   defaultValue=""
                   className="textbox-other"
@@ -578,6 +559,27 @@ const RecommendationPage = () => {
                 <div className="col">
                   <button
                     type="button"
+                    // disabled={activeQuestion !== totalQuestions-1 && selectedAnswers[activeQuestion] === null}
+                    disabled={
+                      (questions[activeQuestion]?.hasOnlyTextField && inputValue[activeQuestion]?.trim() === "") ||
+                      (
+                        questions[activeQuestion]?.requiresTextFieldForOption &&
+                        selectedAnswers[activeQuestion] === 0 &&
+                        inputValue[activeQuestion]?.trim() === ""
+                      ) ||
+                      (!questions[activeQuestion]?.hasOnlyTextField && selectedAnswers[activeQuestion] === null)
+                    }
+                    title={
+                      (questions[activeQuestion]?.hasOnlyTextField && inputValue[activeQuestion]?.trim() === "") ||
+                        (
+                          questions[activeQuestion]?.requiresTextFieldForOption &&
+                          selectedAnswers[activeQuestion] === 0 &&
+                          inputValue[activeQuestion]?.trim() === ""
+                        ) ||
+                        (!questions[activeQuestion]?.hasOnlyTextField && selectedAnswers[activeQuestion] === null)
+                        ? "برای ادامه باید گزینه‌ای انتخاب کنید یا فیلد را پر کنید"
+                        : ""
+                    }
                     className="button-style bottom-button-hover font-custom"
                     onClick={onClickNext}
                   >
@@ -605,6 +607,17 @@ const RecommendationPage = () => {
                   </button>
                 </div>
               </div>
+              <div style={{ marginTop:"1rem" }}>
+                <span className="active-question-number">
+                  {convertToPersianNumbers(addLeadingZero(activeQuestion+1))}
+                </span>
+                <span className="total-question-number">
+                  /
+                  {convertToPersianNumbers(
+                    addLeadingZero(questions.length)
+                  )}
+                </span>
+              </div>
             </form>
           </div>
         )}
@@ -625,7 +638,7 @@ const RecommendationPage = () => {
                     <DoctorProfile
                       Id={index?.psychologist_id}
                       name={index?.psychologist_name}
-                      Description={index?.reasons}
+                      Description=""
                       Image={index?.image}
                       ProfileType={index?.profile_type}
                       IsPrivate={index?.is_private}
