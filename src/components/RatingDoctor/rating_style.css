@@ -54,6 +54,7 @@ width: fit-content;
 border-radius: 50%;
 border: 1px solid #767575;
 cursor: pointer;
+position: relative;
 }
 
 .rating_close_button_icon
