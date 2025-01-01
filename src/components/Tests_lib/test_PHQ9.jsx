@@ -234,11 +234,11 @@ const PHQ9Test = () => {
       <body className="phq9-body">
         <div
           className="phq9-quiz-container"
-          style={
-            activeQuestion === 0
-              ? { marginTop: "1%" }
-              : { marginTop: "1%" }
-          }
+          // style={
+          //   activeQuestion === 0
+          //     ? { marginTop: "1%" }
+          //     : { marginTop: "1%" }
+          // }
         >
           {!showResult && (
             <div>
@@ -255,13 +255,13 @@ const PHQ9Test = () => {
                   تست شخصیت‌شناسی PHQ9
                 </h2>
               )}
-              {/* <div className="phq9-header">
+              <div className="phq9-header">
                 {activeQuestion !== 0 && (
                   <>
                     <ProgressBar
                       animated
                       className="mbti-progress-bar custom-color"
-                    //   now={(activeQuestion + 1) * (100 / questions.length)}
+                      now={(activeQuestion + 1) * (100 / questions.length)}
                     />
                     <span className="phq9-active-question-no">
                       {convertToPersianNumbers(addLeadingZero(activeQuestion))}
@@ -274,7 +274,7 @@ const PHQ9Test = () => {
                     </span>
                   </>
                 )}
-              </div> */}
+              </div>
               <h2
                 style={
                   activeQuestion === 0
