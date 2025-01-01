@@ -67,7 +67,7 @@ const AboutUsPage = () => {
                             با رزرو نوبت، فرصت گفتگو با مشاوران و متخصصان مجرب ما را فراهم کنید و در مسیری به سوی سلامت روان و کیفیت بهتر زندگی قدم بگذارید.
                             همین حالا نوبت خود را رزرو کنید
                             <br />
-                            <a href='/ReservationPage'>
+                            <a href='/Doctors'>
                                 <button className={styles.button2}>رزرو نوبت</button>
                             </a>
                         </p>
