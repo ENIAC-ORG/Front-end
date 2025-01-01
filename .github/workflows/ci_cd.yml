@@ -1,15 +1,15 @@
-name: CI/CD  
+name: CI/CD
 
-on:  
-  push:  
-    branches:  
-      - dev # Replace 'main' with your primary branch name  
-  pull_request:  
-    branches:  
-      - dev  # Replace 'main' with your primary branch name  
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
 
-jobs:  
-  build-and-test:  
+jobs:
+  build:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,10 +26,28 @@ jobs:
         node-version: ${{ matrix.node-version }}
 
     - name: Install dependencies
-      run: npm install
-      
-    - name: Build
-      run: npm run dev
-      
-    - name: Run the tests
-      run: npx cypress run
+      run: |
+        until ( npm i -f ); do
+          echo "Retrying dependencies installation..."
+        done
+
+    - name: Install Cypress
+      run: npm install --save-dev cypress -f
+
+    - name: Start server and run Cypress tests
+      run: |
+        echo "Starting application server..."
+        npm run dev & # Run the server in the background
+        SERVER_PID=$! # Capture the process ID of the server
+        ps aux | grep 5173
+        for i in {1..5}; do
+          curl -s http://127.0.0.1:5173 > /dev/null && break
+          echo "Server not ready yet. Retrying in 3 seconds..."
+          sleep 3
+        done
+        echo "Waiting for server to be ready..."
+        echo "Running Cypress tests..."
+        npx cypress run || (kill $SERVER_PID && exit 1) # Run Cypress tests
+        kill $SERVER_PID # Stop the server after tests
+      env:
+        NODE_ENV: production
