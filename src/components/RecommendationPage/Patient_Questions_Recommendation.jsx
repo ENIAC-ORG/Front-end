@@ -5,6 +5,8 @@ const Patient_Recommendation_Question = {
             id: 1,
             question: "سن شما چند سال است؟",
             field: "age",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "اضطراب", answer: true, id: 0 },
                 // { text: "افسردگی", answer: true, id: 1 },
@@ -14,6 +16,8 @@ const Patient_Recommendation_Question = {
             id: 2,
             question: "سطح انرژی خود را چگونه ارزیابی می‌کنید؟",
             field: "energy_level",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "کم", answer: true, id: 0 },
                 { text: "متوسط", answer: true, id: 1 },
@@ -24,6 +28,8 @@ const Patient_Recommendation_Question = {
             id: 3,
             question: "آیا داروی خاصی مصرف می‌کنید؟ اگر بله، لطفاً نام ببرید.",
             field: "current_medications",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: true,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -33,6 +39,8 @@ const Patient_Recommendation_Question = {
             id: 4,
             question: "آیا مشکلات جسمی خاصی دارید که روی روان شما تأثیر می‌گذارد؟",
             field: "physical_issues",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -42,6 +50,8 @@ const Patient_Recommendation_Question = {
             id: 5,
             question: "چه علائمی دارید؟",
             field: "symptoms",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "اضطراب", answer: true, id: 0 },
                 { text: "افسردگی", answer: true, id: 1 },
@@ -60,6 +70,8 @@ const Patient_Recommendation_Question = {
             id: 6,
             question: "آیا قبلاً درمان روانشناختی یا روان‌پزشکی انجام داده‌اید؟ اگر بله، توضیح دهید.",
             field: "past_treatments",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: true,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -69,6 +81,8 @@ const Patient_Recommendation_Question = {
             id: 7,
             question: "آخرین باری که به خودکشی فکر کردید، چه زمانی بود؟",
             field: "suicidal_thoughts",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "هرگز", answer: true, id: 0 },
                 { text: "یک ماه پیش", answer: true, id: 1 },
@@ -80,9 +94,11 @@ const Patient_Recommendation_Question = {
             id: 8,
             question: "سطح استرس روزانه خود را از ۱ تا ۱۰ ارزیابی کنید.",
             field: "stress_level",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
-                // { text: "۱", answer: true, id: 0 },
-                { text: "1", answer: true, id: 0 },
+                { text: "۱", answer: true, id: 0 },
+                // { text: "1", answer: true, id: 0 },
                 { text: "۲", answer: true, id: 1 },
                 { text: "۳", answer: true, id: 2 },
                 { text: "۴", answer: true, id: 3 },
@@ -98,6 +114,8 @@ const Patient_Recommendation_Question = {
             id: 9,
             question: "به طور متوسط چند ساعت در شبانه‌روز می‌خوابید؟",
             field: "sleep_hours",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "اغلب اوقات", answer: true, id: 0},
                 // { text: "بعضی اوقات", answer: true, id: 1},
@@ -108,6 +126,8 @@ const Patient_Recommendation_Question = {
             id: 10,
             question: "آیا به طور منظم در فعالیت‌های اجتماعی یا گروهی شرکت می‌کنید؟",
             field: "social_activities",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "بله", answer: true, id: 0 },
                 { text: "خیر", answer: true, id: 1 },
@@ -117,6 +137,8 @@ const Patient_Recommendation_Question = {
             id: 11,
             question: "چقدر از حمایت اجتماعی و عاطفی اطرافیان خود برخوردار هستید؟",
             field: "support_system",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "کم", answer: true, id: 0 },
                 { text: "متوسط", answer: true, id: 1 },
@@ -127,6 +149,8 @@ const Patient_Recommendation_Question = {
             id: 12,
             question: "مدت زمان درمان مورد انتظار شما چیست؟",
             field: "treatment_duration",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "کوتاه‌مدت", answer: true, id: 0 },
                 { text: "بلندمدت", answer: true, id: 1 },
@@ -136,6 +160,8 @@ const Patient_Recommendation_Question = {
             id: 13,
             question: "آیا شما خود را مذهبی می‌دانید؟",
             field: "religion_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "مذهبی", answer: true, id: 0 },
                 { text: "غیرمذهبی", answer: true, id: 1 },
@@ -146,6 +172,8 @@ const Patient_Recommendation_Question = {
             id: 14,
             question: "ترجیح شما برای جنسیت درمانگر چیست؟",
             field: "therapist_gender_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "زن", answer: true, id: 0 },
                 { text: "مرد", answer: true, id: 1 },
@@ -156,6 +184,8 @@ const Patient_Recommendation_Question = {
             id: 15,
             question: "ترجیح شما برای نوع جلسات چیست؟",
             field: "presentation_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "حضوری", answer: true, id: 0 },
                 { text: "مجازی", answer: true, id: 1 },
@@ -164,8 +194,10 @@ const Patient_Recommendation_Question = {
         },
         {
             id: 16,
-            question: "چه روش‌های درمانی را ترجیح می‌دهید؟ (لیستی از روش‌ها را وارد کنید)",
+            question: "چه روش‌های درمانی را ترجیح می‌دهید؟ (می‌توانید چندگزینه را انتخاب کنید)",
             field: "preferred_therapy_methods",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "درمان شناختی-رفتاری (CBT)", answer: true, id: 0 },
                 { text: "آگاهی‌حاضر (Mindfulness)", answer: true, id: 1 },
@@ -179,6 +211,8 @@ const Patient_Recommendation_Question = {
             id: 17,
             question: "چه روش‌هایی را برای ارتباط با درمانگر خود ترجیح می‌دهید؟",
             field: "communication_preference",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "تماس تلفنی", answer: true, id: 0 },
                 { text: "ایمیل", answer: true, id: 1 },
@@ -187,8 +221,10 @@ const Patient_Recommendation_Question = {
         },
         {
             id: 18,
-            question: "چه انتظاری از درمانگر خود دارید؟",
+            question: "چه انتظاراتی از درمانگر خود دارید؟",
             field: "expectations",
+            hasOnlyTextField: false,
+            requiresTextFieldForOption: false,
             choices: [
                 { text: "گوش دهد", answer: true, id: 0 },
                 { text: "گذشته من را کاوش کند", answer: true, id: 1 },
@@ -204,6 +240,8 @@ const Patient_Recommendation_Question = {
             id: 19,
             question: "هر توضیح دیگری که می‌تواند کمک کند، در اینجا وارد کنید.",
             field: "additional_notes",
+            hasOnlyTextField: true,
+            requiresTextFieldForOption: false,
             choices: [
                 // { text: "خیلی زیاد", answer: true, id: 0},
                 // { text: "به ندرت", answer: true, id: 1},
