@@ -7,7 +7,7 @@ import {
   MDBTypography,
   MDBRow,
 } from "mdb-react-ui-kit";
-import Stars from "./Stars"; // Import the Stars component
+import Stars from "../Stars/Stars"; // Import the Stars component
 import moment from "moment-jalaali"; // Import moment-jalaali for Persian date conversion
 
 export default function Comments({ comments }) {
