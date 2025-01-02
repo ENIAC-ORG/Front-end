@@ -37,6 +37,8 @@ export default function DoctorRating() {
           },
         }
       );
+      console.log(response.data);
+
       if (response.status === 200) {
         console.log(response.data);
         setRating(response.data.average_score);

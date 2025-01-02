@@ -16,7 +16,7 @@ import ReservationPage from "./components/Reservation/Reservation.jsx";
 import DoctorPage from "./components/SeeingDoctorReservation/DoctorPage.jsx";
 import Patient_Panel from "./components/Patient_Panel/Patient_Panel.jsx";
 import PatientsList from "./components/Doctor's_Patients/PatientsList.jsx";
-import DoctorRating from "./components/DoctorPannelRating/DoctorPannelRating.jsx";
+import DoctorRating from "./components/DoctorPanelRating/DoctorPanelRating.jsx";
 import Doctor_FreeTime from "./components/Doctor_FreeTime/Doctor_FreeTime.jsx";
 import Testresult from "./components/User_TestResult/TestResult.jsx";
 import RecommendationPage from "./components/RecommendationPage/RecommendationPage.jsx";
