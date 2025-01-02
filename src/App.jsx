@@ -20,91 +20,95 @@ import DoctorRating from "./components/DoctorPannelRating/DoctorPannelRating.jsx
 import Doctor_FreeTime from "./components/Doctor_FreeTime/Doctor_FreeTime.jsx";
 import Testresult from "./components/User_TestResult/TestResult.jsx";
 import RecommendationPage from "./components/RecommendationPage/RecommendationPage.jsx";
-import UserManagement from  "./components/UserManagement/user_management.jsx";
+import UserManagement from "./components/UserManagement/user_management.jsx";
 import Chat from "./components/Chat/Chat.jsx";
 import GroupChat from "./components/GroupChat/GroupChat.jsx";
 import PHQ9Test from "./components/Tests_lib/test_PHQ9.jsx";
+import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton.jsx";
 
 function App() {
   return (
-    <Router.BrowserRouter>
-      <Router.Routes>
-        <Router.Route path="/" element={<Home />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/User_Panel" element={<User_Panel />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Home" element={<Home />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Signup" element={<LoginContainer />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Landing" element={<Landing />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/AboutUs" element={<AboutUS />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/verification" element={<Verification />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/ForgetPassword" element={<ForgetPassword />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/TestPage" element={<CourseList />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Doctors" element={<DoctorList />}>
-          {" "}
-        </Router.Route>
+    <>
+      <Router.BrowserRouter>
+        <Router.Routes>
+          <Router.Route path="/" element={<Home />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/User_Panel" element={<User_Panel />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Home" element={<Home />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Signup" element={<LoginContainer />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Landing" element={<Landing />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/AboutUs" element={<AboutUS />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/verification" element={<Verification />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/ForgetPassword" element={<ForgetPassword />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/TestPage" element={<CourseList />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Doctors" element={<DoctorList />}>
+            {" "}
+          </Router.Route>
 
-        <Router.Route path="/MBTI" element={<MBTITest />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Glasser" element={<GlasserTest />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Reserve" element={<ReservationPage />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/DoctorPage" element={<DoctorPage />}>
-          {" "}
-        </Router.Route>
+          <Router.Route path="/MBTI" element={<MBTITest />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Glasser" element={<GlasserTest />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Reserve" element={<ReservationPage />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/DoctorPage" element={<DoctorPage />}>
+            {" "}
+          </Router.Route>
 
-        <Router.Route path="/Patient_Panel" element={<Patient_Panel />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/PatientsList" element={<PatientsList />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/DoctorFreeTime" element={<Doctor_FreeTime />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/TestResult" element={<Testresult />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/DoctorRatings" element={<DoctorRating />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/RecommendationPage" element={<RecommendationPage />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/User_Management" element={<UserManagement />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/Chat" element={<Chat />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/GroupChat" element={<GroupChat />}>
-          {" "}
-        </Router.Route>
-        <Router.Route path="/phq9" element={<PHQ9Test />}>
-          {" "}
-        </Router.Route>
-      </Router.Routes>
-    </Router.BrowserRouter>
+          <Router.Route path="/Patient_Panel" element={<Patient_Panel />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/PatientsList" element={<PatientsList />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/DoctorFreeTime" element={<Doctor_FreeTime />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/TestResult" element={<Testresult />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/DoctorRatings" element={<DoctorRating />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/RecommendationPage" element={<RecommendationPage />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/User_Management" element={<UserManagement />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/Chat" element={<Chat />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/GroupChat" element={<GroupChat />}>
+            {" "}
+          </Router.Route>
+          <Router.Route path="/phq9" element={<PHQ9Test />}>
+            {" "}
+          </Router.Route>
+        </Router.Routes>
+      </Router.BrowserRouter>
+      <ScrollToTopButton />
+    </>
   );
 }
 
