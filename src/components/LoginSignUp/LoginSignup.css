@@ -10,7 +10,8 @@
   padding: 0;
   box-sizing: border-box;
 }
-.hello {
+
+.bd {
   background-image: url("./login_bg.webp"); /* Replace with the correct path */
   background-size: cover; /* Ensure the image covers the entire container */
   background-position: center; /* Center the image */
@@ -19,12 +20,6 @@
   display: flex; /* Flexbox for centering */
   justify-content: center;
   align-items: center;
-}
-
-.bd {
-  height: 100%;
-  width: 100%;
-  place-items: center;
 }
 .error {
   color: red;
@@ -53,10 +48,10 @@
 }
 
 .wrapper {
+  background: white;
   max-width: 390px;
-  background: #fff;
   padding: 30px;
-  border-radius: 15px;
+  border-radius:15px;
   overflow: hidden;
   box-shadow: rgb(80, 205, 144) 0px 20px 30px -10px;
 }

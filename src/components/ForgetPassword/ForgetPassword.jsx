@@ -188,7 +188,7 @@ const ForgetPassword = () => {
     <>
     <ToastContainer/>
       <body className="forget-password-bd">
-        <div>
+        <div className="mx-4">
           <div className="forget-password-wrapper p-5">
             <div className="forget-password-header">
               <div className="forget-password-title">فراموشی رمز عبور</div>
