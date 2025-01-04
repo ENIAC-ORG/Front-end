@@ -23,35 +23,35 @@ const comments = [
     user: "کاربر شماره ۱",
     rating: 5,
     comment: "دکتر بسیار حرفه‌ای و خوش‌برخورد هستند. خیلی راضی بودم.",
-    date: "۱۴۰۲/۱۰/۱۲",
+    date: "2024-12-20",
   },
   {
     id: 2,
     user: "کاربر شماره ۲",
     rating: 4,
     comment: "مشاوره‌ای که از دکتر گرفتم بسیار مفید بود و نتیجه‌بخش.",
-    date: "۱۴۰۲/۰۹/۲۵",
+    date: "2024-10-02",
   },
   {
     id: 3,
     user: "کاربر شماره ۳",
     rating: 3,
     comment: "برخورد پرسنل خوب بود ولی زمان انتظار کمی طولانی بود.",
-    date: "۱۴۰۲/۰۸/۱۸",
+    date: "2022-05-30",
   },
   {
     id: 4,
     user: "کاربر شماره ۴",
     rating: 4,
     comment: "امکانات مطب بسیار خوب بود و بهداشت رعایت شده بود.",
-    date: "۱۴۰۲/۰۷/۱۰",
+    date: "2024-12-20",
   },
   {
     id: 5,
     user: "کاربر شماره ۵",
     rating: 5,
     comment: "دکتر با دقت به صحبت‌ها گوش دادند و راهنمایی‌های خوبی ارائه کردند.",
-    date: "۱۴۰۲/۰۶/۱۵",
+    date: "2024-12-20",
   },
 ];
 
@@ -106,19 +106,25 @@ export default function DoctorRating() {
   return (
     <>
       <NavBar_SideBar />
-      <section className="vh-100" style={{ backgroundColor: "#4891828f"}}>
+      <section className="vh-100" style={{ backgroundColor: "#4891828f" }}>
         <MDBContainer className="py-5 h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
             <MDBCol xl="10">
-              <MDBCard className="mb-5" style={{ borderRadius: "15px", backgroundColor: "rgb(249, 249, 249)" }}>
-                <MDBCardBody className="p-4" style={{ maxHeight: "560px", position: "relative" }}>
+              <MDBCard
+                className="mb-5"
+                style={{ borderRadius: "15px", backgroundColor: "rgb(249, 249, 249)" }}
+              >
+                <MDBCardBody
+                  className="p-4"
+                  style={{ maxHeight: "560px", position: "relative" }}
+                >
                   {/* Header */}
                   <div>
                     <MDBTypography
                       style={{
                         direction: "rtl",
                         fontWeight: "bold",
-                        color: "#198754",
+                        color: "rgb(81 133 109 / 90%)",
                         fontFamily: "Ios15medium",
                         textAlign: "center",
                       }}
@@ -142,49 +148,50 @@ export default function DoctorRating() {
                     >
                       بازگشت به صفحه اصلی
                       <FaHome style={{ marginLeft: "5px", color: "rgb(114, 173, 161)" }} />
-
                     </div>
                   </div>
 
                   <hr style={{ color: "rgb(114, 173, 161)", opacity: "0.45" }} />
-                  <div className="d-flex justify-content-center align-items-center">
-                    <Rating
-                      size="large"
-                      name="read-only"
-                      precision={0.5}
-                      value={rate}
-                      readOnly
-                    />
-                  </div>
-                  <div
-                    style={{ marginTop: "2%" }}
-                    className="d-flex justify-content-center align-items-center mb-3"
-                  >
-                    <MDBCardText
-                      style={{ fontSize: "20px" }}
-                      className="text-uppercase mb-0"
+                  <div className="d-flex">
+                    {/* Left Column */}
+                    <div
+                      style={{
+                        flex: "2",
+                        marginRight: "20px",
+                        maxHeight: "300px",
+                        overflowY: "auto",
+                        padding: "10px",
+                        borderRadius: "10px",
+                        backgroundColor: "#f9f9f9",
+                      }}
                     >
-                      <MDBIcon fas icon="cog me-2" />
-                      .تا کنون{" "}
-                      {rateCount ? (
-                        convertToPersianNumbers(rateCount)
-                      ) : (
-                        <></>
-                      )}{" "}
-                      نفر به شما امتیاز داده اند
-                    </MDBCardText>
-                  </div>
-                  <div
-                    style={{
-                      marginTop: "2%",
-                      maxHeight: "300px", // Set a fixed height for the comments container
-                      overflowY: "auto", // Enable vertical scrolling
-                      padding: "10px",
-                      borderRadius: "10px",
-                      backgroundColor: "#f9f9f9",
-                    }}
-                  >
-                    <CustomComments comments={comments} />
+                      <CustomComments comments={comments} />
+                    </div>
+
+                    {/* Right Column */}
+                    <div
+                      style={{
+                        flex: "1",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <Rating
+                        size="large"
+                        name="read-only"
+                        precision={0.5}
+                        value={rate}
+                        readOnly
+                      />
+                      <MDBCardText
+                        style={{ fontSize: "20px", marginTop: "20px", textAlign: "center" }}
+                        className="text-uppercase mb-0"
+                      >
+                        .تا کنون {rateCount ? convertToPersianNumbers(rateCount) : <></>} نفر به شما امتیاز داده اند
+                      </MDBCardText>
+                    </div>
                   </div>
                 </MDBCardBody>
               </MDBCard>
