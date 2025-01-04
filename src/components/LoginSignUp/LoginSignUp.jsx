@@ -195,7 +195,7 @@ const LoginContainer = () => {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
       const response = await axios(
-        "http://127.0.0.1:8070/accounts/Login/",
+        "http://eniacgroup.ir:8070/accounts/Login/",
         {
           method: "POST",
           headers: {
