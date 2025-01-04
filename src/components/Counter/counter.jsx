@@ -32,7 +32,7 @@ const CounterUp = ({ EndNum, label }) => {
           e.currentTarget.style.transform = "translateY(0px)";
         }}
       >
-        <p
+        <p className="statistic-box"
           style={{
             textAlign: "center",
             verticalAlign: "center",
@@ -41,9 +41,7 @@ const CounterUp = ({ EndNum, label }) => {
             transition:
               "transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)",
             fontFamily: "Ios15Medium",
-            color: "white",
-            fontSize: "42px"
-          }}
+            color: "white"          }}
 
         >
           {label}

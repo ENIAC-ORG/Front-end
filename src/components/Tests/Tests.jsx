@@ -5,8 +5,8 @@ import "./Tests.css";
 
 const Tests = () => {
   return (
-    <div className="bg-dark-custom m-5 rounded rounded-5">
-    <div className="container-fluid services py-5">
+    <div className="bg-test-homepage py-4 px-2">
+    <div className="container-fluid services ">
       <html>
         <head>
           <link
@@ -27,14 +27,14 @@ const Tests = () => {
               <div className="p-4 text-center services-content-test">
                 <div className="services-content-test-icon">
                   <i
-                    className="fa fa-user fa-7x mb-4"
+                    className="fa fa-user fa-6x mb-4"
                     style={{ color: "#63ad97" }}
                   ></i>
-                  <h5 className="TestName">تست‌های فردی</h5>
+                  <div className="TestName fs-2">تست‌های فردی</div>
                   <HashLink
                     to="/TestPage#testTitle"
-                    className="btn btn-secondary text-white px-5 py-3 rounded-pill"
-                    style={{ fontFamily: "Ios15Medium" }}
+                    className="btn btn-secondary text-white font-custom  px-4 py-2 rounded-pill"
+                    // style={}
                   >
                     دیدن تست‌ها
                   </HashLink>
@@ -42,17 +42,17 @@ const Tests = () => {
               </div>
             </div>
           </div>
-          <div className="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
+          <div className="col-md-6  col-lg-4 wow fadeIn" data-wow-delay=".3s">
             <div className="services-item-test">
               <div className="p-4 text-center services-content-test">
-                <div className="services-content-test-icon">
-                  <i className="fa fa-book fa-7x mb-4"
+                <div className="services-content-test-icon mb-4">
+                  <i className="fa fa-book fa-6x mb-4"
                     style={{ color: "#63ad97" }}
                     ></i>
-                  <h5 className="TestName">تست های تحصیلی</h5>
+                  <div className="TestName fs-2">تست های تحصیلی</div>
                   <HashLink
                     to="/TestPage#testTitle"
-                    className="btn btn-secondary text-white px-5 py-3 rounded-pill"
+                    className="btn btn-secondary text-white px-4 py-2 rounded-pill"
                     style={{ fontFamily: "Ios15Medium" }}
                   >
                     دیدن تست‌ها
@@ -72,13 +72,13 @@ const Tests = () => {
               <div className="p-4 text-center services-content-test">
                 <div className="services-content-test-icon">
                   <i
-                    className="fa fa-venus-double fa-7x mb-4"
+                    className="fa fa-venus-double fa-6x mb-4"
                     style={{ color: "#63ad97" }}
                   ></i>
-                  <h5 className="TestName">تست‌های پیش از ازدواج</h5>
+                  <div className="TestName  fs-2">تست‌های پیش از ازدواج</div>
                   <HashLink
                     to="/TestPage#testTitle2"
-                    className="btn btn-secondary text-white px-5 py-3 rounded-pill"
+                    className="btn btn-secondary text-white px-4 py-2 rounded-pill"
                     style={{ fontFamily: "Ios15Medium" }}
                   >
                     دیدن تست‌ها

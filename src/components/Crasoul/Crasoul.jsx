@@ -3,15 +3,15 @@ import { Carousel } from "react-bootstrap";
 import styles from "./Crasoul.module.css"; // Import the CSS module
 
 // Import the images
-import img1 from "./crasoul1.webp";
-import img2 from "./crasoul2.webp";
-import img3 from "./crasoul3.webp";
-import img4 from "./crasoul4.webp";
+import img1 from "./crasoul1.png";
+import img2 from "./crasoul2.jpg";
+import img3 from "./crasoul3.png";
+import img4 from "./crasoul4.png";
 
 const HomeCarousel = () => {
   return (
     <div className={styles.carouselBackground}>
-      <Carousel  interval={500} controls={true} indicators={true}
+      <Carousel  interval={2700} controls={true} indicators={true}
         nextIcon={
           <span
             className={`carousel-control-next-icon ${styles.carouselControlNextIcon}`}
@@ -25,7 +25,6 @@ const HomeCarousel = () => {
           />
         }
       >
-        {/* First Slide */}
         <Carousel.Item>
           <img
             className={`d-block w-100 ${styles.carouselImage}`}
@@ -33,36 +32,28 @@ const HomeCarousel = () => {
             alt="First Slide"
           />
           
-           <Carousel.Caption >
-            <h1 className={styles.upperLeftCaption}>Welcome to ENIAC</h1>
-            {/* <p h3 className={styles.lowerRightCaption}>انیاک معتمد حال شما</p> */}
-          </Carousel.Caption> 
+           
         </Carousel.Item> 
-
-        {/* Second Slide */}
-        <Carousel.Item>
+       <Carousel.Item>
           <img
             className={`d-block w-100 ${styles.carouselImage}`}
             src={img4}
             alt="Second Slide"
           />
           <Carousel.Caption>
-            <h3>Empowering Minds</h3>
-            <p>Professional care and support for your mental well-being.</p>
+            <div className="font-custom">
+            <h1>توانمندسازی ذهن‌ها</h1>
+            <h4>!مراقبت و پشتیبانی حرفه‌ای برای سلامت روان شما</h4>
+            </div>
           </Carousel.Caption>
         </Carousel.Item>
 
-        {/* Third Slide */}
         <Carousel.Item>
           <img
             className={`d-block w-100 ${styles.carouselImage}`}
             src={img1}
             alt="Third Slide"
           />
-          {/* <Carousel.Caption>
-            <h3>Peace and Serenity</h3>
-            <p>Discover the tranquility of healing.</p>
-          </Carousel.Caption> */}
         </Carousel.Item>
         <Carousel.Item>
           <img
@@ -71,8 +62,10 @@ const HomeCarousel = () => {
             alt="Third Slide"
           />
           <Carousel.Caption>
-            <h3>Peace and Serenity</h3>
-            <p>Discover the tranquility of healing.</p>
+            <div className="font-custom">
+            <h1 className="mb-3">تجربه‌ای از آرامش و آسودگی در لحظه‌های زندگی شما</h1>
+            <h4>سفری به دنیای آرامش و بهبودی؛ جایی که ذهن و روح شما احیا می‌شوند</h4>
+            </div>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
