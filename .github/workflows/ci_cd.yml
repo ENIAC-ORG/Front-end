@@ -73,6 +73,7 @@ jobs:
               git pull  
               docker build -t react-build .
               docker create --name temp-container react-build
+              rm -rf ./build
               docker cp temp-container:/output ./build
               docker rm temp-container
               rm -rf /usr/share/nginx/html/*
