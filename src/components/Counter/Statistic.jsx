@@ -16,7 +16,7 @@ const Statistic = () => {
   async function getEndNumbers() {
     try {
       const response = await axios.get(
-        "https://eniacgroup.ir/backend/HomePage/count/005",
+        "https://eniacgroup.ir/backend/HomePage/count/",
         {
           headers: {
             "Content-Type": "application/json",
