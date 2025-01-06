@@ -10,8 +10,8 @@ const AboutSection = () => {
   const IsDoctor = localStorage.getItem("role") == "doctor";
 
   return (
-    <div className="container-fluid custom-container py-5 my-5">
-      <div className=" custom-container pt-5">
+    <div className="container-fluid custom-container py-5 mb-4 mt-1">
+      <div className=" custom-container">
         <div className="row g-5">
           <div
             className="col-lg-5 col-md-6 col-sm-12 wow fadeIn"
