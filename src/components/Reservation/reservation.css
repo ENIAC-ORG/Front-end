@@ -4,10 +4,15 @@
   border-radius: 35px;
   height: 100%;
   width: 85%;
-  background-image: linear-gradient(90deg,  #addbf4 0%, #bdedd5  100%);
+  /* background-image: linear-gradient(90deg,  #addbf4 0%, #bdedd5  100%); */
+  background-color: #c2ebbb;
   display: flex;
   justify-content: center;
   flex-direction: row-reverse;
+}
+
+.all-page {
+  background-color: #f7f7f7;
 }
 
 .Myrow {
@@ -37,8 +42,10 @@
 .reserve_docProfile a {
   border-radius: 50%;
   -webkit-border-radius: 50%;
-  border: 10px solid rgba(4, 9, 29, 0.3);
+  /* border: 10px solid rgba(4, 9, 29, 0.3); */
+  border: 10px solid #2cc33a;
   display: inline-block;
+  cursor: default;
 }
 
 .reserve_docProfile a img {
@@ -51,22 +58,24 @@
 .reserve_hour_title {
   font-family: "Ios15Medium";
   font-weight: bold;
-  color: rgb(4, 125, 125);
+  color: #198754;
 }
 
 .Reservation_error_input {
   background-color: #fffbde;
-  color: rgb(4, 125, 125);
+  color: #198754;
   direction: rtl;
   font-weight: 300;
   width: fit-content;
   font-size: large;
+  font-family: Ios15medium;
 }
 
 .reserve_hour_items {
   display: flex;
   justify-content: center;
-  align-items: center;}
+  align-items: center;
+}
 
 .reserve_hcard_bd {
   font-family: "Ios15Medium";
@@ -81,21 +90,23 @@
   border-radius: 5px;
   height: fit-content;
   width: fit-content;
+  color: #525151;
 }
 
-.reserve_plugin{
-  padding-top: 1rem; 
+.reserve_plugin {
+  padding-top: 1rem;
   padding-bottom: 1rem;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 270px;
-  border-radius: 0rem 1rem 1rem 0rem ;
+  border-radius: 0rem 1rem 1rem 0rem;
 }
 
 .reserve_hcard_bd:hover {
   cursor: pointer;
-  background: #78dead;
+  /* background: #78dead; */
+  background-color: #2cc33a;
 }
 
 .custom_calendar {
@@ -105,11 +116,11 @@
 }
 
 .button_74 {
-  background-color: #9c7aed;
-  border: 2px solid #b2a2d9;
+  background-color: #2cc33a;
+  border: 0px;
   border-radius: 30px;
   box-shadow: #939393 4px 4px 0 0;
-  color: #000000;
+  color: #424242;
   cursor: pointer;
   display: inline-block;
   font-family: Ios15Medium;
@@ -151,6 +162,7 @@ input[type="radio"] {
 
 .reserve_choices .reserve_choices_op {
   font-family: "Ios15Medium";
+  color: #555454;
 }
 
 .reserve_choices .reserve_choices_op span {
@@ -158,8 +170,8 @@ input[type="radio"] {
 }
 
 .button_back {
-  --primary-color: #111;
-  --hovered-color: rgb(15, 127, 116);
+  --primary-color: #676767;
+  --hovered-color: #198754;
   display: flex;
   font-weight: 600;
   gap: 1%;
@@ -220,4 +232,13 @@ input[type="radio"] {
   position: relative;
   width: 15px;
   transition-delay: 0.2s;
+}
+
+.TimeDateSelected {
+  display: flex;
+  text-align: right;
+  width: fit-content;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-self: center;
 }
