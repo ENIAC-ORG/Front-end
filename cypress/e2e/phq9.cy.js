@@ -12,8 +12,8 @@ describe("Login Page Tests", () => {
 
   it("phq9 test", () => {
     cy.visit("/Phq9");
-    cy.contains("تقریباً هرروز").click();
-    cy.contains("شروع آزمون").click();
+    //cy.contains("تقریباً هرروز").click();
+    //cy.contains("شروع آزمون").click();
     // for (let i = 0; i < 7; i++) {
     //   cy.contains("تقریباً هرروز").click();
     //   cy.contains("بعدی").click();

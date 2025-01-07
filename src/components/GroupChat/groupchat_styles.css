@@ -1,0 +1,204 @@
+/* Ensure proper alignment */
+.custom-form-input {
+    font-family: 'Ios15medium';
+    width: 100%;
+    border-color: #37401f;
+    color: #16641b;
+ 
+    &:hover {
+        border-color: #916b48;
+    }
+ 
+    &::selection {
+        border-color: #489182;
+    }
+ 
+    input {
+        color: 'white';
+    }
+ }
+ 
+ /* Message styles */
+ .chat-my-message {
+    background-color: #249861; /* Your message background */
+    color: white;
+    text-align: right;
+    margin-right: 10px;
+    padding: 10px;
+    border-radius: 10px;
+ }
+ 
+ .chat-other-message {
+    background-color: #f4f4f4; /* Other users' message background */
+    color: #333;
+    text-align: left;
+    margin-left: 10px;
+    padding: 10px;
+    border-radius: 10px;
+ }
+ 
+ /* Flex alignment for message bubbles */
+ .message-container {
+    display: flex;
+    flex-direction: column;
+ }
+ 
+ .message-wrapper {
+    display: flex;
+    justify-content: flex-start; /* Align left for others' messages */
+ }
+ 
+ .message-wrapper.user {
+    justify-content: flex-end; /* Align right for your messages */
+ }
+
+ .groupchat-text-muted {
+    color: #7c7e7c !important;
+  }
+
+  .groupchat-bg-light {
+    --bs-bg-opacity: 1;
+    background-color: rgba(180, 214, 199, 0.88) !important;
+  }
+ 
+  .groupchat-bg-success {
+    --bs-bg-opacity: 1;
+    background-color: rgb(75, 147, 113) !important;
+  }
+ /* Styling for the side chat */
+ .customize-chat-side {
+    background-color: rgba(186, 202, 109, 0.25);
+    border-right: 2px solid #198754;
+ }
+ 
+ /* Other elements like the form and buttons */
+ .form-control {
+    border-color: rgb(201, 200, 200);
+ }
+ 
+ .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+ }
+ 
+ .badge-dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+ }
+ 
+ .groupchat-btn{
+  
+    height: 50px;
+    width:100%;
+    border-radius: 35px;
+    position:relative;
+    overflow: hidden;
+    font-family: Ios15Medium;
+    margin-left: -90px;
+  
+  }
+  .groupchat-btn .groupchat-btn_layer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    text-shadow: #767575;
+    border-radius: 30px;
+    background: -webkit-linear-gradient(left, #0b7d57, #379371, #6bb895, #9cf1d2);
+    background-size: 150%; /* Make the background larger for transition */
+    background-position: left; /* Start position */
+    transition: background-position 0.5s ease; /* Smooth transition */
+  }
+  
+  .groupchat-btn:hover .groupchat-btn_layer {
+    background-position: right; /* Shift the gradient position */
+  }
+  
+  
+  .groupchat-btn input[type="submit"]{
+    display:inline;
+    font-family: Ios15Medium;
+    height:100%;
+    width:100%;
+    position:relative;
+    color:#fff;
+    z-index: 1;
+    border:none;
+    padding-left: 0;
+    border-radius: 15px;
+    font-size: 20px;
+    font-weight:500;
+    cursor:pointer;
+    background: none;
+    text-shadow: rgb(214, 215, 218) 0px 0px 3px;
+    font-family: Vazir, Arial, sans-serif;
+  
+  }
+  
+  .groupchat-modal-button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-left: 9px;
+  }
+  
+  .groupchat-modal-button.confirm {
+    border-color: #faeae8;
+    background-color: #195439;
+    color: #fff;
+  }
+  
+  .groupchat-modal-button.confirm:hover {
+    background-color: rgb(7, 57, 36);
+  }
+  
+  .groupchat-modal-button.cancel {
+    background-color: #949494;
+    color: #000;
+  }
+  
+  .groupchat-modal-button.cancel:hover {
+    background-color: #605f5f;
+    color: #fff;
+  }
+
+/* Make the delete icon visible only when hovering over the message box */
+.message-container:hover .delete-icon {
+  display: block;
+}
+
+/* Ensure that the delete icon is hidden by default */
+.delete-icon {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 105%; /* Adjust this value based on how far you want the icon from the box */
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 10;
+  color: #5da670;
+}
+
+/* Adjust message box to allow space for the delete icon */
+.groupchat-bg-light,
+.groupchat-bg-success {
+  position: relative; /* Required for absolute positioning of the delete icon */
+  padding-right: 40px; /* Add space on the right side of the message box to fit the delete icon */
+}
+
+.customizedp {
+  display: "flex";
+  font-family: "Ios15Medium";
+  font-size: "20px"
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

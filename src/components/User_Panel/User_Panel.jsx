@@ -118,8 +118,8 @@ function toPersianDigits(str) {
 
   return (
     <>
+    <NavBar_SideBar />
     <body style={{ display:'grid' }}>
-      <NavBar_SideBar />
       <div
         className="prof_body"
         style={pages == 2 ? { paddingTop: "1.5%" } : {}}

@@ -43,13 +43,14 @@ const RatingInfoModal = ({ doctorId,
     setLoading(true); // Start loading
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios(`http://eniacgroup.ir:8070//DoctorPanel/getdoctorinfo/${doctorId}/`, {
+      const response = await axios(`http://eniacgroup.ir:8070/DoctorPanel/getdoctorinfo/${doctorId}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
+      console.log(response.data);
 
       if (response.data) {
         setImg(Image);
@@ -74,7 +75,7 @@ const RatingInfoModal = ({ doctorId,
   async function getRatings(doctorId) {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios(`http://eniacgroup.ir:8070//Rating/get/${doctorId}/`, {
+      const response = await axios(`http://eniacgroup.ir:8070/Rating/get/${doctorId}/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -116,7 +117,7 @@ const RatingInfoModal = ({ doctorId,
   async function sendRating() {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://eniacgroup.ir:8070//Rating/Rate/", {
+      const response = await axios("http://eniacgroup.ir:8070/Rating/Rate/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -221,7 +222,9 @@ const RatingInfoModal = ({ doctorId,
     const persianNumbersMap = {
       '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹',
     };
-    return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    if (value) {
+      return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    }
   };
 
   return (
@@ -255,7 +258,7 @@ const RatingInfoModal = ({ doctorId,
               </p>
               <p
                 className="m-0"
-                style={{ fontFamily: "Ios15Medium", color: "gray", fontSize:"12px" }}
+                style={{ fontFamily: "Ios15Medium", color: "gray", fontSize:"10px" }}
               >
                 {Array.isArray(Description) ? Description.join(" - ") : Description}
               </p>
@@ -394,16 +397,16 @@ const RatingInfoModal = ({ doctorId,
                       حوزۀ فعالیت: <span className="value-color">{field}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      آدرس کلینیک: <span className="value-color">{convertToPersianNumbers(clinicAddr)}</span>
+                      آدرس کلینیک: <span className="value-color">{clinicAddr ? convertToPersianNumbers(clinicAddr) : "-"}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      شماره تماس کلینیک: <span className="value-color">{convertToPersianNumbers(telephoneNum)}</span>
+                      شماره تماس کلینیک: <span className="value-color">{telephoneNum ? convertToPersianNumbers(telephoneNum) : "-"}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
                       شماره نظام: <span className="value-color">{convertToPersianNumbers(doctorCode)}</span>
                     </h5>
                     <h5 style={{ fontFamily: "Ios15Medium", fontSize: "18px", color: "#535453" }}>
-                      توضیحات: <span className="value-color">{convertToPersianNumbers(description)}</span>
+                      توضیحات: <span className="value-color">{description ? convertToPersianNumbers(description) : "-"}</span>
                     </h5>
                   </div>
                   <CompleteInfoModal doctorId={doctorId} />

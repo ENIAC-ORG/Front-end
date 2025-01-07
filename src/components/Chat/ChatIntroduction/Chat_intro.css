@@ -1,5 +1,5 @@
 
-.chat-bubble {
+.singlechat-bubble {
     width: fit-content;
     background-color: #7FBBA9;
     color: #333;
@@ -9,7 +9,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     font-size: 110%;
 }
-.chat-bubble::after {
+.singlechat-bubble::after {
     content: '';
     position: absolute;
     bottom: 8px;
@@ -22,7 +22,7 @@
     border-bottom: 0;
     margin-top: -5px;
 }
-.bg-chat-custom{
+.bg-singlechat-custom{
     background-color: rgb(99,173,151,0.4);
 }
 
@@ -100,16 +100,16 @@
     .ww{
         flex-direction: column-reverse;
     }
-    .chat-bubble{
+    .singlechat-bubble{
         display: none;
     }
-    .chat-img{
+    .singlechat-img{
         height: 250px;
     }
-    .chat-intro{
+    .singlechat-intro{
         font-size: 90%;
     }
-    .chat-title{
+    .singlechat-title{
         font-size: large;
         font-weight: bold;
     }
@@ -121,16 +121,16 @@
     .ww{
         flex-direction: column-reverse;
     }
-    .chat-bubble{
+    .singlechat-bubble{
         display: none;
     }
-    .chat-img{
+    .singlechat-img{
         height: 250px;
     }
-    .chat-intro{
+    .singlechat-intro{
         font-size: 100%;
     }
-    .chat-title{
+    .singlechat-title{
         font-size: large;
         font-weight: bold;
     }
@@ -143,20 +143,20 @@
     .ww{
         flex-direction: row;
     }
-    .chat-p3{
+    .singlechat-p3{
         gap: 4rem;
     }
-    .chat-bubble{
+    .singlechat-bubble{
         display: flex;
         font-size: 75%;
     }
-    .chat-img{
+    .singlechat-img{
         height: 250px;
     }
-    .chat-intro{
+    .singlechat-intro{
         font-size: 80%;
     }
-    .chat-title{
+    .singlechat-title{
         font-size: large;
         font-weight: bold;
     }
@@ -166,20 +166,20 @@
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .chat-p3{
+    .singlechat-p3{
         gap: 6rem;
         margin-right: 50px;
     }
-    .chat-bubble{
+    .singlechat-bubble{
         font-size: 85%;
     }
-    .chat-img{
+    .singlechat-img{
         height: 350px;
     }
-    .chat-intro{
+    .singlechat-intro{
         font-size: 90%;
     }
-    .chat-title{
+    .singlechat-title{
         font-size: large;
         font-weight: bold;
     }
@@ -187,20 +187,20 @@
 }
 
 @media only screen and (min-width: 1200px) {
-    .chat-p3{
+    .singlechat-p3{
         gap: 6rem;
     }
-    .chat-bubble{
+    .singlechat-bubble{
         display: grid;
         font-size: 100%;
     }
-    .chat-img{
+    .singlechat-img{
         height: 450px;
     }
-    .chat-intro{
+    .singlechat-intro{
         font-size: 105%;
     }
-    .chat-title{
+    .singlechat-title{
         font-size: x-large;
         font-weight: bold;
     }

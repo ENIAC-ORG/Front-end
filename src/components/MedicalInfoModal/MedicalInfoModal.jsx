@@ -240,7 +240,7 @@ function MedicalInfoModal({
       const ReservationDate = DateString(daySelected);
       const token = localStorage.getItem("accessToken");
       console.log(doctorId);
-      const response = await axios("http://eniacgroup.ir:8070//reserve/create/", {
+      const response = await axios("http://eniacgroup.ir:8070/reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

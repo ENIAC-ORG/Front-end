@@ -59,6 +59,12 @@
         &:active {
             background: rgba(255, 255, 255, 0.2);
         }
+
+        &:disabled {
+            background: #e7e8e9;
+            color: #9fa3a9;
+            cursor: not-allowed;
+        }
     }
 }
 
@@ -84,7 +90,6 @@
     text-align: center;
     align-content: center;
     font-family: "Ios15medium";
-
     background: aliceblue;
     width: 150px;
     padding: 0.5em;
@@ -131,14 +136,6 @@
     }
 }
 
-.bottom-button-hover {
-    &:hover {
-        border: 2px solid #D7B26D;
-        background-color: rgba(255, 255, 255, 0.3);
-        color: #D7B26D;
-    }
-}
-
 .font-custom {
     font-family: "Ios15medium";
 }
@@ -147,6 +144,7 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
+    margin-right: 2rem;
 }
 
 @media (max-width: 900px) {
@@ -234,10 +232,30 @@
     box-shadow: 20px 20px 40px -6px rgba(0, 0, 0, 0.2);
     text-align: center;
     transition: all 0.2s ease-in-out;
+    width: min-content;
 
     .text-style {
         color: #2b6416;
         text-shadow: 2px 2px 4px #D8EFD3;
         padding: 15px;
     }
+}
+
+.result-doctors {
+    display: flex;
+    justify-content: center;
+    direction: rtl;
+}
+
+.active-question-number {
+    font-size: 30px;
+    font-weight: 500;
+    color: #2b6416;
+    text-shadow: 2px 2px 4px #D8EFD3;
+}
+
+.total-question-number {
+    font-size: 18px;
+    font-weight: 500;
+    color: #948a8b;
 }

@@ -8,7 +8,9 @@ import { FaBars, FaBell, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMoreTime } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
-import { IoIosAlarm, IoIosAlbums, IoIosStar } from "react-icons/io";
+import { IoIosAlarm, IoIosAlbums, IoIosStar, IoMdChatbubbles, IoIosPaper } from "react-icons/io";
+import { IoLogoWechat } from "react-icons/io5";
+import { FaInfoCircle } from "react-icons/fa";
 import styles from "./NavBar.module.css";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -30,9 +32,9 @@ const NavBar_SideBar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
   const [MenueToggle, setMenueToggle] = useState(false);
-  const handsidebarToggle = () => {
-    setsideBarToggle(!sideBarToggle);
-  };
+  // const handsidebarToggle = () => {
+  //   setsideBarToggle(!sideBarToggle);
+  // };
 
   useEffect(() => {
     setTimeout(() => {
@@ -126,10 +128,13 @@ const NavBar_SideBar = () => {
       >
         <div className={styles.navcontainer}>
           <div style={{ position: "relative" }}>
-            <div className={styles.profile_btn}>
+            <div className={styles.profile_btn}
+              onMouseEnter={() => setMenueToggle(true)}
+              onMouseLeave={() => setMenueToggle(false)}
+            >
               <FaUserCircle
                 className={styles.userProfile_icon}
-                style={{ cursor:"pointer" }}
+                style={{ cursor: "pointer" }}
                 // style={{ width: "26px", height: "26px" }}
                 onClick={(e) => setMenueToggle(~MenueToggle)}
               />
@@ -192,7 +197,7 @@ const NavBar_SideBar = () => {
       <div
         className={styles.UnderNavbar}
         style={isSidebarOpen ? { display: "block" } : { display: "none" }}
-        />
+      />
       {/* ----------------------------------------------------------------- */}
       <div
         style={isSidebarOpen ? { display: "block" } : { display: "none" }}
@@ -247,7 +252,7 @@ const NavBar_SideBar = () => {
               }}
             >
               <label href="" className={styles1.side_list_element_text}>
-                <FaRegStickyNote className={styles1.side_icons} /> معرفی
+                <FaInfoCircle className={styles1.side_icons} /> معرفی
               </label>
             </li>
             {role == "doctor" ? (
@@ -260,7 +265,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <IoIosAlbums className={styles1.side_icons} />
-                    پرونده مراجعین{" "}
+                    {" "}پرونده مراجعین
                   </label>
                 </li>
                 <li
@@ -270,7 +275,8 @@ const NavBar_SideBar = () => {
                   }}
                 >
                   <label href="" className={styles1.side_list_element_text}>
-                    <IoIosAlarm className={styles1.side_icons} /> رزرو های من{" "}
+                    <IoIosAlarm className={styles1.side_icons} />
+                    {" "}رزرو های من
                   </label>
                 </li>
                 <li
@@ -281,7 +287,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <MdOutlineMoreTime className={styles1.side_icons} />
-                    انتخاب ساعات کاری{" "}
+                    {" "}انتخاب ساعات کاری
                   </label>
                 </li>
                 <li
@@ -292,7 +298,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <FaStar className={styles1.side_icons} />
-                    مشاهده نظرات{" "}
+                    {" "}مشاهده نظرات
                   </label>
                 </li>
               </>
@@ -305,8 +311,30 @@ const NavBar_SideBar = () => {
                   }}
                 >
                   <label href="" className={styles1.side_list_element_text}>
-                    <PiNotepadLight className={styles1.side_icons} />
-                    نتایج تست ها{" "}
+                    <IoIosPaper className={styles1.side_icons} />
+                    {" "}نتایج تست ها
+                  </label>
+                </li>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/chat");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <IoMdChatbubbles className={styles1.side_icons} />
+                    {" "}مکالمه با روانشناس هوشمند
+                  </label>
+                </li>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/GroupChat");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <IoLogoWechat className={styles1.side_icons} />
+                    {" "}گفت‌و‌گو همگانی
                   </label>
                 </li>
               </>

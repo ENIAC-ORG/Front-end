@@ -62,7 +62,6 @@ body {
 
 
 .responsive-table {
-
   /* padding-left: 1rem; */
   li {
     min-width: fit-content;
@@ -165,7 +164,8 @@ body {
 .button-24:active {
   background-color: initial;
   background-position: 0 0;
-  color: #351f6773;
+  color: #6C7A89;
+  background-color: #55ad9b1c;
 }
 
 .button-24:active {
