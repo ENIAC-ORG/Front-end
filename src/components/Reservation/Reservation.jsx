@@ -36,6 +36,10 @@ function toPersianDigits(str) {
   return str.replace(/\d/g, (digit) => persianDigits[digit]);
 }
 
+const formatTime = (time) => {
+  return time.split(':').slice(0, 2).join(':');
+};
+
 function ChangeDate(input) {
   var date = new DateObject(input);
   date.convert(persian);
@@ -97,7 +101,7 @@ const ReservationPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "http://eniacgroup.ir:8070/TherapyTests/record_check/",
+        "http://46.249.100.141:8070/TherapyTests/record_check/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -110,7 +114,7 @@ const ReservationPage = () => {
       }
     } catch (error) {
       console.log("something went wrong: ", error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
+      toast.error("!متاسفانه مشکلی پیش آمده، رفرش نمایید", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -137,19 +141,19 @@ const ReservationPage = () => {
     }
     setTime(temp);
   };
-  
 
-  const handleCalender = (e) =>{
+
+  const handleCalender = (e) => {
     setSelectedDay(e);
     setSelect(-1);
-    Setdatetime(e);    
+    Setdatetime(e);
   }
 
   async function getFreeTime() {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://eniacgroup.ir:8070/reserve/get-free-time/${doctor_id}/`,
+        `http://46.249.100.141:8070/reserve/get-free-time/${doctor_id}/`,
         {
           method: "GET",
           headers: {
@@ -164,7 +168,7 @@ const ReservationPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
+      toast.error("!متاسفانه مشکلی پیش آمده، رفرش نمایید", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -178,11 +182,11 @@ const ReservationPage = () => {
 
   async function getReservation() {
     try {
-      const startDate = formatDate(new Date()); 
+      const startDate = formatDate(new Date());
       const endDate = formatDate(addDays(new Date(), 30));
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://eniacgroup.ir:8070/reserve/between_dates/",
+        "http://46.249.100.141:8070/reserve/between_dates/",
         {
           method: "POST",
           headers: {
@@ -202,7 +206,7 @@ const ReservationPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
+      toast.error("!متاسفانه مشکلی پیش آمده، رفرش نمایید", {
         position: "bottom-left",
         autoClose: 3000,
         hideProgressBar: false,
@@ -220,7 +224,7 @@ const ReservationPage = () => {
     const fetchDoctorProfile = async () => {
       const token = localStorage.getItem("accessToken");
       try {
-        const response = await axios.get(`http://eniacgroup.ir:8070/profile/doctors/${doctor_id}/`, {
+        const response = await axios.get(`http://46.249.100.141:8070/profile/doctors/${doctor_id}/`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -229,7 +233,7 @@ const ReservationPage = () => {
         setDoctorProfile(response.data);
       } catch (error) {
         console.error("Error fetching doctor profile:", error);
-        toast.error("!متاسفانه مشلکلی پیش آمده، رفرش نمایید", {
+        toast.error("!متاسفانه مشکلی پیش آمده، رفرش نمایید", {
           position: "bottom-left",
           autoClose: 3000,
           hideProgressBar: false,
@@ -248,7 +252,7 @@ const ReservationPage = () => {
     try {
       const ReservationDate = DateString(selectedDay); // Format today's date as "yyyy-mm-dd" string
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://eniacgroup.ir:8070/reserve/create/", {
+      const response = await axios("http://46.249.100.141:8070/reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -281,7 +285,7 @@ const ReservationPage = () => {
       if (
         error.response.data.hasOwnProperty("message") &&
         error.response.data.message ===
-          "you can not reservere 2 times under 8 days drift"
+        "you can not reservere 2 times under 8 days drift"
       ) {
         toast.error("!حداقل فاصله رزرو ها 8 روز می باشد", {
           position: "bottom-left",
@@ -309,7 +313,7 @@ const ReservationPage = () => {
   useEffect(() => {
     getFreeTime();
     getReservation();
-    Setdatetime(selectedDay);    
+    Setdatetime(selectedDay);
   }, []);
 
   const [position, setPosition] = useState("right");
@@ -325,11 +329,9 @@ const ReservationPage = () => {
 
   function MyPlugin() {
     return (
-      <div
-        className="row reserve_plugin"
-      >
+      <div className="row reserve_plugin">
         <h6 className="reserve_hour_title">ساعت های قابل رزرو</h6>
-        <div className="reserve_hour_items row g-3  ">
+        <div className="reserve_hour_items row g-3">
           {LeftTimes.length == 0 && (
             <div className="Reservation_error_input">
               زمانی جهت مشاوره یافت نشد!
@@ -361,90 +363,92 @@ const ReservationPage = () => {
       <ToastContainer />
       <div className="d-grid py-5 all-page" onLoad={getReservation}>
         <div className="container reserve_Box" onLoad={getFreeTime}>
-          <div className="Myrow g-3 w-100" dir="rtl" style={{ justifyContent:'center' }}>
-          <div className="col col-md-12 col-lg-5 col-xsm-12 reserve_docProfile " >
-            <button
-            dir="ltr"
-              className="col w-100 button_back"
-              onClick={(e) => {
-                navigate("/Home");
-              }}
-            >
-              <p>صفحه اصلی</p>
-              <svg
-                xmlns="/Doctors"
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 23 22"
-                stroke="currentColor"
-                strokeWidth="4"
+          <div className="Myrow g-3 w-100" dir="rtl" style={{ justifyContent: 'center' }}>
+            <div className="col col-md-12 col-lg-5 col-xsm-12 reserve_docProfile" >
+              <button
+                dir="ltr"
+                className="col w-100 button_back"
+                onClick={(e) => {
+                  navigate("/Home");
+                }}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M14 5l7 7m0 0l-7 7m7-7H3"
-                ></path>
-              </svg>
-            </button>
-            <a href="#">
-              <img
-                src={doctorProfile.image}
-                className="img-fluid w-100 rounded-circle"
-                alt="image"
-              />
-            </a>
-            <h2 className="font-custom">{doctorProfile.name}</h2>
-            <div
-              className="row fs-5"
-              dir="rtl"
-              align="center"
-              style={selected == -1 ? { display: "none" } : { display: "flex" }}
-            >
-              <div className="col-12">
-                <span className="col-4 ms-1">
-                  <BsCalendarDate />
-                </span>
-                <span className="col-4 ms-4 font-custom"> تاریخ:</span>
-                <span className="col-4 ">
-                  {[
-                    toPersianDigits(`${selectedDay.year}`),
-                    toPersianDigits(`${selectedDay.month}`),
-                    toPersianDigits(`${selectedDay.day}`),
-                  ].join("/")}
-                </span>
-              </div>
-              <div className="col-12">
-                <span className="col-4 ms-1">
-                  <IoMdTime />
-                </span>
-                <span className="col-4 ms-4"> ساعت:</span>
-                <span className="col-4 ">
-                  {toPersianDigits(`${LeftTimes[selected]}`)}
-                </span>
-              </div>
-              <div className="reverse_choices_box">
-                <ul className="reserve_choices">
-                  <label className="reserve_choices_op">
-                    <input
-                      type="radio"
-                      name="q1"
-                      value="حضوری"
-                      checked={res_type == "حضوری"}
-                      onClick={(e) => setres_type("حضوری")}
-                    />
-                    <span>حضوری</span>
-                  </label>
-                  <label className="reserve_choices_op">
-                    <input
-                      type="radio"
-                      name="q1"
-                      value="مجازی"
-                      checked={res_type == "مجازی"}
-                      onClick={(e) => setres_type("مجازی")}
-                    />
-                    <span>مجازی</span>
-                  </label>
-                </ul>
+                <p>صفحه اصلی</p>
+                <svg
+                  xmlns="/Doctors"
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 23 22"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  ></path>
+                </svg>
+              </button>
+              <a href="#">
+                <img
+                  src={doctorProfile.image}
+                  className="img-fluid w-100 rounded-circle"
+                  style={{ cursor: "default" }}
+                  alt="image"
+                />
+              </a>
+              <h2 className="font-custom" style={{ color: '#676767' }}>{doctorProfile.name}</h2>
+              <div
+                className="row fs-5 TimeDateSelected"
+                dir="rtl"
+                align="center"
+                style={selected == -1 ? { display: "none" } : { display: "flex" }}
+              >
+                <div className="col-12" style={{ width: 'fit-content' }}>
+                  <span className="col-4 ms-1" style={{ color: '#198754' }}>
+                    <BsCalendarDate />
+                  </span>
+                  <span className="col-4 ms-4 font-custom" style={{ color: '#555454' }}> تاریخ:</span>
+                  <span className="col-4 font-custom" style={{ color: '#198754' }}>
+                    {[
+                      toPersianDigits(`${selectedDay.year}`),
+                      toPersianDigits(`${selectedDay.month}`),
+                      toPersianDigits(`${selectedDay.day}`),
+                    ].join("/")}
+                  </span>
+                </div>
+                <div className="col-12" style={{ width: 'fit-content' }}>
+                  <span className="col-4 ms-1" style={{ color: '#198754' }}>
+                    <IoMdTime />
+                  </span>
+                  <span className="col-4 ms-4 font-custom" style={{ color: '#555454' }}> ساعت:</span>
+                  <span className="col-4 font-custom" style={{ color: '#198754' }}>
+                    {toPersianDigits(formatTime(`${LeftTimes[selected]}`))}
+                  </span>
+                </div>
+                <div className="reverse_choices_box" style={{ width: 'fit-content' }}>
+                  <ul className="reserve_choices">
+                    <label className="reserve_choices_op">
+                      <input
+                        type="radio"
+                        name="q1"
+                        value="حضوری"
+                        checked={res_type == "حضوری"}
+                        onClick={(e) => setres_type("حضوری")}
+                      />
+                      <span className="font-custom">حضوری</span>
+                    </label>
+                    <label className="reserve_choices_op">
+                      <input
+                        type="radio"
+                        name="q1"
+                        value="مجازی"
+                        checked={res_type == "مجازی"}
+                        onClick={(e) => setres_type("مجازی")}
+                      />
+                      <span className="font-custom">مجازی</span>
+                    </label>
+                  </ul>
+                </div>
                 <button
                   className="button_74"
                   onClick={(e) => {
@@ -475,44 +479,42 @@ const ReservationPage = () => {
                       });
                     }
                   }}
-                  style={{backgroundColor:'green', marginBottom: '10px' }}
+                  style={{ marginBottom: '10px', width: 'fit-content', alignSelf: 'center' }}
                 >
                   ثبت
                 </button>
               </div>
             </div>
+            <div className="col-8 col-md-12 col-lg-5 col-sm-12" align="center" style={{ display: 'flex', alignItems: 'center' }}>
+              <Calendar
+                calendar={persian}
+                locale={persian_fa}
+                value={selectedDay}
+                onChange={(e) => {
+                  handleCalender(e);
+                }}
+                minDate={new DateObject()}
+                maxDate={new DateObject().add(1, "month")}
+                style={{
+                  fontSize: "60px",
+                  hieght: "500px",
+                  borderTopRightRadius: "50px",
+                }}
+                className="custom_calendar teal"
+                plugins={[<MyPlugin position={position} />]}
+              />
+              <MedicalInfoModal
+                getReserve={getReservation}
+                selectIndex={selectVal}
+                doctorId={doctor_id}
+                resType={res_type}
+                left_times={LeftTimes}
+                daySelected={selectedDay}
+                showModal={showModal}
+                toggleModal={toggleModal}
+              />
+            </div>
           </div>
-          <div className="col-8 col-md-12 col-lg-5 col-sm-12" align="center">
-            <Calendar
-              calendar={persian}
-              locale={persian_fa}
-              value={selectedDay}
-              onChange={(e) => {
-                handleCalender(e);
-                
-              }}
-              minDate={new DateObject()}
-              maxDate={new DateObject().add(1, "month")}
-              style={{
-                fontSize: "60px",
-                hieght: "500px",
-                borderTopRightRadius: "50px",
-              }}
-              className="custom_calendar teal"
-              plugins={[<MyPlugin position={position} />]}
-            /> 
-            <MedicalInfoModal
-              getReserve={getReservation}
-              selectIndex={selectVal}
-              doctorId={doctor_id}
-              resType={res_type}
-              left_times={LeftTimes}
-              daySelected={selectedDay}
-              showModal={showModal}
-              toggleModal={toggleModal}
-            />
-          </div>
-        </div>
         </div>
       </div>
       <Footer />
