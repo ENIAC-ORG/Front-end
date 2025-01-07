@@ -35,7 +35,7 @@ describe("درباره ما - صفحه", () => {
   it('باید دکمه "رزرو نوبت" را نمایش دهد و بتوان به آن کلیک کرد', () => {
     cy.contains("رزرو نوبت").should("be.visible").click();
 
-    cy.url().should("include", "/ReservationPage");
+    cy.url().should("include", "/Doctors");
   });
 
   it("باید تمامی دکمه‌های بخش گروه‌ها را نمایش دهد", () => {
