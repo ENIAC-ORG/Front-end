@@ -40,7 +40,7 @@ const Verification = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://eniacgroup.ir:8070/accounts/activation_resend/",
+        "https://eniacgroup.ir/backend/accounts/activation_resend/",
         {
           method: "POST",
           headers: {

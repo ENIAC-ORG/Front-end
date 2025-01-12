@@ -101,7 +101,7 @@ const ReservationPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios.get(
-        "http://46.249.100.141:8070/TherapyTests/record_check/",
+        "https://eniacgroup.ir/backend/TherapyTests/record_check/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -153,7 +153,7 @@ const ReservationPage = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/reserve/get-free-time/${doctor_id}/`,
+        `https://eniacgroup.ir/backend/reserve/get-free-time/${doctor_id}/`,
         {
           method: "GET",
           headers: {
@@ -186,7 +186,7 @@ const ReservationPage = () => {
       const endDate = formatDate(addDays(new Date(), 30));
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://46.249.100.141:8070/reserve/between_dates/",
+        "https://eniacgroup.ir/backend/reserve/between_dates/",
         {
           method: "POST",
           headers: {
@@ -224,7 +224,7 @@ const ReservationPage = () => {
     const fetchDoctorProfile = async () => {
       const token = localStorage.getItem("accessToken");
       try {
-        const response = await axios.get(`http://46.249.100.141:8070/profile/doctors/${doctor_id}/`, {
+        const response = await axios.get(`https://eniacgroup.ir/backend/profile/doctors/${doctor_id}/`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -252,7 +252,7 @@ const ReservationPage = () => {
     try {
       const ReservationDate = DateString(selectedDay); // Format today's date as "yyyy-mm-dd" string
       const token = localStorage.getItem("accessToken");
-      const response = await axios("http://46.249.100.141:8070/reserve/create/", {
+      const response = await axios("https://eniacgroup.ir/backend/reserve/create/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

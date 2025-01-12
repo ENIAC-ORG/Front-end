@@ -116,7 +116,7 @@ const GroupChat = () => {
 
   const getUserEmail = async () => {
     try {
-      const response = await axios.get("http://46.249.100.141:8070/chat/get-user-email/", {
+      const response = await axios.get("https://eniacgroup.ir/backend/chat/get-user-email/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -138,7 +138,7 @@ const GroupChat = () => {
   const getAllGroups = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://46.249.100.141:8070/chat/rooms/", {
+      const response = await axios.get("https://eniacgroup.ir/backend/chat/rooms/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -167,7 +167,7 @@ const GroupChat = () => {
   const getMessages = async (roomId) => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
+      const response = await axios.get(`https://eniacgroup.ir/backend/chat/rooms/${roomId}/messages/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -237,7 +237,7 @@ const GroupChat = () => {
   const deleteMessage = async (messageId) => {
     try {
       console.log(messageId);
-      const response = await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
+      const response = await axios.delete(`https://eniacgroup.ir/backend/chat/messages/${messageId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

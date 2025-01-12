@@ -39,7 +39,7 @@ const PHQ9Test = () => {
       const dataString = JSON.stringify(data);
       console.log(dataString);
       const response = await axios.post(
-        "http://46.249.100.141:8070//TherapyTests/nmd/",
+        "https://eniacgroup.ir/backend//TherapyTests/nmd/",
         {
           data: dataString,
         },

@@ -25,7 +25,7 @@ const SessionSummaryModal = ({ PatiantId }) => {
     // const fetchSessionSummary = async (id) => {
     //     try {
     //         const token = localStorage.getItem("accessToken");
-    //         const response = await axios.get(`http://eniacgroup.ir:8070/sessionSummary/${PatiantId}`, {
+    //         const response = await axios.get(`https://eniacgroup.ir/backend/sessionSummary/${PatiantId}`, {
     //             headers: {
     //                 Authorization: `Bearer ${token}`,
     //             },

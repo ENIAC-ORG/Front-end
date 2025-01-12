@@ -129,7 +129,7 @@ const Doctor_FreeTime_Edit = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/DoctorPanel/doctor/get-free-times/`,
+        `https://eniacgroup.ir/backend/DoctorPanel/doctor/get-free-times/`,
         {
           method: "GET",
           headers: {
@@ -160,7 +160,7 @@ const Doctor_FreeTime_Edit = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://46.249.100.141:8070/DoctorPanel/doctor/update-free-times/",
+        "https://eniacgroup.ir/backend/DoctorPanel/doctor/update-free-times/",
         {
           method: "PUT",
           headers: {

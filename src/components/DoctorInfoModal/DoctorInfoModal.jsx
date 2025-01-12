@@ -197,7 +197,7 @@ function DoctorInfoModal({
      try {
       const token = localStorage.getItem("accessToken");
       const response = await axios (
-        "http://46.249.100.141:8070/accounts/doctorapplication/",
+        "https://eniacgroup.ir/backend/accounts/doctorapplication/",
         {
           method: "POST",
           headers: {
