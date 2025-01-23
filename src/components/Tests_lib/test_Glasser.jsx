@@ -38,7 +38,7 @@ const GlasserTest = () => {
       const dataString = JSON.stringify(data);
       console.log(dataString);
       const response = await axios.post(
-        "https://eniacgroup.ir/backend//TherapyTests/glasser/",
+        "https://eniacgroup.ir/backend/TherapyTests/glasser/",
         {
           data: dataString,
         },

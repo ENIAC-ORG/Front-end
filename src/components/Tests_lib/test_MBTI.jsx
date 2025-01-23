@@ -36,7 +36,7 @@ const MBTITest = () => {
       const token = localStorage.getItem("accessToken");
       console.log(data);
       const response = await axios.post(
-        "https://eniacgroup.ir/backend//TherapyTests/MBTI/",
+        "https://eniacgroup.ir/backend/TherapyTests/MBTI/",
         data,
         {
           method: "POST",
