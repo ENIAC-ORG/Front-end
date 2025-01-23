@@ -65,7 +65,7 @@ const GroupChat = () => {
   useEffect(() => {
     if (selectedGroup) {
       // Open WebSocket connection
-      socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${selectedGroup.id}/?${email}`);
+      socket.current = new WebSocket(`wss://eniacgroup.ir/backend/ws/chat/${selectedGroup.id}/?${email}`);
 
       socket.current.onopen = () => {
         console.log("WebSocket is connected.");
