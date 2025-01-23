@@ -17,7 +17,7 @@ import { message } from "antd";
 // Helper function to format the time (hour and minute) from created_at to Tehran time
 function formatTime(date) {
     const d = new Date(date);
-    const tehranOffset = 10.5 * 60;
+    const tehranOffset = 7 * 60;
     const localOffset = d.getTimezoneOffset();
     d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
     const hours = d.getHours().toString().padStart(2, '0');
@@ -297,25 +297,28 @@ const AdminGroupChat = () => {
         }
     };
 
-        // Create group by admin
-        const archiveGroup = async () => {
-            try {
-                const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/`, newGroup, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log(response);
-                getAllGroups();
-            } catch (error) {
-    
-            }
-        };
+    // Archive group by admin
+    const archiveGroup = async (groupId) => {
+        try {
+            console.log(token);
+            console.log(groupId);
+            const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/${groupId}/toggle-visibility/`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            // console.log(response);
+            getAllGroups();
+            toast.success("گروه مورد نظر با موفقیت آرشیو شد");
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
 
-            // Create group by admin
+    // Delete group by admin
     const deleteGroup = async (groupId) => {
         try {
-            const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/${groupId}/`, {
+            const response = await axios.delete(`https://eniacgroup.ir/backend/chat/rooms/${groupId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -328,29 +331,29 @@ const AdminGroupChat = () => {
         }
     };
 
-        // Create group by admin
-        const editGroup = async () => {
-            if (!newGroupName.trim()) {
-                toast.error("نام گروه نمی‌تواند خالی باشد");
-                return;
-            }
-            try {
-                const response = await axios.put(`https://eniacgroup.ir/backend/chat/rooms/${chosenGroup.id}/update/`,
-                    {title: newGroupName, description: newGroupDescriptions},{
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log(response);
-                getAllGroups();
-                setNewGroupName("");
-                setNewGroupDescriptions("");
-                setOpenEditGroupModal(false);
-                toast.success("گروه با موفقیت ویرایش شد");
-            } catch (error) {
-                console.log(error);
-            }
-        };
+    // Edit group by admin
+    const editGroup = async () => {
+        if (!newGroupName.trim()) {
+            toast.error("نام گروه نمی‌تواند خالی باشد");
+            return;
+        }
+        try {
+            const response = await axios.put(`https://eniacgroup.ir/backend/chat/rooms/${chosenGroup.id}/update/`,
+                { title: newGroupName, description: newGroupDescriptions }, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response);
+            getAllGroups();
+            setNewGroupName("");
+            setNewGroupDescriptions("");
+            setOpenEditGroupModal(false);
+            toast.success("گروه با موفقیت ویرایش شد");
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     // Handle input change
     const handleInputChange = (e) => {
@@ -416,7 +419,7 @@ const AdminGroupChat = () => {
                                                                 <div
                                                                     className="group-item"
                                                                     style={{ textAlign: "right", cursor: "pointer", flexGrow: 1 }}
-                                                                    onClick={() => 
+                                                                    onClick={() =>
                                                                         setSelectedGroup(group)}
                                                                 >
                                                                     <p
@@ -443,7 +446,7 @@ const AdminGroupChat = () => {
                                                                             e.stopPropagation();
                                                                             handleOpenEditGroupModal(group);
                                                                         }}
-                                                                        style={{cursor: "pointer"}}
+                                                                        style={{ cursor: "pointer" }}
                                                                     >
                                                                         <BiEdit className="fs-5" />
                                                                     </span>
@@ -453,9 +456,9 @@ const AdminGroupChat = () => {
                                                                         onClick={(e) => {
                                                                             e.stopPropagation();
                                                                             // setChosenGroup(group);
-                                                                            archiveGroup();
+                                                                            archiveGroup(group.id);
                                                                         }}
-                                                                        style={{cursor: "pointer"}}
+                                                                        style={{ cursor: "pointer" }}
                                                                     >
                                                                         <BiArchive className="fs-5" />
                                                                     </span>
@@ -467,7 +470,7 @@ const AdminGroupChat = () => {
                                                                             // setChosenGroup(group);
                                                                             deleteGroup(group.id);
                                                                         }}
-                                                                        style={{cursor: "pointer"}}
+                                                                        style={{ cursor: "pointer" }}
                                                                     >
                                                                         <RiDeleteBin6Line className="fs-5" />
                                                                     </span>

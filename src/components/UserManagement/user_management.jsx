@@ -3,6 +3,7 @@ import Swal from "sweetalert2";
 import "./user_management.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
+import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 
 const UserManagement = () => {
   const [search, setSearch] = useState("");
@@ -293,6 +294,7 @@ const UserManagement = () => {
 
   return (
     <>
+      <NavBar_SideBar />
       <ToastContainer />
       <div className="page-container">
       <h2

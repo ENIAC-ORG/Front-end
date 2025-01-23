@@ -265,7 +265,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <IoIosAlbums className={styles1.side_icons} />
-                    {" "}پرونده مراجعین
+                    {" "}پروندۀ مراجعین
                   </label>
                 </li>
                 <li
@@ -276,7 +276,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <IoIosAlarm className={styles1.side_icons} />
-                    {" "}رزرو های من
+                    {" "}رزروهای من
                   </label>
                 </li>
                 <li
@@ -298,7 +298,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <FaStar className={styles1.side_icons} />
-                    {" "}مشاهده نظرات
+                    {" "}مشاهدۀ نظرات
                   </label>
                 </li>
               </>
@@ -312,7 +312,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <IoIosPaper className={styles1.side_icons} />
-                    {" "}نتایج تست ها
+                    {" "}نتایج تست‌ها
                   </label>
                 </li>
                 <li
@@ -351,7 +351,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <PiNotepadLight className={styles1.side_icons} />
-                    نتایج تست ها{" "}
+                    نتایج تست‌ها{" "}
                   </label>
                 </li>
                 <li
@@ -363,6 +363,17 @@ const NavBar_SideBar = () => {
                   <label href="" className={styles1.side_list_element_text}>
                     <FaStar className={styles1.side_icons} />
                     مدیریت کاربران{" "}
+                  </label>
+                </li>
+                <li
+                  className={styles1.side_list_element}
+                  onClick={(e) => {
+                    navigate("/AdminGroupChat");
+                  }}
+                >
+                  <label href="" className={styles1.side_list_element_text}>
+                    <IoLogoWechat className={styles1.side_icons} />
+                    {" "}مدیریت چت گروهی
                   </label>
                 </li>
               </>
