@@ -40,7 +40,7 @@ const CompleteInfo = (doctorId) => {
   const fetchUserInfo = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://eniacgroup.ir:8070/accounts/get_user/", {
+      const response = await axios.get("https://eniacgroup.ir/backend/accounts/get_user/", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -141,7 +141,7 @@ const CompleteInfo = (doctorId) => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios.post(
-          "http://eniacgroup.ir:8070/accounts/complete_info/",
+          "https://eniacgroup.ir/backend/accounts/complete_info/",
           {
             firstname,
             lastname,

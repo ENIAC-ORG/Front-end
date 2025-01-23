@@ -19,16 +19,9 @@ const Doctor_Home = () => {
           data-wow-delay=".3s"
           style={{ maxWidth: "600px" }}
         >
-          {/* <h5 className="text-primary">معرفی روان درمانگر ها</h5> */}
-          <h1 className="doctor_h1">معرفی روان درمانگرها</h1>
+          <h1 className="doctor_h1 ">معرفی روان درمانگرها</h1>
         </div>
-
-        {/* <div align='center'>
-            <a className="button-64" href="/RecommendationPage">
-              <span style={{ fontFamily: "Ios15Medium" }}>پیشنهاد روان درمانگر</span>
-        </a></div> */}
-        <br /> <br />
-
+        <hr/>
         <div className="row m-0 g-5">
           <div className=" col col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
             <div className="project1-item">
@@ -57,7 +50,7 @@ const Doctor_Home = () => {
               <div className="project1-img">
                 <img
                   src={myImage2}
-                  className="img-fluid w-100 rounded z-4 relativ"
+                  className=" img-responsive w-100 rounded z-4 relativ"
                   alt="img2"
                 />
                 <div className="project1-content">

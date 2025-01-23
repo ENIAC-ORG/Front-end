@@ -72,7 +72,7 @@ const Chat = () => {
       const formData = new FormData();
       formData.append("voice_file", audio_blob, "recording.wav");
       const uploadResponse = await fetch(
-        "http://46.249.100.141:8070/depression-chat/process_wav_voice/",
+        "https://eniacgroup.ir/backend/depression-chat/process_wav_voice/",
         {
           method: "POST",
           body: formData,
@@ -97,7 +97,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://46.249.100.141:8070/depression-chat/chat/create/",
+        "https://eniacgroup.ir/backend/depression-chat/chat/create/",
         {
           method: "POST",
           headers: {
@@ -134,7 +134,7 @@ const Chat = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios(
-          "http://46.249.100.141:8070/depression-chat/chat/all/",
+          "https://eniacgroup.ir/backend/depression-chat/chat/all/",
           {
             method: "GET",
             headers: {
@@ -164,7 +164,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/depression-chat/chat/${id}/`,
+        `https://eniacgroup.ir/backend/depression-chat/chat/${id}/`,
         {
           method: "GET",
           headers: {
@@ -191,7 +191,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/depression-chat/chat/${Conv_id}/message/`,
+        `https://eniacgroup.ir/backend/depression-chat/chat/${Conv_id}/message/`,
         {
           method: "POST",
           headers: {

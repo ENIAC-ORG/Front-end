@@ -108,7 +108,7 @@ const RecommendationPage = () => {
       const requestData = IsDoctor ? requestDoctor : requestPatiant;
       const response = await axios({
         method: "POST",
-        url: IsDoctor ? "http://46.249.100.141:8070/RecomendationSystem/psychologist/form/" : "http://46.249.100.141:8070/RecomendationSystem/patient/form/",
+        url: IsDoctor ? "https://eniacgroup.ir/backend/RecomendationSystem/psychologist/form/" : "https://eniacgroup.ir/backend/RecomendationSystem/patient/form/",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const RecommendationPage = () => {
           try {
             const token = localStorage.getItem("accessToken");
             const response = await axios.get(
-              "http://46.249.100.141:8070/RecomendationSystem/match/patient-to-psychologists/",
+              "https://eniacgroup.ir/backend/RecomendationSystem/match/patient-to-psychologists/",
               {
                 headers: {
                   Authorization: `Bearer ${token}`,

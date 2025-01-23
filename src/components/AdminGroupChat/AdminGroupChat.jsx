@@ -68,7 +68,7 @@ const AdminGroupChat = () => {
     useEffect(() => {
         if (selectedGroup) {
             // Open WebSocket connection
-            socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${selectedGroup.id}/?${email}`);
+            socket.current = new WebSocket(`wss://eniacgroup.ir/backend/ws/chat/${selectedGroup.id}/?${email}`);
 
             socket.current.onopen = () => {
                 console.log("WebSocket is connected.");
@@ -119,7 +119,7 @@ const AdminGroupChat = () => {
 
     const getUserEmail = async () => {
         try {
-            const response = await axios.get("http://46.249.100.141:8070/chat/get-user-email/", {
+            const response = await axios.get("https://eniacgroup.ir/backend/chat/get-user-email/", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -142,7 +142,7 @@ const AdminGroupChat = () => {
         try {
             setLoading(true);
             const token = localStorage.getItem("accessToken");
-            const response = await axios.get("http://46.249.100.141:8070/chat/rooms/", {
+            const response = await axios.get("https://eniacgroup.ir/backend/chat/rooms/", {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -173,7 +173,7 @@ const AdminGroupChat = () => {
     const getMessages = async (roomId) => {
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
+            const response = await axios.get(`https://eniacgroup.ir/backend/chat/rooms/${roomId}/messages/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -243,7 +243,7 @@ const AdminGroupChat = () => {
     const deleteMessage = async (messageId) => {
         try {
             console.log(messageId);
-            const response = await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
+            const response = await axios.delete(`https://eniacgroup.ir/backend/chat/messages/${messageId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -281,7 +281,7 @@ const AdminGroupChat = () => {
         }
         try {
             const newGroup = { "title": newGroupName, "description": newGroupDescriptions }
-            const response = await axios.post(`http://46.249.100.141:8070/chat/rooms/`, newGroup, {
+            const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/`, newGroup, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -300,7 +300,7 @@ const AdminGroupChat = () => {
         // Create group by admin
         const archiveGroup = async () => {
             try {
-                const response = await axios.post(`http://46.249.100.141:8070/chat/rooms/`, newGroup, {
+                const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/`, newGroup, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -315,7 +315,7 @@ const AdminGroupChat = () => {
             // Create group by admin
     const deleteGroup = async (groupId) => {
         try {
-            const response = await axios.post(`http://46.249.100.141:8070/chat/rooms/${groupId}/`, {
+            const response = await axios.post(`https://eniacgroup.ir/backend/chat/rooms/${groupId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -335,7 +335,7 @@ const AdminGroupChat = () => {
                 return;
             }
             try {
-                const response = await axios.put(`http://46.249.100.141:8070/chat/rooms/${chosenGroup.id}/update/`,
+                const response = await axios.put(`https://eniacgroup.ir/backend/chat/rooms/${chosenGroup.id}/update/`,
                     {title: newGroupName, description: newGroupDescriptions},{
                     headers: {
                         Authorization: `Bearer ${token}`,

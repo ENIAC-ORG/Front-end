@@ -1,24 +1,15 @@
 .side_body {
-    background-color: #b08842;
+    background-color: #A59D84;
     width: 16rem;
-    /* w-64 */
     position: fixed;
-    /* fixed */
     right: 0px;
     top: 0;
-    /* height: 50px; */
-    /* right-0 */
     height: 100%;
-    /* h-full */
     padding-right: 1rem;
-    /* px-4 */
     padding-left: 1rem;
-    /* px-4 */
     padding-top: 0.5rem;
-    /* py-2 */
     padding-bottom: 0.5rem;
     z-index: 1000;
-    /* py-2 */
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
@@ -36,7 +27,7 @@
     font-size: 2rem;
     font-family: Ios15Medium;
     color: #ffffff;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .side_list {
@@ -45,7 +36,7 @@
     direction: rtl;
     margin-top: 0.75rem;
     padding-right: 0rem;
-    font-weight: bold;
+    /* font-weight: bold; */
 }
 
 .side_list_element {
@@ -56,20 +47,21 @@
     padding-right: 1rem;
     cursor: pointer;
 }
-.side_list_element_text
-{
+
+.side_list_element_text {
     color: white;
     font-family: Ios15Medium;
     cursor: pointer;
 }
+
 .side_list_element:hover {
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
         0 4px 6px -2px rgba(0, 0, 0, 0.05);
     background-color: #f9fafb;
     cursor: pointer;
 }
-.side_list_element:hover .side_list_element_text
-{
+
+.side_list_element:hover .side_list_element_text {
     color: #5c5d5f;
     font-family: Ios15Medium;
 }

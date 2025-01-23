@@ -46,7 +46,7 @@ const UserManagement = () => {
     try {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
-      const response = await axios("http://46.249.100.141:8070/accounts/Login/", {
+      const response = await axios("https://eniacgroup.ir/backend/accounts/Login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -74,7 +74,7 @@ const UserManagement = () => {
   const handleAcceptUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://46.249.100.141:8070/DoctorPanel/pending_doctor/accept/${adminAccessToken}/`, 
+        `https://eniacgroup.ir/backend/DoctorPanel/pending_doctor/accept/${adminAccessToken}/`, 
         {},
         {
           headers: {
@@ -123,7 +123,7 @@ const UserManagement = () => {
   const handleDenyUser = async (userId) => {
     try {
       const response = await axios.post(
-        `http://eniacgroup.ir:8070/DoctorPanel/pending_doctor/deny/${userId}/`, 
+        `https://eniacgroup.ir/backend/DoctorPanel/pending_doctor/deny/${userId}/`, 
         { message: denialReason },
         {
           headers: {
@@ -235,7 +235,7 @@ const UserManagement = () => {
   const fetchDoctors = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://eniacgroup.ir:8070/DoctorPanel/pending_doctor", {
+      const response = await axios.get("https://eniacgroup.ir/backend/DoctorPanel/pending_doctor", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

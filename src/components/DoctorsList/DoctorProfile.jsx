@@ -40,7 +40,7 @@ const DoctorProfile = ({
         const fetchImage = async () => {
           try {
             const response = await axios.get(
-              `http://46.249.100.141:8070/profile/doctors/${Id}/`
+              `https://eniacgroup.ir/backend/profile/doctors/${Id}/`
             );
             if (response.status === 200) {
               setImage(response.data.image);
@@ -71,7 +71,7 @@ const DoctorProfile = ({
       const accessToken = localStorage.getItem("accessToken");
       try {
         const response = await axios(
-          "http://46.249.100.141:8070/accounts/get_user/",
+          "https://eniacgroup.ir/backend/accounts/get_user/",
           {
             method: "GET",
             headers: {
@@ -152,7 +152,7 @@ const DoctorProfile = ({
       else {
         try {
           const response = await axios(
-            "http://46.249.100.141:8070/accounts/get_user/",
+            "https://eniacgroup.ir/backend/accounts/get_user/",
             {
               method: "GET",
               headers: {
