@@ -23,6 +23,7 @@ import RecommendationPage from "./components/RecommendationPage/RecommendationPa
 import UserManagement from "./components/UserManagement/user_management.jsx";
 import Chat from "./components/Chat/Chat.jsx";
 import GroupChat from "./components/GroupChat/GroupChat.jsx";
+import AdminGroupChat from "./components/AdminGroupChat/AdminGroupChat.jsx"
 import PHQ9Test from "./components/Tests_lib/test_PHQ9.jsx";
 import ScrollToTopButton from "./components/ScrollToTopButton/ScrollToTopButton.jsx";
 
@@ -75,39 +76,41 @@ function App() {
             {" "}
           </Router.Route>
 
-          <Router.Route path="/Patient_Panel" element={<Patient_Panel />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/PatientsList" element={<PatientsList />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/DoctorFreeTime" element={<Doctor_FreeTime />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/TestResult" element={<Testresult />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/DoctorRatings" element={<DoctorRating />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/RecommendationPage" element={<RecommendationPage />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/User_Management" element={<UserManagement />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/Chat" element={<Chat />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/GroupChat" element={<GroupChat />}>
-            {" "}
-          </Router.Route>
-          <Router.Route path="/phq9" element={<PHQ9Test />}>
-            {" "}
-          </Router.Route>
-        </Router.Routes>
-      </Router.BrowserRouter>
-      <ScrollToTopButton />
+        <Router.Route path="/Patient_Panel" element={<Patient_Panel />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/PatientsList" element={<PatientsList />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/DoctorFreeTime" element={<Doctor_FreeTime />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/TestResult" element={<Testresult />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/DoctorRatings" element={<DoctorRating />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/RecommendationPage" element={<RecommendationPage />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/User_Management" element={<UserManagement />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/Chat" element={<Chat />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/GroupChat" element={<GroupChat />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/AdminGroupChat" element={<AdminGroupChat />}>
+          {" "}
+        </Router.Route>
+        <Router.Route path="/phq9" element={<PHQ9Test />}>
+          {" "}
+        </Router.Route>
+      </Router.Routes>
+    </Router.BrowserRouter>
     </>
   );
 }
