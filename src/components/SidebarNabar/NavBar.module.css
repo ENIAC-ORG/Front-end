@@ -34,6 +34,24 @@
     height: 26px;
 }
 
+@media (max-width: 470px) {
+    .fBar{
+        display: none;
+    }
+}
+
+@media (max-width: 470px) {
+    .eniacNavbar {
+        width: 0px;
+    }
+}
+
+@media (min-width: 471px) {
+    .eniacNavbar {
+        width: 90px;
+    }
+}
+
 .sitetitle {
     color: #ffffff;
     /* font-weight: 600; */
@@ -45,6 +63,12 @@
     /* white-space: 50px; */
     /* padding-right: 100%; */
     text-align: center;
+}
+
+@media (max-width: 471px) {
+    .sitetitle {
+        padding-left: 0px;
+    }
 }
 
 .navcontainer {

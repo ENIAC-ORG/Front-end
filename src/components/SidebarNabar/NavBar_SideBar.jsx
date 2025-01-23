@@ -188,8 +188,12 @@ const NavBar_SideBar = () => {
           <label className={styles.sitetitle}>اینیاک</label>
         </div>
         <div className={styles.p1}>
-          <div style={{ width: "90px" }}></div>
+          <div 
+          // style={{ width: "90px" }}
+          className={styles.eniacNavbar}
+          ></div>
           <FaBars className={styles.fBar}
+            style={isSidebarOpen ? { display: "none" } : { display: "block" }}
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           />
         </div>
@@ -253,6 +257,17 @@ const NavBar_SideBar = () => {
             >
               <label href="" className={styles1.side_list_element_text}>
                 <FaInfoCircle className={styles1.side_icons} /> معرفی
+              </label>
+            </li>
+            <li
+              className={styles1.side_list_element}
+              onClick={(e) => {
+                navigate("/Doctors");
+              }}
+            >
+              <label href="" className={styles1.side_list_element_text}>
+                <FaUserDoctor className={styles1.side_icons} />
+                {" "}معرفی دکترها
               </label>
             </li>
             {role == "doctor" ? (
