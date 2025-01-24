@@ -277,8 +277,8 @@ const GlasserTest = () => {
         <div
           className="glasser-quiz-container"
           style={
-            activeQuestion === 0 || showResult
-              ? { marginTop: "4%" }
+            activeQuestion === 0 || showResult && maxWidth > "760px"
+              ? { marginTop: "4%", height: "70%" }
               : { marginTop: "2%" }
           }
         >
@@ -287,7 +287,7 @@ const GlasserTest = () => {
               {activeQuestion === 0 && (
                 <h2
                   style={{
-                    fontSize: "30px",
+                    // fontSize: "30px",
                     color: "#55ad9b",
                     marginBottom: "10px",
                     textAlign: "center",
@@ -321,7 +321,7 @@ const GlasserTest = () => {
                   activeQuestion === 0
                     ? {
                         lineHeight: "1.8",
-                        fontSize: "21px",
+                        // fontSize: "21px",
                         paddingTop: "20px",
                       }
                     : {}
@@ -352,7 +352,7 @@ const GlasserTest = () => {
                   <>
                     <button
                     data-cy="start-glasser"
-                      style={{ width: "40px", fontSize: "14px" }}
+                      // style={{ width: "40px", fontSize: "14px" }}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -361,7 +361,7 @@ const GlasserTest = () => {
                         }
                       }}
                     >
-                      شروع آزمون
+                      شروع 
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -383,16 +383,18 @@ const GlasserTest = () => {
                       }
                     >
                       {activeQuestion === questions.length - 1
-                        ? "پایان آزمون"
+                        ? "پایان "
                         : "بعدی"}
                     </button>
 
                     <span
-                      style={{ fontSize: "16px" }}
+                      // style={{ fontSize: "16px" }}
                       onClick={showConfirmSwal}
                       className="glasser-complete-test"
                     >
-                      اتمام آزمون
+                      {activeQuestion === questions.length - 1
+                        ? ""
+                        : "اتمام آزمون"}
                     </span>
                     <button
                       onClick={onClickPrevious}
