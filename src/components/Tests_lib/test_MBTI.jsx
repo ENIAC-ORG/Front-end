@@ -415,6 +415,7 @@ const MBTITest = () => {
           )}
         </div>
       </body>
+      <Footer />
     </>
   );
 };

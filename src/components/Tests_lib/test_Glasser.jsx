@@ -444,6 +444,7 @@ const GlasserTest = () => {
           )}
         </div>
       </body>
+      <Footer />
     </>
   );
 };
