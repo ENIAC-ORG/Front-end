@@ -278,6 +278,11 @@ VERSION:	Versoin Number
   
 }
 
+.col-lg-4 {
+  flex: 0 0 auto;
+  width: 28%;
+}
+
 
 .Timg {
   vertical-align: middle;
