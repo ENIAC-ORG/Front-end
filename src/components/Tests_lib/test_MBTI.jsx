@@ -263,10 +263,11 @@ const MBTITest = () => {
               {activeQuestion === 0 && (
                 <h2
                   style={{
-                    fontSize: "30px",
+                    // fontSize: "30px",
                     color: "#55AD9B",
                     marginBottom: "10px",
                     textAlign: "center",
+                    fontWeight: "bold"
                   }}
                 >
                   تست شخصیت‌شناسی MBTI
@@ -297,7 +298,7 @@ const MBTITest = () => {
                   activeQuestion === 0
                     ? {
                         lineHeight: "1.8",
-                        fontSize: "22px",
+                        // fontSize: "22px",
                         paddingTop: "20px",
                       }
                     : {}
@@ -324,7 +325,7 @@ const MBTITest = () => {
                 {activeQuestion === 0 ? (
                   <>
                     <button
-                      style={{ width: "40px", fontSize: "16px" }}
+                      // style={{ width: "40px"}}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -333,7 +334,7 @@ const MBTITest = () => {
                         }
                       }}
                     >
-                      شروع آزمون
+                      شروع 
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -350,21 +351,23 @@ const MBTITest = () => {
                       }
                       style={
                         activeQuestion === questions.length - 1
-                          ? { fontSize: "18px" }
+                          ? {}
                           : {}
                       }
                     >
                       {activeQuestion === questions.length - 1
-                        ? "پایان آزمون"
+                        ? "پایان"
                         : "بعدی"}
                     </button>
 
                     <span
-                      style={{ fontSize: "19px" }}
+                      // style={{ fontSize: "19px" }}
                       onClick={showConfirmSwal}
                       className="mbti-complete-test"
                     >
-                      اتمام آزمون
+                      {activeQuestion === questions.length - 1
+                        ? ""
+                        : "اتمام آزمون"}
                     </span>
                     <button
                       onClick={onClickPrevious}

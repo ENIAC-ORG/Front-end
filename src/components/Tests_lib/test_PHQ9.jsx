@@ -245,7 +245,7 @@ const PHQ9Test = () => {
               {activeQuestion === 0 && (
                 <h2
                   style={{
-                    fontSize: "30px",
+                    // fontSize: "30px",
                     color: "#55ad9b",
                     marginBottom: "10px",
                     textAlign: "center",
@@ -280,7 +280,7 @@ const PHQ9Test = () => {
                   activeQuestion === 0
                     ? {
                         lineHeight: "1.8",
-                        fontSize: "21px",
+                        // fontSize: "21px",
                         paddingTop: "20px",
                       }
                     : {}
@@ -305,12 +305,12 @@ const PHQ9Test = () => {
               </ul>
               <div
                 className="phq9-button-group"
-                style={{ fontSize: "14px" }}
+                // style={{ fontSize: "14px" }}
               >
                 {activeQuestion === 0 ? (
                   <>
                     <button
-                      style={{ width: "40px", fontSize: "14px" }}
+                      // style={{ width: "40px", fontSize: "14px" }}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -319,7 +319,7 @@ const PHQ9Test = () => {
                         }
                       }}
                     >
-                      شروع آزمون
+                      شروع 
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -341,16 +341,18 @@ const PHQ9Test = () => {
                       }
                     >
                       {activeQuestion === questions.length - 1
-                        ? "پایان آزمون"
+                        ? "پایان"
                         : "بعدی"}
                     </button>
 
                     <span
-                      style={{ fontSize: "16px" }}
+                      // style={{ fontSize: "16px" }}
                       onClick={showConfirmSwal}
                       className="phq9-complete-test"
                     >
-                      اتمام آزمون
+                      {activeQuestion === questions.length - 1
+                        ? ""
+                        : "اتمام آزمون"}
                     </span>
                     <button
                       onClick={onClickPrevious}

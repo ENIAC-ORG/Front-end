@@ -163,3 +163,75 @@
 .custom-color .progress-bar {
   background-color: #76baab !important;
 }
+
+/* Add responsiveness for mobile devices */
+@media (max-width: 770px) {
+  .mbti-quiz-container {
+    width: 100%;
+    height: 48%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  .mbti-header .mbti-active-question-no {
+    font-size: 25px;
+  }
+
+  .mbti-header .mbti-total-question {
+    font-size: 19px;
+  }
+
+  .mbti-quiz-container .mbti-active-question-no {
+    font-size: 15 px;
+  }
+
+  .mbti-quiz-container .mbti-total-question,
+  .mbti-quiz-container h2 {
+    font-size: 14px;
+  }
+
+  .mbti-quiz-container ul li {
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 10px;
+    margin-right: 19%;
+  }
+
+  .mbti-quiz-container span {
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5%;
+  }
+
+
+  .mbti-quiz-container button {
+    font-size: 12px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    margin-bottom: 5%;
+  }
+
+  .mbti-result h3 {
+    font-size: 15px;
+  }
+
+  .mbti-result p {
+    font-size: 13px;
+  }
+
+  .mbti-result p span {
+    font-size: 12px;
+  }
+
+  .mbti-button-group {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .mbti-button-group button {
+    flex: 1;
+    margin: 10px 10px;
+    width: 100%;
+  }
+}
