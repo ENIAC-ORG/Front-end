@@ -62,14 +62,15 @@ const PHQ9Test = () => {
           title: "!خطا در ارسال پاسخ‌ها",
           html: "متاسفانه مشکلی رخ داد",
           background: "#075662",
-      color: "#fff",
-      width: "35rem",
-      backdrop: `
+          color: "#fff",
+          width: "35rem",
+          font: "14px",
+          backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
-      confirmButtonColor: "#0a8ca0",
-      cancelButtonColor: "#0a8ca0",
+          confirmButtonColor: "#0a8ca0",
+          cancelButtonColor: "#0a8ca0",
           confirmButtonText: "تایید",
         }).then((result) => {
           if (result.isConfirmed) {
@@ -84,6 +85,8 @@ const PHQ9Test = () => {
         html: "متاسفانه مشکلی رخ داد",
         background: "#075662",
         color: "#fff",
+        font: "14px",
+
         width: "35rem",
         backdrop: `
             rgba(84, 75, 87.0.9)
@@ -108,6 +111,7 @@ const PHQ9Test = () => {
       background: "#075662",
       color: "#fff",
       width: "35rem",
+      font: "14px",
       backdrop: `
           rgba(84, 75, 87.0.9)
           left top
@@ -174,6 +178,8 @@ const PHQ9Test = () => {
       background: "#075662",
       color: "#fff",
       width: "35rem",
+      // fontSize: "14px",
+
       backdrop: `
           rgba(84, 75, 87.0.9)
           left top
@@ -218,7 +224,7 @@ const PHQ9Test = () => {
   };
 
   const showTheResult = () => {
-    };
+  };
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
@@ -234,11 +240,11 @@ const PHQ9Test = () => {
       <body className="phq9-body">
         <div
           className="phq9-quiz-container"
-          // style={
-          //   activeQuestion === 0
-          //     ? { marginTop: "1%" }
-          //     : { marginTop: "1%" }
-          // }
+        // style={
+        //   activeQuestion === 0
+        //     ? { marginTop: "1%" }
+        //     : { marginTop: "1%" }
+        // }
         >
           {!showResult && (
             <div>
@@ -279,10 +285,10 @@ const PHQ9Test = () => {
                 style={
                   activeQuestion === 0
                     ? {
-                        lineHeight: "1.8",
-                        // fontSize: "21px",
-                        paddingTop: "20px",
-                      }
+                      lineHeight: "1.8",
+                      // fontSize: "21px",
+                      paddingTop: "20px",
+                    }
                     : {}
                 }
               >
@@ -305,7 +311,7 @@ const PHQ9Test = () => {
               </ul>
               <div
                 className="phq9-button-group"
-                // style={{ fontSize: "14px" }}
+              // style={{ fontSize: "14px" }}
               >
                 {activeQuestion === 0 ? (
                   <>
@@ -319,7 +325,7 @@ const PHQ9Test = () => {
                         }
                       }}
                     >
-                      شروع 
+                      شروع
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -330,7 +336,7 @@ const PHQ9Test = () => {
                       disabled={selectedAnswers[activeQuestion] === null}
                       title={
                         selectedAnswers[activeQuestion] === null &&
-                        activeQuestion !== questions.length - 1
+                          activeQuestion !== questions.length - 1
                           ? "برای ادامه باید حتما یک گزینه را انتخاب کنید"
                           : ""
                       }
@@ -371,10 +377,10 @@ const PHQ9Test = () => {
                 style={
                   showResult
                     ? {
-                        fontWeight: "bolder",
-                        color: "#9a94fb",
-                        marginBottom: "33px",
-                      }
+                      fontWeight: "bolder",
+                      color: "#9a94fb",
+                      marginBottom: "33px",
+                    }
                     : {}
                 }
               >
