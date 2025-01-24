@@ -53,7 +53,12 @@ VERSION:	Versoin Number
   font-size: 60px;
 }
 
-@media (max-width: 575px) {
+.h3 {
+  font-size: 35px;
+}
+
+
+/* @media (max-width: 575px) {
   .h1 {
     font-size: 45px;
   }
@@ -106,7 +111,7 @@ VERSION:	Versoin Number
   .h6 {
     font-size: 14px;
   }
-}
+} */
 /* Button style */
 .Test_btn {
   font-size: 16px;
@@ -121,6 +126,10 @@ VERSION:	Versoin Number
   transition: all .3s ease; /* Smooth transition for all properties */
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+.paragraph {
+  font-size: 18px;
 }
 
 .Test_btn::before {
@@ -1673,10 +1682,242 @@ link:focus,
 .jobs-faq .jobs-faq-container .question-list .question-item .faq-answer {
   line-height: 2;
   font-family: Ios15Medium;
-  font-size:13px;
+  font-size:16px;
   color: #616161;
   margin: 0;
   padding: 10px 40px 20px 15px
 }
+
+/* General Mobile Adjustments */
+@media (max-width: 768px) {
+  .Test_page-title-section {
+    max-height: 32vh;
+
+  }
+  .Test_section {
+    max-height: 45vh;
+  }
+  /* Typography */
+  .Test_Card_title {
+    font-size: 14px; /* Reduce font size for mobile */
+  }
+
+  .test_header, .test_raygan {
+    font-size: 12px; /* Reduce font size for mobile */
+  }
+
+  .paragraph {
+    font-size: 12px;
+    line-height: 1.7; /* Adjust line height */
+  }
+
+  .htitles {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .h1 {
+    font-size: 20px; /* Adjust heading sizes */
+  }
+
+  .h2 {
+    font-size: 18px;
+  }
+
+  .h3 {
+    font-size: 22px;
+  }
+
+  .h4 {
+    font-size: 16px;
+  }
+
+  .h5, .h6 {
+    font-size: 14px;
+  }
+
+  /* Buttons */
+  .Test_btn {
+    font-size: 12px; /* Reduce font size for buttons */
+    padding: 10px 20px; /* Adjust padding */
+    border-radius: 15px; /* Slightly smaller radius */
+  }
+
+  .btn-sm, .btn-xs {
+    font-size: 12px;
+    padding: 8px 15px;
+  }
+
+  .btn-primary, .btn-primary-outline {
+    font-size: 14px; /* Ensure readable buttons */
+  }
+  .Test_btn .btn-primary .btn-sm .Ta {
+    font-size: 12px;
+  }
+
+  /* Containers */
+  .testq_kb-layout {
+    width: 100%; /* Full-width for mobile */
+    padding: 10px;
+  }
+
+  .jobs-faq .jobs-faq-container {
+    width: 95%; /* Narrower width for small screens */
+    margin: 20px auto;
+    padding: 10px;
+  }
+
+  .faq-container {
+    width: 90%; /* Adjust FAQ width */
+    margin: 20px auto;
+  }
+
+  .jobs-faq .question-list .question-item {
+    padding: 10px 10px; /* Reduce padding for compactness */
+  }
+
+  .jobs-faq .question-list .question-title {
+    font-size: 16px; /* Adjust font size */
+  }
+
+  .jobs-faq .faq-answer {
+    font-size: 12px; /* Reduce font size */
+    padding: 10px 20px;
+  }
+
+  /* Navbar Adjustments */
+  .navbar-nav {
+    padding: 0;
+    background: #75b69c;
+  }
+
+  .nav-item {
+    margin: 0 5px;
+  }
+
+  .nav-item .nav-link {
+    padding: 10px;
+    font-size: 14px; /* Adjust link size */
+  }
+
+  /* Panels */
+  .panel {
+    margin: 10px 0;
+  }
+
+  .panel-heading {
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .panel-body {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  /* FAQ Adjustments */
+  .faq {
+    margin-top: 50px;
+  }
+
+  .faq .h1 {
+    font-size: 20px;
+  }
+
+  .jobs-faq .jobs-faq-container .faq-title {
+    font-size: 18px;
+  }
+
+  .faq .h2 {
+    font-size: 16px;
+  }
+
+  .faq .paragraph {
+    font-size: 13px;
+  }
+
+  .faq .panel-heading .panel-title .Ta {
+    padding: 10px 10px;
+  }
+
+  .faq .panel-heading+.panel-collapse>.panel-body {
+    padding: 10px 20px;
+  }
+
+  /* Success Story */
+  .success-video {
+    min-height: 200px; /* Smaller for mobile */
+  }
+
+  .play-btn {
+    height: 60px;
+    width: 60px;
+    font-size: 18px;
+  }
+
+  /* Footer */
+  .footer {
+    padding-top: 50px; /* Compact footer */
+  }
+
+  .newsletter-block {
+    padding-left: 15px;
+  }
+
+  .form-control {
+    height: 50px;
+    font-size: 14px;
+    padding-left: 10px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    padding: 150px 0 100px;
+  }
+
+  .hero-slider .prevArrow, .hero-slider .nextArrow {
+    font-size: 20px;
+    bottom: -50px;
+  }
+
+  /* Cards */
+  .card-btn {
+    font-size: 10px; /* Reduce size for smaller screens */
+    padding: 5px 8px;
+  }
+
+  /* Feature Blocks */
+  .feature-blocks {
+    padding: 20px;
+  }
+
+  /* List Adjustments */
+  .list-styled li {
+    font-size: 14px;
+  }
+
+  /* Jobs FAQ */
+  .jobs-faq .question-list {
+    padding: 10px;
+  }
+
+  .row > * {
+    flex-shrink: 0;
+    width: 71%;
+    max-width: 73%;
+    padding-right: calc(var(--bs-gutter-x) * .5);
+    padding-left: calc(var(--bs-gutter-x) * .5);
+    margin-top: var(--bs-gutter-y);
+  }
+
+  .jobs-faq .jobs-faq-container .question-list .question-item .question-title .written_question {
+    font-size: 13px;
+  }
+
+  .jobs-faq .jobs-faq-container .question-list .question-item .faq-answer {
+    font-size: 12px;
+  }
+}
+
 
 

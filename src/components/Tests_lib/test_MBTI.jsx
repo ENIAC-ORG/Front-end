@@ -269,7 +269,8 @@ const MBTITest = () => {
                     color: "#55AD9B",
                     marginBottom: "10px",
                     textAlign: "center",
-                    fontWeight: "bold"
+                    fontWeight: "bold",
+                    fontFamily: "Ios15medium"
                   }}
                 >
                   تست شخصیت‌شناسی MBTI
@@ -302,8 +303,12 @@ const MBTITest = () => {
                         lineHeight: "1.8",
                         // fontSize: "22px",
                         paddingTop: "20px",
+                    fontFamily: "Ios15medium"
+
                       }
-                    : {}
+                    : {
+                      fontFamily: "Ios15medium"
+                    }
                 }
               >
                 {question}
