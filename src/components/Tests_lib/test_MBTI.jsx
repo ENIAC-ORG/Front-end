@@ -6,6 +6,8 @@ import "./mbti_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
+
 
 const MBTITest = () => {
   const navigate = useNavigate();

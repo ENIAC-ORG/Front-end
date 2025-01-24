@@ -6,6 +6,7 @@ import "./glasser_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
 
 const GlasserTest = () => {
   const navigate = useNavigate();
