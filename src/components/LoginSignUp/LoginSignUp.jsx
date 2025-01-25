@@ -111,7 +111,7 @@ const LoginContainer = () => {
   async function ResendCode(email) {
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/activation_resend/",
+        "https://eniacgroup.ir/backend/accounts/activation_resend/",
         {
           method: "POST",
           headers: {
@@ -195,7 +195,7 @@ const LoginContainer = () => {
       axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
       axios.defaults.xsrfCookieName = "csrftoken";
       const response = await axios(
-        "http://eniacgroup.ir:8070//accounts/Login/",
+        "https://eniacgroup.ir/backend/accounts/Login/",
         {
           method: "POST",
           headers: {
@@ -298,7 +298,7 @@ const LoginContainer = () => {
       } else {
         // Other error occurred
         console.log(error);
-        setBanner(error.response.data.msg);
+        //setBanner(error.response.data.msg);
         toast.error(error.response.data.msg);
       }
     }
@@ -369,7 +369,7 @@ const LoginContainer = () => {
       axios.defaults.xsrfCookieName = "csrftoken";
 
       const response = await axios(
-        "http://46.249.100.141:8070//accounts/signup/",
+        "https://eniacgroup.ir/backend/accounts/signup/",
         {
           method: "POST",
           headers: {
@@ -406,7 +406,7 @@ const LoginContainer = () => {
           code: response.data.code,
           url: response.data.url,
         };
-        setShowModal(isChecked);
+        setShowModal(accessToken);
         const url =response.data.url;
           
         const base = "activation_confirm/";
@@ -492,9 +492,8 @@ const LoginContainer = () => {
   return (
     <>
       <ToastContainer />
-      <div className="hello">
         <body className="bd">
-          <div className="hello">
+          <div className="mx-4">
             <div className="wrapper">
               <div className="header">
                 <div className="title login">ورود</div>
@@ -518,6 +517,7 @@ const LoginContainer = () => {
                   />
 
                   <label
+                  data-cy="login"
                     htmlFor="login"
                     className="slide login"
                     onClick={handleSliderLoginClick}
@@ -537,7 +537,7 @@ const LoginContainer = () => {
                 <div className="form_details">
                   <form action="#" className="login">
                     <pre></pre>
-                    <div className="field">
+                    <div className="field mt-4">
                       <input
                         className="email1_input"
                         type="text"
@@ -558,7 +558,7 @@ const LoginContainer = () => {
                         {errorMessage.emailError}
                       </div>
                     )}
-                    <div className="field">
+                    <div className="field mt-5">
                       <input
                         className="password1_input"
                         type={passwordType}
@@ -587,9 +587,10 @@ const LoginContainer = () => {
                     <div className="pass_link">
                       <a href="/ForgetPassword"> فراموشی رمز عبور</a>
                     </div>
-                    <div className="field btn">
+                    <div className="field btn" style={{marginTop:"70px"}}>
                       <div className="btn_layer"></div>
                       <input
+                        data-cy="enter"
                         type="submit"
                         value="ورود"
                         onClick={handleLoginEnter}
@@ -725,7 +726,6 @@ const LoginContainer = () => {
             </div>
           </div>
         </body>
-      </div>
     </>
   );
 };

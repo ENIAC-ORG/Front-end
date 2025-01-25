@@ -6,6 +6,7 @@ import "./phq9_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
 
 const PHQ9Test = () => {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ const PHQ9Test = () => {
       const dataString = JSON.stringify(data);
       console.log(dataString);
       const response = await axios.post(
-        "http://46.249.100.141:8070//TherapyTests/nmd/",
+        "https://eniacgroup.ir/backend/TherapyTests/nmd/",
         {
           data: dataString,
         },
@@ -60,14 +61,17 @@ const PHQ9Test = () => {
           icon: "error",
           title: "!خطا در ارسال پاسخ‌ها",
           html: "متاسفانه مشکلی رخ داد",
-          background: "#473a67",
-          color: "#b4b3b3",
-          width: "26rem",
-          height: "18rem",
+          background: "#075662",
+          color: "#fff",
+          width: "35rem",
+          font: "14px",
+          backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+          confirmButtonColor: "#0a8ca0",
+          cancelButtonColor: "#0a8ca0",
           confirmButtonText: "تایید",
-          customClass: {
-            container: "custom-swal-container",
-          },
         }).then((result) => {
           if (result.isConfirmed) {
             navigate("/");
@@ -79,14 +83,18 @@ const PHQ9Test = () => {
         icon: "error",
         title: "!خطا در ارسال درخواست",
         html: "متاسفانه مشکلی رخ داد",
-        background: "#473a67",
-        color: "#b4b3b3",
-        width: "26rem",
-        height: "18rem",
+        background: "#075662",
+        color: "#fff",
+        font: "14px",
+
+        width: "35rem",
+        backdrop: `
+            rgba(84, 75, 87.0.9)
+            left top
+            no-repeat`,
+        confirmButtonColor: "#0a8ca0",
+        cancelButtonColor: "#0a8ca0",
         confirmButtonText: "تایید",
-        customClass: {
-          container: "custom-swal-container",
-        },
       }).then((result) => {
         if (result.isConfirmed) {
           navigate("/");
@@ -100,16 +108,19 @@ const PHQ9Test = () => {
       icon: "warning",
       title: "!برای انجام تست، ورود به حساب خود الزامی است",
       html: "آیا می‌خواهید وارد شوید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      font: "14px",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
       confirmButtonText: "ورود",
       cancelButtonText: "صفحۀ اصلی",
-      customClass: {
-        container: "custom-swal-container",
-      },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/Signup");
@@ -164,16 +175,20 @@ const PHQ9Test = () => {
       icon: "warning",
       title: "آیا از ادامۀ آزمون منصرف شده اید؟",
       html: "در صورت اتمام آزمون پاسخ‌های شما ثبت نمی‌شوند",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "29rem",
-      height: "15rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      // fontSize: "14px",
+
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
@@ -187,16 +202,18 @@ const PHQ9Test = () => {
     Swal.fire({
       icon: "warning",
       title: "از انجام آزمون منصرف شده اید؟",
-      background: "#473a67",
-      color: "#b4b3b3",
-      width: "26rem",
-      height: "18rem",
+      background: "#075662",
+      color: "#fff",
+      width: "35rem",
+      backdrop: `
+          rgba(84, 75, 87.0.9)
+          left top
+          no-repeat`,
+      confirmButtonColor: "#0a8ca0",
+      cancelButtonColor: "#0a8ca0",
       showCancelButton: true,
       confirmButtonText: "بله",
       cancelButtonText: "ادامه می‌دهم",
-      customClass: {
-        container: "custom-swal-container",
-      },
     }).then((result) => {
       if (result.isConfirmed) {
         navigate("/TestPage");
@@ -207,7 +224,7 @@ const PHQ9Test = () => {
   };
 
   const showTheResult = () => {
-    };
+  };
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
 
@@ -223,19 +240,19 @@ const PHQ9Test = () => {
       <body className="phq9-body">
         <div
           className="phq9-quiz-container"
-          style={
-            activeQuestion === 0
-              ? { marginTop: "1%" }
-              : { marginTop: "1%" }
-          }
+        // style={
+        //   activeQuestion === 0
+        //     ? { marginTop: "1%" }
+        //     : { marginTop: "1%" }
+        // }
         >
           {!showResult && (
             <div>
               {activeQuestion === 0 && (
                 <h2
                   style={{
-                    fontSize: "30px",
-                    color: "#9a94fb",
+                    // fontSize: "30px",
+                    color: "#55ad9b",
                     marginBottom: "10px",
                     textAlign: "center",
                     fontFamily: "Ios15medium"
@@ -244,13 +261,13 @@ const PHQ9Test = () => {
                   تست شخصیت‌شناسی PHQ9
                 </h2>
               )}
-              {/* <div className="phq9-header">
+              <div className="phq9-header">
                 {activeQuestion !== 0 && (
                   <>
                     <ProgressBar
                       animated
                       className="mbti-progress-bar custom-color"
-                    //   now={(activeQuestion + 1) * (100 / questions.length)}
+                      now={(activeQuestion + 1) * (100 / questions.length)}
                     />
                     <span className="phq9-active-question-no">
                       {convertToPersianNumbers(addLeadingZero(activeQuestion))}
@@ -263,15 +280,15 @@ const PHQ9Test = () => {
                     </span>
                   </>
                 )}
-              </div> */}
+              </div>
               <h2
                 style={
                   activeQuestion === 0
                     ? {
-                        lineHeight: "1.8",
-                        fontSize: "21px",
-                        paddingTop: "20px",
-                      }
+                      lineHeight: "1.8",
+                      // fontSize: "21px",
+                      paddingTop: "20px",
+                    }
                     : {}
                 }
               >
@@ -294,12 +311,12 @@ const PHQ9Test = () => {
               </ul>
               <div
                 className="phq9-button-group"
-                style={{ fontSize: "14px" }}
+              // style={{ fontSize: "14px" }}
               >
                 {activeQuestion === 0 ? (
                   <>
                     <button
-                      style={{ width: "40px", fontSize: "14px" }}
+                      // style={{ width: "40px", fontSize: "14px" }}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -308,7 +325,7 @@ const PHQ9Test = () => {
                         }
                       }}
                     >
-                      شروع آزمون
+                      شروع
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -319,7 +336,7 @@ const PHQ9Test = () => {
                       disabled={selectedAnswers[activeQuestion] === null}
                       title={
                         selectedAnswers[activeQuestion] === null &&
-                        activeQuestion !== questions.length - 1
+                          activeQuestion !== questions.length - 1
                           ? "برای ادامه باید حتما یک گزینه را انتخاب کنید"
                           : ""
                       }
@@ -330,16 +347,18 @@ const PHQ9Test = () => {
                       }
                     >
                       {activeQuestion === questions.length - 1
-                        ? "پایان آزمون"
+                        ? "پایان"
                         : "بعدی"}
                     </button>
 
                     <span
-                      style={{ fontSize: "16px" }}
+                      // style={{ fontSize: "16px" }}
                       onClick={showConfirmSwal}
                       className="phq9-complete-test"
                     >
-                      اتمام آزمون
+                      {activeQuestion === questions.length - 1
+                        ? ""
+                        : "اتمام آزمون"}
                     </span>
                     <button
                       onClick={onClickPrevious}
@@ -358,10 +377,10 @@ const PHQ9Test = () => {
                 style={
                   showResult
                     ? {
-                        fontWeight: "bolder",
-                        color: "#9a94fb",
-                        marginBottom: "33px",
-                      }
+                      fontWeight: "bolder",
+                      color: "#9a94fb",
+                      marginBottom: "33px",
+                    }
                     : {}
                 }
               >
@@ -389,6 +408,7 @@ const PHQ9Test = () => {
           )}
         </div>
       </body>
+      <Footer />
     </>
   );
 };

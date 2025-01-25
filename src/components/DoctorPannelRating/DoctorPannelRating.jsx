@@ -28,7 +28,7 @@ export default function DoctorRating() {
     const accessToken = localStorage.getItem("accessToken");
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070//DoctorPanel/get_rating/",
+        "https://eniacgroup.ir/backend/DoctorPanel/get_rating/",
         {
           method: "GET",
           headers: {
@@ -65,7 +65,7 @@ export default function DoctorRating() {
   return (
     <>
       <NavBar_SideBar />
-      <section className="vh-100" style={{ backgroundColor: "#8A7DFA" }}>
+      <section className="vh-100" style={{ backgroundColor: "#4891828f" }}>
         <MDBContainer className="py-5 h-100">
           <MDBRow className="justify-content-center align-items-center h-100">
             <MDBCol xl="10">
@@ -75,10 +75,11 @@ export default function DoctorRating() {
                     style={{
                       direction: "rtl",
                       fontWeight: "bold",
-                      color: "#6554FD",
+                      color: "#198754",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
+                      fontFamily: "Ios15medium",
                     }}
                     tag="h3"
                   >
@@ -120,7 +121,7 @@ export default function DoctorRating() {
                     </div>
                     <div style={{ marginTop: "5%" }}>
                       <a
-                        style={{ color: "#B9B1FD" }}
+                        style={{ color: "#15b392", fontFamily:"Ios15medium" }}
                         href="#"
                         onClick={(e) => navigate("/Home")}
                       >

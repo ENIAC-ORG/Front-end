@@ -1,23 +1,3 @@
-:root {
-    font-family: Ios15Medium;
-}
-/*** Spinner Start ***/
-
-#spinner {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .8s ease-out, visibility 0s linear .5s;
-    z-index: 99999;
- }
-
- #spinner.show {
-     transition: opacity .8s ease-out, visibility 0s linear .0s;
-     visibility: visible;
-     opacity: 1;
- }
-
-/*** Spinner End ***/
-
 
 /*** Button Start ***/
 .btn {
@@ -75,262 +55,65 @@
 /*** Button End ***/
 
 
-/*** Topbar Start ***/
-
-.topbar .top-info {
-    letter-spacing: 1px;
-}
-
-.topbar .top-link {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.topbar .top-link a {
-    margin-right: 10px;
-}
-
-#note {
-    width: 500px;
-    overflow: hidden;
-}
-
-#note small {
-    position: relative;
-    display: inline-block;
-    animation: mymove 5s infinite;
-    animation-timing-function: all;
-}
-
-@keyframes mymove {
-    from {left: -100%;}
-    to {left: 100%;}
-}
-
-/*** Topbar End ***/
-
-
-/*** Navbar Start ***/
-.navbar .navbar-nav {
-    padding: 15px 0;
-}
-
-.navbar .navbar-nav .nav-link {
-    padding: 10px;
-    color: var(--bs-white);
-    font-size: 18px;
-    outline: none;
-    
-}
-
-.navbar .navbar-nav .nav-link:hover,
-.navbar .navbar-nav .nav-link.active {
-    color: var(--bs-secondary) !important;
-}
-
-.navbar .dropdown-toggle::after {
-    border: none;
-    content: "\f107";
-    font-family: "font awesome 5 free";
-    font-weight: 900;
-    vertical-align: middle;
-    margin-left: 8px;
-}
-
-@media (min-width: 992px) {
-    .navbar .nav-item .dropdown-menu {
-        display: block;
-        visibility: hidden;
-        top: 100%;
-        transform: rotateX(-75deg);
-        transform-origin: 0% 0%;
-        transition: .5s;
-        opacity: 0;
+/* @media only screen and (max-width: 600px) {
+    .services .services-item-test{
     }
-}
-
-.navbar .nav-item:hover .dropdown-menu {
-    transform: rotateX(0deg);
-    visibility: visible;
-    transition: .5s;
-    opacity: 1;
-}
-
-/*** Navbar End ***/
-
-
-/*** Carousel Start ***/
-
-.carousel-item {
-    position: relative;
-}
-
-.carousel-item::after {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .6);
-}
-
-.carousel-caption {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
-.carousel-item p {
-    max-width: 700px;
-    margin: 0 auto 35px auto;
-}
-
-.carousel-control-prev {
-    width: 90px;
-    height: 60px;
-    position: absolute;
-    top: 50%;
-    left: 0;
-    background: var(--bs-primary);
-    border-radius: 0 50px 50px 0;
-    opacity: 1;
-}
-
-.carousel-control-prev:hover {
-    background: var(--bs-secondary);
-    transition: .8s;
-}
-
-.carousel-control-next {
-    width: 90px;
-    height: 60px;
-    position: absolute;
-    top: 50%;
-    right: 0;
-    background: var(--bs-primary);
-    border-radius: 50px 0 0 50px;
-    opacity: 1;
-}
-
-.carousel-control-next:hover {
-    background: var(--bs-secondary);
-    transition: .8s;
-}
-
-.carousel-caption .carousel-content a button.carousel-content-btn1 {
-    background: var(--bs-secondary);
-    color: var(--bs-dark);
-    opacity: 1;
-    border: 0;
-    border-radius: 20px;
-}
-
-.carousel-caption .carousel-content a button.carousel-content-btn1:hover {
-    background: var(--bs-primary);
-    color: #ffffff;
-    border: 0;
-    opacity: 1;
-    transition: 1s;
-    border-radius: 20px;
-}
-
-.carousel-caption .carousel-content a button.carousel-content-btn2 {
-    background: var(--bs-primary);
-    color: var(--bs-white);
-    opacity: 1;
-    border: 0;
-    border-radius: 20px;
-}
-
-.carousel-caption .carousel-content a button.carousel-content-btn2:hover {
-    background: var(--bs-secondary);
-    color: var(--bs-dark);
-    border: 0;
-    opacity: 1;
-    transition: 1s;
-    border-radius: 20px;
-}
-
-#carouselId .carousel-indicators li {
-    width: 30px;
-    height: 10px;
-    background: var(--bs-primary);
-    margin: 10px;
-    border-radius: 30px;
-    opacity: 1;
-}
-
-#carouselId .carousel-indicators li:hover {
-    background: var(--bs-secondary);
-    opacity: 1;
-}
-
-@media (max-width: 992px) {
-    .carousel-item {
-        min-height: 500px;
+    .TestName{
+        color: #dc601e;
     }
     
-    .carousel-item img {
-        min-height: 500px;
-        object-fit: cover;
+  }
+  
+  
+  @media only screen and (min-width: 600px) {
+    .services .services-item-test{
+        font-size: 70%;
     }
-
-    .carousel-item h1 {
-        font-size: 40px !important;
+    .TestName{
+        font-size: 50%;
+        color: #c3dc1e;
     }
-
-    .carousel-item p {
-        font-size: 16px !important;
+     
+  }
+  
+  
+  @media only screen and (min-width: 768px) {
+    .services .services-item-test{
+        font-size: 70%;
     }
-}
-
-@media (max-width: 768px) {
-    .carousel-item {
-        min-height: 400px;
+    .TestName{
+        font-size: 50%;
+        color: #dc1eb0;
+    }
+  }
+  
+@media only screen and (min-width: 992px) {
+    .services .services-item-test{
+        font-size: 70%;
+    }
+    .TestName{
+        font-size: 50%;
+        color: #441edc;
     }
     
-    .carousel-item img {
-        min-height: 400px;
-        object-fit: cover;
+  }
+  
+  @media only screen and (min-width: 1200px) {
+    .services .services-item-test{
+        font-size: 70%;
     }
-
-    .carousel-item h1 {
-        font-size: 28px !important;
+    .TestName{
+        font-size: 50%;
+        color: #47dc1e;
     }
-
-    .carousel-item p {
-        font-size: 14px !important;
-    }
-}
-
-.page-header {
-    background: linear-gradient(rgba(0, 0, 0, .6), rgba(0, 0, 0, .6)), url(../img/carousel-1.jpg) center center no-repeat;
-    background-size: cover;
-}
-
-.page-header .breadcrumb-item+.breadcrumb-item::before {
-    color: var(--bs-white);
-}
-
-.page-header .breadcrumb-item,
-.page-header .breadcrumb-item a {
-    font-size: 18px;
-    color: var(--bs-white);
-}
-
-/*** Carousel End ***/
-
-
+    
+  } */
 /*** Services Start ***/
 
 .services .services-item-test {
     box-shadow: 0 0 60px rgba(54, 56, 55, 0.2);
-    width: 100%;
-    height: 100%;
+    width: 90%;
+    height: 90%;
     border-radius: 10px;
     padding: 10px 0;
     position: relative;
@@ -365,7 +148,7 @@
     opacity: 1;
     transition: .5s;
     text-align: center;
-    background-color: #f4ffe3;
+    background-color: rgb(244, 255, 227);
 }
 
 .services-item-test:hover .services-content-test-icon {
@@ -698,12 +481,23 @@
 }
 
 .TestName {
-    margin-bottom: 0.75rem;
-    font-size: 2.0rem;
+    /* margin-bottom: 0.75rem; */
+    font-size: 1.0rem;
     font-family: Ios15Medium;
     color: #707877;
 }
 
-.bg-dark-custom {
-    background-color: #c8e1c4;
+.bg-test-homepage {
+    background-color:  rgb(200, 225, 196,0.5);
+    margin-left: 4rem;
+    margin-right: 4rem;
+    border-radius: 2rem;
+    transition: all 0.5s ease-in-out;
   }
+
+.bg-test-homepage:hover{
+    background-color: rgba(154, 229, 199, 0.3);
+    margin-left: 0; 
+    margin-right: 0;
+    border-radius: 0rem;
+}

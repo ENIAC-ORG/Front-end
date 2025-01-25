@@ -8,11 +8,6 @@
   height: 40px; /* Adjust size */
 }
 
-.carouselControlPrevIcon:hover,
-.carouselControlNextIcon:hover {
-  background-color: darkgreen; /* Change color on hover */
-}
-
 .carouselImage {
   border-radius: 10px; /* Rounded corners for images */
 }
@@ -25,13 +20,11 @@
   margin: 20px auto;
   max-width: 90%;
 }
+
 .upperLeftCaption {
   position: absolute;
-  /* top: 10%;
-  left: 10%;  */
   text-align: center;
   color: white;
-  /* background-color: rgba(0, 0, 0, 0.5); Optional: semi-transparent background */
   padding: 10px;
   font-size: xx-large;
   font-family: "Ios15Medium";
@@ -48,3 +41,4 @@
   padding: 0px;
   border-radius: 5px;
 }
+

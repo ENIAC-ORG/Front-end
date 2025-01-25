@@ -54,7 +54,7 @@ const NavBar_SideBar = () => {
     event.preventDefault();
     const accessToken = localStorage.getItem("accessToken");
     try {
-      const response = await axios("http://46.249.100.141:8070/accounts/Logout/", {
+      const response = await axios("https://eniacgroup.ir/backend/accounts/Logout/", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -247,7 +247,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <IoIosAlbums className={styles1.side_icons} />
-                    پرونده مراجعین{" "}
+                    پروندۀ مراجعین{" "}
                   </label>
                 </li>
                 <li
@@ -282,7 +282,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <FaStar className={styles1.side_icons} />
-                    مشاهده نظرات{" "}
+                    مشاهدۀ نظرات{" "}
                   </label>
                 </li>
               </>
@@ -297,7 +297,7 @@ const NavBar_SideBar = () => {
                 >
                   <label href="" className={styles1.side_list_element_text}>
                     <PiNotepadLight className={styles1.side_icons} />
-                    نتایج تست ها{" "}
+                    نتایج تست‌ها{" "}
                   </label>
                 </li>
               </>

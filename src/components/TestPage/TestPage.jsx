@@ -40,12 +40,12 @@ const CourseList = () => {
           style={{ backgroundImage: `url(${test_header})` }}
         >
           <div className="container">
-            <div className="row">
+            <div className="row2">
               <div className="col-md-8">
                 <ul className=" Test_custom-breadcrumb mb-2 Tul">
                   <li
                     className=" text-white h3  Test_nasted test_header"
-                    style={{ fontSize: "40px" }}
+                    // style={{ fontSize: "40px" }}
                   >
                     انواع تست‌های شخصیت‌شناسی معتبر
                   </li>
@@ -56,21 +56,21 @@ const CourseList = () => {
         </section>
         <section className="Test_section">
           <div className="container">
-            <div className="row">
+            <div className="row2">
               <div className="col-12 text-center">
                 <h2 className="Test_section-title text-white htitles h2">
                   با تست روانشناسی و شخصیت شناسی توانایی‌هایتان را بشناسید.
                 </h2>
                 <h6
                   className="text-white Test_font-secondary Test_mb-50 htitles h6"
-                  style={{ fontSize: "22px" }}
+                  // style={{ fontSize: "22px" }}
                 >
                   برای شرکت در تست‌ها در اینیاک ثبت نام کنید.
                 </h6>
                 <a
                   href="/Signup"
                   className="Test_btn Test_btn-secondary Ta"
-                  style={{ fontSize: "18px" }}
+                  // style={{ fontSize: "18px" }}
                 >
                   ثبت نام
                 </a>
@@ -100,7 +100,7 @@ const CourseList = () => {
             {/* course list */}
             <div className="row justify-content-center">
               {/* course item */}
-              <div className="col-lg-4 col-sm-6 mb-5" style={{ width: "50%" }}>
+              <div className="col-lg-4 col-sm-6 mb-5">
                 <div
                   className="card p-0 Test_border-primary rounded-0 Test_hover-shadow"
                   style={{
@@ -118,7 +118,7 @@ const CourseList = () => {
                       <li className="list-inline-item test_raygan">
                         <i
                           className="ti-calendar mr-1 Test_text-color "
-                          style={{ fontSize: "20px" }}
+                          // style={{ fontSize: "20px" }}
                         ></i>
                         #رایگان
                       </li>
@@ -130,14 +130,14 @@ const CourseList = () => {
                     >
                       <h4
                         className="card-title htitles h4"
-                        style={{ fontSize: "30px", color: "#568e75" }}
+                        style={{color: "#568e75" }}
                       >
                         MBTI
                       </h4>
                     </a>
                     <p
                       className="card-text mb-4 paragraph"
-                      style={{ fontSize: "20px" }}
+                      // style={{ fontSize: "20px" }}
                     >
                       {" "}
                       تست شخصیت شناسی MBTI با ارزیابی چهار مشخصه رفتاری ، افراد
@@ -165,7 +165,7 @@ const CourseList = () => {
             {/* course list */}
             <div className="row justify-content-center">
               {/* course item */}
-              <div className="col-lg-4 col-sm-6 mb-5" style={{ width: "50%" }}>
+              <div className="col-lg-4 col-sm-6 mb-5" >
                 <div
                   className="card p-0 Test_border-primary rounded-0 Test_hover-shadow"
                   style={{
@@ -183,7 +183,7 @@ const CourseList = () => {
                       <li className="list-inline-item test_raygan">
                         <i
                           className="ti-calendar mr-1 Test_text-color "
-                          style={{ fontSize: "20px" }}
+                          // style={{ fontSize: "20px" }}
                         ></i>
                         #رایگان
                       </li>
@@ -195,14 +195,14 @@ const CourseList = () => {
                     >
                       <h4
                         className="card-title htitles h4"
-                        style={{ fontSize: "30px", color: "#568e75" }}
+                        style={{ color: "#568e75" }}
                       >
                         PHQ9
                       </h4>
                     </a>
                     <p
                       className="card-text mb-4 paragraph"
-                      style={{ fontSize: "20px" }}
+                      // style={{ fontSize: "20px" }}
                     >
                       {" "}
                       تست PHQ-9 یک ابزار غربالگری استاندارد و معتبر برای ارزیابی
@@ -232,12 +232,12 @@ const CourseList = () => {
             {/* mobile see all button */}
             <div className="row">
               <div className="col-12 ">
-                <a
+                {/* <a
                   href="courses.html"
                   className="Test_btn btn-sm btn-primary-outline d-sm-none d-inline-block Ta"
                 >
                   sell all
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -256,7 +256,7 @@ const CourseList = () => {
             {/* course list */}
             <div className="row justify-content-center">
               {/* course item */}
-              <div className="col-lg-4 col-sm-6 mb-5" style={{ width: "50%" }}>
+              <div className="col-lg-4 col-sm-6 mb-5">
                 <div
                   className="card p-0 Test_border-primary rounded-0 Test_hover-shadow"
                   style={{
@@ -284,14 +284,14 @@ const CourseList = () => {
                     >
                       <h4
                         className="card-title Test_Card_title htitles h4"
-                        style={{ fontSize: "30px", color: "#568e75" }}
+                        style={{ color: "#568e75" }}
                       >
                         Glasser
                       </h4>
                     </a>
                     <p
                       className="card-text mb-4 paragraph"
-                      style={{ fontSize: "20px" }}
+                      // style={{ fontSize: "20px" }}
                     >
                       {" "}
                       تست شخصیت شناسی گلاسر ۵ نیاز اساسی شما را بررسی کرده و در
@@ -320,12 +320,12 @@ const CourseList = () => {
             {/* mobile see all button */}
             <div className="row">
               <div className="col-12 text-center">
-                <a
+                {/* <a
                   href="courses.html"
                   className="Test_btn btn-sm btn-primary-outline d-sm-none d-inline-block Ta"
                 >
                   sell all
-                </a>
+                </a> */}
               </div>
             </div>
           </div>
@@ -340,7 +340,7 @@ const CourseList = () => {
                 <h2
                   className="faq-title htitles h2"
                   style={{
-                    fontSize: "35px",
+                    // fontSize: "35px",
                     fontWeight: "bold",
                     marginBottom: "3%",
                   }}
@@ -377,7 +377,7 @@ const CourseList = () => {
                         ></span>
                         <span
                           className="written_question"
-                          style={{ fontSize: "22px" }}
+                          // style={{ fontSize: "22px" }}
                         >
                           تست روانشناسی چه نقشی در فرایند استخدام و ارزیابی شغلی
                           دارد؟
@@ -388,7 +388,7 @@ const CourseList = () => {
                       <div className="panel-collapse">
                         <p
                           className="faq-answer paragraph"
-                          style={{ fontSize: "18px" }}
+                          // style={{ fontSize: "18px" }}
                         >
                           استفاده از انواع تست‌های خودشناسی و تست شخصیت به
                           مدیران استخدام برای شناسایی متناسب‌ترین افراد برای
@@ -423,7 +423,7 @@ const CourseList = () => {
                         ></span>
                         <span
                           className="written_question"
-                          style={{ fontSize: "22px" }}
+                          // style={{ fontSize: "22px" }}
                         >
                           چطور تست‌های اینیاک به خودشناسی در روانشناسی کمک
                           می‌کند؟
@@ -434,7 +434,7 @@ const CourseList = () => {
                       <div className="panel-collapse">
                         <p
                           className="faq-answer paragraph"
-                          style={{ fontSize: "18px" }}
+                          // style={{ fontSize: "18px" }}
                         >
                           انواع تست روانشناسی شخصت در اینیاک نگاه به خودشناسی از
                           بُعد روانشناسی تهیه شده است تا صفات، ویژگی‌ها و
@@ -468,7 +468,7 @@ const CourseList = () => {
                         ></span>
                         <span
                           className="written_question"
-                          style={{ fontSize: "22px" }}
+                          // style={{ fontSize: "22px" }}
                         >
                           چه تست‌هایی را می‌توان به‌عنوان تست شخصیت دانست؟
                         </span>
@@ -478,7 +478,7 @@ const CourseList = () => {
                       <div className="panel-collapse">
                         <p
                           className="faq-answer paragraph"
-                          style={{ fontSize: "18px" }}
+                          // style={{ fontSize: "18px" }}
                         >
                           اینیاک با ارائه شناخته‌شده‌ترین و معتبرترین تست‌های
                           دنیا در تلاش است تا به شما برای شناخت بهتر خودتان کمک
@@ -511,7 +511,7 @@ const CourseList = () => {
                         ></span>
                         <span
                           className="written_question"
-                          style={{ fontSize: "22px" }}
+                          // style={{ fontSize: "22px" }}
                         >
                           کدام تست شخصیت شناسی آنلاین را می‌توان به صورت رایگان
                           انجام داد؟
@@ -522,7 +522,7 @@ const CourseList = () => {
                       <div className="panel-collapse">
                         <p
                           className="faq-answer paragraph"
-                          style={{ fontSize: "18px" }}
+                          // style={{ fontSize: "18px" }}
                         >
                           دو تست شخصیت شناسی MBTI و تست گلاسر از تست‌های رایگان
                           شخصیت شناسی به حساب می‌آیند.

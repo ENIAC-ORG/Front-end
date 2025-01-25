@@ -9,8 +9,8 @@ const AboutUsPage = () => {
     const navigate = useNavigate()
     return (
         <>
-            <body className={styles.aboutusbody}>
-                <NavBar_SideBar />
+            <NavBar_SideBar />
+            <div className={styles.aboutusbody}>
                 <div className={styles.backgroundaboutus}>
                     <div className={styles.aboutusSection1}>
                         <br /><br /><br /><br />
@@ -42,20 +42,25 @@ const AboutUsPage = () => {
                     </div>
 
                     <div align='center' className={styles.aboutusSection3}>
-                        <table className={styles.tableaboutus} align='center'>
-                            <tr>
+                        <span className={styles.button1}>گروه روان پزشکان و پزشکان سلامت</span>
+                        <span className={styles.button1}>گروه زوج درمانگران</span>
+                        <span className={styles.button1}>گروه روان درمانگران فردی</span>
+                        <span className={styles.button1}>گروه مشاوره کودک</span>
+                        <span className={styles.button1}>واحد روان سنجی و پژوهش</span>
+                        <span className={styles.button1}>گروه مشاورین تحصیلی و شغلی</span>
+                        <span className={styles.button1}>گروه مشاورین پیش از ازدواج</span>
+                        <span className={styles.button1}>گروه مشاوره نوجوان</span>
+
+                        {/* <table className={styles.tableaboutus} align='center'>
                                 <th><span className={styles.button1}>گروه روان پزشکان و پزشکان سلامت</span></th>
                                 <th><span className={styles.button1}>گروه زوج درمانگران</span></th>
                                 <th><span className={styles.button1}>گروه روان درمانگران فردی</span></th>
                                 <th><span className={styles.button1}>گروه مشاوره کودک</span></th>
-                            </tr>
-                            <tr style={{ paddingTop: '20px' }}>
                                 <th><span className={styles.button1}>واحد روان سنجی و پژوهش</span></th>
                                 <th><span className={styles.button1}>گروه مشاورین تحصیلی و شغلی</span></th>
                                 <th><span className={styles.button1}>گروه مشاورین پیش از ازدواج</span></th>
                                 <th><span className={styles.button1}>گروه مشاوره نوجوان</span></th>
-                            </tr>
-                        </table>
+                        </table> */}
                     </div>
 
                     <div className={styles.aboutusSection4}>
@@ -67,14 +72,14 @@ const AboutUsPage = () => {
                             با رزرو نوبت، فرصت گفتگو با مشاوران و متخصصان مجرب ما را فراهم کنید و در مسیری به سوی سلامت روان و کیفیت بهتر زندگی قدم بگذارید.
                             همین حالا نوبت خود را رزرو کنید
                             <br />
-                            <a href='/ReservationPage'>
+                            <a href='/Doctors'>
                                 <button className={styles.button2}>رزرو نوبت</button>
                             </a>
                         </p>
                     </div>
                 </div>
                 <Footer />
-            </body>
+            </div>
         </>
     );
 };

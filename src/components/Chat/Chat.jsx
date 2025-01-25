@@ -72,7 +72,7 @@ const Chat = () => {
       const formData = new FormData();
       formData.append("voice_file", audio_blob, "recording.wav");
       const uploadResponse = await fetch(
-        "http://46.249.100.141:8070/depression-chat/process_wav_voice/",
+        "https://eniacgroup.ir/backend/depression-chat/process_wav_voice/",
         {
           method: "POST",
           body: formData,
@@ -97,7 +97,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        "http://46.249.100.141:8070/depression-chat/chat/create/",
+        "https://eniacgroup.ir/backend/depression-chat/chat/create/",
         {
           method: "POST",
           headers: {
@@ -134,7 +134,7 @@ const Chat = () => {
       try {
         const token = localStorage.getItem("accessToken");
         const response = await axios(
-          "http://46.249.100.141:8070/depression-chat/chat/all/",
+          "https://eniacgroup.ir/backend/depression-chat/chat/all/",
           {
             method: "GET",
             headers: {
@@ -164,7 +164,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/depression-chat/chat/${id}/`,
+        `https://eniacgroup.ir/backend/depression-chat/chat/${id}/`,
         {
           method: "GET",
           headers: {
@@ -191,7 +191,7 @@ const Chat = () => {
     try {
       const token = localStorage.getItem("accessToken");
       const response = await axios(
-        `http://46.249.100.141:8070/depression-chat/chat/${Conv_id}/message/`,
+        `https://eniacgroup.ir/backend/depression-chat/chat/${Conv_id}/message/`,
         {
           method: "POST",
           headers: {
@@ -261,7 +261,7 @@ const Chat = () => {
               <div id="chat3" style={{ borderRadius: "15px", width: "100%" }}>
                 <div class="card-body">
                   <div class="row justify-content-center px-sm-3 ">
-                    <div class="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-chat-side">
+                    <div class="col-md-6 col-lg-5 col-xl-3 mb-4 mb-md-0 rounded-4 customize-singlechat-side">
                       <div class="py-4">
                         <div class="input-group rounded p-3" dir="rtl">
                           <span
@@ -351,7 +351,7 @@ const Chat = () => {
                               <>
                                 <div class="d-flex flex-row justify-content-end">
                                   <div>
-                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 chat-my-message font-custom">
+                                    <p class="small p-2 me-3 mb-1 text-white rounded-3 singlechat-my-message font-custom">
                                       {message.message}
                                     </p>
                                   </div>
@@ -843,7 +843,7 @@ const Chat = () => {
                                     setMessage(event.target.value.slice(0, -1));
                                   } else setMessage(event.target.value);
                                 }}
-                                className="chat-text rounded-3"
+                                className="singlechat-text rounded-3"
                                 dir="rtl"
                               />
 
