@@ -240,7 +240,7 @@ const DoctorsList = () => {
   return (
     <>
       <NavBar_SideBar />
-      <body className="Doctor_List_body">
+      <div className="Doctor_List_body">
         <div className="DoctorList-background">
           <html>
             <head>
@@ -375,7 +375,7 @@ const DoctorsList = () => {
           </div>
         </div>
         <Footer />
-      </body>
+      </div>
     </>
   );
 };

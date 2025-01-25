@@ -32,10 +32,9 @@
   background-image: linear-gradient(62deg, #5f9c7d 0%, #aeffdb 100%);
 }
 
-
-
 .wrapper_modal {
-  margin-left: 545px;
+  /* margin-left: 545px; */
+  justify-self: anchor-center;
   margin-top: 40px;
   max-height: 622px;
   max-width: 442px;
