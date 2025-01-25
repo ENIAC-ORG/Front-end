@@ -256,7 +256,7 @@ const NavBar_SideBar = () => {
               }}
             >
               <label href="" className={styles1.side_list_element_text}>
-                <FaInfoCircle className={styles1.side_icons} /> معرفی
+                <FaInfoCircle className={styles1.side_icons} /> درباره ما
               </label>
             </li>
             <li
