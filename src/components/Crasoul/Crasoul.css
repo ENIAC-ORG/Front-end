@@ -2,10 +2,13 @@
 
 .carouselControlPrevIcon,
 .carouselControlNextIcon {
-  background-color: lightgreen; /* Change button background */
   border-radius: 50%; /* Make it circular */
-  width: 40px; /* Adjust size */
-  height: 40px; /* Adjust size */
+}
+.carousel-control-next,
+.carousel-control-prev{
+  width: 55px !important;
+  background: rgb(128, 128, 129,0.5) !important; /* Change button background */
+
 }
 
 .carouselImage {
@@ -42,3 +45,45 @@
   border-radius: 5px;
 }
 
+
+@media only screen and (max-width: 600px) {
+.carouselcaption2{
+    font-size: 50%;
+  }
+
+  .carouselcaption1{
+    font-size: 130%;
+  }
+}
+
+
+@media only screen and (min-width: 600px) {
+.carouselcaption2{
+    font-size: 80%;
+  }
+
+  .carouselcaption1{
+    font-size: 180%;
+  }
+}
+
+
+@media only screen and (min-width: 992px) {
+.carouselcaption2{
+    font-size: 100%;
+  }
+
+  .carouselcaption1{
+    font-size: 180%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+.carouselcaption2{
+    font-size: 120%;
+  }
+
+  .carouselcaption1{
+    font-size: 200%;
+  }
+}

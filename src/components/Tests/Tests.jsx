@@ -19,23 +19,21 @@ const Tests = () => {
           />
         </head>
       </html>
-      <h1 className="TestHeader">تست‌ها</h1>
-      <div className="container py-48">
-        <div className="row g-5 services-inner">
+      <h1 className="TestHeader font-title">تست‌ها</h1>
+      <div className="container py-1">
+        <div className="row g-5 services-inner justify-content-center">
           <div className="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
             <div className="services-item-test">
               <div className="p-4 text-center services-content-test">
                 <div className="services-content-test-icon">
                   <i
-                    className="fa fa-user fa-6x mb-4"
+                    className="fa fa-user TestName-icon mb-4"
                     style={{ color: "#63ad97" }}
                   ></i>
-                  <div className="TestName fs-2">تست‌های فردی</div>
+                  <div className="TestName">تست‌های فردی</div>
                   <HashLink
                     to="/TestPage#testTitle"
-                    className="btn btn-secondary text-white font-custom  px-4 py-2 rounded-pill"
-                    // style={}
-                  >
+                    className="btn btn-secondary text-white font-custom  px-4 py-2 rounded-pill"                  >
                     دیدن تست‌ها
                   </HashLink>
                 </div>
@@ -46,10 +44,10 @@ const Tests = () => {
             <div className="services-item-test">
               <div className="p-4 text-center services-content-test">
                 <div className="services-content-test-icon mb-4">
-                  <i className="fa fa-book fa-6x mb-4"
+                  <i className="fa fa-book TestName-icon mb-4"
                     style={{ color: "#63ad97" }}
                     ></i>
-                  <div className="TestName fs-2">تست های تحصیلی</div>
+                  <div className="TestName">تست های تحصیلی</div>
                   <HashLink
                     to="/TestPage#testTitle"
                     className="btn btn-secondary text-white px-4 py-2 rounded-pill"
@@ -72,10 +70,10 @@ const Tests = () => {
               <div className="p-4 text-center services-content-test">
                 <div className="services-content-test-icon">
                   <i
-                    className="fa fa-venus-double fa-6x mb-4"
+                    className="fa fa-venus-double TestName-icon mb-4"
                     style={{ color: "#63ad97" }}
                   ></i>
-                  <div className="TestName  fs-2">تست‌های پیش از ازدواج</div>
+                  <div className="TestName ">تست‌های پیش از ازدواج</div>
                   <HashLink
                     to="/TestPage#testTitle2"
                     className="btn btn-secondary text-white px-4 py-2 rounded-pill"

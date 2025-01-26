@@ -1,6 +1,6 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
-import styles from "./Crasoul.module.css"; // Import the CSS module
+import "./Crasoul.css"; // Import the CSS module
 
 // Import the images
 import img1 from "./crasoul1.png";
@@ -10,24 +10,24 @@ import img4 from "./crasoul4.png";
 
 const HomeCarousel = () => {
   return (
-    <div className={styles.carouselBackground}>
-      <Carousel  interval={2700} controls={true} indicators={true}
+    <div className="carouselBackground">
+      <Carousel  interval={10000000000000} controls={true} indicators={true}
         nextIcon={
           <span
-            className={`carousel-control-next-icon ${styles.carouselControlNextIcon}`}
+            className={`carousel-control-next-icon carouselControlNextIcon`}
             aria-hidden="true"
           />
         }
         prevIcon={
           <span
-            className={`carousel-control-prev-icon ${styles.carouselControlPrevIcon}`}
+            className={`carousel-control-prev-icon carouselControlPrevIcon`}
             aria-hidden="true"
           />
         }
       >
         <Carousel.Item>
           <img
-            className={`d-block w-100 ${styles.carouselImage}`}
+            className={`d-block w-100 carouselImage`}
             src={img2}
             alt="First Slide"
           />
@@ -36,35 +36,35 @@ const HomeCarousel = () => {
         </Carousel.Item> 
        <Carousel.Item>
           <img
-            className={`d-block w-100 ${styles.carouselImage}`}
+            className={`d-block w-100 carouselImage`}
             src={img4}
             alt="Second Slide"
           />
           <Carousel.Caption>
-            <div className="font-custom">
-            <h1>توانمندسازی ذهن‌ها</h1>
-            <h4>!مراقبت و پشتیبانی حرفه‌ای برای سلامت روان شما</h4>
+            <div className="font-custom carouselcaption">
+            <p className="mb-3 carouselcaption1" style={{fontWeight:"bolder"}}>توانمندسازی ذهن‌ها</p>
+            <p className="carouselcaption2">!مراقبت و پشتیبانی حرفه‌ای برای سلامت روان شما</p>
             </div>
           </Carousel.Caption>
         </Carousel.Item>
 
         <Carousel.Item>
           <img
-            className={`d-block w-100 ${styles.carouselImage}`}
+            className={`d-block w-100 carouselImage`}
             src={img1}
             alt="Third Slide"
           />
         </Carousel.Item>
         <Carousel.Item>
           <img
-            className={`d-block w-100 ${styles.carouselImage}`}
+            className={`d-block w-100 carouselImage`}
             src={img3}
             alt="Third Slide"
           />
           <Carousel.Caption>
-            <div className="font-custom">
-            <h1 className="mb-3">تجربه‌ای از آرامش و آسودگی در لحظه‌های زندگی شما</h1>
-            <h4>سفری به دنیای آرامش و بهبودی؛ جایی که ذهن و روح شما احیا می‌شوند</h4>
+            <div className="font-custom carouselcaption">
+            <p className="mb-3 carouselcaption1" style={{fontWeight:"bolder"}}>تجربه‌ای از آرامش و آسودگی در لحظه‌های زندگی شما</p>
+            <p className="carouselcaption2">سفری به دنیای آرامش و بهبودی؛ جایی که ذهن و روح شما احیا می‌شوند</p>
             </div>
           </Carousel.Caption>
         </Carousel.Item>
