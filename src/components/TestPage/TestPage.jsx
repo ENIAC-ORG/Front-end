@@ -7,6 +7,9 @@ import test_header from "./img/page-title.jpg";
 import third_image from "./courses/course-3.jpg";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
 import Footer from "../Footer/Footer";
+import mbti_image from "../../assets/MBTI.jpg";
+import glaser_image from "../../assets/Glaser.jpg";
+import phq9_image from "../../assets/PHQ9.jpg";
 
 import plus_icon from "../../assets/plus.png";
 import minus_icon from "../../assets/minus.png";
@@ -109,7 +112,7 @@ const CourseList = () => {
                   }}
                 >
                   <img
-                    src={second_image}
+                    src={mbti_image}
                     className="Timg card-img-top rounded-0"
                     alt="course thumb"
                   />
@@ -174,7 +177,7 @@ const CourseList = () => {
                   }}
                 >
                   <img
-                    src={third_image}
+                    src={phq9_image}
                     className="Timg card-img-top rounded-0"
                     alt="course thumb"
                   />
@@ -265,7 +268,7 @@ const CourseList = () => {
                   }}
                 >
                   <img
-                    src={first_image}
+                    src={glaser_image}
                     className="Timg card-img-top rounded-0"
                     alt="course thumb"
                   />
