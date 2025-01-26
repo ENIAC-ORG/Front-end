@@ -6,6 +6,8 @@ import "./mbti_style.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
+
 
 const MBTITest = () => {
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const MBTITest = () => {
       const token = localStorage.getItem("accessToken");
       console.log(data);
       const response = await axios.post(
-        "http://46.249.100.141:8070//TherapyTests/MBTI/",
+        "https://eniacgroup.ir/backend/TherapyTests/MBTI/",
         data,
         {
           method: "POST",
@@ -263,10 +265,12 @@ const MBTITest = () => {
               {activeQuestion === 0 && (
                 <h2
                   style={{
-                    fontSize: "30px",
+                    // fontSize: "30px",
                     color: "#55AD9B",
                     marginBottom: "10px",
                     textAlign: "center",
+                    fontWeight: "bold",
+                    fontFamily: "Ios15medium"
                   }}
                 >
                   تست شخصیت‌شناسی MBTI
@@ -297,10 +301,14 @@ const MBTITest = () => {
                   activeQuestion === 0
                     ? {
                         lineHeight: "1.8",
-                        fontSize: "22px",
+                        // fontSize: "22px",
                         paddingTop: "20px",
+                    fontFamily: "Ios15medium"
+
                       }
-                    : {}
+                    : {
+                      fontFamily: "Ios15medium"
+                    }
                 }
               >
                 {question}
@@ -324,7 +332,7 @@ const MBTITest = () => {
                 {activeQuestion === 0 ? (
                   <>
                     <button
-                      style={{ width: "40px", fontSize: "16px" }}
+                      // style={{ width: "40px"}}
                       onClick={() => {
                         if (localStorage.getItem("accessToken") !== null) {
                           onClickNext();
@@ -333,7 +341,7 @@ const MBTITest = () => {
                         }
                       }}
                     >
-                      شروع آزمون
+                      شروع 
                     </button>
                     <button onClick={cancelTest}>انصراف</button>
                   </>
@@ -350,21 +358,23 @@ const MBTITest = () => {
                       }
                       style={
                         activeQuestion === questions.length - 1
-                          ? { fontSize: "18px" }
+                          ? {}
                           : {}
                       }
                     >
                       {activeQuestion === questions.length - 1
-                        ? "پایان آزمون"
+                        ? "پایان"
                         : "بعدی"}
                     </button>
 
                     <span
-                      style={{ fontSize: "19px" }}
+                      // style={{ fontSize: "19px" }}
                       onClick={showConfirmSwal}
                       className="mbti-complete-test"
                     >
-                      اتمام آزمون
+                      {activeQuestion === questions.length - 1
+                        ? ""
+                        : "اتمام آزمون"}
                     </span>
                     <button
                       onClick={onClickPrevious}
@@ -412,6 +422,7 @@ const MBTITest = () => {
           )}
         </div>
       </body>
+      <Footer />
     </>
   );
 };

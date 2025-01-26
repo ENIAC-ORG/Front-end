@@ -9,7 +9,7 @@ on:
       - dev
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -51,3 +51,30 @@ jobs:
         kill $SERVER_PID # Stop the server after tests
       env:
         NODE_ENV: production
+  Deploy:  
+      needs: build-and-test  # Ensures that deploy job runs only if build job succeeds  
+      name: deploy  
+      runs-on: ubuntu-latest  
+      steps:  
+        - uses: actions/checkout@v2    
+        - name: Connect via SSH
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.HOST }}
+            username: ${{ secrets.USERNAME }}
+            key: ${{ secrets.SSH_PRIVATE_KEY }}
+            port: ${{ secrets.PORT }}
+            script: |
+              cd /root/git/Back-end/BackEnd/
+              docker compose down
+              eval $(ssh-agent)
+              ssh-add /root/.ssh/github_frontend
+              cd /root/git/Front-end
+              git pull  
+              docker build -t react-build .
+              docker create --name temp-container react-build
+              rm -rf ./build
+              docker cp temp-container:/output ./build
+              docker rm temp-container
+              rm -rf /usr/share/nginx/html/*
+              sudo cp -r ./build/* /usr/share/nginx/html/

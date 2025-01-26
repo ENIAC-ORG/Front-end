@@ -10,16 +10,13 @@ const Statistic = () => {
   const [reservationsCount, setReservationCount] = useState(0);
 
   useEffect(() => {
-    window.addEventListener("scroll", getEndNumbers);
-    return () => {
-      window.removeEventListener("scroll", getEndNumbers);
-    };
+    getEndNumbers()
   }, []);
 
   async function getEndNumbers() {
     try {
       const response = await axios.get(
-        "http://eniacgroup.ir:8070/HomePage/count/",
+        "https://eniacgroup.ir/backend/HomePage/count/",
         {
           headers: {
             "Content-Type": "application/json",
@@ -45,16 +42,16 @@ const Statistic = () => {
   }
 
   return (
-    <div className="bg-dark m-5 rounded">
+    <div className="m-5 mt-4" onLoad={getEndNumbers}>
       <div id="statistics" className="statistics-container">
         <div className="statistics-row">
-          <div style={{ fontSize: "44px" }} className="statistics-item">
+          <div className="statistics-item"align="center">
             <CounterUp EndNum={reservationsCount} label="نوبت‌ها" />
           </div>
-          <div style={{ fontSize: "44px" }} className="statistics-item">
+          <div className="statistics-item"align="center">
             <CounterUp EndNum={patientsCount} label="مراجعین" />
           </div>
-          <div style={{ fontSize: "44px" }} className="statistics-item">
+          <div className="statistics-item"align="center">
             <CounterUp EndNum={doctorsCount} label="درمانگران" />
           </div>
         </div>

@@ -65,7 +65,7 @@ const ForgetPassword = () => {
     if (validator.isEmail(fp_Email)) {
       try {
         const response = await axios(
-          "http://eniacgroup.ir:8070/accounts/forgot_password/",
+          "https://eniacgroup.ir/backend/accounts/forgot_password/",
           {
             method: "POST",
             headers: {
@@ -139,7 +139,7 @@ const ForgetPassword = () => {
     event.preventDefault();
     const password = document.getElementById("pass").value;
     const passwordConfirm = document.getElementById("rpass").value;
-    const url = fp_response.token.replace("http://localhost:8000/","http://eniacgroup.ir:8070/")
+    const url = fp_response.token.replace("http://localhost:8000/","https://eniacgroup.ir/backend/")
     if (
       (password.length === 0) |
       (passwordConfirm.length === 0) |
@@ -188,7 +188,7 @@ const ForgetPassword = () => {
     <>
     <ToastContainer/>
       <body className="forget-password-bd">
-        <div>
+        <div className="mx-4">
           <div className="forget-password-wrapper p-5">
             <div className="forget-password-header">
               <div className="forget-password-title">فراموشی رمز عبور</div>

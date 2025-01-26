@@ -16,7 +16,7 @@ import { message } from "antd";
 // Helper function to format the time (hour and minute) from created_at to Tehran time
 function formatTime(date) {
   const d = new Date(date);
-  const tehranOffset = 10.5 * 60; 
+  const tehranOffset = 3 * 60; 
   const localOffset = d.getTimezoneOffset(); 
   d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
   const hours = d.getHours().toString().padStart(2, '0');  
@@ -65,7 +65,7 @@ const GroupChat = () => {
   useEffect(() => {
     if (selectedGroup) {
       // Open WebSocket connection
-      socket.current = new WebSocket(`ws://46.249.100.141:8070/ws/chat/${selectedGroup.id}/?${email}`);
+      socket.current = new WebSocket(`wss://eniacgroup.ir/backend/ws/chat/${selectedGroup.id}/?${email}`);
 
       socket.current.onopen = () => {
         console.log("WebSocket is connected.");
@@ -116,7 +116,7 @@ const GroupChat = () => {
 
   const getUserEmail = async () => {
     try {
-      const response = await axios.get("http://46.249.100.141:8070/chat/get-user-email/", {
+      const response = await axios.get("https://eniacgroup.ir/backend/chat/get-user-email/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -138,7 +138,7 @@ const GroupChat = () => {
   const getAllGroups = async () => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get("http://46.249.100.141:8070/chat/rooms/", {
+      const response = await axios.get("https://eniacgroup.ir/backend/chat/rooms/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -167,7 +167,7 @@ const GroupChat = () => {
   const getMessages = async (roomId) => {
     try {
       const token = localStorage.getItem("accessToken");
-      const response = await axios.get(`http://46.249.100.141:8070/chat/rooms/${roomId}/messages/`, {
+      const response = await axios.get(`https://eniacgroup.ir/backend/chat/rooms/${roomId}/messages/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -237,7 +237,7 @@ const GroupChat = () => {
   const deleteMessage = async (messageId) => {
     try {
       console.log(messageId);
-      const response = await axios.delete(`http://46.249.100.141:8070/chat/messages/${messageId}/`, {
+      const response = await axios.delete(`https://eniacgroup.ir/backend/chat/messages/${messageId}/`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
