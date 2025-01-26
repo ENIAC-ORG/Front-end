@@ -8,6 +8,7 @@ import {
 } from "mdb-react-ui-kit";
 import Stars from "../Stars/Stars";
 import moment from "moment-jalaali";
+import "./CommentsCustom.css"; // Import the updated CSS file
 
 export default function CustomComments({ comments }) {
   const convertToPersianNumbers = (value) => {
@@ -32,39 +33,23 @@ export default function CustomComments({ comments }) {
   };
 
   // Sort comments by date (latest first)
-  const sortedComments = [...comments].sort((a, b) => new Date(b.date) - new Date(a.date));
+  const sortedComments = [...comments].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
 
   return (
-    <div style={{ direction: "rtl", height: "100%", overflowX: "hidden" }}>
+    <div className="comment-container">
       {sortedComments.map((comment, index) => (
         <MDBRow
           key={index}
-          className="d-flex justify-content-center"
-          style={{ marginBottom: "10px" }}
+          className="comment-row d-flex justify-content-center"
         >
-          <MDBCol md="8" style={{ padding: 0 }}> {/* Restrict width */}
-            <MDBCard style={{ overflow: "hidden", borderRadius: "10px" }}>
-              <MDBCardBody
-                style={{
-                  backgroundColor: "rgb(208, 229, 221, 0.63)",
-                  padding: "10px", // Compact padding
-                  direction: "rtl", // Ensure text flows correctly
-                  maxHeight: "530px"
-                }}
-              >
-                <div>
-                  {/* Header: User and Stars */}
-                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" , width: "40%"}}>
-                    <MDBTypography
-                      tag="h6" // Use smaller font for user name
-                      style={{
-                        fontFamily: "Ios15Medium",
-                        color: "#222222e0",
-                        marginRight: "10px",
-                        textAlign: "right", // Align text to the right
-                        flex: 1,
-                      }}
-                    >
+          <MDBCol md="8" style={{ padding: 0 }}>
+            <MDBCard className="comment-card">
+              <MDBCardBody className="comment-card-body">
+                <div className="comment-header">
+                  <div className="comment-header-content">
+                    <MDBTypography tag="h6" className="comment-header-name">
                       ناشناس
                     </MDBTypography>
                     <Stars
@@ -72,39 +57,19 @@ export default function CustomComments({ comments }) {
                       rating={comment.rating}
                       setRating={() => {}}
                       color="hsl(47, 90%, 60%)"
-                      iconSize={20} 
+                      iconSize={20}
                       isInteractive={false}
                     />
                   </div>
-
-                  {/* Date */}
-                  <p
-                    style={{
-                      fontSize: "14px",
-                      color: "gray",
-                      fontFamily: "Ios15Medium",
-                      margin: "5px 0",
-                      textAlign: "right", 
-                      marginRight: "2%"
-
-                    }}
-                  >
-                    {convertToPersianNumbers(convertToPersianDate(comment.date))}
-                  </p>
-
-                  {/* Comment Content */}
-                  <p
-                    style={{
-                      fontFamily: "Ios15Medium",
-                      color: "#4a4b4a",
-                      fontSize: "15px",
-                      textAlign: "right", 
-                      marginRight: "2%"
-                    }}
-                  >
-                    {comment.comment}
-                  </p>
                 </div>
+
+                {/* Date */}
+                <p className="comment-date">
+                  {convertToPersianNumbers(convertToPersianDate(comment.date))}
+                </p>
+
+                {/* Comment Content */}
+                <p className="comment-content">{comment.comment}</p>
               </MDBCardBody>
             </MDBCard>
           </MDBCol>

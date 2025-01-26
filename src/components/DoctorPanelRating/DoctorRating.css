@@ -1,0 +1,123 @@
+.doctor-rating-section {
+    background-color: #4891828f;
+  }
+  
+  .doctor-rating-card {
+    border-radius: 15px;
+    background-color: rgb(249, 249, 249);
+    min-height: 500px; /* Increase the minimum height of the container */
+  }
+  
+  .doctor-rating-card-body {
+    padding: 16px;
+    height: 100%; /* Allow the body to fill the height of the card */
+    position: relative;
+  }
+  
+  
+  .doctor-rating-title {
+    direction: rtl;
+    font-weight: bold;
+    color: rgb(81, 133, 109);
+    font-family: Ios15medium;
+    text-align: center;
+    font-size: 1.5rem;
+  }
+  
+  .doctor-rating-back {
+    position: absolute;
+    top: 5%;
+    right: 3%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+    font-family: Ios15medium;
+    color: rgb(114, 173, 161);
+  }
+  
+  .doctor-rating-back-icon {
+    margin-left: 5px;
+    color: rgb(114, 173, 161);
+  }
+  
+  .doctor-rating-divider {
+    color: rgb(114, 173, 161);
+    opacity: 0.45;
+  }
+  
+  /* Layout for the content */
+  .doctor-rating-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: nowrap; /* Ensure two columns on larger screens */
+  }
+  
+  .doctor-rating-comments {
+    flex: 2;
+    margin-right: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .doctor-rating-summary {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    /* margin-bottom: 20px; */
+  }
+  
+  .doctor-rating-text {
+    font-size: 16px;
+    margin-top: 10px;
+    text-align: center;
+  }
+
+  .h-100 {
+    height: 69% !important;
+  }
+  
+  .custom-spinner {
+    color: #4891828f; /* Match the background color */
+  }
+  
+  /* Responsive Design for Mobile Screens */
+  @media (max-width: 768px) {
+    .doctor-rating-content {
+      flex-direction: column; /* Stack content vertically */
+      gap: 0; /* Remove extra spacing */
+    }
+    .doctor-rating-card {
+        border-radius: 15px;
+        background-color: rgb(249, 249, 249);
+        max-height: 300px; /* Increase the minimum height of the container */
+      }
+    .doctor-rating-comments {
+      margin: 0 0 20px 0; /* Add spacing below comments */
+      max-height: 330px;
+    }
+    .doctor-rating-title {
+        font-size: 15px;
+    }
+
+  
+    .doctor-rating-summary {
+      order: -1; /* Move rate count below comments */
+      margin-bottom: 20px;
+    }
+  
+    .doctor-rating-text {
+      font-size: 12px; /* Adjust font size for smaller screens */
+    }
+
+    .h-100 {
+        height: 69% !important;
+      }
+  }
+  
