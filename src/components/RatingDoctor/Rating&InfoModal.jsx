@@ -4,9 +4,9 @@ import { IoIosClose } from "react-icons/io";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./rating_style.css";
-import Stars from "./Stars";
+import Stars from "../Stars/Stars.jsx";
 import axios from "axios";
-import Comments from "./Comments";
+import Comments from "../Comments/Comments.jsx";
 import { TextField } from "@mui/material";
 import CompleteInfoModal from "../CompleteInfoModal/Complete_Info.jsx"
 

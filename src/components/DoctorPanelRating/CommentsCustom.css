@@ -1,0 +1,89 @@
+/* General Styles */
+.comment-container {
+    direction: rtl;
+    height: 100%;
+    overflow-x: hidden;
+  }
+  
+  .comment-row {
+    margin-bottom: 10px;
+  }
+  
+  .comment-card {
+    overflow: hidden;
+    border-radius: 10px;
+  }
+  
+  .comment-card-body {
+    background-color: rgb(208, 229, 221, 0.63);
+    padding: 10px;
+    direction: rtl;
+    max-height: 530px;
+  }
+  
+  .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align content to the right */
+    margin-bottom: 10px; /* Add space between header and comment */
+  }
+  
+  .comment-header-content {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Add spacing between name and stars */
+  }
+  
+  .comment-header-name {
+    font-family: Ios15Medium;
+    color: #222222e0;
+    margin: 5px 0;
+    text-align: right;
+  }
+  
+  .comment-date {
+    font-size: 14px;
+    color: gray;
+    font-family: Ios15Medium;
+    margin: 5px 0;
+    text-align: right;
+  }
+  
+  .comment-content {
+    font-family: Ios15Medium;
+    color: #4a4b4a;
+    font-size: 15px;
+    margin: 5px 15px;
+    text-align: right;
+  }
+  
+  /* Responsive Styles for Smaller Screens */
+  @media (max-width: 768px) {
+    .comment-header-content {
+      flex-direction: column; /* Stack name and stars vertically on mobile */
+      align-items: flex-start; /* Keep alignment to the right */
+      gap: none
+    }
+
+    .comment-header {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start; /* Align content to the right */
+        margin-bottom: none;
+      }
+  
+    .comment-content {
+      font-size: 11px; /* Reduce font size for smaller screens */
+        margin: 5px 5px;
+
+    }
+
+    .comment-header-name {
+        font-size: 13px;
+    }
+
+    .comment-date {
+        font-size: 12px;
+    }
+  }
+  
