@@ -10,11 +10,11 @@ const AboutSection = () => {
   const IsDoctor = localStorage.getItem("role") == "doctor";
 
   return (
-    <div className="container-fluid custom-container py-5 mb-4 mt-1">
-      <div className=" custom-container">
-        <div className="row g-5">
+    <div className="container-fluid custom-container px-0 py-5 mb-4 mt-1">
+      <div className=" custom-container ">
+        <div className="row g-4 justify-content-center">
           <div
-            className="col-lg-5 col-md-6 col-sm-12 wow fadeIn"
+            className="recom_text_whole col-lg-5 col-md-6 col-sm-12 wow fadeIn"
             data-wow-delay=".3s"
             style={{
               visibility: "visible",
@@ -43,7 +43,7 @@ const AboutSection = () => {
           </div>
           {IsDoctor ?
             <div
-              className="col-lg-7 col-md-6 col-sm-12 wow fadeIn"
+              className="recom_text_whole col-lg-7 col-md-6 col-sm-12 wow fadeIn"
               data-wow-delay=".5s"
               style={{
                 visibility: "visible",
@@ -51,7 +51,7 @@ const AboutSection = () => {
                 animationName: "fadeIn",
               }}
             >
-              <h4 className="recom_text_color doctor_h2">همکاری برای ارائه درمان بهتر</h4>
+              <h4 className="recom_text_color doctor_h2 ghjgh">همکاری برای ارائه درمان بهتر</h4>
               <h1 className="mb-4 doctor_h3">پیشنهاد بیماران مناسب برای شما</h1>
               <p className="recom_text">
                 با پاسخ به چند سوال کوتاه، اینیاک با کمک هوش مصنوعی بیماران متناسب با تخصص و ترجیحات شما را معرفی می‌کند. به ساده‌ترین شکل به بهترین نتایج درمانی برسید!
@@ -116,7 +116,7 @@ const AboutSection = () => {
               </p>
               <a
                 href="#"
-                className="btn btn-secondary rounded-pill  px-5 py-3 text-white"
+                className="btn btn-secondary rounded-pill  px-5 py-3 text-white recom_button_home"
                 onClick={(e) => {
                   navigate("/RecommendationPage");
                 }}
