@@ -1,0 +1,8 @@
+@font-face {
+  font-family: Ios15Medium;
+  src: local('Ios15Medium'), url(./fonts/Ios15Medium.ttf) format('truetype');
+}
+@font-face {
+  font-family: BNazanin;
+  src: local('BNazanin'), url(./fonts/BNazanin.ttf) format('truetype');
+}

@@ -1,0 +1,93 @@
+.CounterUpContainer {
+  background: #49947d;
+  color: white;
+  box-shadow: 4px 6px 10px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.3s;
+  border-radius: 25px;
+  width: 72%;
+  height:300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* styles.css */
+
+.statistics-container {
+  padding: 2%;
+  background-color:  transparent;
+  transition: all 0.5s ease-in-out;
+}
+
+.statistics-container:hover {
+  background-color: rgb(173, 219, 166,0.4) ; 
+  border-radius:25px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.statistics-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.statistics-item {
+  flex: 1;  
+}
+.statistic-box{
+  font-size: 42px;
+
+}
+@media (max-width: 1240px) {
+  .CounterUpContainer {
+    width: 90%; /* Reduce width for smaller screens */
+    height: 250px;
+  }
+  .statistic-box{
+    font-size: 45px;
+  }
+}
+
+@media (max-width: 780px) {
+  .CounterUpContainer {
+    width: 90%; /* Reduce width for smaller screens */
+    height: 220px;
+  }
+  .statistic-box{
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .CounterUpContainer {
+    width: 90%; /* Reduce width for smaller screens */
+    height: 220px;
+    margin: 5px;
+  }
+  .statistic-box{
+    font-size: 36px;
+  }
+}
+
+
+@media (max-width: 440px) {
+  .CounterUpContainer {
+    width: 80%; /* Reduce width for smaller screens */
+    height: 190px;
+  }
+  .statistic-box{
+    font-size: 36px;
+  }
+  .statistics-row{
+    flex-direction: column;
+  }
+}
+
+
+.bg-dark {
+  background-color: #c8e1c4 !important;
+}
+
+

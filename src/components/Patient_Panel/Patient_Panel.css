@@ -1,0 +1,182 @@
+
+.patient-panel-bg {
+    background-image: linear-gradient(-50deg, #d2ce95 0%, #abffd2 100%);
+}
+
+.patient-panel-pages div{
+    cursor: pointer;
+}
+
+.patient-panel-pages
+{
+    width: 60%;
+    font-size: 110%;
+    border-radius: 12px 12px 0px 0px; 
+    box-shadow: 0 6px 0 #fff, 0 1px 6px rgba(0,0,0, .35); 
+    display: flex;
+    flex: row;
+}
+
+.patient-panel-res{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 20px;
+}
+
+.patient-panel-res_card{
+    background-color: #ffffff;
+    box-shadow:  0 1px 6px rgba(0,0,0, .35);
+    border-radius: 5px;
+    text-align: center;
+    min-width: 200px;
+}
+
+.patient-panel-res_card h5{
+    font-family:"Ios15Medium";
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+.patient-panel-title{
+    color: #1a9572;
+}
+
+.patient-panel-res_card p{
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.patient-panel-res_card ul li span{
+    font-family: "Ios15Medium";
+    padding-right: 10px;
+    width: 100px;
+    display: inline-block;
+}
+
+.patient-panel-history_card{
+    background-color: #eceaea;
+    box-shadow:  0 1px 6px rgba(0,0,0, .35);
+    width: 400px;
+    height: fit-content;
+    padding: 3%;
+    border-radius: 5px;
+}
+
+.patient-panel-history_card h3{
+    font-family:"Ios15Medium" ;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+
+.patient-panel-history_card h5{
+    font-family:Ios15Medium ;
+    font-weight: bold;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.patient-panel-history_card ul li span{
+    font-family: "Ios15Medium";
+    padding-right: 10px;
+    width: 130px;
+    display: inline-block;
+}
+
+.patient-panel-profile .user-heading {
+    background-color: #1a9572;
+    color: #9fe4d1;
+    border-radius: 4%;
+    padding: 30px;
+    text-align: center;
+    min-width: fit-content;
+}
+
+.patient-panel-profile .user-heading.round a {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border: 10px solid rgba(4, 9, 29, 0.3);
+    display: inline-block;
+}
+
+.patient-panel-profile .user-heading a img {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+}
+
+.patient-panel-profile .user-heading h1 {
+    font-size: 25px;
+    font-family: "Ios15Medium";
+    font-weight: 600;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    margin-bottom: 8px;
+}
+
+@media only screen and (max-width: 600px) {    
+    .patient-panel-pages {
+        width: 95%;
+        font-size: medium;
+    }
+    .patient-panel-profile .user-heading a img {
+        width: 180px;
+        height: 180px;
+    }
+    .patient-panel-profile {
+        margin-bottom: 20px;
+    }
+}
+
+
+
+@media only screen and (min-width: 600px) {
+
+    .patient-panel-pages {
+        width: 80%;
+    }
+    .patient-panel-profile .user-heading a img {
+        width: 180px;
+        height: 180px;
+    }
+    .patient-panel-profile {
+        margin-bottom: 20px;
+    }
+}
+
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .patient-panel-pages {
+        width: 70%;
+    }
+    .patient-panel-profile .user-heading a img {
+        width: 120px;
+        height: 120px;
+    }
+    
+}
+
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    patient-panel-pages {
+        width: 70%;
+    }
+    .patient-panel-profile .user-heading a img {
+        width: 180px;
+        height: 180px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .patient-panel-pages {
+        width: 70%;
+    }
+    .patient-panel-profile .user-heading a img {
+        width: 180px;
+        height: 180px;
+    }
+    
+}

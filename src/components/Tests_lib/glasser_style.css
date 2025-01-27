@@ -1,0 +1,262 @@
+@import url('https://fonts.googleapis.com/css2?family=Anek+Malayalam:wght@100;200;300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Vazir&display=swap');
+.glasser-body {
+  direction: rtl;
+  font-family: 'Anek Malayalam', sans-serif;
+  background: -webkit-linear-gradient(left,#15B392, #C9E9D2);
+  color: #413f45;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 40px 30px;
+  font-family: Ios15Medium;
+  height: 95vh;
+}
+
+.glasser-quiz-container {
+  width: 600px; /* Decrease container width */
+  height: 96%;
+  max-width: 100%;
+  min-height: 300px; /* Decrease minimum height */
+  background: #ffffff;
+  border-radius: 15px; /* Decrease border radius */
+  margin-top: 5px; /* Decrease margin top */
+  padding: 40px 60px; /* Adjust padding */
+  box-sizing: border-box;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container .glasser-active-question-no {
+  font-size: 30px; /* Decrease font size */
+  font-weight: 500;
+  color:#76baab;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2); /* Decrease text shadow */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container .glasser-total-question {
+  font-size: 18px; /* Decrease font size */
+  font-weight: 500;
+  color: #959496;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container h2 {
+  font-size: 18px; /* Decrease font size */
+  font-weight: 500;
+  margin: 0;
+  text-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  color: #636363;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container ul {
+  margin-top: 20px; /* Adjust margin top */
+  margin-right: -4%; /* Adjust margin right */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container ul li {
+  text-decoration: none;
+  list-style: none;
+  color: #47464e;
+  font-size: 16px; /* Decrease font size */
+  background: #ffffff;
+  border: 1px solid #d6d6d8;
+  border-radius: 15px; /* Decrease border radius */
+  padding: 10px; /* Decrease padding */
+  margin-top: 15px; /* Decrease margin top */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  margin-right: 41px;
+  text-align: center;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container ul .glasser-selected-answer {
+  background: #bee4cf;
+  border: 1px solid #83bfa1;
+}
+
+.glasser-quiz-container button {
+  background: -webkit-linear-gradient(left,#15B392, #AEE2FF);
+  border-radius: 12px; /* Decrease border radius */
+  font-size: 15px; /* Decrease font size */
+  color: #ffffff;
+  padding: 12px 40px; /* Decrease padding */
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-top: 30px; /* Decrease margin top */
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1); /* Decrease box shadow */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-quiz-container button:hover {
+  background: -webkit-linear-gradient(left, #15B392, #15B392, #15B392);
+}
+
+.glasser-quiz-container button:disabled {
+  background: #e7e8e9;
+  color: #9fa3a9;
+  cursor: not-allowed;
+}
+
+.glasser-flex-right {
+  display: flex;
+  justify-content: flex-end;
+  
+}
+
+.glasser-result h3 {
+  font-size: 20px; /* Decrease font size */
+  letter-spacing: 1px; /* Decrease letter spacing */
+  text-align: center;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-result p {
+  font-size: 16px; /* Decrease font size */
+  font-weight: 500;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-result p span {
+  color: #59fac2;
+  font-size: 25px; /* Decrease font size */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px; /* Decrease margin top */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-button-group button {
+  flex: 0 0 150px; /* Decrease button width */
+  margin: 0 10px; /* Decrease margin */
+  font-family: "Ios15medium"
+
+}
+
+.glasser-button-group span {
+  margin-top: 15px; /* Decrease margin top */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Ios15medium"
+
+}
+
+.glasser-button-group span:hover {
+  color: #15B392;
+}
+
+.custom-swal-container .swal2-popup {
+  border-radius: 15px; /* Decrease border radius */
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.3); /* Decrease box shadow */
+}
+
+.custom-swal-container .swal2-title {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
+  font-size: 24px; /* Decrease font size */
+}
+
+.custom-swal-container .swal2-content {
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Decrease text shadow */
+  font-size: 18px; /* Decrease font size */
+}
+
+.glasser-progress-bar {
+  direction: ltr; /* Set direction to right-to-left */
+}
+
+.custom-color .progress-bar {
+  background-color: #76baab !important;
+}
+
+/* Add responsiveness for mobile devices */
+@media (max-width: 768px) and (max-height: 950px) {
+  .glasser-quiz-container {
+    width: 100%;
+    height: 90%;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .glasser-header .glasser-active-question-no {
+    font-size: 25px;
+  }
+
+  .glasser-header .glasser-total-question {
+    font-size: 19px;
+  }
+
+  .glasser-quiz-container .glasser-active-question-no {
+    font-size: 15 px;
+  }
+
+  .glasser-quiz-container .glasser-total-question,
+  .glasser-quiz-container h2 {
+    font-size: 14px;
+  }
+
+  .glasser-quiz-container ul li {
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 10px;
+    margin-right: 13%;
+
+  }
+  .glasser-quiz-container span {
+    font-size: 12px;
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 5%;
+  }
+
+  .glasser-quiz-container button {
+    font-size: 12px;
+    padding: 10px 30px;
+    border-radius: 8px;
+    margin-top: 20px;
+  }
+
+  .glasser-result h3 {
+    font-size: 15px;
+  }
+
+  .glasser-result p {
+    font-size: 13px;
+  }
+
+  .glasser-result p span {
+    font-size: 12px;
+  }
+
+  .glasser-button-group {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .glasser-button-group button {
+    flex: 1;
+    margin: 10px 0;
+    width: 100%;
+  font-family: "Ios15medium"
+
+  }
+}
