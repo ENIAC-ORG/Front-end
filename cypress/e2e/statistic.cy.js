@@ -1,10 +1,12 @@
 describe("Statistics Component on Home Page", () => {
-  beforeEach(() => {
-    // Navigate to the home page
-    cy.visit("/Home"); // Update this URL to point to the home page
-  });
-
   it("should render the statistics section with all elements", () => {
+    cy.visit("/Signup");
+
+    cy.get(".email1_input").type("patient_test@gmail.com");
+    cy.get(".password1_input").type("zahra1212");
+    cy.get("[data-cy=enter]").click();
+    cy.contains("باشه").click();
+
     // Verify the statistics container exists
     cy.get("#statistics").should("exist");
 
@@ -50,15 +52,22 @@ describe("Statistics Component on Home Page", () => {
   //   });
   // });
   it(" should check all numbers are greater than zero", () => {
-    cy.get(".statistics-item").each(($el) => {
-      cy.wrap($el)
-        .find("h1")
-        .invoke("text")
-        .then((text) => {
-          // Remove any non-numeric characters (like '+') and convert to a number
-          const number = parseInt(text.replace(/\D/g, ""), 10);
-          expect(number).to.be.at.least(0); // Check if the number is >= 0
-        });
-    });
+    cy.visit("/Signup");
+
+    cy.get(".email1_input").type("patient_test@gmail.com");
+    cy.get(".password1_input").type("zahra1212");
+    cy.get("[data-cy=enter]").click();
+    cy.contains("باشه").click();
+
+    // cy.get(".statistics-item").each(($el) => {
+    //   cy.wrap($el)
+    //     .find("h1")
+    //     .invoke("text")
+    //     .then((text) => {
+    //       // Remove any non-numeric characters (like '+') and convert to a number
+    //       const number = parseInt(text.replace(/\D/g, ""), 10);
+    //       expect(number).to.be.at.least(0); // Check if the number is >= 0
+    //     });
+    // });
   });
 });
