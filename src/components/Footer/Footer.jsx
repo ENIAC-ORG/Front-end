@@ -11,8 +11,8 @@ const Footer = () => {
         <div className={styles.org}>
           <div>
             <ul className={styles.social}>
-              <h5>راه های ارتباطی</h5>
-              <hr style={{ width: "22rem", color: "white", opacity: "1" }} />
+              <h5 className="font-title">راه های ارتباطی</h5>
+              <hr style={{ width: "100%", color: "white", opacity: "1" }} />
               <li>
                 <MdEmail className={styles.social_icon} />
                 ایمیل: eniakgroupiust@gmail.com
@@ -33,8 +33,8 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <ul className={styles.social}>
-              <h5>دسترسی آسان</h5>
+            <ul className={styles.social} style={{marginRight:"5%"}}>
+              <h5 className="font-title">دسترسی آسان</h5>
               <hr style={{ width: "22rem", color: "white", opacity: "1" }} />
               <li>
                 <a
@@ -66,10 +66,10 @@ const Footer = () => {
             </ul>
           </div>
         </div>
-        <div className={styles.credits}>
-          <span>© 2024 Appy. All rights reserved.</span>
-          <span>Terms · Privacy Policy</span>
-          <span>ENIAC-Group</span>
+        <div className="row d-flex justify-content-center">
+          <span className={`col ps-4 text-start text-white ${styles.credits}`} >© 2024 Appy. All rights reserved.</span>
+          <span className={`col text-center text-white ${styles.credits}`}>Terms · Privacy Policy</span>
+          <span className={`col pe-4 text-end text-white ${styles.credits}`}>ENIAC-Group</span>
         </div>
       </div>
     </>

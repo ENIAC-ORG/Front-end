@@ -11,7 +11,8 @@
 .org{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    flex-direction: row;
+    justify-content: center;
     gap: 30%;
 }
 .social{
@@ -27,7 +28,6 @@
   direction: rtl;
   color: #ffffff;
   font-size: larger;
-  font-family: Ios15medium;
 }
 .social li
 { 
@@ -62,26 +62,33 @@
   }
 }
 .credits {
-    display: grid;
-    grid-template-columns: repeat(1, minmax(0, 2fr)); 
-    gap: 5rem; /* gap-10 */
-    text-align: center; /* text-center */
-    padding-top: 0.5rem; /* pt-2 */
-    color: #ffffff; /* text-gray-400 */
-    font-size: 0.875rem; /* text-sm */
-    padding-bottom: 1rem; /* pb-8 */
-    font-family: Ios15medium;
+  font-size: medium;
+}
+
+@media only screen and (max-width: 500px) {
+  .credits {
+    font-size: xx-small;
+  }  
+}
+
+@media only screen and (min-width: 500px) {
+  .credits {
+    font-size: smaller;
+  }  
+}
+
+@media only screen and (min-width: 767px) {
+  .credits {
+    font-size: small;
   }
   
-  @media (max-width: 640px) {
-    .credits {
-      grid-template-columns: repeat(2, minmax(0, 1fr)); /* sm:grid-cols-2 */
-    }
+}
+
+@media only screen and (min-width: 1200px) {
+  .credits {
+    font-size: medium;
   }
   
-  @media (min-width: 1024px) {
-    .credits {
-      grid-template-columns: repeat(3, minmax(0, 1fr)); /* lg:grid-cols-3 */
-    }
-  }
+}
+
   
