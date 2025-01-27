@@ -6,3 +6,15 @@
   font-family: BNazanin;
   src: local('BNazanin'), url(./fonts/BNazanin.ttf) format('truetype');
 }
+@font-face {
+  font-family: SahelBold;
+  src: local('SahelBold'), url(./fonts/Sahel-Bold.woff) format('truetype');
+}
+
+.font-title{
+  font-family:SahelBold ;
+}
+
+.font-custom{
+  font-family:Ios15Medium ;
+}

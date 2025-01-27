@@ -283,6 +283,10 @@ VERSION:	Versoin Number
   width: 28%;
 }
 
+.jobs-faq .jobs-faq-container .question-list .question-item .question-title .written_question {
+  border-bottom: none;
+}
+
 
 .Timg {
   vertical-align: middle;
