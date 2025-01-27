@@ -34,7 +34,7 @@ export default function DoctorRating() {
     setIsLoading(true); // Set loading to true before fetching
     try {
       const response = await axios(
-        "http://eniacgroup.ir:8070/DoctorPanel/get_rating/",
+        "http://eniacgroup.ir/backend/DoctorPanel/get_rating/",
         {
           method: "GET",
           headers: {
