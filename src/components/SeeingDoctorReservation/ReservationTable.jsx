@@ -7,8 +7,8 @@ import SessionSummaryModal from '../SessionSummaryModal/SessionSummaryModal';
 import { DateObject } from "react-multi-date-picker";
 import persian from 'react-date-object/calendars/persian';
 
-const ReservationTable = ({ PatiantId, PatiantName, Day, MyDate, time, type, MeetingLink }) => {
-    console.log(PatiantName);
+const ReservationTable = ({ PatiantId, PatiantName, Day, MyDate, time, type, MeetingLink, ReservationId }) => {
+    // console.log(PatiantName + MeetingLink + ReservationId);
     const navigate = useNavigate();
     const handleClickToPatiantPanel = () => {
         console.log(PatiantId);
@@ -39,19 +39,35 @@ const ReservationTable = ({ PatiantId, PatiantName, Day, MyDate, time, type, Mee
         <div>
             <li className="table-row">
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="خلاصه جلسه">
-                    {MyDate === today ? (<SessionSummaryModal PatiantId={PatiantId} />)
-                        : (<p />)}
+                    <SessionSummaryModal PatiantId={PatiantId} MyDate={MyDate} ReservationId={ReservationId}/>
                 </div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="پرونده پزشکی بیمار">
                     <button className="button-24" role="button" style={{ fontFamily: "Ios15Medium" }} onClick={handleClickToPatiantPanel} >پرونده</button>
                 </div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="لینک جلسه مجازی">
-                    {MeetingLink && type == "مجازی" ? (
-                        <button className="button-24" role="button" style={{ fontFamily: "Ios15Medium" }} onClick={() => window.open(MeetingLink, "_blank")}>
-                            لینک جلسه
-                        </button>
-                    ) : (<p />)
-                    }
+                    {type === "مجازی" ? (
+                        MeetingLink ? (
+                            <button
+                                className="button-24"
+                                role="button"
+                                style={{ fontFamily: "Ios15Medium" }}
+                                onClick={() => window.open(MeetingLink, "_blank")}
+                            >
+                                ورود به جلسه
+                            </button>
+                        ) : (
+                            <button
+                                className="button-24"
+                                role="button"
+                                style={{ fontFamily: "Ios15Medium" }}
+                                onClick={() => window.open(`https://eniacgroup.ir/backend/googlemeet/generate-meet-link/${ReservationId}/`, "_blank")}
+                            >
+                                ایجاد لینک
+                            </button>
+                        )
+                    ) : (
+                        <p>ــــ</p>
+                    )}
                 </div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="نوع مراجعه">{type}</div>
                 <div className="col col-2" style={{ fontFamily: "Ios15Medium" }} data-label="تاریخ و ساعت">
