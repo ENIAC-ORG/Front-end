@@ -21,7 +21,7 @@ const Tests = () => {
       </html>
       <h1 className="TestHeader font-title">تست‌ها</h1>
       <div className="container py-1">
-        <div className="row g-5 services-inner justify-content-center">
+        <div className="row g-custom-test services-inner justify-content-center">
           <div className="col-md-6 col-lg-4 wow fadeIn" data-wow-delay=".3s">
             <div className="services-item-test">
               <div className="p-4 text-center services-content-test">

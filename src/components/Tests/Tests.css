@@ -215,6 +215,10 @@
     margin-right: 0;
     border-radius: 0rem;
 }
+.g-custom-test{
+    gap: 5rem;
+}
+
 
 @media only screen and (max-width: 500px) {
     .bg-test-homepage{
@@ -224,12 +228,20 @@
         border-radius: 0rem;
     }
     .services-item-test{
-        margin-bottom: 5px;
+        margin-bottom:5px;
     }
     .TestName-icon{
         font-size: 3rem ;
     }
-
+    .btn{
+        font-size: 70% !important;
+    }
+    .TestName{
+        font-size: 1.5rem !important;
+    }
+    .g-custom-test{
+        gap: 1rem;
+    }
   }
 
   @media only screen and (min-width: 500px) {
@@ -240,8 +252,8 @@
         font-size: 1.5rem !important;
     }
     .btn{
-        scale: 90%;
-        font-size: 90% !important;
+        scale: 50%;
+        font-size: 60% !important;
     }
     .TestName-icon{
         font-size: 4rem ;
