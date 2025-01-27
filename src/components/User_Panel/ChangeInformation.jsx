@@ -282,16 +282,18 @@ function ChangeInformation({ p_pages, user_info, setinfo }) {
               </div>
             </p>
           </div>
+          <div>
           <button
-            className="button-8"
+            className="button-8 button-change-pass"
             role="button"
-            style={{ width: "25%", marginRight: "60%" }}
+            style={{ width: "25%" }}
             onClick={(e) => {
               SendUserInfo(e);
             }}
           >
             ثبت {"   "}اطلاعات
           </button>
+          </div>
         </div>
       </div>
     </div>

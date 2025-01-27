@@ -133,14 +133,7 @@ const DoctorPage = () => {
         </div>
 
         <div className="containerTable">
-          <h1
-            style={{
-              fontFamily: "Ios15Medium",
-              textAlign: "right",
-              color: "gray",
-              fontSize: "30px",
-            }}
-          >
+          <h1 className="title-style">
             نوبت های رزرو شده
           </h1>
           <ul className="responsive-table">
@@ -174,6 +167,7 @@ const DoctorPage = () => {
                 time={index?.time}
                 type={index?.type}
                 MeetingLink={index?.MeetingLink}
+                ReservationId={index?.id}
               />
             ))}
           </ul>

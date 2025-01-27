@@ -34,7 +34,6 @@ jobs:
       - name: Install Cypress
         run: npm install --save-dev cypress -f
 
-
       - name: Start server and run Cypress tests
         run: |
           echo "Starting application server..."
@@ -77,3 +76,5 @@ jobs:
             docker rm temp-container
             rm -rf /usr/share/nginx/html/*
             sudo cp -r ./build/* /usr/share/nginx/html/
+
+

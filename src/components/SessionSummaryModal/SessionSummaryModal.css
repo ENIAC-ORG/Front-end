@@ -4,5 +4,42 @@
 
 .text-header {
     font-family: Ios15medium;
+}
 
+.button-summary {
+  border: 2px solid #198754;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #198754;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+  font-size: 16px;
+  /* font-weight: 800; */
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+button:disabled {
+    background: #e7e8e9;
+    color: #9fa3a9;
+    cursor: not-allowed;
+    border: 2px solid #9fa3a9;
+  }
+
+  @media (min-width: 741px) and (max-width: 840px) {
+    .button-summary {
+      font-size: 12px;
+      padding: 9px 11px;
+    }
 }

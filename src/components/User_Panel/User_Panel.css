@@ -1,3 +1,7 @@
+.UserPanelBody {
+    /* width: fit-content; */
+}
+
 .prof_body {
     display: flex;
     flex-wrap: wrap;
@@ -7,8 +11,6 @@
     padding-top: 2.5%;
     padding-bottom: 2.5%;
 }
-
-
 
 .prof_Box {
     gap: 50px;
@@ -25,6 +27,16 @@
     min-width: fit-content;
 }
 
+.panelPassword {
+    min-width: fit-content;
+}
+
+@media (min-width: 1200px) {
+    .panelPassword {
+        width: 770px;
+    }
+}
+
 .profile-nav {
     margin-top: 20px;
 
@@ -35,7 +47,7 @@
     color: #fff;
     border-radius: 4px 4px 0px 0px;
     -webkit-border-radius: 15px 15px 0 0;
-    padding: 30px;
+    padding: 20px;
     text-align: center;
     min-width: fit-content;
 }
@@ -129,7 +141,7 @@
 }
 
 .bio-row {
-    width: 50%;
+    /* width: 50%; */
     float: left;
     margin-bottom: 10px;
     padding: 0 15px;
@@ -138,13 +150,12 @@
 
 .bio-row p {
     font-family: Ios15Medium;
-
 }
 
 .bio-row p span {
     font-family: Ios15Medium;
     padding-right: 10px;
-    width: 150px;
+    /* width: 150px; */
     display: inline-block;
 }
 
@@ -348,3 +359,20 @@
     transition: 0s;
     transform: translate(0, 5%);
 }
+
+.button-change-pass {
+    margin-right: 60%;
+}
+
+@media (max-width: 768px) {
+    .button-change-pass {
+        justify-items: center;
+        width: 100%;
+    }
+
+    .row > * {
+        width: fit-content;
+        max-width: 100%;
+      }
+}
+
