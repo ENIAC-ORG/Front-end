@@ -3,22 +3,27 @@ describe("Login Page Tests", () => {
     it("Logs in successfully with valid credentials", () => {
       cy.visit("/Signup");
 
-      cy.get(".email1_input").type("dehghanzahra1400@gmail.com");
-      cy.get(".password1_input").type("Z82F84r87");
+      cy.get(".email1_input").type("patient_test@gmail.com");
+      cy.get(".password1_input").type("zahra1212");
       cy.get("[data-cy=enter]").click();
-
     });
   });
 
   it("glasser test", () => {
+    cy.visit("/Signup");
+    cy.get(".email1_input").type("patient_test@gmail.com");
+    cy.get(".password1_input").type("zahra1212");
+    cy.get("[data-cy=enter]").click();
+    cy.contains("باشه").click();
+    cy.visit("/TestPage");
 
-    cy.visit("/Glasser");
-    cy.contains("شروع آزمون").click();
-    // for (let i = 0; i < 24; i++) {
-    //   cy.contains("5").click();
-    //   cy.contains("بعدی").click();
-    // }
-    // cy.contains("5").click();
-    // cy.contains("پایان آزمون").click();
+    cy.contains("شروع").click();
+    cy.contains("شروع").click();
+    for (let i = 0; i < 69; i++) {
+      cy.get('[data-testid="mbti-test"] li').first().click();
+      cy.contains("بعدی").click();
+    }
+    cy.get('[data-testid="mbti-test"] li').first().click();
+    cy.contains("پایان").click();
   });
 });
