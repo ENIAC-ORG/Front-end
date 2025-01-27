@@ -65,8 +65,6 @@ jobs:
             key: ${{ secrets.SSH_PRIVATE_KEY }}
             port: ${{ secrets.PORT }}
             script: |
-              cd /root/git/Back-end/BackEnd/
-              docker compose down
               eval $(ssh-agent)
               ssh-add /root/.ssh/github_frontend
               cd /root/git/Front-end

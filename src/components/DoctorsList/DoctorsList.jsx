@@ -219,50 +219,6 @@ const DoctorsList = () => {
     fetchDoctorProfileEdu();
   });
 
-  const [doctorProfileCoaching, setDoctorProfileCoaching] = useState([]);
-  useEffect(() => {
-    const fetchDoctorProfileCoaching = async () => {
-      try {
-        const response1 = await axios.get(
-          "https://eniacgroup.ir/backend/profile/doctors/typed/",
-          {
-            params: {
-              profile_type: "کوچینگ",
-            },
-          }
-        );
-        setDoctorProfileCoaching(response1.data);
-        console.log(doctorProfileCoaching);
-      } catch (error) {
-        console.error("Error fetching doctor profile:", error);
-      }
-    };
-
-    fetchDoctorProfileCoaching();
-  }, []);
-
-  const [doctorProfilePsychiatry, setDoctorProfilePsychiatry] = useState([]);
-  useEffect(() => {
-    const fetchDoctorProfilePsychiatry = async () => {
-      try {
-        const response1 = await axios.get(
-          "https://eniacgroup.ir/backend/profile/doctors/typed/",
-          {
-            params: {
-              profile_type: "روان پزشکی",
-            },
-          }
-        );
-        setDoctorProfilePsychiatry(response1.data);
-        console.log(doctorProfilePsychiatry);
-      } catch (error) {
-        console.error("Error fetching doctor profile:", error);
-      }
-    };
-
-    fetchDoctorProfilePsychiatry();
-  }, []);
-
   const settings = {
     className: "center",
     infinite: true,
@@ -386,8 +342,8 @@ const DoctorsList = () => {
                 </div>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                <div className="distanceBetweenDoctor">
-                      {doctorProfileCoaching.map((index) => (
+                {/* <div className="distanceBetweenDoctor">
+                      {doctorProfileFardi.map((index) => (
                         <DoctorProfile
                           Id={index?.id}
                           name={index?.name}
@@ -398,11 +354,11 @@ const DoctorsList = () => {
                           Psychiatrist={index?.psychiatrist}
                         />
                       ))}
-                    </div>
+                    </div> */}
               </CustomTabPanel>
               <CustomTabPanel value={value} index={5}>
-                <div className="distanceBetweenDoctor">
-                      {doctorProfilePsychiatry.map((index) => (
+                {/* <div className="distanceBetweenDoctor">
+                      {doctorProfileFardi.map((index) => (
                         <DoctorProfile
                           Id={index?.id}
                           name={index?.name}
@@ -413,7 +369,7 @@ const DoctorsList = () => {
                           Psychiatrist={index?.psychiatrist}
                         />
                       ))}
-                    </div>
+                    </div> */}
               </CustomTabPanel>
             </div>
           </div>

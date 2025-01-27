@@ -45,6 +45,12 @@
     margin-bottom: 60px;
 }
 
+@media (max-width: 547px) {
+    .doctorBox {
+        width: -webkit-fill-available;
+    }
+}
+
 .tabs {
     font-family: Ios15medium;
 }
@@ -393,29 +399,24 @@
     justify-content: center;
 }
 
-/* tablet */
 @media (max-width: 900px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(3, 1fr);
+        /* tablet */
     }
 }
 
-/* tablet */
 @media (max-width: 710px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(2, 1fr);
+        /* tablet */
     }
 }
 
-/* mobile */
 @media (max-width: 480px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(2, 1fr);
-        margin-right: 0rem;
-    }
-    
-    .doctorBox {
-        width: -webkit-fill-available;
+        /* mobile */
     }
 }
 
