@@ -34,6 +34,7 @@ jobs:
       - name: Install Cypress
         run: npm install --save-dev cypress -f
 
+
       - name: Start server and run Cypress tests
         run: |
           echo "Starting application server..."
