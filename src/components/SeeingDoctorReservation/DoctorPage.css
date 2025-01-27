@@ -2,12 +2,6 @@ body {
   font-family: Ios15Medium;
 }
 
-/* @media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-} */
-
 .all {
   display: flex;
   flex-direction: row-reverse;
@@ -15,9 +9,11 @@ body {
   margin-bottom: 7rem;
 }
 
-@media (max-width: 490px) {
+@media (max-width: 522px) {
   .all {
     flex-direction: column;
+    justify-self: center;
+    margin-right: 0rem;
   }
 }
 
@@ -36,29 +32,18 @@ body {
   }
 }
 
-@media (min-width: 480px) {
+@media (min-width: 522px) {
   .containerTable {
     flex-direction: column;
   }
 }
 
-/* @media (max-width: 900px) {
-      .distanceBetweenDoctor {
-        grid-template-columns: repeat(3, 1fr);
-      }
-    }
-  
-  @media (max-width: 710px) {
-      .distanceBetweenDoctor {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    
-    @media (max-width: 480px) {
-      .distanceBetweenDoctor {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    } */
+.title-style {
+  font-family: "Ios15Medium";
+  text-align: right;
+  color: gray;
+  font-size: 30px;
+}
 
 
 .responsive-table {
@@ -104,12 +89,17 @@ body {
     flex-basis: 25%;
   }
 
-  @media all and (max-width: 767px) {
+  @media all and (max-width: 740px) {
     .table-header {
       display: none;
     }
 
-    .table-row {}
+    .table-row {
+      background-color: #c4d5d194;
+      direction: rtl;
+      display: flex;
+      flex-direction: column-reverse;
+    }
 
     li {
       display: block;
@@ -117,20 +107,37 @@ body {
 
     .col {
       flex-basis: 100%;
-
     }
 
     .col {
       display: flex;
       padding: 10px 0;
+      display: flex;
+      padding: 10px 0;
+      column-gap: 10px;
+      align-items: center;
+      width: auto;
 
       &:before {
-        color: #6C7A89;
+        color: #489182;
         padding-right: 10px;
         content: attr(data-label);
         flex-basis: 50%;
         text-align: right;
       }
+    }
+  }
+
+  @media all and (max-width: 522px) {
+    .table-row {
+      background-color: #c4d5d194;
+      direction: rtl;
+      display: flex;
+      flex-direction: column-reverse;
+    }
+
+    .button-24 {
+      padding: 12px 13px;
     }
   }
 }
@@ -146,7 +153,7 @@ body {
   display: inline-block;
   font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
   font-size: 16px;
-  font-weight: 800;
+  /* font-weight: 800; */
   line-height: 16px;
   min-height: 40px;
   outline: 0;
@@ -170,4 +177,21 @@ body {
 
 .button-24:active {
   opacity: .5;
+}
+
+.no-summary {
+  font-family: 'Ios15Medium';
+  font-size: 16px;
+  color: #999ea2;
+}
+
+@media (min-width: 741px) and (max-width: 840px) {
+  .button-24 {
+    font-size: 12px;
+    padding: 9px 11px;
+  }
+
+  .col-2 {
+    font-size: 15px;
+  }
 }

@@ -30,7 +30,7 @@
 .doctorBox {
     direction: rtl;
     justify-self: center;
-    width: -webkit-fill-available;
+    width: fit-content;
     background: rgba(255, 255, 255, 0.3);
     padding: 1rem;
     border-radius: 20px;
@@ -393,24 +393,29 @@
     justify-content: center;
 }
 
+/* tablet */
 @media (max-width: 900px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(3, 1fr);
-        /* tablet */
     }
 }
 
+/* tablet */
 @media (max-width: 710px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(2, 1fr);
-        /* tablet */
     }
 }
 
+/* mobile */
 @media (max-width: 480px) {
     .distanceBetweenDoctor {
         grid-template-columns: repeat(2, 1fr);
-        /* mobile */
+        margin-right: 0rem;
+    }
+    
+    .doctorBox {
+        width: -webkit-fill-available;
     }
 }
 
