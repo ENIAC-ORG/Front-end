@@ -17,64 +17,63 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
 
-    - name: Install dependencies
-      run: |
-        until ( npm i -f ); do
-          echo "Retrying dependencies installation..."
-        done
+      - name: Install dependencies
+        run: |
+          until ( npm i -f ); do
+            echo "Retrying dependencies installation..."
+          done
 
-    - name: Install Cypress
-      run: npm install --save-dev cypress -f
+      - name: Install Cypress
+        run: npm install --save-dev cypress -f
 
-    - name: Start server and run Cypress tests
-      run: |
-        echo "Starting application server..."
-        npm run dev & # Run the server in the background
-        SERVER_PID=$! # Capture the process ID of the server
-        ps aux | grep 5173
-        for i in {1..5}; do
-          curl -s http://127.0.0.1:5173 > /dev/null && break
-          echo "Server not ready yet. Retrying in 3 seconds..."
-          sleep 3
-        done
-        echo "Waiting for server to be ready..."
-        echo "Running Cypress tests..."
-        npx cypress run || (kill $SERVER_PID && exit 1) # Run Cypress tests
-        kill $SERVER_PID # Stop the server after tests
-      env:
-        NODE_ENV: production
-  Deploy:  
-      needs: build-and-test  # Ensures that deploy job runs only if build job succeeds  
-      name: deploy  
-      runs-on: ubuntu-latest  
-      steps:  
-        - uses: actions/checkout@v2    
-        - name: Connect via SSH
-          uses: appleboy/ssh-action@master
-          with:
-            host: ${{ secrets.HOST }}
-            username: ${{ secrets.USERNAME }}
-            key: ${{ secrets.SSH_PRIVATE_KEY }}
-            port: ${{ secrets.PORT }}
-            script: |
-              cd /root/git/Back-end/BackEnd/
-              docker compose down
-              eval $(ssh-agent)
-              ssh-add /root/.ssh/github_frontend
-              cd /root/git/Front-end
-              git pull  
-              docker build -t react-build .
-              docker create --name temp-container react-build
-              rm -rf ./build
-              docker cp temp-container:/output ./build
-              docker rm temp-container
-              rm -rf /usr/share/nginx/html/*
-              sudo cp -r ./build/* /usr/share/nginx/html/
+      - name: Start server and run Cypress tests
+        run: |
+          echo "Starting application server..."
+          npm run dev & # Run the server in the background
+          SERVER_PID=$! # Capture the process ID of the server
+          ps aux | grep 5173
+          for i in {1..5}; do
+            curl -s http://127.0.0.1:5173 > /dev/null && break
+            echo "Server not ready yet. Retrying in 3 seconds..."
+            sleep 3
+          done
+          echo "Waiting for server to be ready..."
+          echo "Running Cypress tests..."
+          npx cypress run || (kill $SERVER_PID && exit 1) # Run Cypress tests
+          kill $SERVER_PID # Stop the server after tests
+        env:
+          NODE_ENV: production
+  Deploy:
+    needs: build-and-test # Ensures that deploy job runs only if build job succeeds
+    name: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Connect via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            eval $(ssh-agent)
+            ssh-add /root/.ssh/github_frontend
+            cd /root/git/Front-end
+            git pull  
+            docker build -t react-build .
+            docker create --name temp-container react-build
+            rm -rf ./build
+            docker cp temp-container:/output ./build
+            docker rm temp-container
+            rm -rf /usr/share/nginx/html/*
+            sudo cp -r ./build/* /usr/share/nginx/html/
+

@@ -313,7 +313,7 @@ const MBTITest = () => {
               >
                 {question}
               </h2>
-              <ul>
+              <ul data-testid="mbti-test">
                 {choices.map((choice, index) => (
                   <li
                     key={index}
