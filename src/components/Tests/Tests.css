@@ -234,7 +234,8 @@
         font-size: 3rem ;
     }
     .btn{
-        font-size: 70% !important;
+        font-size: 60% !important;
+
     }
     .TestName{
         font-size: 1.5rem !important;
@@ -252,8 +253,8 @@
         font-size: 1.5rem !important;
     }
     .btn{
-        scale: 50%;
-        font-size: 60% !important;
+        scale: 80%;
+        font-size: 90% !important;
     }
     .TestName-icon{
         font-size: 4rem ;
@@ -269,7 +270,7 @@
     }
     .btn{
         scale: 90%;
-        font-size: 57% !important;
+        font-size: 80% !important;
     }
     .TestName-icon{
         font-size: 4rem ;

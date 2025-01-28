@@ -148,9 +148,9 @@ const PHQ9Test = () => {
     } else {
       const updatedAnswersForBack = {};
       for (let i = 1; i < questions.length; i++) {
-        updatedAnswersForBack[i] = {
-          res: selectedAnswers[i] + 1,
-        };
+        updatedAnswersForBack[i] = 
+          selectedAnswers[i] + 1
+        ;
       }
       sendAnswersToBack(updatedAnswersForBack);
       // setShowResult(true);
@@ -224,6 +224,7 @@ const PHQ9Test = () => {
   };
 
   const showTheResult = () => {
+    navigate("/Home");
   };
 
   const addLeadingZero = (number) => (number > 9 ? number : `0${number}`);
@@ -378,7 +379,7 @@ const PHQ9Test = () => {
                   showResult
                     ? {
                       fontWeight: "bolder",
-                      color: "#9a94fb",
+                      color: "#15B392",
                       marginBottom: "33px",
                     }
                     : {}
@@ -402,7 +403,7 @@ const PHQ9Test = () => {
                 }}
                 onClick={showTheResult}
               >
-                دیدن نتایج
+                بازگشت به صفحه اصلی
               </button>
             </div>
           )}
