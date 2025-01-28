@@ -52,7 +52,7 @@ export default function Comments({ comments }) {
                     }}
                   >
                     <div>
-                      <div style={{ display: "flex", alignItems: "center" }}>
+                      <div style={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
                         <MDBTypography
                           tag="h5"
                           style={{ fontFamily: "Ios15Medium", marginRight: "10px", color: "#222222e0" }}

@@ -278,7 +278,7 @@ const GlasserTest = () => {
         <div
           className="glasser-quiz-container"
           style={
-            activeQuestion === 0 || showResult && maxWidth > "760px"
+            activeQuestion === 0 || showResult
               ? { marginTop: "4%", height: "70%" }
               : { marginTop: "2%" }
           }
