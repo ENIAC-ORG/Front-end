@@ -58,6 +58,7 @@
 .wrapper .header {
   display: flex;
   width: 200%;
+  background-color: transparent !important;
 }
 .wrapper .title {
   font-family: Ios15Medium;
