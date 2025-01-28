@@ -44,7 +44,7 @@ function App() {
           <Router.Route path="/Signup" element={<LoginContainer />}>
             {" "}
           </Router.Route>
-          <Router.Route path="/Landing" element={<Landing />}>
+          <Router.Route path="/blog" element={<Landing />}>
             {" "}
           </Router.Route>
           <Router.Route path="/AboutUs" element={<AboutUS />}>
