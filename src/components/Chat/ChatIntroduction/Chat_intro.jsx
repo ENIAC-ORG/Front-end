@@ -10,9 +10,8 @@ const Chat_Intro = () => {
   return (
     <>
       <div
-        className="my-4 py-5 row d-flex align-items-center justify-content-center bg-singlechat-custom ww"
+        className="my-4 py-5 row d-flex align-content-center bg-singlechat-custom ww"
         dir="rtl"
-        style={{paddingRight:"5rem"}}
       >
         <div className="col  singlechat-intro">
           <p className="col-12 mb-4 font-custom singlechat-title">

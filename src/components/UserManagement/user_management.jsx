@@ -4,6 +4,7 @@ import "./user_management.css";
 import { ToastContainer, toast } from "react-toastify";
 import axios from "axios";
 import NavBar_SideBar from "../SidebarNabar/NavBar_SideBar";
+import Footer from "../Footer/Footer";
 
 const UserManagement = () => {
   const [search, setSearch] = useState("");
@@ -16,13 +17,12 @@ const UserManagement = () => {
 
   const convertToPersianNumbers = (value) => {
     const persianNumbersMap = {
-      0: "۰", 1: "۱", 2: "۲", 3: "۳", 4: "۴", 5: "۵", 6: "۶", 7: "۷", 8: "۸", 9: "۹",
+      '0': '۰', '1': '۱', '2': '۲', '3': '۳', '4': '۴', '5': '۵', '6': '۶', '7': '۷', '8': '۸', '9': '۹',
     };
-
-    // Ensure value is a string before applying replace
-    return String(value).replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    if (value) {
+      return value.replace(/[0-9]/g, (char) => persianNumbersMap[char] || char);
+    }
   };
-
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
@@ -285,6 +285,8 @@ const UserManagement = () => {
     }
   };
 
+  
+
   const filteredUsers = users.filter(
     (user) =>
       user.firstname.toLowerCase().includes(search.toLowerCase()) ||
@@ -292,6 +294,7 @@ const UserManagement = () => {
       user.code.includes(search)
   );
 
+  
   return (
     <>
       <NavBar_SideBar />
@@ -342,7 +345,7 @@ const UserManagement = () => {
                   {user.lastname}
                 </td>
                 <td style={{ padding: "10px", borderBottom: "1px solid #ddd", fontFamily: "Ios15Medium" }}>
-                  {user.code}
+                  {user.code? convertToPersianNumbers(user.code) : "-"}
                 </td>
                 <td
                   style={{
@@ -439,6 +442,7 @@ const UserManagement = () => {
           </div>
         )}
       </div>
+      <Footer />
     </>
   );
 };

@@ -97,7 +97,6 @@ const DoctorsList = () => {
 
   const [doctorProfile, setDoctorProfile] = useState([]);
   useEffect(() => {
-    //  تابع برای دریافت اطلاعات پروفایل دکترها از بک‌اند
     const fetchDoctorProfile = async () => {
       try {
         const response = await axios.get(
@@ -112,18 +111,6 @@ const DoctorsList = () => {
     fetchDoctorProfile();
   }, []);
 
-
-
-  // const [Id, setId] = useState(0);
-  // const [name, setName] = useState("");
-  // const [Description, setDescription] = useState("");
-  // const [Image, setImage] = useState = useState("");
-  // const [ProfileType, setProfileType] = useState("");
-  // const [IsPrivate, setIsPrivate] = useState("");
-  // const [Psychiatrist, setPsychiatrist] = useState(0);
-
-
-
   const [doctorProfileFardi, setDoctorProfileFardi] = useState([]);
   useEffect(() => {
     const fetchDoctorProfileFardi = async () => {
@@ -137,7 +124,7 @@ const DoctorsList = () => {
           }
         );
         setDoctorProfileFardi(response1.data);
-        console.log(doctorProfileFardi);
+        // console.log(doctorProfileFardi);
       } catch (error) {
         console.error("Error fetching doctor profile:", error);
       }
@@ -217,7 +204,51 @@ const DoctorsList = () => {
       }
     };
     fetchDoctorProfileEdu();
-  });
+  }, []);
+
+  const [doctorProfileCoaching, setDoctorProfileCoaching] = useState([]);
+  useEffect(() => {
+    const fetchDoctorProfileCoaching = async () => {
+      try {
+        const response1 = await axios.get(
+          "https://eniacgroup.ir/backend/profile/doctors/typed/",
+          {
+            params: {
+              profile_type: "کوچینگ",
+            },
+          }
+        );
+        setDoctorProfileCoaching(response1.data);
+        // console.log(doctorProfileCoaching);
+      } catch (error) {
+        console.error("Error fetching doctor profile:", error);
+      }
+    };
+
+    fetchDoctorProfileCoaching();
+  }, []);
+
+  const [doctorProfilePsychiatry, setDoctorProfilePsychiatry] = useState([]);
+  useEffect(() => {
+    const fetchDoctorProfilePsychiatry = async () => {
+      try {
+        const response1 = await axios.get(
+          "https://eniacgroup.ir/backend/profile/doctors/typed/",
+          {
+            params: {
+              profile_type: "روان پزشکی",
+            },
+          }
+        );
+        setDoctorProfilePsychiatry(response1.data);
+        // console.log(doctorProfilePsychiatry);
+      } catch (error) {
+        console.error("Error fetching doctor profile:", error);
+      }
+    };
+
+    fetchDoctorProfilePsychiatry();
+  }, []);
 
   const settings = {
     className: "center",
@@ -240,7 +271,7 @@ const DoctorsList = () => {
   return (
     <>
       <NavBar_SideBar />
-      <div className="Doctor_List_body">
+      <div className="Doctor_List_body" style={{overflowX:"hidden"}}>
         <div className="DoctorList-background">
           <html>
             <head>
@@ -342,8 +373,8 @@ const DoctorsList = () => {
                 </div>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                {/* <div className="distanceBetweenDoctor">
-                      {doctorProfileFardi.map((index) => (
+                <div className="distanceBetweenDoctor">
+                      {doctorProfileCoaching.map((index) => (
                         <DoctorProfile
                           Id={index?.id}
                           name={index?.name}
@@ -354,7 +385,7 @@ const DoctorsList = () => {
                           Psychiatrist={index?.psychiatrist}
                         />
                       ))}
-                    </div> */}
+                    </div>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={5}>
                 {/* <div className="distanceBetweenDoctor">
@@ -370,6 +401,7 @@ const DoctorsList = () => {
                         />
                       ))}
                     </div> */}
+                    <h4 className="font-custom my-4">مشاوری در این زمینه موجود نیست!</h4>
               </CustomTabPanel>
             </div>
           </div>

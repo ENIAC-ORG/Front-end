@@ -88,16 +88,15 @@ const PatientsList = () => {
               data-wow-delay=".3s"
               style={{ maxWidth: "600px" }}
             >
-              <h1 style={{ fontFamily: "Ios15Medium" }}>مراجعین من</h1>
+              <h1 className="font-custom">مراجعین من</h1>
             </div>
             <div className="rtl-form">
               <form>
                 <div className="form-row">
                   <div className="col">
                     <input
-                      style={{fontFamily:"Ios15medium"}}
                       type="text"
-                      className="form-control"
+                      className="form-control font-custom"
                       placeholder="نام مراجع"
                       onChange={(e) => setInputName(e.target.value)}
                     />
@@ -119,14 +118,15 @@ const PatientsList = () => {
                   </div>
                 )}
               </div>
-              <div className="distanceBetween">
+              <div className="row justify-content-center g-1">
                 {Patients_data.map((index) => (
+                  <div className="col col-xl-3 col-lg-3 col-md-4 col-sm-6">
                   <Patient_Profile
                     PatiantId={index?.patient}
                     name={index?.name}
                     nationalID={index?.nationalID}
                     gender={index?.gender}
-                  />
+                  /></div>
                 ))}
               </div>
             </div>

@@ -18,7 +18,7 @@
 }
 
 .Doctor_List_body h1 {
-    font-family: Ios15Medium;
+    font-family: SahelBold;
     font-size: 32px;
     padding: 25px;
 }
@@ -30,7 +30,7 @@
 .doctorBox {
     direction: rtl;
     justify-self: center;
-    width: -webkit-fill-available;
+    width: fit-content;
     background: rgba(255, 255, 255, 0.3);
     padding: 1rem;
     border-radius: 20px;
@@ -43,6 +43,12 @@
     transition: all 0.2s ease-in-out;
     box-sizing: border-box;
     margin-bottom: 60px;
+}
+
+@media (max-width: 547px) {
+    .doctorBox {
+        width: -webkit-fill-available;
+    }
 }
 
 .tabs {

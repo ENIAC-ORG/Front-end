@@ -4,10 +4,13 @@
     font-family: Ios15Medium;
     color: gray;
 }
+.home-custom-g {
+    gap: 0rem;
+}
 .doctor_h3{
     direction: rtl;
     font-size: 50px;
-    font-family: Ios15Medium;
+    font-family: SahelBold;
     color: gray;
 }
 .recom_text{
@@ -24,4 +27,93 @@
     padding-right: 5%;
     
   }
+.recom_button_home{
+    scale: 80%;
+    margin-left: 1rem;
+}
+
+
+
   
+@media only screen and (max-width: 500px) {
+    .doctor_h3{
+        font-size: 26px;
+    }
+    .doctor_h2{
+        font-size:17px ;
+    }
+    .recom_text{
+        font-size: 17px;
+    }
+    .recom_button_home{
+        scale: 70%;
+        margin-left: 0rem;
+    }
+
+  }
+  
+  
+  @media only screen and (min-width: 500px) {
+    .doctor_h3{
+        font-size: 30px;
+    }
+    .doctor_h2{
+        font-size:21px ;
+    }
+    .recom_text{
+        font-size: 21px;
+    }
+    .recom_button_home{
+        scale: 70%;
+        margin-left: 0rem;
+    }
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .doctor_h3{
+        font-size: 26px;
+    }
+    .doctor_h2{
+        font-size:17px ;
+    }
+    .recom_text{
+        font-size: 17px;
+    }
+    .recom_button_home{
+        scale: 70%;
+        margin-left: 0rem;
+
+    }
+  }
+  
+  @media only screen and (min-width: 992px) {
+    .doctor_h3{
+        font-size: 35px;
+    }
+    .doctor_h2{
+        font-size:24px ;
+    }
+    .recom_text{
+        font-size: 21px;
+    }
+    .recom_button_home{
+        scale: 75%;
+        margin-left: 0rem;
+    }
+  }
+  
+  @media only screen and (min-width: 1200px) {
+    .doctor_h3{
+        font-size: 35px;
+    }
+    .doctor_h2{
+        font-size:24px ;
+    }
+    .recom_text{
+        font-size: 21px;
+    }
+    .recom_button_home{
+        scale: 80%;
+        margin-left: 1rem;
+    }
+  }

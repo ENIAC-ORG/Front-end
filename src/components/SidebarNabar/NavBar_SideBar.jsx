@@ -6,7 +6,7 @@ import { GrContactInfo } from "react-icons/gr";
 import { PiNotepadLight } from "react-icons/pi";
 import { FaBars, FaBell, FaUserCircle } from "react-icons/fa";
 import { MdOutlineMoreTime } from "react-icons/md";
-import { FaStar } from "react-icons/fa";
+import { FaStar , FaPenNib  } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { IoIosAlarm, IoIosAlbums, IoIosStar, IoMdChatbubbles, IoIosPaper } from "react-icons/io";
 import { IoLogoWechat } from "react-icons/io5";
@@ -395,6 +395,16 @@ const NavBar_SideBar = () => {
             ) : (
               <></>
             )}
+            <li
+                className={styles1.side_list_element}
+                onClick={(e) => {
+                  navigate("/blog");
+                }}
+              >
+                <label href="" className={styles1.side_list_element_text}>
+                  <FaPenNib  className={styles1.side_icons} /> بلاگ
+                </label>
+              </li>
           </ul>
         </div>
       </div>

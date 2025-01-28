@@ -221,19 +221,18 @@ const MBTITest = () => {
   };
 
   const showTheResult = () => {
-    console.log(mbtiResult);
     Swal.fire({
       icon: "info",
       title: "نتیجۀ تست شخصیت‌شناسی شما",
       html: mbtiResult,
-      background: "#075662",
-      color: "#fff",
+      background: "#1e596b",
+      color: "#b2deeb",
       width: "35rem",
       backdrop: `
           rgba(84, 75, 87.0.9)
           left top
           no-repeat`,
-      confirmButtonColor: "#0a8ca0",
+      confirmButtonColor: "#24a9c4",
       // showCancelButton: true,
       confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
       // cancelButtonText: "صفحۀ اصلی",
@@ -394,7 +393,7 @@ const MBTITest = () => {
                   showResult
                     ? {
                         fontWeight: "bolder",
-                        color: "#9a94fb",
+                        color: "#15B392",
                         marginBottom: "33px",
                       }
                     : {}
@@ -411,7 +410,7 @@ const MBTITest = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "120px",
+                  marginTop: "0px",
                   marginRight: "34%",
                 }}
                 onClick={showTheResult}

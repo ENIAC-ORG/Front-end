@@ -246,13 +246,12 @@ const GlasserTest = () => {
           <p>قدرت: ${convertToPersianNumbers(glasserResult["power"])} از ۵</p>
           <p>سرگرمی: ${convertToPersianNumbers(glasserResult["fun"])} از ۵</p>
         `,
-      background: "#473a67",
-      color: "#b4b3b3",
+      background: "#1e596b",
+      color: "#b2deeb",
       width: "26rem",
       height: "18rem",
-      // showCancelButton: true,
       confirmButtonText: "تایید و رفتن به صفحۀ اصلی",
-      // cancelButtonText: "صفحۀ اصلی",
+      confirmButtonColor:"#24a9c4",
       customClass: {
         container: "custom-swal-container",
       },
@@ -278,7 +277,7 @@ const GlasserTest = () => {
         <div
           className="glasser-quiz-container"
           style={
-            activeQuestion === 0 || showResult && maxWidth > "760px"
+            activeQuestion === 0 || showResult
               ? { marginTop: "4%", height: "70%" }
               : { marginTop: "2%" }
           }
@@ -415,7 +414,7 @@ const GlasserTest = () => {
                   showResult
                     ? {
                         fontWeight: "bolder",
-                        color: "#9a94fb",
+                        color: "#15B392",
                         marginBottom: "33px",
                       }
                     : {}
@@ -434,7 +433,7 @@ const GlasserTest = () => {
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
-                  marginTop: "120px",
+                  marginTop: "0px",
                   marginRight: "34%",
                 }}
                 onClick={showTheResult}
