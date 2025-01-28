@@ -362,7 +362,7 @@ const RecommendationPage = () => {
                 {questions[activeQuestion].question}
               </h3>
               <div align="center">
-                <ul className="row d-flex justify-content-center align-items-stretch">
+                <ul className="row d-flex justify-content-end align-items-stretch">
                   {questions[activeQuestion].choices.map((choice, index) => (
                     <li
                       key={index}
@@ -555,7 +555,13 @@ const RecommendationPage = () => {
                 ""
               )}
 
-              <div className="button-group row font-custom">
+              <div className="button-group row font-custom"
+                   style={
+                    activeQuestion === 0
+                      ? { flexWrap: "nowrap" } 
+                      : { flexWrap: "wrap" } 
+                   }
+              >
                 <div className="col">
                   <button
                     type="button"
@@ -597,7 +603,7 @@ const RecommendationPage = () => {
                     </button>
                   )}
                 </div>
-                <div className="col">
+                <div className="col cancel-button-phone">
                   <button
                     className="button-cancel-style bottom-cancel-button-hover font-custom"
                     type="button"
@@ -634,7 +640,6 @@ const RecommendationPage = () => {
               <div className="distanceBetweenDoctor">
                 {doctorProfile?.length > 0 ? (
                   doctorProfile.map((index) => (
-
                     <DoctorProfile
                       Id={index?.psychologist_id}
                       name={index?.psychologist_name}
