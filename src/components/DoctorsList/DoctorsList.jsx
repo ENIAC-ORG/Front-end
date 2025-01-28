@@ -204,7 +204,7 @@ const DoctorsList = () => {
       }
     };
     fetchDoctorProfileEdu();
-  });
+  }, []);
 
   const [doctorProfileCoaching, setDoctorProfileCoaching] = useState([]);
   useEffect(() => {
@@ -271,7 +271,7 @@ const DoctorsList = () => {
   return (
     <>
       <NavBar_SideBar />
-      <div className="Doctor_List_body">
+      <div className="Doctor_List_body" style={{overflowX:"hidden"}}>
         <div className="DoctorList-background">
           <html>
             <head>
@@ -401,6 +401,7 @@ const DoctorsList = () => {
                         />
                       ))}
                     </div> */}
+                    <h4 className="font-custom my-4">مشاوری در این زمینه موجود نیست!</h4>
               </CustomTabPanel>
             </div>
           </div>
