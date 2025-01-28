@@ -145,7 +145,7 @@ const Patient_Panel = () => {
           </div>
         </div>
         <div
-          className="row rounded-4 p-5 mx-1 patient-panel-bg"
+          className="row rounded-4 p-5 mx-1 patient-panel-bg  justify-content-center"
           style={{ minWidth: "300px" }}
           dir="rtl"
         >

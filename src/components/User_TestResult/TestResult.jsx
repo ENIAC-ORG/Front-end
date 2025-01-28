@@ -176,11 +176,11 @@ const Testresult = () => {
             rel="stylesheet"
           />
           <div className="container bootstrap snippets bootdey">
-            <div className="row">
+            <div className="row justify-content-center">
               <div className="col-md-0" style={{ marginTop: "20px" }}>
                 <div className="panel" style={{ direction: "rtl" }}>
-                  <div className="d-flex flex-row patient-panel-title mb-3">
-                    <h1 className="font-custom">نتایج تست های شما</h1>
+                  <div className=" mb-3">
+                    <h1 className="font-custom text-center">نتایج تست های شما</h1>
                   </div>
                   <div className="patient-panel-res">
                     <div className="col col-md-5 col-s-12 patient-panel-res_card">
