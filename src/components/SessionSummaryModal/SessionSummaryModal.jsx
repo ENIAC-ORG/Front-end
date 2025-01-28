@@ -9,12 +9,13 @@ import "./SessionSummaryModal.css";
 import { TextField } from "@material-ui/core";
 
 
-const SessionSummaryModal = ({ PatiantId }) => {
+const SessionSummaryModal = ({ PatiantId, MyDate, ReservationId }) => {
 
     const [showModal, setShowModal] = useState(false);
     const [sessionSummary, setSessionSummary] = useState("");
     const [showSummary, setShowSummary] = useState(false);
-    
+    const [savedSummary, setSavedSummary] = useState("");
+    const [loading, setLoading] = useState(false);
 
     // useEffect(() => {
     //     if (show) {
@@ -53,38 +54,109 @@ const SessionSummaryModal = ({ PatiantId }) => {
     //         setError(err.message);
     //     }
     // };
-    console.log(showModal);
+
+    const handleSaveSummary = async () => {
+        if (!sessionSummary.trim()) {
+            toast.error("لطفاً خلاصه جلسه را وارد کنید!", {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+            return;
+        }
+
+        setLoading(true);
+        try {
+            const token = localStorage.getItem("accessToken");
+            const apiUrl = `https://eniacgroup.ir/backend/reserve/feedback/${ReservationId}/`;
+
+            const response = await axios.post(
+                apiUrl,
+                { feedback: sessionSummary },
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            console.log(response);
+            
+            if (response.status === 200 || response.status === 201) {
+                setSavedSummary(sessionSummary);
+                toast.success("خلاصه جلسه با موفقیت ثبت شد!", {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            } else {
+                toast.error("مشکلی در ثبت خلاصه جلسه پیش آمد!", {
+                    position: "bottom-left",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                });
+            }
+        } catch (error) {
+            console.error("Error submitting feedback:", error);
+            toast.error("خطا در ارتباط با سرور. لطفاً دوباره تلاش کنید.", {
+                position: "bottom-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleInputChange = (event) => {
         setSessionSummary(event.target.value);
     };
 
-    const handleSaveSummary = () => {
-        // اینجا می‌توانید متن خلاصه را ذخیره کنید یا هر کاری که می‌خواهید انجام دهید
-        // مثلا ارسال به API یا ذخیره محلی
-        console.log("خلاصه ذخیره شد:", sessionSummary);
-        setShowSummary(true);
-        toast.success("خلاصه جلسه با موفقیت ثبت شد!", {
-            position: "bottom-left",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-    };
+    // const handleSaveSummary = () => {
+    //     setSavedSummary(sessionSummary);
+    //     // اینجا می‌توانید متن خلاصه را ذخیره کنید یا هر کاری که می‌خواهید انجام دهید
+    //     // مثلا ارسال به API یا ذخیره محلی
+    //     // console.log("خلاصه ذخیره شد:", sessionSummary);
+    //     setShowSummary(true);
+    //     toast.success("خلاصه جلسه با موفقیت ثبت شد!", {
+    //         position: "bottom-left",
+    //         autoClose: 3000,
+    //         hideProgressBar: false,
+    //         closeOnClick: true,
+    //         pauseOnHover: true,
+    //         draggable: true,
+    //         progress: undefined,
+    //     });
+    // };
+
+    const today = new Date().toISOString().split('T')[0];
+
+    // console.log(showSummary);
 
     return (
         <>
             <div style={{ fontFamily: "Ios15Medium" }}
                 onClick={() => setShowModal(true)}>
                 <button
-                    className="button-24"
+                    className="button-summary"
                     role="button"
-                    style={{ fontFamily: "Ios15Medium" }}
+                    style={{ fontFamily: "Ios15Medium", cursor: MyDate === today ? "pointer" : "not-allowed" }}
+                    disabled={MyDate !== today}
+                    title={MyDate !== today ? "ثبت خلاصه جلسه فقط در روزِ نوبتِ رزرو شده فعال است." : ""}
                 >
-                    خلاصه
+                    ثبت خلاصه
                 </button>
             </div>
 
@@ -110,13 +182,14 @@ const SessionSummaryModal = ({ PatiantId }) => {
                     <Modal.Title className="text-header">خلاصه جلسه</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    {/* <p style={{ fontFamily: "Ios15Medium", textAlign: "justify" }}>
-                        امروز درباره خاطرات ناراحت کننده بچگیش صحبت کردیم
-                    </p> */}
-                    {showSummary &&
-                        <p style={{ fontFamily: "Ios15Medium", textAlign: "center", color:"#829089" }}>
-                        {sessionSummary || "خلاصه‌ای ثبت نشده است."}
-                    </p>
+                    {savedSummary ? (
+                        <p style={{ fontFamily: "Ios15Medium", textAlign: "center", color: "#829089" }}>
+                            {savedSummary}
+                        </p>
+                    ) : (
+                        <p style={{ fontFamily: "Ios15Medium", textAlign: "center", color: "#829089" }}>
+                            "خلاصه‌ای ثبت نشده است."
+                        </p>)
                     }
 
                     <TextField
@@ -134,14 +207,15 @@ const SessionSummaryModal = ({ PatiantId }) => {
                         className="textbox-other"
                         style={{ marginBottom: "10px" }}
                     />
-                    <div style={{ fontFamily: "Ios15Medium", textAlign:'center' }}
-                        onClick={handleSaveSummary}>
+                    <div style={{ fontFamily: "Ios15Medium", textAlign: 'center' }}
+                        onClick={handleSaveSummary}
+                        disabled={loading}>
                         <button
                             className="button-24"
                             role="button"
                             style={{ fontFamily: "Ios15Medium" }}
                         >
-                            ثبت
+                            {loading ? "در حال ثبت..." : "ثبت"}
                         </button>
                     </div>
                 </Modal.Body>

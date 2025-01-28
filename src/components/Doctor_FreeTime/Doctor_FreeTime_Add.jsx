@@ -173,7 +173,7 @@ const Doctor_FreeTime_Add = () => {
             Authorization: `Bearer ${token}`,
           },
           data: {
-            month: MONTHs[utils().getToday().month - 1],
+            month: MONTHs[utils().getToday().month],
             day: weekdays[selectedDayweek],
             time: selectedTimes.join(","),
           },
@@ -205,6 +205,17 @@ const Doctor_FreeTime_Add = () => {
         });
       }
     } catch (error) {
+      if(error.response.data.error == "Free times already exist for this date. Use UpdateFreeTime to modify existing times.")
+        toast.error("!به علت وجود وقت، باید ویرایش کنید", {
+          position: "bottom-left",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        else
       toast.error("ثبت موفقیت آمیز نبود، رفرش کنید", {
         position: "bottom-left",
         autoClose: 3000,
@@ -221,7 +232,7 @@ const Doctor_FreeTime_Add = () => {
   return (
     <>
 
-          <div className="row">
+          <div className="row justify-content-center">
             <div
               className={
                 "row  " + (sel_hours.length == 0 ? "col-12" : "col-md-9 col-lg-9 col-sm-9 col-xsm-12")

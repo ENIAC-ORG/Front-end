@@ -142,6 +142,7 @@
 @media only screen and (min-width: 768px) {
     .ww{
         flex-direction: row;
+        padding-right: 5rem;
     }
     .singlechat-p3{
         gap: 4rem;

@@ -147,7 +147,7 @@ function ChangePassword({ p_pages }) {
     }
   }
   return (
-    <div className="panel" style={{ direction: "rtl", width: '770px' }}>
+    <div className="panelPassword" style={{ direction: "rtl" }}>
       <div
         className="panel-body bio-graph-info"
         style={p_pages == 3 ? { display: "inline-block" } : { display: "none" }}

@@ -203,6 +203,7 @@ const Doctor_FreeTime_Edit = () => {
 
   const handleWeekDay = (index) => {
     setSelectedDayweek((prev) => (prev == index ? -1 : index));
+    console.log(index);
     const arr = [];
     initialTimes
       .filter((x) => x.day == intialDays[index].label)
@@ -217,7 +218,7 @@ const Doctor_FreeTime_Edit = () => {
 
   return (
     <>
-      <div className="row">
+      <div className="row justify-content-center">
         <div
           className={
             "row  " +

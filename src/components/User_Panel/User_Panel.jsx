@@ -23,10 +23,10 @@ import Footer from "../Footer/Footer";
 
 const User_Panel = () => {
 
-function toPersianDigits(str) {
-  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
-  return str.replace(/\d/g, (digit) => persianDigits[digit]);
-}
+  function toPersianDigits(str) {
+    const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+    return str.replace(/\d/g, (digit) => persianDigits[digit]);
+  }
 
   const navigate = useNavigate();
   const [pages, setdisplay] = useState(1);
@@ -118,206 +118,206 @@ function toPersianDigits(str) {
 
   return (
     <>
-    <NavBar_SideBar />
-    <body style={{ display:'grid' }}>
-      <div
-        className="prof_body"
-        style={pages == 2 ? { paddingTop: "1.5%" } : {}}
-        onLoad={GetUserInfo}
-      >
-        <div className="prof_Box">
-          <link
-            href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
-            rel="stylesheet"
-          />
-          <div className="container bootstrap snippets bootdey">
-            <div className="row">
-              <div className="profile-nav col-md-3">
-                <div className="panel">
-                  <div className="user-heading round">
-                    <a href="#">
-                      <img
-                        src={
-                          user_info.Gender == "M" ? male_avatar :
-                            user_info.Gender == "F" ? female_avatar :
-                              nogender_avatar
-                        }
-                        alt="Avatar"
-                      />
-                    </a>
-                    <br />
-                    <br />
-                    <h1>
-                      {user_info.FirstName} {user_info.LastName}
-                    </h1>
-                    <p>{user_info.Email}</p>
-                  </div>
+      <NavBar_SideBar />
+      <div className="UserPanelBody">
+        <div
+          className="prof_body"
+          style={pages == 2 ? { paddingTop: "1.5%" } : {}}
+          onLoad={GetUserInfo}
+        >
+          <div className="prof_Box">
+            <link
+              href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+              rel="stylesheet"
+            />
+            <div className="container bootstrap snippets bootdey">
+              <div className="row">
+                <div className="profile-nav col-md-3">
+                  <div className="panel">
+                    <div className="user-heading round">
+                      <a href="#">
+                        <img
+                          src={
+                            user_info.Gender == "M" ? male_avatar :
+                              user_info.Gender == "F" ? female_avatar :
+                                nogender_avatar
+                          }
+                          alt="Avatar"
+                        />
+                      </a>
+                      <br />
+                      <br />
+                      <h1>
+                        {user_info.FirstName} {user_info.LastName}
+                      </h1>
+                      <p>{user_info.Email}</p>
+                    </div>
 
-                  <ul className="nav nav-pills nav-stacked">
-                    <li
-                      className="active"
-                      onClick={(e) => {
-                        setdisplay(1);
-                      }}
-                    >
-                      <label
-                        href=""
-                        style={
-                          pages == 1
-                            ? {
-                              background: "#f8f7f5",
-                              borderLeft: "5px solid #55AD9B",
-                              color: " #89817f",
-                              width: "100%",
-                            }
-                            : {}
-                        }
+                    <ul className="nav nav-pills nav-stacked">
+                      <li
+                        className="active"
+                        onClick={(e) => {
+                          setdisplay(1);
+                        }}
                       >
-                        {" "}
-                        <i
-                          className="fa fa-user"
+                        <label
+                          href=""
                           style={
                             pages == 1
-                              ? { color: "#55AD9B" }
-                              : { color: "#89817f" }
+                              ? {
+                                background: "#f8f7f5",
+                                borderLeft: "5px solid #55AD9B",
+                                color: " #89817f",
+                                width: "100%",
+                              }
+                              : {}
                           }
-                        />
-                        اطلاعات شخصی
-                      </label>
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        setdisplay(2);
-                      }}
-                    >
-                      <label
-                        href=""
-                        style={
-                          pages == 2
-                            ? {
-                              background: "#f8f7f5",
-                              borderLeft: "5px solid #55AD9B",
-                              color: " #89817f",
-                              width: "100%",
+                        >
+                          {" "}
+                          <i
+                            className="fa fa-user"
+                            style={
+                              pages == 1
+                                ? { color: "#55AD9B" }
+                                : { color: "#89817f" }
                             }
-                            : {}
-                        }
+                          />
+                          اطلاعات شخصی
+                        </label>
+                      </li>
+                      <li
+                        onClick={(e) => {
+                          setdisplay(2);
+                        }}
                       >
-                        {" "}
-                        <i
-                          className="fa fa-edit"
+                        <label
+                          href=""
                           style={
                             pages == 2
-                              ? { color: "#55AD9B" }
-                              : { color: "#89817f" }
+                              ? {
+                                background: "#f8f7f5",
+                                borderLeft: "5px solid #55AD9B",
+                                color: " #89817f",
+                                width: "100%",
+                              }
+                              : {}
                           }
-                        />{" "}
-                        اعمال تغییرات
-                      </label>
-                    </li>
-                    <li onClick={(e) => setdisplay(3)}>
-                      <label
-                        href=""
-                        style={
-                          pages == 3
-                            ? {
-                              background: "#f8f7f5",
-                              borderLeft: "5px solid #55AD9B",
-                              color: " #89817f",
-                              width: "100%",
+                        >
+                          {" "}
+                          <i
+                            className="fa fa-edit"
+                            style={
+                              pages == 2
+                                ? { color: "#55AD9B" }
+                                : { color: "#89817f" }
                             }
-                            : {}
-                        }
-                      >
-                        {" "}
-                        <i
-                          className="fa fa-key"
+                          />{" "}
+                          اعمال تغییرات
+                        </label>
+                      </li>
+                      <li onClick={(e) => setdisplay(3)}>
+                        <label
+                          href=""
                           style={
                             pages == 3
-                              ? { color: "#55AD9B" }
-                              : { color: "#89817f" }
+                              ? {
+                                background: "#f8f7f5",
+                                borderLeft: "5px solid #55AD9B",
+                                color: " #89817f",
+                                width: "100%",
+                              }
+                              : {}
                           }
-                        />{" "}
-                        تغییر رمز عبور
-                      </label>
-                    </li>
-                  </ul>
+                        >
+                          {" "}
+                          <i
+                            className="fa fa-key"
+                            style={
+                              pages == 3
+                                ? { color: "#55AD9B" }
+                                : { color: "#89817f" }
+                            }
+                          />{" "}
+                          تغییر رمز عبور
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="col-md-9" style={{ marginTop: "20px" }}>
-                <div className="panel" style={{ direction: "rtl" }}>
-                  <div
-                    className="panel-body bio-graph-info"
-                    style={
-                      pages == 1
-                        ? { display: "inline-block" }
-                        : { display: "none" }
-                    }
-                  >
-                    <h1>اطلاعات شخصی</h1>
-                    <div className="row">
-                      <div className="bio-row">
-                        <p>
-                          <MdDriveFileRenameOutline
-                            style={{ color: "#489182" }}
-                          />
-                          <span>نام </span>: {user_info.FirstName}
-                        </p>
-                      </div>
-                      <div className="bio-row">
-                        <p>
-                          <MdDriveFileRenameOutline
-                            style={{ color: "#489182" }}
-                          />
-                          <span>نام خانوادگی </span>: {user_info.LastName}
-                        </p>
-                      </div>
-                      <div className="bio-row">
-                        <p>
-                          <TbGenderBigender style={{ color: "#489182" }} />
-                          <span>جنسیت</span>:{" "}
-                          {user_info.Gender === "F"
-                            ? "مونث"
-                            : user_info.Gender === "M"
-                              ? "مذکر"
-                              : "نامشخص"}
-                        </p>
-                      </div>
-                      <div className="bio-row">
-                        <p>
-                          <FaRegCalendarDays style={{ color: "#489182" }} />
-                          <span>تاریخ تولد</span>:{" "}
-                          {toPersianDigits(date.format("YYYY/MM/DD"))}
-                        </p>
-                      </div>
-                      <div className="bio-row">
-                        <p>
-                          <FaPhoneFlip style={{ color: "#489182" }} />
-                          <span>شماره همراه </span>: {toPersianDigits(user_info.PhoneNumber)}
-                        </p>
-                      </div>
-                      <div className="bio-row">
-                        <p>
-                          <MdAlternateEmail style={{ color: "#489182" }} />
-                          <span>ایمیل </span>: {user_info.Email}
-                        </p>
+                <div className="col-md-9" style={{ marginTop: "20px" }}>
+                  <div className="panel" style={{ direction: "rtl" }}>
+                    <div
+                      className="panel-body bio-graph-info"
+                      style={
+                        pages == 1
+                          ? { display: "inline-block" }
+                          : { display: "none" }
+                      }
+                    >
+                      <h1>اطلاعات شخصی</h1>
+                      <div className="row">
+                        <div className="bio-row">
+                          <p>
+                            <MdDriveFileRenameOutline
+                              style={{ color: "#489182" }}
+                            />
+                            <span>نام </span>: {user_info.FirstName}
+                          </p>
+                        </div>
+                        <div className="bio-row">
+                          <p>
+                            <MdDriveFileRenameOutline
+                              style={{ color: "#489182" }}
+                            />
+                            <span>نام خانوادگی </span>: {user_info.LastName}
+                          </p>
+                        </div>
+                        <div className="bio-row">
+                          <p>
+                            <TbGenderBigender style={{ color: "#489182" }} />
+                            <span>جنسیت</span>:{" "}
+                            {user_info.Gender === "F"
+                              ? "مونث"
+                              : user_info.Gender === "M"
+                                ? "مذکر"
+                                : "نامشخص"}
+                          </p>
+                        </div>
+                        <div className="bio-row">
+                          <p>
+                            <FaRegCalendarDays style={{ color: "#489182" }} />
+                            <span>تاریخ تولد</span>:{" "}
+                            {toPersianDigits(date.format("YYYY/MM/DD"))}
+                          </p>
+                        </div>
+                        <div className="bio-row">
+                          <p>
+                            <FaPhoneFlip style={{ color: "#489182" }} />
+                            <span>شماره همراه </span>: {toPersianDigits(user_info.PhoneNumber)}
+                          </p>
+                        </div>
+                        <div className="bio-row">
+                          <p>
+                            <MdAlternateEmail style={{ color: "#489182" }} />
+                            <span>ایمیل </span>: {user_info.Email}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
+                  <ChangeInformation
+                    p_pages={pages}
+                    user_info={user_info}
+                    setinfo={setinfo}
+                  />
+                  <ChangePassword p_pages={pages} />
                 </div>
-                <ChangeInformation
-                  p_pages={pages}
-                  user_info={user_info}
-                  setinfo={setinfo}
-                />
-                <ChangePassword p_pages={pages} />
               </div>
             </div>
           </div>
         </div>
       </div>
       <Footer />
-      </body>
     </>
   );
 };

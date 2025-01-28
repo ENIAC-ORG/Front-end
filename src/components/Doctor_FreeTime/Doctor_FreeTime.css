@@ -1,6 +1,8 @@
 .ft_body {
   background: linear-gradient(62deg, #D8EFD3 0%, #e1be7b 100%) no-repeat;
   padding: 2.5%;
+  margin-left: 0%;
+  margin-right: 0%;
 }
 
 .ft_Box {
@@ -9,6 +11,7 @@
   border-radius: 35px;
   height: 100%;
   width: 90%;
+  max-width: 100%;
   background: rgba(255, 255, 255, 0.4);
 }
 
@@ -169,4 +172,11 @@ input[type="radio"] {
   transition: border-color 0.3s ease;
   color: #4f9e32;
   caret-color: #4f9e32;
+}
+
+@media (max-width: 768px) {
+  .row > * {
+      width: 100%;
+      max-width: 100%;
+    }
 }

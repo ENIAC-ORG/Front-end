@@ -15,10 +15,9 @@
     color: gray;
   }
 
-.form-control {
-    &::selection {
-        border-color: #369A7E;
-    }
+
+.form-control:focus{
+    border-color: #369A7E !important;
 }
 
  .patientsList_notfound {
@@ -29,13 +28,13 @@
     outline: none;
     margin-top: 7px;
     padding-left: 15px;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     border: none;
     font-size: 20px;
     font-weight: bold;
     transition: border-color 0.3s ease;
-    color: #bba2f7;
-    caret-color: #bba2f7;
+    color: #369A7E;
+    caret-color: #369A7E;
   }
 
 #spinner.show {
@@ -741,48 +740,6 @@
     font-family: Ios15Medium;
 }
 
-.distanceBetween {
-    /* display: flex;
-    flex-direction: row;
-    gap: 2rem;
-    justify-content: center;
-    flex-wrap: nowrap; */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
-}
-
-/* @media (max-width: 800px) {
-    .distanceBetween {
-        flex-direction: column;
-    }
-} */
-
-@media (max-width: 900px) {
-    .distanceBetween {
-      grid-template-columns: repeat(3, 1fr); /* tablet */
-    }
-  }
-
-@media (max-width: 710px) {
-    .distanceBetween {
-      grid-template-columns: repeat(2, 1fr); /* tablet */
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .distanceBetween {
-      grid-template-columns: repeat(2, 1fr); /* mobile */
-    }
-  }
-
-/* .buttonReserve {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: space-around;
-    margin-left: 40px;
-    margin-right: -110px;
-} */
 
 .colour-block {
     background: #AEE2FF;
