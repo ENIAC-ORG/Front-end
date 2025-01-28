@@ -16,8 +16,8 @@ const Landing = () => {
       <NavBar_SideBar />
       <div className="row d-flex justify-content-center align-self-center">
         <div className="col-6 starter_text" dir="rtl">
-          <p className="p-5 ">
-            <h2 className="color-h1">به اینیاک خوش آمدید!</h2>
+          <p className="p-5 fotn-custom ">
+            <h2 className="color-h1 font-title">به اینیاک خوش آمدید!</h2>
             <hr />
             ایناک، کلینیک تخصصی در حوزه سلامت روان، با هدف ایجاد آرامش و بهبود
             کیفیت زندگی شما راه‌اندازی شده است. در اینیاک می‌توانید با انجام
@@ -58,7 +58,7 @@ const Landing = () => {
               />
             </div>
             <div className="card-body bg-D8EFD3" dir="rtl">
-              <h4 className="font-Ios fs-1 color-h1">
+              <h4 className="font-Ios fs-1 color-h1 font-title">
                 پزشک مورد نیاز شما، در کمترین زمان ممکن!
               </h4>
               <p className="card-text pe-4">
@@ -80,7 +80,7 @@ const Landing = () => {
         <div className="card-group vgr-cards mb-5">
           <div className="card border-0 ">
             <div className="card-body bg-D8EFD3 pe-4" dir="rtl">
-              <h4 className="color-h1 mt-5 font-Ios fs-1 ">
+              <h4 className="color-h1 mt-5 font-Ios fs-1 font-title">
                 یک قدم تا آرامش ذهنی؛ همین حالا وقت مشاوره خود را آنلاین رزرو
                 کنید!
               </h4>
@@ -114,7 +114,7 @@ const Landing = () => {
               />
             </div>
             <div className="card-body bg-D8EFD3" dir="rtl">
-              <h4 className="mt-5 font-Ios fs-1 color-h1">
+              <h4 className="mt-5 font-Ios fs-1 color-h1 font-title">
                 تست‌های روان‌شناسی اینیاک: اولین گام به سوی شناخت بهتر خود و
                 آرامش ذهنی!
               </h4>
@@ -133,7 +133,7 @@ const Landing = () => {
         <div className="card-group vgr-cards mb-5 mt-5">
           <div className="card border-0 ">
             <div className="card-body bg-D8EFD3 pe-4" dir="rtl">
-              <h4 className="color-h1 mt-5 font-Ios fs-1 ">
+              <h4 className="color-h1 mt-5 font-Ios fs-1 font-title">
                 دکترهای متخصص روان‌شناسی، همیشه در دسترس شما!
               </h4>
               <p className="card-text pe-4">
