@@ -17,7 +17,7 @@ import { message } from "antd";
 // Helper function to format the time (hour and minute) from created_at to Tehran time
 function formatTime(date) {
     const d = new Date(date);
-    const tehranOffset = 7 * 60;
+    const tehranOffset = 11 * 60;
     const localOffset = d.getTimezoneOffset();
     d.setMinutes(d.getMinutes() + localOffset + tehranOffset);
     const hours = d.getHours().toString().padStart(2, '0');
