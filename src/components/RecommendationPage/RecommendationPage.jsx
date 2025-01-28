@@ -362,7 +362,7 @@ const RecommendationPage = () => {
                 {questions[activeQuestion].question}
               </h3>
               <div align="center">
-                <ul className="row d-flex justify-content-end align-items-stretch">
+                <ul className="row d-flex justify-content-center align-items-stretch">
                   {questions[activeQuestion].choices.map((choice, index) => (
                     <li
                       key={index}
