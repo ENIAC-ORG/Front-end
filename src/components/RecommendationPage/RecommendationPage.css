@@ -136,7 +136,7 @@
 }
 
 
-.distanceBetweenDoctor {
+.distanceBetweenDoctorRecomm {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 1rem;
@@ -144,22 +144,31 @@
 }
 
 @media (max-width: 900px) {
-    .distanceBetweenDoctor {
+    .distanceBetweenDoctorRecomm {
         grid-template-columns: repeat(3, 1fr);
         /* tablet */
     }
 }
 
 @media (max-width: 710px) {
-    .distanceBetweenDoctor {
+    .distanceBetweenDoctorRecomm {
         grid-template-columns: repeat(2, 1fr);
+        justify-self: center;
         /* tablet */
     }
 }
 
 @media (max-width: 480px) {
-    .distanceBetweenDoctor {
+    .distanceBetweenDoctorRecomm {
         grid-template-columns: repeat(2, 1fr);
+        /* mobile */
+    }
+}
+
+@media (max-width: 450px) {
+    .distanceBetweenDoctorRecomm {
+        grid-template-columns: repeat(1, 1fr);
+        justify-items: center;
         /* mobile */
     }
 }
@@ -225,6 +234,7 @@
     text-align: center;
     transition: all 0.2s ease-in-out;
     width: min-content;
+    direction: rtl;
 
     .text-style {
         color: #2b6416;
@@ -233,10 +243,16 @@
     }
 }
 
+@media (max-width: 710px) {
+    .resultBox {
+        width: -webkit-fill-available;
+    }
+}
+
 .result-doctors {
-    display: flex;
+    /* display: flex;
     justify-content: center;
-    direction: rtl;
+    direction: rtl; */
 }
 
 .active-question-number {

@@ -637,7 +637,7 @@ const RecommendationPage = () => {
               :نتایج
             </h1>
             <div className="result-doctors">
-              <div className="distanceBetweenDoctor">
+              <div className="distanceBetweenDoctorRecomm">
                 {doctorProfile?.length > 0 ? (
                   doctorProfile.map((index) => (
                     <DoctorProfile
