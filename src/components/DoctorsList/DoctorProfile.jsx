@@ -20,9 +20,9 @@ const DoctorProfile = ({
   Psychiatrist,
 }) => {
   {
-    console.log(name);
-    console.log(Image);
-    console.log(Id);
+    // console.log(name);
+    // console.log(Image);
+    // console.log(Id);
 
     const navigate = useNavigate();
     const load = () => {
@@ -32,7 +32,7 @@ const DoctorProfile = ({
       console.log(Id);
     };
 
-    console.log(!Image);
+    // console.log(!Image);
     const [image, setImage] = useState(Image);
 
     useEffect(() => {

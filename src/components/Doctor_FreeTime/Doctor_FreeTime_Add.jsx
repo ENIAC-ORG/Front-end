@@ -173,7 +173,7 @@ const Doctor_FreeTime_Add = () => {
             Authorization: `Bearer ${token}`,
           },
           data: {
-            month: MONTHs[utils().getToday().month - 1],
+            month: MONTHs[utils().getToday().month],
             day: weekdays[selectedDayweek],
             time: selectedTimes.join(","),
           },
